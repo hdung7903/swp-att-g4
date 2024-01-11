@@ -44,8 +44,7 @@
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" value="ON" id="remember" name="remember">
                                 <label class="form-check-label" for="remember">Remember me</label>
-                            </div>
-                            <div>
+                            </div>                           
                         </form>
                     </div>
                     <div class="modal-footer">
