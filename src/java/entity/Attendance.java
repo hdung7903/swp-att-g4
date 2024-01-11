@@ -4,6 +4,7 @@
  */
 package entity;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -17,6 +18,7 @@ public class Attendance extends BaseEntity {
     private boolean status;
     private Date att_datetime;
     private String att_description;
+    private ArrayList<Session> sessions = new ArrayList<>();
 
     public Attendance() {
     }
@@ -28,6 +30,14 @@ public class Attendance extends BaseEntity {
         this.status = status;
         this.att_datetime = att_datetime;
         this.att_description = att_description;
+    }    
+
+    public ArrayList<Session> getSessions() {
+        return sessions;
+    }
+
+    public void setSessions(ArrayList<Session> sessions) {
+        this.sessions = sessions;
     }
 
     public int getAtt_id() {

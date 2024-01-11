@@ -11,15 +11,15 @@ package entity;
 public class StudentClassMapping extends BaseEntity {
     private int scm_id;
     private String string_id;
-    private String class_id;
+    private String group_id;
 
     public StudentClassMapping() {
     }
 
-    public StudentClassMapping(int scm_id, String string_id, String class_id) {
+    public StudentClassMapping(int scm_id, String string_id, String group_id) {
         this.scm_id = scm_id;
         this.string_id = string_id;
-        this.class_id = class_id;
+        this.group_id = group_id;
     }
 
     public int getScm_id() {
@@ -38,12 +38,12 @@ public class StudentClassMapping extends BaseEntity {
         this.string_id = string_id;
     }
 
-    public String getClass_id() {
-        return class_id;
+    public String getGroup_id() {
+        return group_id;
     }
 
-    public void setClass_id(String class_id) {
-        this.class_id = class_id;
+    public void setClass_id(String group_id) {
+        this.group_id = group_id;
     }
     
 }

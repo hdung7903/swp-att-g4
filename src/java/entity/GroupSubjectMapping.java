@@ -4,44 +4,47 @@
  */
 package entity;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author leduy
  */
-public class ClassSubjectMapping extends BaseEntity {
-    private int csm_id;
-    private String class_id;
+public class GroupSubjectMapping extends BaseEntity {
+    private int gsm_id;
+    private String group_id;
     private String subject_id;
     private int total_slots;
     private String ins_id;
     private int session_id;
+    private ArrayList<Session> sessions = new ArrayList<>();
 
-    public ClassSubjectMapping() {
+    public GroupSubjectMapping() {
     }
 
-    public ClassSubjectMapping(int csm_id, String class_id, String subject_id, int total_slots, String ins_id, int session_id) {
-        this.csm_id = csm_id;
-        this.class_id = class_id;
+    public GroupSubjectMapping(int csm_id, String group_id, String subject_id, int total_slots, String ins_id, int session_id) {
+        this.gsm_id = gsm_id;
+        this.group_id = group_id;
         this.subject_id = subject_id;
         this.total_slots = total_slots;
         this.ins_id = ins_id;
         this.session_id = session_id;
     }
 
-    public int getCsm_id() {
-        return csm_id;
+    public int getGsm_id() {
+        return gsm_id;
     }
 
-    public void setCsm_id(int csm_id) {
-        this.csm_id = csm_id;
+    public void setGsm_id(int gsm_id) {
+        this.gsm_id = gsm_id;
     }
 
-    public String getClass_id() {
-        return class_id;
+    public String getGroup_id() {
+        return group_id;
     }
 
-    public void setClass_id(String class_id) {
-        this.class_id = class_id;
+    public void setGroup_id(String group_id) {
+        this.group_id = group_id;
     }
 
     public String getSubject_id() {
@@ -75,5 +78,15 @@ public class ClassSubjectMapping extends BaseEntity {
     public void setSession_id(int session_id) {
         this.session_id = session_id;
     }
+
+    public ArrayList<Session> getSessions() {
+        return sessions;
+    }
+
+    public void setSessions(ArrayList<Session> sessions) {
+        this.sessions = sessions;
+    }
+
+   
     
 }

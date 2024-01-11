@@ -4,6 +4,7 @@
  */
 package entity;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -18,6 +19,7 @@ public class Student extends BaseEntity {
     private Date dob;
     private boolean gender;
     private boolean isDeleted;
+    private ArrayList<Session> sessions = new ArrayList<>();
 
     public Student() {
     }
@@ -30,6 +32,14 @@ public class Student extends BaseEntity {
         this.dob = dob;
         this.gender = gender;
         this.isDeleted = isDeleted;
+    }
+
+    public ArrayList<Session> getSessions() {
+        return sessions;
+    }
+
+    public void setSessions(ArrayList<Session> sessions) {
+        this.sessions = sessions;
     }
 
     public String getStudent_id() {

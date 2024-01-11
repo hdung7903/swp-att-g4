@@ -4,6 +4,7 @@
  */
 package entity;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -11,18 +12,19 @@ import java.util.Date;
  * @author leduy
  */
 public class Instructor extends BaseEntity {
-    private int instructor_id;
+    private String instructor_id;
     private String instructor_name;
     private String username;
     private String email;
     private Date dob;
     private boolean gender;
     private boolean isDeleted;
+     private ArrayList<Session> sessions = new ArrayList<>();
 
     public Instructor() {
     }
 
-    public Instructor(int instructor_id, String instructor_name, String username, String email, Date dob, boolean gender, boolean isDeleted) {
+    public Instructor(String instructor_id, String instructor_name, String username, String email, Date dob, boolean gender, boolean isDeleted) {
         this.instructor_id = instructor_id;
         this.instructor_name = instructor_name;
         this.username = username;
@@ -32,11 +34,20 @@ public class Instructor extends BaseEntity {
         this.isDeleted = isDeleted;
     }
 
-    public int getInstructor_id() {
+    public ArrayList<Session> getSessions() {
+        return sessions;
+    }
+
+    public void setSessions(ArrayList<Session> sessions) {
+        this.sessions = sessions;
+    }
+
+
+    public String getInstructor_id() {
         return instructor_id;
     }
 
-    public void setInstructor_id(int instructor_id) {
+    public void setInstructor_id(String instructor_id) {
         this.instructor_id = instructor_id;
     }
 
