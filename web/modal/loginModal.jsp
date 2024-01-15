@@ -23,7 +23,7 @@
     </head>
     <body>
         <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="loginModalLabel">Login</h5>
@@ -32,7 +32,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form action="login" method="POST" id="loginForm">
+                        <form method="POST" id="loginForm">
                             <div class="form-group">
                                 <label for="username">Username</label>
                                 <input type="text" class="form-control" id="username" name="username" required>
@@ -41,7 +41,7 @@
                                 <label for="password">Password</label>
                                 <input type="password" class="form-control" id="password" name="password" required>
                             </div>
-                            <div class="form-check">
+                            <div class="form-check mt-2">
                                 <input class="form-check-input" type="checkbox" value="ON" id="remember" name="remember">
                                 <label class="form-check-label" for="remember">Remember me</label>
                             </div>                           

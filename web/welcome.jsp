@@ -19,9 +19,7 @@
                     <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                         <ul class="navbar-nav">                    
                             <li class="nav-item">
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal">
-                                    Log in
-                                </button>
+                                <a class="btn btn-primary" href="login-page">Log in</a>
                             </li>
                         </ul>
                     </div>
@@ -60,6 +58,5 @@
                 <p>&copy; 2016 Jason</p>
             </div>
         </footer>
-        <%@include file="./modal/loginModal.jsp" %>
     </body>
 </html>

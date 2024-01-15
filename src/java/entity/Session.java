@@ -23,6 +23,7 @@ public class Session extends BaseEntity {
     private Group group;
     private GroupSubjectMapping gsm;
     private Subject subject;
+//    private <ArrayList> atts = 
 
     public Session() {
     }

@@ -5,6 +5,7 @@
         <title>Schedule</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
         <style>
             body {
                 background: #f1f1f1;
@@ -43,26 +44,17 @@
             <div class="container my-5">
                 <h1 class="text-center mb-4">Timetable</h1>
                 <div class="form-floating">
-                    <form class="form-inline justify-content-center mb-3 row">
+                    <form action="${pageContext.request.contextPath}/lecture/schedule" method="get" class="form-inline justify-content-center mb-3 row">
                         <div class="col-6">
                             <label for="from" class="mr-2">From</label>
-                            <input type="date" id="from" name="from" value="" class="form-control mr-3"/>
+                            <input type="date" id="from" name="from" value="${requestScope.from}" class="form-control mr-3"/>
                         </div>
                         <div class="col-6">
                             <label for="to" class="mr-2">To</label>
-                            <input type="date" id="to" name="to" value="" class="form-control mr-3"/>
-                        </div>
-                        <div class="my-2">
-                            <label for="semester" class="mr-2">Semester</label>
-                            <select name="semester">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                            </select>
-                        </div>
-                        <input type="hidden" value="" name="id" readonly />
-                        <button type="submit" class="btn btn-primary">View</button>
+                            <input type="date" id="to" name="to" value="${request.to}" class="form-control mr-3"/>
+                        </div>                       
+                        <input type="hidden" value="${sessionScope.id}" name="id" readonly />
+                        <button type="submit" class="btn btn-primary my-2 col-3">View</button>
                     </form>
                 </div>
                 <div class="table-container">

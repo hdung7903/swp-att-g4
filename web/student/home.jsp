@@ -10,8 +10,8 @@
     </head>
     <body>
 
-        <div class="container-fluid">                
-            <%@include file="./navbar.jsp" %> 
+        <div class="container-fluid">
+            <%@include file="./navbar.jsp" %>
             <div class="container">
                 <header class="text-center mt-5">
                     <h1 class="display-2">Student Home Screen</h1>
