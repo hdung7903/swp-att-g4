@@ -13,20 +13,28 @@
         <servlet-class>controller.account.LogoutController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>WelcomeController</servlet-name>
-        <servlet-class>controller.account.WelcomeController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>LoginPage</servlet-name>
-        <servlet-class>Redirect.LoginPage</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>HomeController</servlet-name>
         <servlet-class>controller.instructor.HomeController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AcademicHomeController</servlet-name>
         <servlet-class>controller.academicStaff.HomeController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>WelcomePage</servlet-name>
+        <servlet-class>view.WelcomePage</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoginPage</servlet-name>
+        <servlet-class>view.LoginPage</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StudentScheduleController</servlet-name>
+        <servlet-class>controller.student.ScheduleController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TakeAttendanceController</servlet-name>
+        <servlet-class>controller.instructor.TakeAttendanceController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>login</servlet-name>
@@ -41,7 +49,15 @@
         <url-pattern>/logout</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>WelcomeController</servlet-name>
+        <servlet-name>HomeController</servlet-name>
+        <url-pattern>/instructor/home</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AcademicHomeController</servlet-name>
+        <url-pattern>/academic/home</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>WelcomePage</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
@@ -49,12 +65,12 @@
         <url-pattern>/login-page</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>HomeController</servlet-name>
-        <url-pattern>/instructor/home</url-pattern>
+        <servlet-name>StudentScheduleController</servlet-name>
+        <url-pattern>/student/schedule</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AcademicHomeController</servlet-name>
-        <url-pattern>/academic/home</url-pattern>
+        <servlet-name>TakeAttendanceController</servlet-name>
+        <url-pattern>/instructor/takeatt</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

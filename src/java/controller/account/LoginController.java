@@ -88,16 +88,16 @@ public class LoginController extends HttpServlet {
             session.setAttribute("acc", a);
             session.setMaxInactiveInterval(100000);
             if (a.role_id == 1) {
-                response.sendRedirect("academicStaff/home");
+                    response.sendRedirect(request.getContextPath()+"/academicStaff/home");
             }
             if (a.role_id == 2) {
-                response.sendRedirect("admin/home");
+                response.sendRedirect(request.getContextPath()+"/admin/home");
             }
             if (a.role_id == 3) {
-                response.sendRedirect("instructor/home");
+                response.sendRedirect(request.getContextPath()+"/instructor/home");
             }
             if (a.role_id == 4) {
-                response.sendRedirect("student/home");
+                response.sendRedirect(request.getContextPath()+"/student/home");
             }
         }
 

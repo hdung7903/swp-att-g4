@@ -4,24 +4,11 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/E:/SWP/AttendanceSystem/web/student/home.jsp</file>
-            <file>file:/E:/SWP/AttendanceSystem/src/java/dal/AttendanceDBContext.java</file>
-            <file>file:/E:/SWP/AttendanceSystem/web/modal/logoutModal.jsp</file>
-            <file>file:/E:/SWP/AttendanceSystem/web/instructor/navbar.jsp</file>
-            <file>file:/E:/SWP/AttendanceSystem/web/academicStaff/home.jsp</file>
-            <file>file:/E:/SWP/AttendanceSystem/src/java/controller/account/LogoutController.java</file>
-            <file>file:/E:/SWP/AttendanceSystem/src/java/controller/instructor/ScheduleController.java</file>
-            <file>file:/E:/SWP/AttendanceSystem/web/academicStaff/navbar.jsp</file>
-            <file>file:/E:/SWP/AttendanceSystem/src/java/entity/Account.java</file>
-            <file>file:/E:/SWP/AttendanceSystem/web/instructor/home.jsp</file>
-            <file>file:/E:/SWP/AttendanceSystem/src/java/controller/account/LoginController.java</file>
-            <file>file:/E:/SWP/AttendanceSystem/src/java/controller/account/WelcomeController.java</file>
-            <file>file:/E:/SWP/AttendanceSystem/web/welcome.jsp</file>
-            <file>file:/E:/SWP/AttendanceSystem/web/admin/home.jsp</file>
-            <file>file:/E:/SWP/AttendanceSystem/web/student/navbar.jsp</file>
+            <file>file:/E:/SWP/AttendanceSystem/src/java/entity/Group.java</file>
+            <file>file:/E:/SWP/AttendanceSystem/web/student/schedule.jsp</file>
             <file>file:/E:/SWP/AttendanceSystem/src/java/entity/Session.java</file>
-            <file>file:/E:/SWP/AttendanceSystem/src/java/Redirect/LoginPage.java</file>
-            <file>file:/E:/SWP/AttendanceSystem/web/admin/navbar.jsp</file>
-            <file>file:/E:/SWP/AttendanceSystem/src/java/dal/AccountDBContext.java</file>
+            <file>file:/E:/SWP/AttendanceSystem/src/java/entity/Attendance.java</file>
+            <file>file:/E:/SWP/AttendanceSystem/src/java/controller/student/ScheduleController.java</file>
         </group>
     </open-files>
 </project-private>

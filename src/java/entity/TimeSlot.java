@@ -8,16 +8,16 @@ package entity;
  *
  * @author leduy
  */
-public class Role extends BaseEntity {
+public class TimeSlot extends BaseEntity {
     private int id;
-    private String name;
+    private String description;
 
-    public Role() {
+    public TimeSlot() {
     }
 
-    public Role(int id, String name) {
+    public TimeSlot(int id, String description) {
         this.id = id;
-        this.name = name;
+        this.description = description;
     }
 
     public int getId() {
@@ -28,14 +28,14 @@ public class Role extends BaseEntity {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getDescription() {
+        return description;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    
+         
     
 }

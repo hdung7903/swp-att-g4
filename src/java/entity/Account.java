@@ -12,21 +12,21 @@ public class Account extends BaseEntity {
     public int role_id;
     private String username;
     private String password;
-    private String student_id;
-    private String instructor_id;
     private Instructor instructor;
+    private Student student;
 
     public Account() {
     }
 
-    public Account(int role_id, String username, String password, String student_id, String instructor_id, Instructor instructor) {
+    public Account(int role_id, String username, String password, Instructor instructor, Student student) {
         this.role_id = role_id;
         this.username = username;
         this.password = password;
-        this.student_id = student_id;
-        this.instructor_id = instructor_id;
         this.instructor = instructor;
+        this.student = student;
     }
+
+   
 
     public Instructor getInstructor() {
         return instructor;
@@ -34,23 +34,6 @@ public class Account extends BaseEntity {
 
     public void setInstructor(Instructor instructor) {
         this.instructor = instructor;
-    }
-
-
-    public String getStudent_id() {
-        return student_id;
-    }
-
-    public void setStudent_id(String student_id) {
-        this.student_id = student_id;
-    }
-
-    public String getInstructor_id() {
-        return instructor_id;
-    }
-
-    public void setInstructor_id(String instructor_id) {
-        this.instructor_id = instructor_id;
     }
 
 
@@ -76,6 +59,14 @@ public class Account extends BaseEntity {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
     }
     
 }

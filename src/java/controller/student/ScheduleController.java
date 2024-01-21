@@ -2,25 +2,23 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller.instructor;
+
+package controller.student;
 
 import dal.SessionDBContext;
 import dal.TimeSlotDBContext;
-import entity.Group;
-import entity.GroupSubjectMapping;
-import entity.Instructor;
 import entity.Session;
-import entity.Subject;
 import entity.TimeSlot;
 import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.text.ParseException;
-import java.util.ArrayList;
 import java.sql.Date;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import util.DateTimeHelper;
@@ -30,18 +28,16 @@ import util.DateTimeHelper;
  * @author leduy
  */
 public class ScheduleController extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
+   
+    /** 
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         String instructorId = request.getParameter("id");
         String r_from = request.getParameter("from");
         String r_to = request.getParameter("to");
@@ -54,13 +50,13 @@ public class ScheduleController extends HttpServlet {
 
                 if (toDate.before(fromDate)) {
                     request.setAttribute("errorMessage", "Invalid date range. 'To' date cannot be before 'From' date.");
-                    request.getRequestDispatcher("../instructor/schedule.jsp").forward(request, response);
+                    request.getRequestDispatcher("../student/schedule.jsp").forward(request, response);
                     return;
                 } else {
                     dates = DateTimeHelper.getSqlDatesInRange(r_from, r_to);
                 }
             } catch (ParseException ex) {
-                Logger.getLogger(ScheduleController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(controller.instructor.ScheduleController.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else if (r_from == null) {
             dates = DateTimeHelper.getCurrentWeekDates();
@@ -78,13 +74,12 @@ public class ScheduleController extends HttpServlet {
         request.setAttribute("to", dates.get(dates.size() - 1));
         request.setAttribute("sessions", sessions);
 
-        request.getRequestDispatcher("../instructor/schedule.jsp").forward(request, response);
+        request.getRequestDispatcher("../student/schedule.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
+    /** 
      * Handles the HTTP <code>GET</code> method.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -92,13 +87,12 @@ public class ScheduleController extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         processRequest(request, response);
-    }
+    } 
 
-    /**
+    /** 
      * Handles the HTTP <code>POST</code> method.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -106,13 +100,12 @@ public class ScheduleController extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /**
+    /** 
      * Returns a short description of the servlet.
-     *
      * @return a String containing servlet description
      */
     @Override

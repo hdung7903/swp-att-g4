@@ -9,41 +9,43 @@ package entity;
  * @author leduy
  */
 public class StudentClassMapping extends BaseEntity {
-    private int scm_id;
-    private String string_id;
-    private String group_id;
+    private int id;
+    private Student student;
+    private Group group;
 
     public StudentClassMapping() {
     }
 
-    public StudentClassMapping(int scm_id, String string_id, String group_id) {
-        this.scm_id = scm_id;
-        this.string_id = string_id;
-        this.group_id = group_id;
+    public StudentClassMapping(int id, Student student, Group group) {
+        this.id = id;
+        this.student = student;
+        this.group = group;
     }
 
-    public int getScm_id() {
-        return scm_id;
+    public int getId() {
+        return id;
     }
 
-    public void setScm_id(int scm_id) {
-        this.scm_id = scm_id;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getString_id() {
-        return string_id;
+    public Student getStudent() {
+        return student;
     }
 
-    public void setString_id(String string_id) {
-        this.string_id = string_id;
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
-    public String getGroup_id() {
-        return group_id;
+    public Group getGroup() {
+        return group;
     }
 
-    public void setClass_id(String group_id) {
-        this.group_id = group_id;
+    public void setGroup(Group group) {
+        this.group = group;
     }
+
+    
     
 }

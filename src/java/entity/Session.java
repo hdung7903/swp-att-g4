@@ -4,6 +4,7 @@
  */
 package entity;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -12,66 +13,82 @@ import java.util.Date;
  */
 public class Session extends BaseEntity {
 
-    private int session_id;
-    private int session_index;
-    private Date session_date;
-    private String group_id;
+    private int id;
+    private int index;
+    private Date date;
+    private Group group;
     private boolean isAtt;
     private Instructor instructor;
     private Student student;
     private Attendance attendance;
-    private Group group;
     private GroupSubjectMapping gsm;
     private Subject subject;
-//    private <ArrayList> atts = 
+    private TimeSlot time;
+    private ArrayList<Attendance> atts= new ArrayList<>(); 
 
     public Session() {
     }
 
-    public Session(int session_id, int session_index, Date session_date, String group_id, boolean isAtt, Instructor instructor, Student student, Attendance attendance, Group group, GroupSubjectMapping gsm, Subject subject) {
-        this.session_id = session_id;
-        this.session_index = session_index;
-        this.session_date = session_date;
-        this.group_id = group_id;
+    public Session(int id, int index, Date date, Group group, boolean isAtt, Instructor instructor, Student student, Attendance attendance, GroupSubjectMapping gsm, Subject subject, TimeSlot time) {
+        this.id = id;
+        this.index = index;
+        this.date = date;
+        this.group = group;
         this.isAtt = isAtt;
         this.instructor = instructor;
         this.student = student;
         this.attendance = attendance;
-        this.group = group;
         this.gsm = gsm;
         this.subject = subject;
+        this.time = time;
+    }    
+
+    public TimeSlot getTime() {
+        return time;
     }
 
-    public int getSession_id() {
-        return session_id;
+    public void setTime(TimeSlot time) {
+        this.time = time;
     }
 
-    public void setSession_id(int session_id) {
-        this.session_id = session_id;
+    public ArrayList<Attendance> getAtts() {
+        return atts;
     }
 
-    public int getSession_index() {
-        return session_index;
+    public void setAtts(ArrayList<Attendance> atts) {
+        this.atts = atts;
     }
 
-    public void setSession_index(int session_index) {
-        this.session_index = session_index;
+    public int getId() {
+        return id;
     }
 
-    public Date getSession_date() {
-        return session_date;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setSession_date(Date session_date) {
-        this.session_date = session_date;
+    public int getIndex() {
+        return index;
     }
 
-    public String getGroup_id() {
-        return group_id;
+    public void setIndex(int index) {
+        this.index = index;
     }
 
-    public void setGroup_id(String group_id) {
-        this.group_id = group_id;
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
     }
 
     public boolean isIsAtt() {
@@ -106,14 +123,6 @@ public class Session extends BaseEntity {
         this.attendance = attendance;
     }
 
-    public Group getGroup() {
-        return group;
-    }
-
-    public void setGroup(Group group) {
-        this.group = group;
-    }
-
     public GroupSubjectMapping getGsm() {
         return gsm;
     }
@@ -129,6 +138,11 @@ public class Session extends BaseEntity {
     public void setSubject(Subject subject) {
         this.subject = subject;
     }
+
+    
+
+    
+    
 
 
 }

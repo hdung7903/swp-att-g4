@@ -6,6 +6,8 @@ package dal;
 
 import entity.Account;
 import dal.DBContext;
+import entity.Instructor;
+import entity.Student;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -50,8 +52,12 @@ public class AccountDBContext extends DBContext<Account> {
             st.setString(1, username);
             ResultSet rs = st.executeQuery();  
             if (rs.next()) {
-                acc.setStudent_id(rs.getString("student_id"));
-                acc.setInstructor_id(rs.getString("instructor_id"));
+                Student student = new Student();
+                student.setId(rs.getString("student_id"));
+                acc.setStudent(student);
+                Instructor instructor = new Instructor();
+                instructor.setId(rs.getString("instructor_id"));
+                acc.setInstructor(instructor);
                 return acc;
             }
         } catch (SQLException e) {

@@ -11,72 +11,64 @@ import java.util.ArrayList;
  * @author leduy
  */
 public class GroupSubjectMapping extends BaseEntity {
-    private int gsm_id;
-    private String group_id;
-    private String subject_id;
+    private int id;
+    private Group group;
+    private Subject subject;
     private int total_slots;
-    private String ins_id;
-    private int session_id;
+    private Instructor instructor;
+    private Session session;
     private ArrayList<Session> sessions = new ArrayList<>();
 
     public GroupSubjectMapping() {
     }
 
-    public GroupSubjectMapping(int csm_id, String group_id, String subject_id, int total_slots, String ins_id, int session_id) {
-        this.gsm_id = gsm_id;
-        this.group_id = group_id;
-        this.subject_id = subject_id;
+    public GroupSubjectMapping(int id, Group group, Subject subject, int total_slots, Instructor instructor, Session session) {
+        this.id = id;
+        this.group = group;
+        this.subject = subject;
         this.total_slots = total_slots;
-        this.ins_id = ins_id;
-        this.session_id = session_id;
+        this.instructor = instructor;
+        this.session = session;
     }
 
-    public int getGsm_id() {
-        return gsm_id;
+    public int getId() {
+        return id;
     }
 
-    public void setGsm_id(int gsm_id) {
-        this.gsm_id = gsm_id;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getGroup_id() {
-        return group_id;
+    public Group getGroup() {
+        return group;
     }
 
-    public void setGroup_id(String group_id) {
-        this.group_id = group_id;
+    public void setGroup(Group group) {
+        this.group = group;
     }
 
-    public String getSubject_id() {
-        return subject_id;
+    public Subject getSubject() {
+        return subject;
     }
 
-    public void setSubject_id(String subject_id) {
-        this.subject_id = subject_id;
+    public void setSubject(Subject subject) {
+        this.subject = subject;
     }
 
-    public int getTotal_slots() {
-        return total_slots;
+    public Instructor getInstructor() {
+        return instructor;
     }
 
-    public void setTotal_slots(int total_slots) {
-        this.total_slots = total_slots;
+    public void setInstructor(Instructor instructor) {
+        this.instructor = instructor;
     }
 
-    public String getIns_id() {
-        return ins_id;
+    public Session getSession() {
+        return session;
     }
 
-    public void setIns_id(String ins_id) {
-        this.ins_id = ins_id;
-    }
-
-    public int getSession_id() {
-        return session_id;
-    }
-
-    public void setSession_id(int session_id) {
-        this.session_id = session_id;
+    public void setSession(Session session) {
+        this.session = session;
     }
 
     public ArrayList<Session> getSessions() {
@@ -86,7 +78,16 @@ public class GroupSubjectMapping extends BaseEntity {
     public void setSessions(ArrayList<Session> sessions) {
         this.sessions = sessions;
     }
-
-   
     
+    
+    
+
+    public int getTotal_slots() {
+        return total_slots;
+    }
+
+    public void setTotal_slots(int total_slots) {
+        this.total_slots = total_slots;
+    }
+ 
 }
