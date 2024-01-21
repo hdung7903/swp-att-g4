@@ -6,12 +6,14 @@ package entity;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
  * @author leduy
  */
 public class Student extends BaseEntity {
+
     private String id;
     private String name;
     private String username;
@@ -20,11 +22,13 @@ public class Student extends BaseEntity {
     private boolean gender;
     private boolean isDeleted;
     private ArrayList<Session> sessions = new ArrayList<>();
+    private List<Boolean> status = new ArrayList<>();
+    private List<Boolean> attendances;
 
     public Student() {
     }
 
-    public Student(String id, String name, String username, String email, Date dob, boolean gender, boolean isDeleted) {
+    public Student(String id, String name, String username, String email, Date dob, boolean gender, boolean isDeleted, List<Boolean> attendances) {
         this.id = id;
         this.name = name;
         this.username = username;
@@ -32,8 +36,8 @@ public class Student extends BaseEntity {
         this.dob = dob;
         this.gender = gender;
         this.isDeleted = isDeleted;
+        this.attendances = attendances;
     }
-   
 
     public ArrayList<Session> getSessions() {
         return sessions;
@@ -98,5 +102,21 @@ public class Student extends BaseEntity {
     public void setIsDeleted(boolean isDeleted) {
         this.isDeleted = isDeleted;
     }
-    
+
+    public List<Boolean> getStatus() {
+        return status;
+    }
+
+    public void setStatus(List<Boolean> status) {
+        this.status = status;
+    }
+
+    public List<Boolean> getAttendances() {
+        return attendances;
+    }
+
+    public void setAttendances(List<Boolean> attendances) {
+        this.attendances = attendances;
+    }
+
 }

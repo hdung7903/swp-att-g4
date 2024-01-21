@@ -88,7 +88,7 @@
                                                                 <c:forEach items="${requestScope.sessions}" var="ses">
                                                                     <c:if test="${ses.time.id eq s.id and ses.date eq d}">
                                                                         <div class="mb-2">
-                                                                            <a href="${pageContext.request.contextPath}/lecture/sessiondetail?id=${ses.id}" class="font-weight-bold text-dark">
+                                                                            <a href="${pageContext.request.contextPath}/instructor/sessiondetail?id=${ses.id}" class="font-weight-bold text-dark">
                                                                                 ${ses.group.name} - ${ses.subject.name}
                                                                             </a>
                                                                             <br>
@@ -96,10 +96,10 @@
                                                                             <br>
                                                                             <c:choose>
                                                                                 <c:when test="${ses.isAtt}">
-                                                                                    <a href="${pageContext.request.contextPath}/lecture/viewatt?id=${ses.id}" class="text-success font-weight-bold">View Attendance</a>
+                                                                                    <a href="${pageContext.request.contextPath}/instructor/viewatt?id=${ses.id}" class="text-success font-weight-bold">View Attendance</a>
                                                                                 </c:when>
                                                                                 <c:otherwise>
-                                                                                    <a href="${pageContext.request.contextPath}/lecture/takeatt?id=${ses.id}" class="text-danger font-weight-bold">Take Attendance</a>
+                                                                                    <a href="${pageContext.request.contextPath}/instructor/takeatt?id=${ses.id}" class="text-danger font-weight-bold">Take Attendance</a>
                                                                                 </c:otherwise>
                                                                             </c:choose>
                                                                         </div>
@@ -141,7 +141,7 @@
                                                             <c:forEach items="${requestScope.sessions}" var="ses">
                                                                 <c:if test="${ses.time.id eq s.id and ses.date eq d}">
                                                                     <div class="mb-2">
-                                                                        <a href="${pageContext.request.contextPath}/lecture/sessiondetail?id=${ses.id}" class="font-weight-bold text-dark">
+                                                                        <a href="${pageContext.request.contextPath}/instructor/sessiondetail?id=${ses.id}" class="font-weight-bold text-dark">
                                                                             ${ses.group.name} - ${ses.subject.name}
                                                                         </a>
                                                                         <br>
@@ -149,10 +149,10 @@
                                                                         <br>
                                                                         <c:choose>
                                                                             <c:when test="${ses.isAtt}">
-                                                                                <a href="${pageContext.request.contextPath}/lecture/viewatt?id=${ses.id}" class="text-success font-weight-bold">View Attendance</a>
+                                                                                <a href="${pageContext.request.contextPath}/instructor/viewatt?id=${ses.id}" class="text-success font-weight-bold">View Attendance</a>
                                                                             </c:when>
                                                                             <c:otherwise>
-                                                                                <a href="${pageContext.request.contextPath}/lecture/takeatt?id=${ses.id}" class="text-danger font-weight-bold">Take Attendance</a>
+                                                                                <a href="${pageContext.request.contextPath}/instructor/takeatt?id=${ses.id}" class="text-danger font-weight-bold">Take Attendance</a>
                                                                             </c:otherwise>
                                                                         </c:choose>
                                                                     </div>

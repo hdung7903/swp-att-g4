@@ -4,6 +4,7 @@
     Author     : leduy
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -22,61 +23,60 @@
                 <div class="card-body text-center">
                     <h5 class="card-title d-inline-block mr-2">Class: ${requestScope.ses.group.name}</h5>
                     <h5 class="card-title d-inline-block mr-2">Subject:${requestScope.ses.subject.name}</h5><br>
-                    <h5 class="card-title d-inline-block mr-2">at:${requestScope.ses.room.rid}</h5>
                     <h5 class="card-title d-inline-block">Time Slot:${requestScope.ses.time.description}</h5>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <form action="${pageContext.request.contextPath}/lecture/takeatt" method="POST">
+                    <form action="${pageContext.request.contextPath}/instructor/editatt" method="POST">
                         <table class="table table-bordered">
                             <thead class="thead-dark">
                                 <tr class="text-center">
                                     <th>Student</th>
-                                    <th><input type="checkbox" name="show image" id="toggleImageCheckbox" onclick="toggleImages()" />Image</th>
+                                    <th>Image</th>
                                     <th>Status</th>
                                     <th>Description</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="text-center">
-                                    <td>John Doe<input type="hidden" name="stuid" value=""/></td>
-                                    <td><img class="toggleImage" src="https://cdn.discordapp.com/attachments/947741416992436235/1171005032691404921/profile.png?ex=655b1a6c&is=6548a56c&hm=428202d73c6b3e95f3b966e3840f79186e79afdc98a879ea0492fa4957d08806&" alt=""/></td>
-                                    <td>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" checked="checked" name="status" value="absent"/>
-                                            <label class="form-check-label">Absent</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="status" value="present"/>
-                                            <label class="form-check-label">Present</label>
-                                        </div>
-                                    </td>
-                                    <td><input type="text" class="form-control" value="" name="description"/></td>
-                                </tr>
-                                
+                                <c:forEach items="${requestScope.atts}" var="a">
+                                    <tr class="text-center">
+                                        <td>${a.student.name}
+                                            <input type="hidden" name="stuid" value="${a.student.id}"/>
+                                        </td>
+                                        <td>Hello World</td>                                                                                                        
+                                        <td>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio"
+                                                       <c:if test="${!a.status}">
+                                                           checked="checked"
+                                                       </c:if>
+                                                       name="status${a.student.id}" value="absent"/>
+                                                <label class="form-check-label">Absent</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio"
+                                                       <c:if test="${a.status}">
+                                                           checked="checked"
+                                                       </c:if>
+                                                       name="status${a.student.id}" value="present"/>
+                                                <label class="form-check-label">Present</label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" value="${a.description}"
+                                                   name="description${a.student.id}"/>
+                                        </td>
+                                    </tr>   
+                                </c:forEach>
                             </tbody>
                         </table>
-                        <input type="hidden" value="" name="sesid"/>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#attendanceConfirmationModal">Take Attendance</button>
+                        <input type="hidden" value="${requestScope.ses.id}" name="sesid"/>
+                        <button type="submit" class="btn btn-primary" >Save Attendance</button>
                     </form>
-                </div>
+                </div> 
             </div>
         </div>
 
-        <!-- Your modal here -->
-
-        <script>
-            document.getElementById("toggleImageCheckbox").addEventListener("change", function () {
-                var images = document.getElementsByClassName('toggleImage');
-                for (var i = 0; i < images.length; i++) {
-                    if (this.checked) {
-                        images[i].style.display = "none";
-                    } else {
-                        images[i].style.display = "block";
-                    }
-                }
-            });
-        </script>
     </body>
 </html>

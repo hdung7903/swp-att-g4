@@ -3,7 +3,7 @@
     Created on : Jan 8, 2024, 8:24:06 PM
     Author     : leduy
 --%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -27,12 +27,12 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <form action="${pageContext.request.contextPath}/lecture/takeatt" method="POST">
+                    <form action="${pageContext.request.contextPath}/instructor/takeatt" method="POST">
                         <table class="table table-bordered">
                             <thead class="thead-dark">
                                 <tr class="text-center">
                                     <th style="font-size: 12px; white-space: nowrap;">Student</th>
-                                    <th style="font-size: 12px;"><input type="checkbox" name="show image" id="toggleImageCheckbox" onclick="toggleImages()" />Image</th>
+                                   <th style="font-size: 12px;"><input type="checkbox" name="show image" id="toggleImageCheckbox" onclick="toggleImages()" />Image</th>
                                     <th style="font-size: 12px; white-space: nowrap;">Status</th>
                                     <th style="white-space: nowrap;">Description</th>
                                 </tr>
