@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -9,9 +9,8 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     </head>
-    <body>
     <body>
         <section class="ftco-section">
             <div class="container">
@@ -41,7 +40,13 @@
                                     </div>
                                     <div class="form-group mb-3">
                                         <label class="label" for="password">Password</label>
-                                        <input name="password" type="password" value="${cookie.cpass.value}" class="form-control" placeholder="Password" required>
+                                        <div class="input-group">
+                                            <input name="password" type="password" value="" class="form-control" placeholder="Password" required>
+                                            <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                                                <span id="eyeIcon"><i class="bi bi-eye-slash-fill"></i></span>
+                                            </button>
+
+                                        </div>
                                     </div>
                                     <div class="form-group">
                                         <button type="submit" class="form-control btn btn-primary rounded submit px-3">Sign In</button>
@@ -49,8 +54,7 @@
                                     <div class="form-group d-md-flex">
                                         <div class="w-50 text-left">
                                             <label class="form-check">
-                                                <input class="form-check-input" name="remember"
-                                                       ${cookie.crmb!=null?'checked':''} type="checkbox" value="" id="form2Example31" />
+                                                <input class="form-check-input" name="remember" ${cookie.crmb!=null?'checked':''} type="checkbox" value="" id="form2Example31" />
                                                 <label class="form-check-label" for="form2Example31"> Remember me </label>
                                             </label>
                                         </div>
@@ -65,5 +69,19 @@
                 </div>
             </div>
         </section>
+        <script>
+            document.getElementById("togglePassword").addEventListener("click", function () {
+                var passwordInput = document.getElementsByName("password")[0];
+                var eyeIcon = document.getElementById("eyeIcon");
+
+                if (passwordInput.type === "password") {
+                    passwordInput.type = "text";
+                    eyeIcon.innerHTML = '<i class="bi bi-eye-fill"></i>';
+                } else {
+                    passwordInput.type = "password";
+                    eyeIcon.innerHTML = '<i class="bi bi-eye-slash-fill"></i>';
+                }
+            });
+        </script>
     </body>
 </html>

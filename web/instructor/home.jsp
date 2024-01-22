@@ -53,13 +53,17 @@
                 width: 80%;
                 margin: 0px auto 20px auto;
             }
+            a.text-reset {
+                text-decoration: none;
+            }
+
         </style>
     </head>
     <body>
         <header class="text-center text-lg-start bg-primary text-white">
             <div class="container">
                 <!-- Section: Social media -->
-                <section class="d-flex justify-content-center justify-content-lg-between p-3 border-bottom">
+                <section class="d-flex justify-content-center justify-content-lg-between p-3">
 
                     <!-- Left -->
                     <div class="me-5 d-none d-lg-block">
@@ -71,33 +75,21 @@
                     <!-- Right -->
                     <div>
                         <a href="https://www.facebook.com/DaihocFPTHaNoi" class="me-4 text-reset" target="_blank">
-                            <i class="bi bi-facebook"></i>
+                            <i class="bi bi-facebook"></i> Fanpage
+                        </a>
+                        <a href="mailto:dichvusinhvien@fe.edu.vn" class="me-4 text-reset" target="_blank">
+                            <i class="bi bi-google"></i> dichvusinhvien@fe.edu.vn
                         </a>
                         <a href="https://www.facebook.com/profile.php?id=100013384535090" class="me-4 text-reset" target="_blank">
-                            <i class="bi bi-twitter-x"></i>
-                        </a>
-                        <a href="https://www.facebook.com/Hotle2k3" class="me-4 text-reset" target="_blank">
-                            <i class="bi bi-google"></i>
-                        </a>
-                        <a href="" class="me-4 text-reset" target="_blank">
                             <i class="bi bi-instagram"></i>
                         </a>
 
                     </div>
-                    <!-- Right -->
                 </section>
-                <!-- Section: Social media -->
             </div>
-
-
-
-
         </header>
-
-
         <div class="container-fluid ">
             <%@include file="./navbar.jsp" %>
-
         </div>
         <div id="carouselExampleCaptions" class="carousel slide">
             <div class="carousel-indicators">

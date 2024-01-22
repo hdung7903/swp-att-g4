@@ -30,7 +30,7 @@ public class AccountDBContext extends DBContext<Account> {
             st.setString(2, password);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
-                Account account=new Account();
+                Account account = new Account();
                 account.setUsername(rs.getString("username"));
                 account.setPassword(rs.getString("password"));
                 account.setRole_id(rs.getInt("role_id"));
@@ -41,29 +41,33 @@ public class AccountDBContext extends DBContext<Account> {
         }
         return acc;
     }
+
     public Account getAccountIdByUsername(String username) {
-        String sql = "SELECT s.student_id, i.instructor_id FROM Account acc "
-                + "LEFT JOIN Student s ON s.username = acc.username "
-                + "LEFT JOIN Instructor i ON i.username = acc.username "
-                + "WHERE acc.username=?";
+        String sql = "SELECT s.student_id, i.instructor_id,s.email as student_email,i.email as instructor_email\n"
+                + "FROM Account acc \n"
+                + "LEFT JOIN Student s ON s.username = acc.username \n"
+                + "LEFT JOIN Instructor i ON i.username = acc.username \n"
+                + "WHERE acc.username= ?";
         Account acc = null;
-        try{
+        try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, username);
-            ResultSet rs = st.executeQuery();  
+            ResultSet rs = st.executeQuery();
             if (rs.next()) {
                 Student student = new Student();
                 student.setId(rs.getString("student_id"));
+                student.setEmail(rs.getString("student_email"));
                 acc.setStudent(student);
                 Instructor instructor = new Instructor();
                 instructor.setId(rs.getString("instructor_id"));
+                instructor.setEmail(rs.getString("instructor_email"));
                 acc.setInstructor(instructor);
                 return acc;
             }
         } catch (SQLException e) {
-            System.out.println(e); 
+            System.out.println(e);
         }
-        return acc;    
+        return acc;
     }
 
     @Override

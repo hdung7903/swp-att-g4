@@ -64,7 +64,7 @@ public class LoginController extends HttpServlet {
         Cookie crmb = new Cookie("crmb", rememberMe);
 
         if (rememberMe != null) {
-            cuser.setMaxAge(60 * 60 * 24 * 1);//1 ngay
+            cuser.setMaxAge(60 * 60 * 24 * 1);
             cpass.setMaxAge(60 * 60 * 24 * 1);
             crmb.setMaxAge(60 * 60 * 24 * 1);
         } else {
@@ -76,7 +76,7 @@ public class LoginController extends HttpServlet {
         response.addCookie(cuser);
         response.addCookie(cpass);
         response.addCookie(crmb);
-
+        
         AccountDBContext DAO = new AccountDBContext();
         Account a = DAO.ValidateAccount(username, password);
 
