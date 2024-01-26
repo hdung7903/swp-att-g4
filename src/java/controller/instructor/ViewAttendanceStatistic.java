@@ -6,6 +6,7 @@
 package controller.instructor;
 
 import dal.AttendanceDBContext;
+import dal.GroupDBContext;
 import dal.SessionDBContext;
 import entity.Student;
 import java.io.IOException;
@@ -31,20 +32,20 @@ public class ViewAttendanceStatistic extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-//        int groupId = Integer.parseInt(request.getParameter("id"));
-//        AttendanceDBContext attdb = new AttendanceDBContext();
-//        SessionDBContext sesdb = new SessionDBContext();
-//        HttpSession session = request.getSession();
-//        GroupDBContext gdb = new GroupDBContext();
-//        int id = (int) session.getAttribute("id");
-//
-//        int totalSession = sesdb.getTotalSession(groupId, id);
-//        int attended = attdb.sessionAttended(groupId);
-//        Map<String, Student> attendanceMap = attdb.getAttendanceRecords(groupId);
-//        request.setAttribute("attendanceMap", attendanceMap);
-//        request.setAttribute("totalSession", totalSession);
-//        request.setAttribute("attended", attended);
-//        request.getRequestDispatcher("../instructor/attreport.jsp").forward(request, response);
+        int groupId = Integer.parseInt(request.getParameter("id"));
+        AttendanceDBContext attdb = new AttendanceDBContext();
+        SessionDBContext sesdb = new SessionDBContext();
+        HttpSession session = request.getSession();
+        GroupDBContext gdb = new GroupDBContext();
+        int id = (int) session.getAttribute("id");
+
+        int totalSession = sesdb.getTotalSession(groupId, id);
+        int attended = attdb.sessionAttended(groupId);
+        Map<String, Student> attendanceMap = attdb.getAttendanceRecords(groupId);
+        request.setAttribute("attendanceMap", attendanceMap);
+        request.setAttribute("totalSession", totalSession);
+        request.setAttribute("attended", attended);
+        request.getRequestDispatcher("../instructor/attreport.jsp").forward(request, response);
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
