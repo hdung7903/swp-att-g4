@@ -51,7 +51,6 @@ public class ViewAttendanceStatistic extends HttpServlet {
         request.setAttribute("totalSession", totalSession);
         request.setAttribute("attended", attended);
         request.getRequestDispatcher("../instructor/attreport.jsp").forward(request, response);
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -65,7 +64,6 @@ public class ViewAttendanceStatistic extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
