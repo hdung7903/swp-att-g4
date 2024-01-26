@@ -11,6 +11,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,11 +26,11 @@ public class AttendanceDBContext extends DBContext<Attendance> {
         ArrayList<Attendance> atts = new ArrayList<>();
         try {
             String sql = "SELECT stu.student_id,stu.student_name,\n"
-                    + "       IFNULL(a.status, 0) AS status,\n"
-                    + "			 IFNULL(a.att_description, 'nothing') AS att_description,\n"
-                    + "       IFNULL(a.att_datetime, NOW()) AS att_datetime,\n"
-                    + "        a.session_id\n"
-                    + "      FROM Session ses \n"
+                    + "   IFNULL(a.status, 0) AS status,\n"
+                    + "	  IFNULL(a.att_description, 'nothing') AS att_description,\n"
+                    + "   IFNULL(a.att_datetime, NOW()) AS att_datetime,\n"
+                    + "   a.session_id\n"
+                    + "FROM Session ses \n"
                     + "INNER JOIN Class_subject_mapping csm ON csm.csm_id = ses.csm_id\n"
                     + "INNER JOIN Attendance a ON a.session_id = ses.session_id\n"
                     + "INNER JOIN Student stu ON stu.student_id = a.student_id\n"
@@ -57,6 +59,61 @@ public class AttendanceDBContext extends DBContext<Attendance> {
             Logger.getLogger(AttendanceDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return atts;
+    }
+
+    public Map<String, Student> getAttendanceRecords(String groupId) throws SQLException {
+        Map<String, Student> attendanceMap = new HashMap<>();
+
+        String sql = "SELECT s.student_name, a.status,s.email\n"
+                + "FROM Class c \n"
+                + "INNER JOIN class_subject_mapping csm ON csm.class_id=c.class_id\n"
+                + "INNER JOIN student_class_mapping scm ON scm.class_id=c.class_id \n"
+                + "INNER JOIN Session ses ON ses.csm_id=csm.csm_id \n"
+                + "INNER JOIN Student s ON s.student_id=scm.student_id\n"
+                + "LEFT JOIN Attendance a ON ses.session_id=a.session_id AND a.student_id=scm.student_id\n"
+                + "WHERE c.class_id = ? AND (ses.isAtt = 1 AND ses.isAtt IS NOT NULL) \n"
+                + "ORDER BY s.student_id;";
+
+        try ( PreparedStatement stm = connection.prepareStatement(sql)) {
+            stm.setString(1, groupId);
+            try ( ResultSet rs = stm.executeQuery()) {
+                while (rs.next()) {
+                    String studentName = rs.getString("student_name");
+                    String email = rs.getString("email");
+                    Boolean status = rs.getBoolean("status");
+
+                    Student student = attendanceMap.computeIfAbsent(studentName, k -> new Student(studentName, email, new ArrayList<>()));
+                    student.getAttendances().add(status);
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AttendanceDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return attendanceMap;
+    }
+
+    public int sessionAttended(String groupId) {
+        int sessionCount = 0;
+
+        String sql = "SELECT COUNT(DISTINCT s.session_index) AS SessionCount\n"
+                + "FROM Session s\n"
+                + "JOIN class_subject_mapping csm ON csm.csm_id=s.csm_id\n"
+                + "JOIN Class c ON c.class_id=csm.class_id\n"
+                + "JOIN Attendance a ON a.session_id = s.session_id\n"
+                + "WHERE csm.csm_id=?  AND s.isAtt=1";
+
+        try ( PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, groupId);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                sessionCount = resultSet.getInt("SessionCount");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return sessionCount;
     }
 
     @Override

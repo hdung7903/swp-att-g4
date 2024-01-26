@@ -121,6 +121,51 @@ public class SessionDBContext extends DBContext<Session> {
         return sessions;
     }
 
+    public int getTotalSession(String iid, String gid) {
+        int total = 0;
+        try {
+
+            String sql = "SELECT total_slots\n"
+                    + "FROM class_subject_mapping\n"
+                    + "WHERE class_id= ? and instructor_id= ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, gid);
+            stm.setString(2, iid);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                total = rs.getInt("total_slots");
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(SessionDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return total;
+    }
+
+    public int sessionAttended(int groupId) {
+        int sessionCount = 0;
+
+        String sql = "SELECT COUNT(DISTINCT s.session_index) AS SessionCount\n"
+                + "FROM Session s\n"
+                + "JOIN class_subject_mapping csm ON csm.csm_id=s.csm_id\n"
+                + "JOIN Class c ON c.class_id=csm.class_id\n"
+                + "JOIN Attendance a ON a.session_id = s.session_id\n"
+                + "WHERE c.class_id=?  AND s.isAtt=?";
+
+        try ( PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, groupId);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                sessionCount = resultSet.getInt("SessionCount");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return sessionCount;
+    }
+
     public void addAttendances(Session ses) {
         try {
             connection.setAutoCommit(false);

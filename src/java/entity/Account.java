@@ -26,8 +26,6 @@ public class Account extends BaseEntity {
         this.student = student;
     }
 
-   
-
     public Instructor getInstructor() {
         return instructor;
     }
