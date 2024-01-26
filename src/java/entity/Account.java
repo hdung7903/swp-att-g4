@@ -6,36 +6,48 @@ package entity;
 
 /**
  *
- * @author HP
+ * @author leduy
  */
-public class Account extends BaseEntity{
-    public String username, password, student_id, instructor_id;
+public class Account extends BaseEntity {
     public int role_id;
-    public Instructor instructor;
+    private String username;
+    private String password;
+    private Instructor instructor;
+    private Student student;
 
     public Account() {
     }
 
-    public Account(Instructor instructor) {
+    public Account(int role_id, String username, String password, Instructor instructor, Student student) {
+        this.role_id = role_id;
+        this.username = username;
+        this.password = password;
+        this.instructor = instructor;
+        this.student = student;
+    }
+
+    public Instructor getInstructor() {
+        return instructor;
+    }
+
+    public void setInstructor(Instructor instructor) {
         this.instructor = instructor;
     }
 
-    public Account(String username, String password, int role_id) {
-        this.username = username;
-        this.password = password;
+
+    public int getRole_id() {
+        return role_id;
+    }
+
+    public void setRole_id(int role_id) {
         this.role_id = role_id;
     }
 
-    public Account(String student_id, String instructor_id) {
-        this.student_id = student_id;
-        this.instructor_id = instructor_id;
-    }
-
-    public String getusername() {
+    public String getUsername() {
         return username;
     }
 
-    public void setusername(String username) {
+    public void setUsername(String username) {
         this.username = username;
     }
 
@@ -47,42 +59,12 @@ public class Account extends BaseEntity{
         this.password = password;
     }
 
-    public int getRole_id() {
-        return role_id;
+    public Student getStudent() {
+        return student;
     }
 
-    public void setRole_id(int role_id) {
-        this.role_id = role_id;
+    public void setStudent(Student student) {
+        this.student = student;
     }
-
-    public String getStudent_id() {
-        return student_id;
-    }
-
-    public void setStudent_id(String student_id) {
-        this.student_id = student_id;
-    }
-
-    public String getInstructor_id() {
-        return instructor_id;
-    }
-
-    public void setInstructor_id(String instructor_id) {
-        this.instructor_id = instructor_id;
-    }
-
-    public Instructor getInstructor() {
-        return instructor;
-    }
-
-    public void setInstructor(Instructor instructor) {
-        this.instructor = instructor;
-    }
-
-    @Override
-    public String toString() {
-        return "Account{" + "username=" + username + ", password=" + password + ", student_id=" + student_id + ", instructor_id=" + instructor_id + ", role_id=" + role_id + ", instructor=" + instructor + '}';
-    }
-    
     
 }
