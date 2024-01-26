@@ -1,6 +1,4 @@
 /build/
 /dist/
-/controller/academicStaff/
-/controller/admin/
-/web/accademyStaff/
-/web/admin/
+/nbproject/
+*.xml

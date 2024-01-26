@@ -28,9 +28,10 @@ public class LogoutController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        session.removeAttribute("acc");
-        session.removeAttribute("accountId");
+        HttpSession sessoin = request.getSession();
+        sessoin.removeAttribute("acc");
+        String contextPath = request.getContextPath();
+        System.out.println("Context Path: " + contextPath);
         response.sendRedirect(request.getContextPath() + "/");
 
     }
