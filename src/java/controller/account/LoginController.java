@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.HashSet;
 
 /**
  *
@@ -76,7 +77,7 @@ public class LoginController extends HttpServlet {
         response.addCookie(cuser);
         response.addCookie(cpass);
         response.addCookie(crmb);
-        
+
         AccountDBContext DAO = new AccountDBContext();
         Account a = DAO.ValidateAccount(username, password);
 
@@ -85,19 +86,28 @@ public class LoginController extends HttpServlet {
             request.getRequestDispatcher("./login.jsp").forward(request, response);
         } else {
             HttpSession session = request.getSession();
+            Account getAccountId = DAO.getAccountIdByUsername(username);
+            String accountId;            
+            if(getAccountId.getStudent()==null){
+                accountId=getAccountId.getInstructor().getId();
+            }else{
+                accountId=getAccountId.getStudent().getId();
+            }
             session.setAttribute("acc", a);
+            session.setAttribute("accountId", accountId);
+            
             session.setMaxInactiveInterval(100000);
             if (a.role_id == 1) {
-                    response.sendRedirect(request.getContextPath()+"/academicStaff/home");
+                response.sendRedirect(request.getContextPath() + "/academicStaff/home");
             }
             if (a.role_id == 2) {
-                response.sendRedirect(request.getContextPath()+"/admin/home");
+                response.sendRedirect(request.getContextPath() + "/admin/home");
             }
             if (a.role_id == 3) {
-                response.sendRedirect(request.getContextPath()+"/instructor/home");
+                response.sendRedirect(request.getContextPath() + "/instructor/home");
             }
             if (a.role_id == 4) {
-                response.sendRedirect(request.getContextPath()+"/student/home");
+                response.sendRedirect(request.getContextPath() + "/student/home");
             }
         }
 

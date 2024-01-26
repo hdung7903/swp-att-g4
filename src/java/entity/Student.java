@@ -39,6 +39,12 @@ public class Student extends BaseEntity {
         this.attendances = attendances;
     }
 
+    public Student(String name, String email, List<Boolean> attendances) {
+        this.name = name;
+        this.email = email;
+        this.attendances = attendances;
+    }
+
     public ArrayList<Session> getSessions() {
         return sessions;
     }
