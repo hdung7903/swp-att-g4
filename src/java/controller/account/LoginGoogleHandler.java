@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package controller;
+package controller.account;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
