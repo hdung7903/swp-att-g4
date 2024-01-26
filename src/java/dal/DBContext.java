@@ -11,24 +11,28 @@ import java.util.logging.Logger;
 public abstract class DBContext<T extends BaseEntity> {
 
     protected Connection connection;
-
-    public DBContext() {
+    public DBContext()
+    {
+        //@Students: You are allowed to edit user, pass, url variables to fit 
+        //your system configuration
+        //You can also add more methods for Database Interaction tasks. 
+        //But we recommend you to do it in another class
+        // For example : StudentDBContext extends DBContext , 
+        //where StudentDBContext is located in dal package, 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            String url = "jdbc:mysql://localhost:3306/swp";
-            String user = "root";
-            String password = "123456";
+            String url = "jdbc:mysql://localhost:3306/swp391_g4_ver1"; 
+            String user = "admin";
+            String password = "12345";
 
             connection = DriverManager.getConnection(url, user, password);
             System.out.println("Connection OK!");
-        } catch (SQLException ex) {
-            Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+        } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }
-
     public abstract ArrayList<T> list();
 
     public abstract void insert(T entity);

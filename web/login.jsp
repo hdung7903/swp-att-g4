@@ -1,15 +1,20 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html; charset=UTF-8"%>
-<!DOCTYPE html>
-<html>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/5.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/5.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!------ Include the above in your HEAD tag ---------->
+
+<!doctype html>
+<html lang="en">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Login Form</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/5.0.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="css/styleLogin.css">
+
     </head>
     <body>
         <section class="ftco-section">
@@ -21,7 +26,7 @@
                 <div class="row justify-content-center">
                     <div class="col-md-12 col-lg-10">
                         <div class="wrap d-md-flex">
-                            <div class="img" style="background-image: url(images/bg-1.jpg);">
+                            <div class="img" style="background-image: url(images/bg-2.jpg);">
                             </div>
                             <div class="login-wrap p-4 p-md-5">
                                 <div class="d-flex">
@@ -34,32 +39,42 @@
                                 <c:set var="cookie" value="${pageContext.request.cookies}"/>
                                 <form class="signin-form" action="login" method="post" >
                                     <p class="text-danger" >${mess}</p>
-                                    <div class="form-group mb-3">
+                                    
+                                    <div style="position: relative" >
                                         <label class="label" for="name">Username</label>
-                                        <input  name="username" type="text" value="${cookie.cuser.value}" class="form-control" placeholder="Username" required>
+                                        <input name="username" type="text" value="${cookie.cuser.value}" class="form-control" placeholder="Username">
                                     </div>
-                                    <div class="form-group mb-3">
-                                        <label class="label" for="password">Password</label>
-                                        <div class="input-group">
-                                            <input name="password" type="password" value="" class="form-control" placeholder="Password" required>
-                                            <button class="btn btn-outline-secondary" type="button" id="togglePassword">
-                                                <span id="eyeIcon"><i class="bi bi-eye-slash-fill"></i></span>
-                                            </button>
-
-                                        </div>
+                                    
+                                    <div style="position: relative">
+                                        <label class="label" for="password">Password</label>    
+                                        <img id="passicon" src="images/close-eye.jpg" style="width: 25px; position: absolute;
+                                             cursor: pointer; top: 50px; right: 15px" onclick="togglePassword()">
+                                        <input name="password" type="password" value="${cookie.cpass.value}" 
+                                               id="password" class="form-control" placeholder="Password">                                       
                                     </div>
-                                    <div class="form-group">
-                                        <button type="submit" class="form-control btn btn-primary rounded submit px-3">Sign In</button>
+                                               
+                                    <div style="position: relative; top:4px">
+                                        <button type="submit" style="color: blue"class="form-control btn btn-primary rounded submit px-3">Sign In</button>
                                     </div>
-                                    <div class="form-group d-md-flex">
+                                               
+                                    <h5 style="text-align: center; color: grey; position: relative; top:5px">OR</h5>
+                                    
+                                    <div>
+                                        <a href="https://accounts.google.com/o/oauth2/auth?scope=email%20profile%20openid&redirect_uri=http://localhost:9999/AttendanceSystem/LoginGoogleHandler&response_type=code
+                                                &client_id=105080679537-2ard711gqiernlhfflh57gv5jm6tt3sm.apps.googleusercontent.com&approval_prompt=force"
+                                                style="color: #004085"class="form-control btn btn-primary rounded submit px-3">Login with Google</a>
+                                    </div>
+                                    
+                                    <div class="form-group d-md-flex" style="position: relative;top:3px">
                                         <div class="w-50 text-left">
                                             <label class="form-check">
-                                                <input class="form-check-input" name="remember" ${cookie.crmb!=null?'checked':''} type="checkbox" value="" id="form2Example31" />
+                                                <input class="form-check-input" name="remember"
+                                                       ${cookie.crmb!=null?'checked':''} type="checkbox" value="" id="form2Example31" />
                                                 <label class="form-check-label" for="form2Example31"> Remember me </label>
                                             </label>
                                         </div>
                                         <div class="w-50 text-md-right">
-                                            <a href="#">Forgot Password</a>
+                                            <a href="#">Forgot Password</a>                   
                                         </div>
                                     </div>
                                 </form>
@@ -69,19 +84,25 @@
                 </div>
             </div>
         </section>
-        <script>
-            document.getElementById("togglePassword").addEventListener("click", function () {
-                var passwordInput = document.getElementsByName("password")[0];
-                var eyeIcon = document.getElementById("eyeIcon");
 
-                if (passwordInput.type === "password") {
-                    passwordInput.type = "text";
-                    eyeIcon.innerHTML = '<i class="bi bi-eye-fill"></i>';
-                } else {
-                    passwordInput.type = "password";
-                    eyeIcon.innerHTML = '<i class="bi bi-eye-slash-fill"></i>';
-                }
-            });
+        <script src="js/jquery.min.js"></script>
+        <script src="js/popper.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/main.js"></script>
+        <script>
+                                                 function togglePassword() {
+                                                     var passwordInput = document.getElementById("password");
+                                                     var passwordIcon = document.getElementById("passicon");
+
+                                                     if (passwordInput.type === "password") {
+                                                         passwordInput.type = "text";
+                                                         passwordIcon.src = "images/open-eye.jpg";
+                                                     } else {
+                                                         passwordInput.type = "password";
+                                                         passwordIcon.src = "images/close-eye.jpg";
+                                                     }
+                                                 }
         </script>
+
     </body>
 </html>
