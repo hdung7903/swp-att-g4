@@ -30,7 +30,8 @@ public class ViewAttendanceStatistic extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws Servleint groupId = Integer.parseInt(request.getParameter("id"));
+    throws ServletException, IOException {
+//    int groupId = Integer.parseInt(request.getParameter("id"));
 //        AttendanceDBContext attdb = new AttendanceDBContext();
 //        SessionDBContext sesdb = new SessionDBContext();
 //        HttpSession session = request.getSession();
