@@ -9,6 +9,7 @@ package entity;
  * @author leduy
  */
 public class TimeSlot extends BaseEntity {
+
     private int id;
     private String description;
 
@@ -36,6 +37,4 @@ public class TimeSlot extends BaseEntity {
         this.description = description;
     }
 
-         
-    
 }

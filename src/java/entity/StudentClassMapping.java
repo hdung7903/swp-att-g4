@@ -9,6 +9,7 @@ package entity;
  * @author leduy
  */
 public class StudentClassMapping extends BaseEntity {
+
     private int id;
     private Student student;
     private Group group;
@@ -46,6 +47,4 @@ public class StudentClassMapping extends BaseEntity {
         this.group = group;
     }
 
-    
-    
 }

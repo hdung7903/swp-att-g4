@@ -11,9 +11,10 @@ import java.util.Calendar;
 
 /**
  *
- * @author Admin 
+ * @author Admin
  */
 public class DateTimeHelper {
+
     public static ArrayList<java.sql.Date> getCurrentWeekDates() {
         // Create an instance of ArrayList to hold the dates.
         ArrayList<java.sql.Date> dates = new ArrayList<>();
@@ -47,7 +48,21 @@ public class DateTimeHelper {
 
         return dates;
     }
-    
+
+    public static ArrayList<java.sql.Date> getCurrentDate() {
+        // Get the current date.
+        ArrayList<java.sql.Date> date = new ArrayList<>();
+        java.util.Date now = new java.util.Date();
+        // Create an instance of the Calendar object
+        Calendar calendar = Calendar.getInstance();
+        // Set the calendar time to the current date.
+        calendar.setTime(now);
+
+        date.add(convertUtilToSql(removeTimeFromDate(calendar.getTime())));
+
+        return date;
+    }
+
     public static java.util.Date removeTimeFromDate(java.util.Date inputDate) {
         // Check for null input date
         if (inputDate == null) {
@@ -68,7 +83,7 @@ public class DateTimeHelper {
         // Return the date part only
         return cal.getTime();
     }
-    
+
     public static java.sql.Date convertUtilToSql(java.util.Date uDate) {
         // Check for null
         if (uDate == null) {
@@ -79,7 +94,7 @@ public class DateTimeHelper {
         // getTime() from java.util.Date provides it.
         return new java.sql.Date(uDate.getTime());
     }
-    
+
     public static ArrayList<java.sql.Date> getSqlDatesInRange(String startDateStr, String endDateStr) throws ParseException {
         // Define the date format, e.g., "yyyy-MM-dd" for ISO 8601 format.
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");

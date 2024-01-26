@@ -9,6 +9,7 @@ package entity;
  * @author leduy
  */
 public class Account extends BaseEntity {
+
     public int role_id;
     private String username;
     private String password;
@@ -26,8 +27,6 @@ public class Account extends BaseEntity {
         this.student = student;
     }
 
-   
-
     public Instructor getInstructor() {
         return instructor;
     }
@@ -35,7 +34,6 @@ public class Account extends BaseEntity {
     public void setInstructor(Instructor instructor) {
         this.instructor = instructor;
     }
-
 
     public int getRole_id() {
         return role_id;
@@ -68,5 +66,5 @@ public class Account extends BaseEntity {
     public void setStudent(Student student) {
         this.student = student;
     }
-    
+
 }

@@ -11,7 +11,7 @@ import java.util.Date;
  * @author leduy
  */
 public class Attendance extends BaseEntity {
-    
+
     private Session session;
     private Student student;
     private boolean status;
@@ -78,6 +78,5 @@ public class Attendance extends BaseEntity {
     public void setStatus(boolean status) {
         this.status = status;
     }
-    
-    
+
 }

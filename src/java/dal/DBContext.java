@@ -18,7 +18,7 @@ public abstract class DBContext<T extends BaseEntity> {
 
             String url = "jdbc:mysql://localhost:3306/swp";
             String user = "root";
-            String password = "123456";
+            String password = "paimon306@";
 
             connection = DriverManager.getConnection(url, user, password);
             System.out.println("Connection OK!");

@@ -2,20 +2,24 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package view;
+package controller.instructor;
 
+import dal.SessionDBContext;
+import dal.TimeSlotDBContext;
+import entity.Session;
+import entity.TimeSlot;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 
 /**
  *
- * @author leduy
+ * @author Admin
  */
-public class LoginPage extends HttpServlet {
+public class ViewAttendanceController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -28,7 +32,16 @@ public class LoginPage extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("login.jsp").forward(request, response);
+        SessionDBContext sesDB = new SessionDBContext();
+        Session s = new Session();
+        int id = Integer.parseInt(request.getParameter("id"));
+        s.setId(id);
+        Session ses = sesDB.get(s);
+        request.setAttribute("ses", ses);
+        ArrayList<Session> sessions = sesDB.getSessionsByID(id);
+
+        request.setAttribute("sessions", sessions);
+        request.getRequestDispatcher("../instructor/viewatt.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

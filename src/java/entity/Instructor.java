@@ -12,6 +12,7 @@ import java.util.Date;
  * @author leduy
  */
 public class Instructor extends BaseEntity {
+
     private String id;
     private String name;
     private String username;
@@ -19,7 +20,7 @@ public class Instructor extends BaseEntity {
     private Date dob;
     private boolean gender;
     private boolean isDeleted;
-     private ArrayList<Session> sessions = new ArrayList<>();
+    private ArrayList<Session> sessions = new ArrayList<>();
 
     public Instructor() {
     }
@@ -97,5 +98,5 @@ public class Instructor extends BaseEntity {
     public void setIsDeleted(boolean isDeleted) {
         this.isDeleted = isDeleted;
     }
-    
+
 }

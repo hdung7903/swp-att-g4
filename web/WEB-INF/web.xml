@@ -41,8 +41,16 @@
         <servlet-class>controller.instructor.EditAttendanceController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>InstructorViewAttendanceStatistic</servlet-name>
-        <servlet-class>controller.instructor.ViewAttendanceStatistic</servlet-class>
+        <servlet-name>ScheduleTodayController</servlet-name>
+        <servlet-class>controller.instructor.ScheduleTodayController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewClassListController</servlet-name>
+        <servlet-class>controller.instructor.ViewClassListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewAttendanceController</servlet-name>
+        <servlet-class>controller.instructor.ViewAttendanceController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>login</servlet-name>
@@ -85,8 +93,16 @@
         <url-pattern>/instructor/editatt</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>InstructorViewAttendanceStatistic</servlet-name>
-        <url-pattern>/instructor/attstatistic</url-pattern>
+        <servlet-name>ScheduleTodayController</servlet-name>
+        <url-pattern>/instructor/scheduletoday</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewClassListController</servlet-name>
+        <url-pattern>/instructor/viewclass</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewAttendanceController</servlet-name>
+        <url-pattern>/instructor/viewatt</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -11,6 +11,7 @@ import java.util.ArrayList;
  * @author leduy
  */
 public class Group extends BaseEntity {
+
     private String id;
     private String name;
     private String link_url;
@@ -39,7 +40,7 @@ public class Group extends BaseEntity {
 
     public void setName(String name) {
         this.name = name;
-    }    
+    }
 
     public String getLink_url() {
         return link_url;
@@ -57,5 +58,4 @@ public class Group extends BaseEntity {
         this.sessions = sessions;
     }
 
-    
 }

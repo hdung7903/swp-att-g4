@@ -47,5 +47,5 @@ public class Subject extends BaseEntity {
     public void setSessions(ArrayList<Session> sessions) {
         this.sessions = sessions;
     }
-    
+
 }

@@ -9,6 +9,7 @@ package entity;
  * @author leduy
  */
 public class Role extends BaseEntity {
+
     private int id;
     private String name;
 
@@ -36,6 +37,4 @@ public class Role extends BaseEntity {
         this.name = name;
     }
 
-    
-    
 }

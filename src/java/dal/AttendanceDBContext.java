@@ -25,7 +25,7 @@ public class AttendanceDBContext extends DBContext<Attendance> {
         try {
             String sql = "SELECT stu.student_id,stu.student_name,\n"
                     + "       IFNULL(a.status, 0) AS status,\n"
-                    + "			 IFNULL(a.att_description, 'nothing') AS att_description,\n"
+                    + "	      IFNULL(a.att_description, 'nothing') AS att_description,\n"
                     + "       IFNULL(a.att_datetime, NOW()) AS att_datetime,\n"
                     + "        a.session_id\n"
                     + "      FROM Session ses \n"
