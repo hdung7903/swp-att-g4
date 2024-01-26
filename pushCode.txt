@@ -1,0 +1,79 @@
+
+Admin@LAPTOP-T1OQ01AU MINGW64 ~/Downloads/SWP391/gitCloneSWP/swp-att-g4 (main)
+$ git checkout -b
+error: switch `b' requires a value
+
+Admin@LAPTOP-T1OQ01AU MINGW64 ~/Downloads/SWP391/gitCloneSWP/swp-att-g4 (main)
+$ git checkout -b dinhtuan
+Switched to a new branch 'dinhtuan'
+
+Admin@LAPTOP-T1OQ01AU MINGW64 ~/Downloads/SWP391/gitCloneSWP/swp-att-g4 (dinhtuan)
+$ git branch
+* dinhtuan
+  main
+
+Admin@LAPTOP-T1OQ01AU MINGW64 ~/Downloads/SWP391/gitCloneSWP/swp-att-g4 (dinhtuan)
+$ git add.
+git: 'add.' is not a git command. See 'git --help'.
+
+The most similar command is
+        add
+
+Admin@LAPTOP-T1OQ01AU MINGW64 ~/Downloads/SWP391/gitCloneSWP/swp-att-g4 (dinhtuan)
+$ git add .
+warning: in the working copy of 'nbproject/ant-deploy.xml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'web/WEB-INF/web.xml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/java/controller/instructor/ScheduleTodayController.java', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/java/controller/instructor/ViewAttendanceController.java', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/java/controller/instructor/ViewClassListController.java', LF will be replaced by CRLF the next time Git touches it
+
+Admin@LAPTOP-T1OQ01AU MINGW64 ~/Downloads/SWP391/gitCloneSWP/swp-att-g4 (dinhtuan)
+$ git commit -m "take at"
+[dinhtuan 075c868] take at
+ 42 files changed, 789 insertions(+), 501 deletions(-)
+ create mode 100644 src/java/controller/instructor/ScheduleTodayController.java
+ rename src/java/controller/instructor/{ViewAttendanceStatistic.java => ViewAttendanceController.java} (62%)
+ create mode 100644 src/java/controller/instructor/ViewClassListController.java
+ create mode 100644 src/java/dal/GroupDBContext.java
+
+Admin@LAPTOP-T1OQ01AU MINGW64 ~/Downloads/SWP391/gitCloneSWP/swp-att-g4 (dinhtuan)
+$ git push
+fatal: The current branch dinhtuan has no upstream branch.
+To push the current branch and set the remote as upstream, use
+
+    git push --set-upstream origin dinhtuan
+
+To have this happen automatically for branches without a tracking
+upstream, see 'push.autoSetupRemote' in 'git help config'.
+
+
+Admin@LAPTOP-T1OQ01AU MINGW64 ~/Downloads/SWP391/gitCloneSWP/swp-att-g4 (dinhtuan)
+$ git push origin dinhtuan
+Enumerating objects: 305, done.
+Counting objects: 100% (305/305), done.
+Delta compression using up to 16 threads
+Compressing objects: 100% (150/150), done.
+Writing objects: 100% (305/305), 82.08 KiB | 6.31 MiB/s, done.
+Total 305 (delta 174), reused 227 (delta 131), pack-reused 0
+remote: Resolving deltas: 100% (174/174), done.
+remote:
+remote: Create a pull request for 'dinhtuan' on GitHub by visiting:
+remote:      https://github.com/hdung7903/swp-att-g4/pull/new/dinhtuan
+remote:
+To https://github.com/hdung7903/swp-att-g4.git
+ * [new branch]      dinhtuan -> dinhtuan
+
+Admin@LAPTOP-T1OQ01AU MINGW64 ~/Downloads/SWP391/gitCloneSWP/swp-att-g4 (dinhtuan)
+$ ^C
+
+Admin@LAPTOP-T1OQ01AU MINGW64 ~/Downloads/SWP391/gitCloneSWP/swp-att-g4 (dinhtuan)
+$ ^C
+
+Admin@LAPTOP-T1OQ01AU MINGW64 ~/Downloads/SWP391/gitCloneSWP/swp-att-g4 (dinhtuan)
+$ ^C
+
+Admin@LAPTOP-T1OQ01AU MINGW64 ~/Downloads/SWP391/gitCloneSWP/swp-att-g4 (dinhtuan)
+$ ^C
+
+Admin@LAPTOP-T1OQ01AU MINGW64 ~/Downloads/SWP391/gitCloneSWP/swp-att-g4 (dinhtuan)
+$

@@ -120,47 +120,42 @@ public class SessionDBContext extends DBContext<Session> {
         return sessions;
     }
 
-    public ArrayList<Session> getSessionsByID(int session_id) {
-        ArrayList<Session> sessions = new ArrayList<>();
-        try {
-            String sql = "SELECT  su.subject_name, c.class_name, c.link_url,s.session_id, s.session_index, s.ses_date, s.isAtt,csm.csm_id,t.timeslot_id \n"
-                    + "FROM Session s\n"
-                    + "INNER JOIN Class_subject_mapping csm ON csm.csm_id = s.csm_id\n"
-                    + "INNER JOIN Class c ON c.class_id = csm.class_id\n"
-                    + "INNER JOIN Student_class_mapping scm ON scm.class_id=c.class_id\n"
-                    + "INNER JOIN Subject su ON su.subject_id = csm.subject_id\n"
-                    + "INNER JOIN Timeslot t ON t.timeslot_id=s.timeslot_id \n"
-                    + "WHERE s.session_id = ?";
-            PreparedStatement stm = connection.prepareStatement(sql);
-            stm.setInt(1, session_id);
-            ResultSet rs = stm.executeQuery();
-            while (rs.next()) {
-                Session session = new Session();
-                session.setId(rs.getInt("session_id"));
-                session.setDate(rs.getDate("ses_date"));
-                session.setIsAtt(rs.getBoolean("isAtt"));
-                GroupSubjectMapping gsm = new GroupSubjectMapping();
-                gsm.setId(rs.getInt("csm_id"));
-                session.getGsm();
-                Group group = new Group();
-                group.setId(rs.getString("class_id"));
-                group.setName(rs.getString("class_name"));
-                group.setLink_url(rs.getString("link_url"));
-                session.getGroup();
-                Subject subject = new Subject();
-                subject.setId(rs.getString("subject_id"));
-                subject.setName(rs.getString("subject_name"));
-                session.getSubject();
-                TimeSlot t = new TimeSlot();
-                t.setId(rs.getInt("timeslot_id"));
-                session.setTime(t);
-                sessions.add(session);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(SessionDBContext.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return sessions;
-    }
+//    public ArrayList<Session> getSessionsByID(int session_id) {
+//        ArrayList<Session> sessions = new ArrayList<>();
+//        try {
+//            String sql = "SELECT  su.subject_name, c.class_name, c.link_url,s.session_id, s.session_index, s.ses_date, s.isAtt,csm.csm_id \n"
+//                    + "FROM Session s\n"
+//                    + "INNER JOIN Class_subject_mapping csm ON csm.csm_id = s.csm_id\n"
+//                    + "INNER JOIN Class c ON c.class_id = csm.class_id\n"
+//                    + "INNER JOIN Subject su ON su.subject_id = csm.subject_id\n"
+//                    + "WHERE s.session_id = ?";
+//            PreparedStatement stm = connection.prepareStatement(sql);
+//            stm.setInt(1, session_id);
+//            ResultSet rs = stm.executeQuery();
+//            while (rs.next()) {
+//                Session session = new Session();
+//                session.setId(rs.getInt("session_id"));
+//                session.setDate(rs.getDate("ses_date"));
+//                session.setIsAtt(rs.getBoolean("isAtt"));
+//                GroupSubjectMapping gsm = new GroupSubjectMapping();
+//                gsm.setId(rs.getInt("csm_id"));
+//                session.getGsm();
+//                Group group = new Group();
+//                group.setId(rs.getString("class_id"));
+//                group.setName(rs.getString("class_name"));
+//                group.setLink_url(rs.getString("link_url"));
+//                session.getGroup();
+//                Subject subject = new Subject();
+//                subject.setId(rs.getString("subject_id"));
+//                subject.setName(rs.getString("subject_name"));
+//                session.getSubject();
+//                sessions.add(session);
+//            }
+//        } catch (SQLException ex) {
+//            Logger.getLogger(SessionDBContext.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        return sessions;
+//    }
 
     public void addAttendances(Session ses) {
         try {

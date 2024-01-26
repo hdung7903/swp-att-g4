@@ -4,10 +4,10 @@
  */
 package controller.instructor;
 
+import dal.AttendanceDBContext;
 import dal.SessionDBContext;
-import dal.TimeSlotDBContext;
+import entity.Attendance;
 import entity.Session;
-import entity.TimeSlot;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -32,15 +32,17 @@ public class ViewAttendanceController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        SessionDBContext sesDB = new SessionDBContext();
+        SessionDBContext scheDB = new SessionDBContext();
         Session s = new Session();
         int id = Integer.parseInt(request.getParameter("id"));
         s.setId(id);
-        Session ses = sesDB.get(s);
+        Session ses = scheDB.get(s);
         request.setAttribute("ses", ses);
-        ArrayList<Session> sessions = sesDB.getSessionsByID(id);
 
-        request.setAttribute("sessions", sessions);
+        AttendanceDBContext attDB = new AttendanceDBContext();
+        ArrayList<Attendance> attendances = attDB.getAttendances(id);
+
+        request.setAttribute("atts", attendances);
         request.getRequestDispatcher("../instructor/viewatt.jsp").forward(request, response);
     }
 

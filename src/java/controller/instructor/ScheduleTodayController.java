@@ -77,7 +77,7 @@ public class ScheduleTodayController extends HttpServlet { //extends BasedAuthor
             request.setAttribute("sessions", sessions);
         }
 
-        request.getRequestDispatcher("...").forward(request, response);
+        request.getRequestDispatcher("../instructor/scheduletoday.jsp").forward(request, response);
     }
 
     @Override

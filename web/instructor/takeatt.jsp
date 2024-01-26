@@ -15,7 +15,7 @@
         <style>
         </style>
         <script>
-            function confirmAttendance() {
+                function confirmAttendance() {
                 var conf = confirm("Sure attended?");
                 if (conf) {
                     return true;
