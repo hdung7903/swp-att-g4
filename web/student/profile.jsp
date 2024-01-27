@@ -72,11 +72,15 @@
 
             <c:if test="${requestScope.currentChoice==IConstant.PROFILE_OPTION[0]}">
                 <div class="mb-5">
-                    <h2>Account Information</h2>
+                    <h2 class="text-center">Account Information</h2>
                     <form>
                         <div class="">
                             <div class="">
                                 <div class="px-5">
+                                    <div class="mt-5 ">
+                                    <h4 class="fw-medium">Image</h4>
+                                    <img src="C:\Users\ADMIN\Documents\SWP\SWP_Nhom\swp-att-g4\web\avatar-trang-4.jpg" class="img-fluid mb-3" style="max-width: 50px;">
+                                    </div>
                                     <div class="mt-5">
                                         <h4 class="fw-medium">Full name</h4>
                                         <div class="input-group flex-nowrap">
@@ -129,7 +133,7 @@
             <c:if test="${requestScope.currentChoice==IConstant.PROFILE_OPTION[1]}">
                 <form method="POST" action="profile">
                     <div class="">
-                        <h2>Change password</h2>
+                        <h2 class="text-center">Change password</h2>
                         <div class="">
                             <div class="">
                                 <div class="px-5">
