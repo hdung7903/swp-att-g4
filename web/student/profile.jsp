@@ -76,50 +76,63 @@
                     <form>
                         <div class="">
                             <div class="">
-                                <div class="px-5">
-                                    <div class="mt-5 ">
-                                    <h4 class="fw-medium">Image</h4>
-                                    <img src="C:\Users\ADMIN\Documents\SWP\SWP_Nhom\swp-att-g4\web\avatar-trang-4.jpg" class="img-fluid mb-3" style="max-width: 50px;">
-                                    </div>
-                                    <div class="mt-5">
-                                        <h4 class="fw-medium">Full name</h4>
-                                        <div class="input-group flex-nowrap">
-                                            <input type="text" class="form-control px-4 py-2 fs-5 rounded-xl"
-                                                   placeholder="Username"
-                                                   value="${ins.getName()}"readonly
-                                                   >
-                                        </div>
-                                    </div>
-                                    <div class="mt-5">
-                                        <h4 class="fw-medium">Email</h4>
-                                        <div class="input-group flex-nowrap">
-                                            <input type="text" class="form-control px-4 py-2 fs-5 rounded-xl"
-                                                   value="${ins.getEmail()}"
-                                                   placeholder="Username"readonly>
-                                        </div>
-                                    </div>
-                                    <div class="mt-5">
-                                        <h4 class="fw-medium">Date of birth</h4>
-                                        <div class="input-group flex-nowrap">
-                                            <input type="date"
-                                                   value="${ins.getDob()}"
-                                                   class="form-control px-4 py-2 fs-5 rounded-xl" value="28/12/2003"readonly>
-                                        </div>
-                                    </div>
-                                    <div class="mt-5">
-                                        <h4 class="fw-medium">Gender</h4>
-                                        <div class="d-flex">
-                                            <div class="w-25">
-                                                <label for="" class="d-flex align-items-center me-3 fs-5">Nam</label>
-                                                <input type="checkbox" class="custom-checkbox" name="gender"
-                                                       ${ins.isGender()==true?'checked':''}
-                                                       class=""disabled>
+                               <div class="col-lg-8 mx-auto">
+                                    <div class="card mb-4">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <p class="mb-0">Full Name</p>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <input type="text-muted mb-0" class="form-control px-4 py-2 fs-5 rounded-xl"
+                                                           placeholder="Username"
+                                                           value="${ins.getName()}"readonly
+                                                           >
+                                                </div>
                                             </div>
-                                            <div class="w-25">
-                                                <label for="" class="d-flex align-items-center me-3 fs-5">Nữ</label>
-                                                <input type="checkbox" class="custom-checkbox"  
-                                                       ${ins.isGender()==false?'checked':''}
-                                                       name="gender"disabled>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <p class="mb-0">Email</p>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <input type="text-muted mb-0" class="form-control px-4 py-2 fs-5 rounded-xl"
+                                                           value="${ins.getEmail()}"
+                                                           placeholder="Username" readonly>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <p class="mb-0">Date of birth</p>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <input type="date"
+                                                           value="${ins.getDob()}"
+                                                           class="form-control px-4 py-2 fs-5 rounded-xl" value="28/12/2003"readonly>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <p class="mb-0">Gender</p>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <div class="w-25">
+                                                        <label for="" class="d-flex align-items-center me-3 fs-5">Nam</label>
+                                                        <input type="checkbox" class="custom-checkbox" name="gender"
+                                                               ${ins.isGender()==true?'checked':''}
+                                                               class=""disabled
+                                                               style="color: #fff; background-color: #007bff;">
+                                                    </div>
+                                                    <div class="w-25">
+                                                        <label for="" class="d-flex align-items-center me-3 fs-5">Nữ</label>
+                                                        <input type="checkbox" class="custom-checkbox"
+                                                               ${ins.isGender()==false?'checked':''}
+                                                               name="gender"disabled
+                                                               style="color: #fff; background-color: #007bff;">
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

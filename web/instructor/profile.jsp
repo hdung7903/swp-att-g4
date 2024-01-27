@@ -28,7 +28,7 @@
                 font-size: 15px;
                 font-weight: bold;
             }
-            custom-checkbox {
+            .custom-checkbox {
                 width: 20px;
                 height: 20px;
                 border: 1px solid #000;
@@ -36,8 +36,8 @@
                 position: relative;
             }
 
-            custom-checkbox::before {
-                content: '\2713'; /* Unicode character for checkmark */
+            .custom-checkbox::before {
+                content: '\2713';
                 font-size: 16px;
                 display: none;
                 text-align: center;
@@ -49,10 +49,10 @@
                 bottom: 0;
             }
 
-            custom-checkbox[data-checked="true"]::before {
+            .custom-checkbox[data-checked="true"]::before {
                 display: block;
-                color: #fff; /* Màu văn bản của dấu tích */
-                background-color: #007bff; /* Màu nền của ô được tích (màu xanh đậm) */
+                color: #fff;
+                background-color: #007bff;
             }
 
 
@@ -88,102 +88,113 @@
                         <div class="">
                             <div class="">
                                 <!-- Inside the Account Information Section -->
-                                <div class="mt-5 ">
-                                    <h4 class="fw-medium">Image</h4>
-                                    <img src="C:\Users\ADMIN\Documents\SWP\SWP_Nhom\swp-att-g4\web\avatar-trang-4.jpg" class="img-fluid mb-3" style="max-width: 50px;">
-
-                                </div>
-
-                                <div class="mt-5 ">
-                                    <h4 class="fw-medium">Full name</h4>
-                                    <div class="input-group flex-nowrap">
-                                        <input type="text" class="form-control px-4 py-2 fs-5 rounded-xl"
-                                               placeholder="Username"
-                                               value="${ins.getName()}"readonly
-                                               >
-                                    </div>
-                                </div>
-                                <div class="mt-5">
-                                    <h4 class="fw-medium">Email</h4>
-                                    <div class="input-group flex-nowrap">
-                                        <input type="text" class="form-control px-4 py-2 fs-5 rounded-xl"
-                                               value="${ins.getEmail()}"
-                                               placeholder="Username" readonly>
-                                    </div>
-                                </div>
-                                <div class="mt-5">
-                                    <h4 class="fw-medium">Date of birth</h4>
-                                    <div class="input-group flex-nowrap">
-                                        <input type="date"
-                                               value="${ins.getDob()}"
-                                               class="form-control px-4 py-2 fs-5 rounded-xl" value="28/12/2003"readonly>
-                                    </div>
-                                </div>
-                                <div class="mt-5">
-                                    <h4 class="fw-medium">Gender</h4>
-                                    <div class="d-flex">
-                                        <div class="w-25">
-                                            <label for="" class="d-flex align-items-center me-3 fs-5">Nam</label>
-                                            <input type="checkbox" class="custom-checkbox" name="gender"
-                                                   ${ins.isGender()==true?'checked':''}
-                                                   class=""disabled>
-                                        </div>
-                                        <div class="w-25">
-                                            <label for="" class="d-flex align-items-center me-3 fs-5">Nữ</label>
-                                            <input type="checkbox" class="custom-checkbox"
-                                                   ${ins.isGender()==false?'checked':''}
-                                                   name="gender"disabled>
+                                <div class="col-lg-8 mx-auto">
+                                    <div class="card mb-4">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <p class="mb-0">Full Name</p>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <input type="text-muted mb-0" class="form-control px-4 py-2 fs-5 rounded-xl"
+                                                           placeholder="Username"
+                                                           value="${ins.getName()}"readonly
+                                                           >
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <p class="mb-0">Email</p>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <input type="text-muted mb-0" class="form-control px-4 py-2 fs-5 rounded-xl"
+                                                           value="${ins.getEmail()}"
+                                                           placeholder="Username" readonly>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <p class="mb-0">Date of birth</p>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <input type="date"
+                                                           value="${ins.getDob()}"
+                                                           class="form-control px-4 py-2 fs-5 rounded-xl" value="28/12/2003"readonly>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <p class="mb-0">Gender</p>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <div class="w-25">
+                                                        <label for="" class="d-flex align-items-center me-3 fs-5">Nam</label>
+                                                        <input type="checkbox" class="custom-checkbox" name="gender"
+                                                               ${ins.isGender()==true?'checked':''}
+                                                               class=""disabled
+                                                               style="color: #fff; background-color: #007bff;">
+                                                    </div>
+                                                    <div class="w-25">
+                                                        <label for="" class="d-flex align-items-center me-3 fs-5">Nữ</label>
+                                                        <input type="checkbox" class="custom-checkbox"
+                                                               ${ins.isGender()==false?'checked':''}
+                                                               name="gender"disabled
+                                                               style="color: #fff; background-color: #007bff;">
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+
+                    </form>
                 </div>
-
-            </form>
-        </div>
-    </c:if>
-    <c:if test="${requestScope.currentChoice==IConstant.PROFILE_OPTION[1]}">
-        <form method="POST" action="profile">
-            <div class="">
-                <h2 class="text-center">Change password</h2>
-                <div class="mx-auto">
+            </c:if>
+            <c:if test="${requestScope.currentChoice==IConstant.PROFILE_OPTION[1]}">
+                <form method="POST" action="profile">
                     <div class="">
-                        <div class="px-5">
-                            <div class="mt-5">
-                                <h4 class="fw-medium">Current password</h4>
-                                <div class="input-group flex-nowrap">
-                                    <input type="password"
-                                           name="oldPas"
-                                           class="form-control px-4 py-2 fs-5 rounded-xl"
-                                           placeholder="Current password">
-                                </div>
-                            </div>
-                            <div class="mt-5">
-                                <h4 class="fw-medium">New password</h4>
-                                <div class="input-group flex-nowrap">
-                                    <input type="password" 
-                                           name="newPas"
-                                           class="form-control px-4 py-2 fs-5 rounded-xl"
-                                           placeholder="New password">
-                                </div>
-                            </div>
-                            <div class="mt-5">
-                                <h4 class="fw-medium">Confirm password</h4>
-                                <div class="input-group flex-nowrap">
-                                    <input type="password" 
-                                           name="confirmPas"
-                                           class="form-control px-4 py-2 fs-5 rounded-xl"
-                                           placeholder="Confirm password">
+                        <h2 class="text-center">Change password</h2>
+                        <div class="mx-auto">
+                            <div class="">
+                                <div class="px-5">
+                                    <div class="mt-5">
+                                        <h4 class="fw-medium">Current password</h4>
+                                        <div class="input-group flex-nowrap">
+                                            <input type="password"
+                                                   name="oldPas"
+                                                   class="form-control px-4 py-2 fs-5 rounded-xl"
+                                                   placeholder="Current password">
+                                        </div>
+                                    </div>
+                                    <div class="mt-5">
+                                        <h4 class="fw-medium">New password</h4>
+                                        <div class="input-group flex-nowrap">
+                                            <input type="password" 
+                                                   name="newPas"
+                                                   class="form-control px-4 py-2 fs-5 rounded-xl"
+                                                   placeholder="New password">
+                                        </div>
+                                    </div>
+                                    <div class="mt-5">
+                                        <h4 class="fw-medium">Confirm password</h4>
+                                        <div class="input-group flex-nowrap">
+                                            <input type="password" 
+                                                   name="confirmPas"
+                                                   class="form-control px-4 py-2 fs-5 rounded-xl"
+                                                   placeholder="Confirm password">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <button type="submit" class="ms-5 mt-5 px-5 fs-5 border-0 bg-success text-white rounded">Change</button>
-        </form>
-    </c:if>
-</div>
-</body>
+                    <button type="submit" class="ms-5 mt-5 px-5 fs-5 border-0 bg-success text-white rounded">Change</button>
+                </form>
+            </c:if>
+        </div>
+    </body>
 </html>
