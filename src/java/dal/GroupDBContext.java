@@ -37,5 +37,5 @@ public class GroupDBContext extends DBContext<Group> {
     public Group get(Group entity) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
 }
+

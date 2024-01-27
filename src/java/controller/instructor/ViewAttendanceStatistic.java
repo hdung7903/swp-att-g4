@@ -45,11 +45,37 @@ public class ViewAttendanceStatistic extends HttpServlet {
         int totalSession = sesdb.getTotalSession(groupId, id);
         int attended = attdb.sessionAttended(groupId);
         Map<String, Student> attendanceMap = attdb.getAttendanceRecords(groupId);
+<<<<<<< HEAD
             request.setAttribute("attendanceMap", attendanceMap);
             request.setAttribute("totalSession", totalSession);
             request.setAttribute("attended", attended);
             request.getRequestDispatcher("../instructor/attreport.jsp").forward(request, response);
 
+=======
+        System.out.println("Total session: " + totalSession);
+        System.out.println("Session attend: " + attended);
+        request.setAttribute("attendanceMap", attendanceMap);
+        request.setAttribute("totalSession", totalSession);
+        request.setAttribute("attended", attended);
+        request.getRequestDispatcher("../instructor/attreport.jsp").forward(request, response);
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred while processing the request.");
+>>>>>>> 8ed441b8fad31748702eafb05af7586d247215a6
         }
 
         // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -103,4 +129,8 @@ public class ViewAttendanceStatistic extends HttpServlet {
         return "Short description";
         }// </editor-fold>
 
+<<<<<<< HEAD
     }
+=======
+}
+>>>>>>> 8ed441b8fad31748702eafb05af7586d247215a6
