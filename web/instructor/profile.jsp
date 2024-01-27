@@ -88,6 +88,12 @@
                         <div class="">
                             <div class="">
                                 <!-- Inside the Account Information Section -->
+                                <div class="row">
+                                    <div class="col-lg-12 text-center mb-4">
+                                        <img src="https://cdn.discordapp.com/attachments/947741416992436235/1171005032691404921/profile.png?ex=655b1a6c&is=6548a56c&hm=428202d73c6b3e95f3b966e3840f79186e79afdc98a879ea0492fa4957d08806&" 
+                                             alt="avatar" class="img-fluid rounded-circle" style="max-width: 150px;">
+                                    </div>
+                                </div>
                                 <div class="col-lg-8 mx-auto">
                                     <div class="card mb-4">
                                         <div class="card-body">
@@ -99,6 +105,18 @@
                                                     <input type="text-muted mb-0" class="form-control px-4 py-2 fs-5 rounded-xl"
                                                            placeholder="Username"
                                                            value="${ins.getName()}"readonly
+                                                           >
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <p class="mb-0">Instructor ID</p>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <input type="text-muted mb-0" class="form-control px-4 py-2 fs-5 rounded-xl"
+                                                           placeholder="Username"
+                                                           value="${ins.getId()}"readonly
                                                            >
                                                 </div>
                                             </div>
