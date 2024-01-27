@@ -83,101 +83,107 @@
 
             <c:if test="${requestScope.currentChoice==IConstant.PROFILE_OPTION[0]}">
                 <div class="mb-5">
-                    <h2>Account Information</h2>
+                    <h2 class="text-center">Account Information</h2>
                     <form>
                         <div class="">
                             <div class="">
-                                <div class="px-5">
-                                    <div class="mt-5">
-                                        <h4 class="fw-medium">Full name</h4>
-                                        <div class="input-group flex-nowrap">
-                                            <input type="text" class="form-control px-4 py-2 fs-5 rounded-xl"
-                                                   placeholder="Username"
-                                                   value="${ins.getName()}"readonly
-                                                   >
-                                        </div>
+                                <!-- Inside the Account Information Section -->
+                                <div class="mt-5 ">
+                                    <h4 class="fw-medium">Image</h4>
+                                    <img src="C:\Users\ADMIN\Documents\SWP\SWP_Nhom\swp-att-g4\web\avatar-trang-4.jpg" class="img-fluid mb-3" style="max-width: 50px;">
+
+                                </div>
+
+                                <div class="mt-5 ">
+                                    <h4 class="fw-medium">Full name</h4>
+                                    <div class="input-group flex-nowrap">
+                                        <input type="text" class="form-control px-4 py-2 fs-5 rounded-xl"
+                                               placeholder="Username"
+                                               value="${ins.getName()}"readonly
+                                               >
                                     </div>
-                                    <div class="mt-5">
-                                        <h4 class="fw-medium">Email</h4>
-                                        <div class="input-group flex-nowrap">
-                                            <input type="text" class="form-control px-4 py-2 fs-5 rounded-xl"
-                                                   value="${ins.getEmail()}"
-                                                   placeholder="Username" readonly>
-                                        </div>
+                                </div>
+                                <div class="mt-5">
+                                    <h4 class="fw-medium">Email</h4>
+                                    <div class="input-group flex-nowrap">
+                                        <input type="text" class="form-control px-4 py-2 fs-5 rounded-xl"
+                                               value="${ins.getEmail()}"
+                                               placeholder="Username" readonly>
                                     </div>
-                                    <div class="mt-5">
-                                        <h4 class="fw-medium">Date of birth</h4>
-                                        <div class="input-group flex-nowrap">
-                                            <input type="date"
-                                                   value="${ins.getDob()}"
-                                                   class="form-control px-4 py-2 fs-5 rounded-xl" value="28/12/2003"readonly>
-                                        </div>
+                                </div>
+                                <div class="mt-5">
+                                    <h4 class="fw-medium">Date of birth</h4>
+                                    <div class="input-group flex-nowrap">
+                                        <input type="date"
+                                               value="${ins.getDob()}"
+                                               class="form-control px-4 py-2 fs-5 rounded-xl" value="28/12/2003"readonly>
                                     </div>
-                                    <div class="mt-5">
-                                        <h4 class="fw-medium">Gender</h4>
-                                        <div class="d-flex">
-                                            <div class="w-25">
-                                                <label for="" class="d-flex align-items-center me-3 fs-5">Nam</label>
-                                                <input type="checkbox" class="custom-checkbox" name="gender"
-                                                       ${ins.isGender()==true?'checked':''}
-                                                       class=""disabled>
-                                            </div>
-                                            <div class="w-25">
-                                                <label for="" class="d-flex align-items-center me-3 fs-5">Nữ</label>
-                                                <input type="checkbox" class="custom-checkbox"
-                                                       ${ins.isGender()==false?'checked':''}
-                                                       name="gender"disabled>
-                                            </div>
+                                </div>
+                                <div class="mt-5">
+                                    <h4 class="fw-medium">Gender</h4>
+                                    <div class="d-flex">
+                                        <div class="w-25">
+                                            <label for="" class="d-flex align-items-center me-3 fs-5">Nam</label>
+                                            <input type="checkbox" class="custom-checkbox" name="gender"
+                                                   ${ins.isGender()==true?'checked':''}
+                                                   class=""disabled>
+                                        </div>
+                                        <div class="w-25">
+                                            <label for="" class="d-flex align-items-center me-3 fs-5">Nữ</label>
+                                            <input type="checkbox" class="custom-checkbox"
+                                                   ${ins.isGender()==false?'checked':''}
+                                                   name="gender"disabled>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                    </form>
                 </div>
-            </c:if>
-            <c:if test="${requestScope.currentChoice==IConstant.PROFILE_OPTION[1]}">
-                <form method="POST" action="profile">
+
+            </form>
+        </div>
+    </c:if>
+    <c:if test="${requestScope.currentChoice==IConstant.PROFILE_OPTION[1]}">
+        <form method="POST" action="profile">
+            <div class="">
+                <h2 class="text-center">Change password</h2>
+                <div class="mx-auto">
                     <div class="">
-                        <h2>Change password</h2>
-                        <div class="">
-                            <div class="">
-                                <div class="px-5">
-                                    <div class="mt-5">
-                                        <h4 class="fw-medium">Current password</h4>
-                                        <div class="input-group flex-nowrap">
-                                            <input type="password"
-                                                   name="oldPas"
-                                                   class="form-control px-4 py-2 fs-5 rounded-xl"
-                                                   placeholder="Current password">
-                                        </div>
-                                    </div>
-                                    <div class="mt-5">
-                                        <h4 class="fw-medium">New password</h4>
-                                        <div class="input-group flex-nowrap">
-                                            <input type="password" 
-                                                   name="newPas"
-                                                   class="form-control px-4 py-2 fs-5 rounded-xl"
-                                                   placeholder="New password">
-                                        </div>
-                                    </div>
-                                    <div class="mt-5">
-                                        <h4 class="fw-medium">Confirm password</h4>
-                                        <div class="input-group flex-nowrap">
-                                            <input type="password" 
-                                                   name="confirmPas"
-                                                   class="form-control px-4 py-2 fs-5 rounded-xl"
-                                                   placeholder="Confirm password">
-                                        </div>
-                                    </div>
+                        <div class="px-5">
+                            <div class="mt-5">
+                                <h4 class="fw-medium">Current password</h4>
+                                <div class="input-group flex-nowrap">
+                                    <input type="password"
+                                           name="oldPas"
+                                           class="form-control px-4 py-2 fs-5 rounded-xl"
+                                           placeholder="Current password">
+                                </div>
+                            </div>
+                            <div class="mt-5">
+                                <h4 class="fw-medium">New password</h4>
+                                <div class="input-group flex-nowrap">
+                                    <input type="password" 
+                                           name="newPas"
+                                           class="form-control px-4 py-2 fs-5 rounded-xl"
+                                           placeholder="New password">
+                                </div>
+                            </div>
+                            <div class="mt-5">
+                                <h4 class="fw-medium">Confirm password</h4>
+                                <div class="input-group flex-nowrap">
+                                    <input type="password" 
+                                           name="confirmPas"
+                                           class="form-control px-4 py-2 fs-5 rounded-xl"
+                                           placeholder="Confirm password">
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="ms-5 mt-5 px-5 fs-5 border-0 bg-success text-white rounded">Change</button>
-                </form>
-            </c:if>
-        </div>
-    </body>
+                </div>
+            </div>
+            <button type="submit" class="ms-5 mt-5 px-5 fs-5 border-0 bg-success text-white rounded">Change</button>
+        </form>
+    </c:if>
+</div>
+</body>
 </html>
