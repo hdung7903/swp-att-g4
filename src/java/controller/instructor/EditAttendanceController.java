@@ -82,7 +82,7 @@ public class EditAttendanceController extends HttpServlet {
             a.setStudent(s);
             a.setSession(ses);
             a.setDescription(request.getParameter("description" + stuid));
-            a.setStatus(request.getParameter("status" + stuid).equals("present"));
+//            a.setStatus(request.getParameter("status" + stuid).equals("present"));
             atts.add(a);
         }
         ses.setAtts(atts);

@@ -45,6 +45,15 @@ public class Student extends BaseEntity {
         this.attendances = attendances;
     }
 
+    public Student(String id, String name, String username, String email, Date dob, boolean gender) {
+        this.id = id;
+        this.name = name;
+        this.username = username;
+        this.email = email;
+        this.dob = dob;
+        this.gender = gender;
+    }
+
     public ArrayList<Session> getSessions() {
         return sessions;
     }

@@ -174,17 +174,17 @@ public class SessionDBContext extends DBContext<Session> {
             stm_update_isAtt.setInt(1, ses.getId());
             stm_update_isAtt.executeUpdate();
 
-            String sql_remove_atts = "DELETE Attendance WHERE session_id =?";
+            String sql_remove_atts = "DELETE FROM Attendance WHERE session_id =?";
             PreparedStatement stm_remove_atts = connection.prepareStatement(sql_remove_atts);
             stm_remove_atts.setInt(1, ses.getId());
             stm_remove_atts.executeUpdate();
 
-            String insertAttendanceQuery = "INSERT INTO Attendance (session_id, student_id, status, att_description, att_datetime) "
+            String insertAttendanceQuery = "INSERT INTO Attendance (student_id, session_id, status, att_description, att_datetime) "
                     + "VALUES (?, ?, ?, ?,NOW())";
             PreparedStatement insertAttendanceStmt = connection.prepareStatement(insertAttendanceQuery);
             for (Attendance att : ses.getAtts()) {
-                insertAttendanceStmt.setInt(1, ses.getId());
-                insertAttendanceStmt.setString(2, att.getStudent().getId());
+                insertAttendanceStmt.setString(1, att.getStudent().getId());
+                insertAttendanceStmt.setInt(2, ses.getId());
                 insertAttendanceStmt.setBoolean(3, att.isStatus());
                 insertAttendanceStmt.setString(4, att.getDescription());
                 insertAttendanceStmt.executeUpdate();

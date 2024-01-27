@@ -10,6 +10,38 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        <style>
+            body {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+                margin: 0;
+                overflow-x: hidden;
+            }
+
+            .container {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100vw;
+            }
+
+            .img {
+                flex: 1;
+                max-width: 50%; /* Điều chỉnh chiều rộng của hình ảnh */
+            }
+
+            .login-wrap {
+                flex: 1;
+                max-width: 50%;
+                margin-top: 120px;/* Điều chỉnh chiều rộng của biểu mẫu đăng nhập */
+            }
+            .container{
+                margin: 0!important;
+                padding: 0!important;
+            }
+        </style>
     </head>
     <body>
         <section class="ftco-section">
@@ -21,7 +53,8 @@
                 <div class="row justify-content-center">
                     <div class="col-md-12 col-lg-10">
                         <div class="wrap d-md-flex">
-                            <div class="img" style="background-image: url(images/bg-1.jpg);">
+                            <div class="img" >
+                                <img src="https://cdn.discordapp.com/attachments/947741416992436235/1200439545934643270/bg-2.jpg?ex=65c62f72&is=65b3ba72&hm=4f1bb4e6cf91ec8e5044f28825ea2e96a8aae00765deaf9530838716d6144028&" alt="">
                             </div>
                             <div class="login-wrap p-4 p-md-5">
                                 <div class="d-flex">
@@ -33,7 +66,7 @@
                                 </div>
                                 <c:set var="cookie" value="${pageContext.request.cookies}"/>
                                 <form class="signin-form" action="login" method="post" >
-                                    <p class="text-danger" >${mess}</p>
+<!--                                    <p class="text-danger" >${mess}</p>-->
                                     <div class="form-group mb-3">
                                         <label class="label" for="name">Username</label>
                                         <input  name="username" type="text" value="${cookie.cuser.value}" class="form-control" placeholder="Username" required>
@@ -48,9 +81,6 @@
 
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <button type="submit" class="form-control btn btn-primary rounded submit px-3">Sign In</button>
-                                    </div>
                                     <div class="form-group d-md-flex">
                                         <div class="w-50 text-left">
                                             <label class="form-check">
@@ -62,6 +92,13 @@
                                             <a href="#">Forgot Password</a>
                                         </div>
                                     </div>
+                                    <p class="text-danger" >${mess}</p>
+                                    <br><!-- comment -->
+                                    <div class="form-group">
+                                        <button type="submit" class="form-control btn btn-primary rounded submit px-3">Sign In</button>
+                                    </div>
+                                    
+                                    
                                 </form>
                             </div>
                         </div>

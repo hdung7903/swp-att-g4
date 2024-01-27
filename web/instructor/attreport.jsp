@@ -63,6 +63,7 @@
                         <table class="table table-bordered table-hover">
                             <thead class="thead-dark">
                                 <tr class="text-center">
+                                    <th>Student ID</th>
                                     <th style="font-size: 12px; white-space: nowrap;">Name</th>
                                     <th style="font-size: 12px;"><input type="checkbox" name="show image" id="toggleImageCheckbox" onclick="toggleImages()" />Image</th>
                                         <c:forEach var="i" begin="1" end="${totalSession}" varStatus="loop">
@@ -81,10 +82,11 @@
                                             <c:forEach var="status" items="${entry.value.attendances}">
                                             <td style="font-size: 12px;">
                                                 <c:choose>
-                                                    <c:when test="${status}">P</c:when>
+                                                    <c:when test="${!status}">
+                                                        <c:set var="absentSessions" value="${absentSessions + 1}" />A
+                                                    </c:when>
                                                     <c:otherwise>
-                                                        <c:set var="absentSessions" value="${absentSessions + 1}" />
-                                                        A
+                                                        P
                                                     </c:otherwise>
                                                 </c:choose>
                                             </td>

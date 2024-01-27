@@ -57,6 +57,7 @@ public class TakeAttendanceController extends HttpServlet {
         request.getRequestDispatcher("../instructor/takeatt.jsp").forward(request, response);
     }
 
+
     /** 
      * Handles the HTTP <code>POST</code> method.
      * @param request servlet request
@@ -79,15 +80,16 @@ public class TakeAttendanceController extends HttpServlet {
             a.setStudent(s);
             a.setSession(ses);
             a.setDescription(request.getParameter("att_description" + stu_id));
-            a.setStatus(request.getParameter("status" + stu_id).equals("Attended"));
+//            a.setStatus(request.getParameter("status" + stu_id).equals("Present"));
             atts.add(a);
         }
         ses.setAtts(atts);
         SessionDBContext sesDB = new SessionDBContext();
         sesDB.addAttendances(ses);
-        String id = request.getParameter("session_id");
-        response.sendRedirect("takeatt?id=" + id);
+        request.setAttribute("message", "Attendance updated!");
+        response.sendRedirect(request.getContextPath() + "/instructor/schedule");
     }
+
 
     /** 
      * Returns a short description of the servlet.
