@@ -19,43 +19,19 @@
         <title>Profile</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
               integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
                 integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        
         <style>
             li {
                 list-style: none;
                 font-size: 15px;
                 font-weight: bold;
             }
-            .custom-checkbox {
-                width: 20px;
-                height: 20px;
-                border: 1px solid #000;
-                cursor: pointer;
-                position: relative;
-            }
-
-            .custom-checkbox::before {
-                content: '\2713';
-                font-size: 16px;
-                display: none;
-                text-align: center;
-                line-height: 20px;
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-            }
-
-            .custom-checkbox[data-checked="true"]::before {
-                display: block;
-                color: #fff;
-                background-color: #007bff;
-            }
-
-
         </style>
     </head>
 
@@ -170,6 +146,7 @@
                             </div>
 
                     </form>
+                                                               
                 </div>
             </c:if>
             <c:if test="${requestScope.currentChoice==IConstant.PROFILE_OPTION[1]}">
@@ -179,31 +156,40 @@
                         <div class="mx-auto">
                             <div class="">
                                 <div class="px-5">
-                                    <div class="mt-5">
+                                    <div class="mt-5 form-group">
                                         <h4 class="fw-medium">Current password</h4>
                                         <div class="input-group flex-nowrap">
                                             <input type="password"
                                                    name="oldPas"
                                                    class="form-control px-4 py-2 fs-5 rounded-xl"
-                                                   placeholder="Current password">
+                                                   placeholder="Current password"required>
+                                            <button class="btn btn-outline-secondary" type="button" id="togglePassword1">
+                                                <span id="eyeIcon"><i class="bi bi-eye-slash-fill"></i></span>
+                                            </button>
                                         </div>
                                     </div>
-                                    <div class="mt-5">
+                                    <div class="mt-5 form-group">
                                         <h4 class="fw-medium">New password</h4>
                                         <div class="input-group flex-nowrap">
                                             <input type="password" 
                                                    name="newPas"
                                                    class="form-control px-4 py-2 fs-5 rounded-xl"
-                                                   placeholder="New password">
+                                                   placeholder="New password"required>
+                                            <button class="btn btn-outline-secondary" type="button" id="togglePassword2">
+                                                <span id="eyeIcon"><i class="bi bi-eye-slash-fill"></i></span>
+                                            </button>
                                         </div>
                                     </div>
-                                    <div class="mt-5">
+                                    <div class="mt-5 form-group">
                                         <h4 class="fw-medium">Confirm password</h4>
                                         <div class="input-group flex-nowrap">
                                             <input type="password" 
                                                    name="confirmPas"
                                                    class="form-control px-4 py-2 fs-5 rounded-xl"
                                                    placeholder="Confirm password">
+                                            <button class="btn btn-outline-secondary" type="button" id="togglePassword3">
+                                                <span id="eyeIcon"><i class="bi bi-eye-slash-fill"></i></span>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -212,6 +198,48 @@
                     </div>
                     <button type="submit" class="ms-5 mt-5 px-5 fs-5 border-0 bg-success text-white rounded">Change</button>
                 </form>
+                <script>
+            document.getElementById("togglePassword1").addEventListener("click", function () {
+                var passwordInput = document.getElementsByName("oldPas")[0];
+                var eyeIcon = document.getElementById("eyeIcon");
+
+                if (passwordInput.type === "password") {
+                    passwordInput.type = "text";
+                    eyeIcon.innerHTML = '<i class="bi bi-eye-fill"></i>';
+                } else {
+                    passwordInput.type = "password";
+                    eyeIcon.innerHTML = '<i class="bi bi-eye-slash-fill"></i>';
+                }
+            });
+        </script>
+        <script>
+            document.getElementById("togglePassword2").addEventListener("click", function () {
+                var passwordInput = document.getElementsByName("newPas")[0];
+                var eyeIcon = document.getElementById("eyeIcon");
+
+                if (passwordInput.type === "password") {
+                    passwordInput.type = "text";
+                    eyeIcon.innerHTML = '<i class="bi bi-eye-fill"></i>';
+                } else {
+                    passwordInput.type = "password";
+                    eyeIcon.innerHTML = '<i class="bi bi-eye-slash-fill"></i>';
+                }
+            });
+        </script>
+        <script>
+            document.getElementById("togglePassword3").addEventListener("click", function () {
+                var passwordInput = document.getElementsByName("confirmPas")[0];
+                var eyeIcon = document.getElementById("eyeIcon");
+
+                if (passwordInput.type === "password") {
+                    passwordInput.type = "text";
+                    eyeIcon.innerHTML = '<i class="bi bi-eye-fill"></i>';
+                } else {
+                    passwordInput.type = "password";
+                    eyeIcon.innerHTML = '<i class="bi bi-eye-slash-fill"></i>';
+                }
+            });
+        </script>
             </c:if>
         </div>
     </body>
