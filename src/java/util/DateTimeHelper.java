@@ -50,9 +50,9 @@ public class DateTimeHelper {
         return dates;
     }
 
-    public static Date getCurrentDate() {
+    public static java.sql.Date getCurrentDate() {
         // Get the current date.
-        java.sql.Date date;
+        java.sql.Date date ;
         java.util.Date now = new java.util.Date();
         // Create an instance of the Calendar object
         Calendar calendar = Calendar.getInstance();

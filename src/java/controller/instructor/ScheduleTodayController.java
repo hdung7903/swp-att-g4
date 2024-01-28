@@ -24,6 +24,7 @@ import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import util.DateTimeHelper;
@@ -43,34 +44,32 @@ public class ScheduleTodayController extends HttpServlet { //extends BasedAuthor
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-        protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            String instructorId = request.getParameter("id");
-            String dateParam = request.getParameter("day");
-            Date dateToday = null;
+        try {
+            String instructorid = request.getParameter("id");
+            String dateStr = request.getParameter("date");
 
-            if (dateParam != null) {
-                try {
-                    dateToday = DateTimeHelper.getSqlDatesInDay(dateParam);
-                } catch (ParseException ex) {
-                    Logger.getLogger(ScheduleController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } else if (dateParam == null) {
-                dateToday = (Date) DateTimeHelper.getCurrentDate();
+            java.sql.Date sqlDate;
+
+            if (dateStr == null || dateStr.isEmpty()) {
+                sqlDate = DateTimeHelper.getCurrentDate();
+            } else {
+                java.util.Date parsedDate = new SimpleDateFormat("yyyy-MM-dd").parse(dateStr);
+                sqlDate = new java.sql.Date(parsedDate.getTime());
             }
 
-            TimeSlotDBContext timeDB = new TimeSlotDBContext();
-            ArrayList<TimeSlot> slots = timeDB.list();
+            SessionDBContext sessionDB = new SessionDBContext();
+            List<Session> sessions = sessionDB.getSessionsByInstructorToday(instructorid, sqlDate);
 
-            SessionDBContext sesDB = new SessionDBContext();
-            ArrayList<Session> sessions = sesDB.getSessionsByInstructorToday(instructorId, dateToday);
-
-            request.setAttribute("slots", slots);
-            request.setAttribute("day", dateToday);
             request.setAttribute("sessions", sessions);
+            request.setAttribute("date", sqlDate);
+            request.getRequestDispatcher("../instructor/slottoday.jsp").forward(request, response);
 
-            request.getRequestDispatcher("../instructor/scheduletoday.jsp").forward(request, response);
+        } catch (ParseException ex) {
+            Logger.getLogger(ScheduleTodayController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

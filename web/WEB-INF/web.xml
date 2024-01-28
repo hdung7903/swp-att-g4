@@ -98,7 +98,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ScheduleTodayController</servlet-name>
-        <url-pattern>/instructor/scheduletoday</url-pattern>
+        <url-pattern>/instructor/slottoday</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ViewClassListController</servlet-name>

@@ -13,14 +13,33 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
         <style>
+            .description-input-cell,
+            .student-name-cell {
+                text-align: center;
+                vertical-align: middle;
+            }
+            .toggleImage {
+                display: none;
+                margin: auto;
+            }
         </style>
         <script>
             function confirmAttendance() {
                 var conf = confirm("Sure attended?");
-                if (conf) {
-                    return true;
+                return conf;
+            }
+
+            function toggleImages() {
+                var images = document.getElementsByClassName('toggleImage');
+                var checkbox = document.getElementById("toggleImageCheckbox");
+
+                for (var i = 0; i < images.length; i++) {
+                    if (checkbox.checked) {
+                        images[i].style.display = "block";
+                    } else {
+                        images[i].style.display = "none";
+                    }
                 }
-                return false;
             }
         </script>
     </head>
@@ -38,7 +57,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-12 text-center">
                         <form action="${pageContext.request.contextPath}/instructor/editatt" method="POST" onsubmit="return confirmAttendance()">
                             <table class="table table-bordered">
                                 <thead class="thead-dark">
@@ -59,7 +78,9 @@
                                             <td style="font-size: 12px; white-space: nowrap;">${a.student.name}
                                                 <input type="hidden" name="student_id" value="${a.student.id}"/>
                                             </td>
-                                            <td>Hello World</td>                                                                                                        
+                                            <td>
+                                                <img class="toggleImage" src="https://cdn.discordapp.com/attachments/947741416992436235/1171005032691404921/profile.png?ex=655b1a6c&is=6548a56c&hm=428202d73c6b3e95f3b966e3840f79186e79afdc98a879ea0492fa4957d08806&" alt="" style="text-align: center; vertical-align: middle;" width="100" height="100"/>
+                                            </td>                                                                                                       
                                             <td>
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input" type="radio"
@@ -87,7 +108,7 @@
                                 </tbody>
                             </table>
                             <input type="hidden" value="${requestScope.ses.id}" name="session_id"/>
-                            <input type="submit" value="Edit Attendance"/>
+                            <input type="submit" class="btn btn-success center" value="Edit Attendance"/>
                         </form>
                     </div> 
                 </div>

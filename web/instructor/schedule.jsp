@@ -57,7 +57,7 @@
                         </div>                       
                         <input type="hidden" value="${sessionScope.acc.role_id}" name="id" readonly />
                         <button type="submit" class="btn btn-primary my-2 col-3">View</button>
-                    </form>
+                        </form>
                 </div>
                 <c:choose>
                     <c:when test="${dates.size() > 0}">
