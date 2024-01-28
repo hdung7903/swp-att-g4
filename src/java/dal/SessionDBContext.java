@@ -71,6 +71,51 @@ public class SessionDBContext extends DBContext<Session> {
         }
         return sessions;
     }
+    
+    public ArrayList<Session> getSessionsByInstructorToday(String instructor_id, Date day) {
+        ArrayList<Session> sessions = new ArrayList<>();
+        try {
+            String sql = "SELECT i.instructor_id, i.instructor_name, su.subject_name, c.class_name, c.link_url,s.session_id, s.session_index, s.ses_date, s.isAtt,csm.csm_id,t.timeslot_id \n"
+                    + "FROM Session s\n"
+                    + "INNER JOIN Class_subject_mapping csm ON csm.csm_id = s.csm_id\n"
+                    + "INNER JOIN Instructor i ON i.instructor_id = csm.instructor_id\n"
+                    + "INNER JOIN Class c ON c.class_id = csm.class_id\n"
+                    + "INNER JOIN Subject su ON su.subject_id = csm.subject_id\n"
+                    + "INNER JOIN Timeslot t ON t.timeslot_id=s.timeslot_id \n"
+                    + "WHERE i.instructor_id = ? AND s.ses_date = ? ";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, instructor_id);
+            stm.setDate(2, day);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Session session = new Session();
+                session.setId(rs.getInt("session_id"));
+                session.setDate(rs.getDate("ses_date"));
+                session.setIsAtt(rs.getBoolean("isAtt"));
+                Instructor instructor = new Instructor();
+                instructor.setId(rs.getString("instructor_id"));
+                instructor.setName(rs.getString("instructor_name"));
+                session.setInstructor(instructor);
+                GroupSubjectMapping gsm = new GroupSubjectMapping();
+                gsm.setId(rs.getInt("csm_id"));
+                session.setGsm(gsm);
+                Group group = new Group();
+                group.setName(rs.getString("class_name"));
+                group.setLink_url(rs.getString("link_url"));
+                session.setGroup(group);
+                Subject subject = new Subject();
+                subject.setName(rs.getString("subject_name"));
+                session.setSubject(subject);
+                TimeSlot t = new TimeSlot();
+                t.setId(rs.getInt("timeslot_id"));
+                session.setTime(t);
+                sessions.add(session);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SessionDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return sessions;
+    }
 
     public ArrayList<Session> getSessionsByStudent(String student_id, Date from, Date to) {
         ArrayList<Session> sessions = new ArrayList<>();
@@ -156,6 +201,28 @@ public class SessionDBContext extends DBContext<Session> {
 //        }
 //        return sessions;
 //    }
+    
+    
+    public int getTotalSession(String iid, String gid) {
+        int total = 0;
+        try {
+
+            String sql = "SELECT total_slots\n"
+                    + "FROM class_subject_mapping\n"
+                    + "WHERE class_id= ? and instructor_id= ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, gid);
+            stm.setString(2, iid);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                total = rs.getInt("total_slots");
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(SessionDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return total;
+    }
 
     public void addAttendances(Session ses) {
         try {

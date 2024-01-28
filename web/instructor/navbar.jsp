@@ -48,7 +48,7 @@
                             <a class="nav-link" href="scheduletoday"><i class="bi bi-card-checklist"></i> Attendance</a>
                         </li>
                         <li class="nav-item mx-3">
-                            <a class="nav-link" href="#"><i class="bi bi-clipboard-data"></i> Attendance Report</a>
+                            <a class="nav-link" href="attstatistic"><i class="bi bi-clipboard-data"></i> Attendance Report</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav ml-auto">                    

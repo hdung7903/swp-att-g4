@@ -8,9 +8,11 @@ package controller.instructor;
 //import controller.authentication.BasedRequiredAuthenticationController;
 import dal.SessionDBContext;
 import dal.AccountDBContext;
+import dal.TimeSlotDBContext;
 import entity.Session;
 import entity.Account;
 import entity.Role;
+import entity.TimeSlot;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -20,6 +22,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.sql.Date;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -40,56 +43,62 @@ public class ScheduleTodayController extends HttpServlet { //extends BasedAuthor
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response, String instructor_id)
+        protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        Account loggedUser = (Account) session.getAttribute("acc");
+            String instructorId = request.getParameter("id");
+            String dateParam = request.getParameter("day");
+            Date dateToday = null;
 
-        if (loggedUser != null) {
-            String username = loggedUser.getUsername();
-            AccountDBContext dbContext = new AccountDBContext();
-            Account account = dbContext.getAccountIdByUsername(username);
-
-            if (account.getInstructor() != null) {
-                instructor_id = account.getInstructor().getId();
-            }
-
-            String r_from = request.getParameter("from");
-            String r_to = request.getParameter("to");
-            ArrayList<Date> date = new ArrayList<>();
-
-            if (r_from == null) {
-                date = DateTimeHelper.getCurrentDate();
-            } else {
+            if (dateParam != null) {
                 try {
-                    date = DateTimeHelper.getSqlDatesInRange(r_from, r_to);
+                    dateToday = DateTimeHelper.getSqlDatesInDay(dateParam);
                 } catch (ParseException ex) {
                     Logger.getLogger(ScheduleController.class.getName()).log(Level.SEVERE, null, ex);
                 }
+            } else if (dateParam == null) {
+                dateToday = (Date) DateTimeHelper.getCurrentDate();
             }
 
-            SessionDBContext sesDB = new SessionDBContext();
-            ArrayList<Session> sessions = sesDB.getSessionsByInstructor(instructor_id, date.get(0), date.get(0));
+            TimeSlotDBContext timeDB = new TimeSlotDBContext();
+            ArrayList<TimeSlot> slots = timeDB.list();
 
-            request.setAttribute("dates", date);
-            request.setAttribute("from", date.get(0));
-            request.setAttribute("to", date.get(0));
+            SessionDBContext sesDB = new SessionDBContext();
+            ArrayList<Session> sessions = sesDB.getSessionsByInstructorToday(instructorId, dateToday);
+
+            request.setAttribute("slots", slots);
+            request.setAttribute("day", dateToday);
             request.setAttribute("sessions", sessions);
+
+            request.getRequestDispatcher("../instructor/scheduletoday.jsp").forward(request, response);
         }
 
-        request.getRequestDispatcher("../instructor/scheduletoday.jsp").forward(request, response);
-    }
-
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response, null);
+        processRequest(request, response);
     }
 
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response, null);
+        processRequest(request, response);
     }
 
     /**

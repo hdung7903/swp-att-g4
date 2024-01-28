@@ -11,6 +11,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -57,6 +60,94 @@ public class AttendanceDBContext extends DBContext<Attendance> {
             Logger.getLogger(AttendanceDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return atts;
+    }
+
+    public Map<String, Student> getAttendanceRecords(String groupId) throws SQLException {
+        Map<String, Student> attendanceMap = new HashMap<>();
+
+        String sql = "SELECT s.student_name, a.status,s.email,s.student_id,ses.session_id\n"
+                + "FROM Class c \n"
+                + "INNER JOIN class_subject_mapping csm ON csm.class_id=c.class_id\n"
+                + "INNER JOIN student_class_mapping scm ON scm.class_id=c.class_id\n"
+                + "INNER JOIN Session ses ON ses.csm_id=csm.csm_id\n"
+                + "INNER JOIN Student s ON s.student_id=scm.student_id\n"
+                + "LEFT JOIN Attendance a ON ses.session_id=a.session_id AND a.student_id=scm.student_id\n"
+                + "WHERE csm.csm_id = ? AND (ses.isAtt = 1 AND ses.isAtt IS NOT NULL)\n"
+                + "ORDER BY s.student_id,ses.session_id;";
+        try ( PreparedStatement stm = connection.prepareStatement(sql)) {
+            stm.setString(1, groupId);
+            try ( ResultSet rs = stm.executeQuery()) {
+                while (rs.next()) {
+                    String studentName = rs.getString("student_name");
+                    String email = rs.getString("email");
+                    Boolean status = rs.getBoolean("status");
+
+                    if (attendanceMap.containsKey(studentName)) {
+                        // If the student is already in the map, just add the new status to their attendances
+                        Student existingStudent = attendanceMap.get(studentName);
+                        existingStudent.getAttendances().add(status);
+                    } else {
+                        // If the student is not in the map, create a new Student object and add it to the map
+                        Student newStudent = new Student();
+                        newStudent.setName(studentName);
+                        newStudent.setEmail(email);
+                        newStudent.setAttendances(new ArrayList<>(Arrays.asList(status)));
+                        attendanceMap.put(studentName, newStudent);
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AttendanceDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return attendanceMap;
+    }
+
+    public int sessionAttended(int groupId) {
+        int sessionCount = 0;
+
+        String sql = "SELECT COUNT(DISTINCT s.session_index) AS SessionCount\n"
+                + "FROM Session s\n"
+                + "JOIN class_subject_mapping csm ON csm.csm_id=s.csm_id\n"
+                + "JOIN Class c ON c.class_id=csm.class_id\n"
+                + "JOIN Attendance a ON a.session_id = s.session_id\n"
+                + "WHERE c.class_id=?  AND s.isAtt=?";
+
+        try ( PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, groupId);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                sessionCount = resultSet.getInt("SessionCount");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return sessionCount;
+    }
+
+    public int sessionAttended(String groupId) {
+        int sessionCount = 0;
+
+        String sql = "SELECT COUNT(DISTINCT s.session_index) AS SessionCount\n"
+                + "FROM Session s\n"
+                + "JOIN class_subject_mapping csm ON csm.csm_id=s.csm_id\n"
+                + "JOIN Class c ON c.class_id=csm.class_id\n"
+                + "JOIN Attendance a ON a.session_id = s.session_id\n"
+                + "WHERE csm.csm_id=?  AND s.isAtt=1";
+
+        try ( PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, groupId);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                sessionCount = resultSet.getInt("SessionCount");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return sessionCount;
     }
 
     @Override

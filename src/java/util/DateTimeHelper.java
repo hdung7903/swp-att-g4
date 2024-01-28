@@ -8,6 +8,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  *
@@ -49,16 +50,19 @@ public class DateTimeHelper {
         return dates;
     }
 
-    public static ArrayList<java.sql.Date> getCurrentDate() {
+    public static Date getCurrentDate() {
         // Get the current date.
-        ArrayList<java.sql.Date> date = new ArrayList<>();
+        java.sql.Date date;
         java.util.Date now = new java.util.Date();
         // Create an instance of the Calendar object
         Calendar calendar = Calendar.getInstance();
         // Set the calendar time to the current date.
         calendar.setTime(now);
 
-        date.add(convertUtilToSql(removeTimeFromDate(calendar.getTime())));
+        // Remove time from the current date
+        java.util.Date dateWithoutTime = removeTimeFromDate(calendar.getTime());
+        // Convert java.util.Date to java.sql.Date
+        date = convertUtilToSql(dateWithoutTime);
 
         return date;
     }
@@ -120,6 +124,25 @@ public class DateTimeHelper {
         }
 
         return dates;
+    }
+
+    public static java.sql.Date getSqlDatesInDay(String DateStr) throws ParseException {
+        // Define the date format, e.g., "yyyy-MM-dd" for ISO 8601 format.
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        // Parse the date strings into java.util.Date objects.
+        java.util.Date parsedDateStr = dateFormat.parse(DateStr);
+
+        // Convert java.util.Date to java.sql.Date for the start and end dates.
+        java.sql.Date Date = new java.sql.Date(parsedDateStr.getTime());
+
+        // Create a Calendar instance to iterate through the date range.
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(Date);
+
+        java.sql.Date date = null;
+
+        return date;
     }
 
 }

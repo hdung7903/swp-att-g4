@@ -66,7 +66,7 @@
                                                            <c:if test="${!a.status}">
                                                                checked="checked"
                                                            </c:if>
-                                                           name="status${a.student.id}" value="absent"/>
+                                                           name="status${a.student.id}" value="Absent"/>
                                                     <label class="form-check-label">Absent</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
@@ -74,7 +74,7 @@
                                                            <c:if test="${a.status}">
                                                                checked="checked"
                                                            </c:if>
-                                                           name="status${a.student.id}" value="present"/>
+                                                           name="status${a.student.id}" value="Present"/>
                                                     <label class="form-check-label">Present</label>
                                                 </div>
                                             </td>

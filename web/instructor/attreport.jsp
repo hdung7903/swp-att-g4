@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -61,36 +63,56 @@
                         <table class="table table-bordered table-hover">
                             <thead class="thead-dark">
                                 <tr class="text-center">
-                                    <th>Name</th>
-                                    <th><input type="checkbox" name="show image" id="toggleImageCheckbox" onclick="toggleImages()" />Image</th>
-                                    <!-- Loop for sessions -->
-                                    <th>S 1</th>
-                                    <th>S 2</th>
-                                    <!-- Add more sessions as needed -->
-                                    <th>Absent %</th>
-                                    <th>Report</th>
+                                    <th>Student ID</th>
+                                    <th style="font-size: 12px; white-space: nowrap;">Name</th>
+                                    <th style="font-size: 12px;"><input type="checkbox" name="show image" id="toggleImageCheckbox" onclick="toggleImages()" />Image</th>
+                                        <c:forEach var="i" begin="1" end="${totalSession}" varStatus="loop">
+                                        <th style="font-size: 12px; white-space: nowrap;">S ${i}</th>
+                                        </c:forEach>
+                                    <th style="font-size: 12px; white-space: nowrap;">Absent %</th>
+                                    <th style="font-size: 12px; white-space: nowrap;">Report</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <!-- Sample Row -->
-                                <tr class="text-center">
-                                    <td>Name</td>
-                                    <td><img class="toggleImage" src="https://cdn.discordapp.com/attachments/947741416992436235/1171005032691404921/profile.png?ex=655b1a6c&is=6548a56c&hm=428202d73c6b3e95f3b966e3840f79186e79afdc98a879ea0492fa4957d08806&" alt=""/></td>
-                                    <!-- Loop for session status -->
-                                    <td>P</td>
-                                    <td>A</td>
-                                    <!-- Add more session status as needed -->
-                                    <td style="color: red;">20%</td>
-                                    <td><a href="mailto:email@example.com?subject=Warning: High Absentee Percentage&body=Your Attendance Percentage is now 20%. Don't absent any slot or you'll retry this Subject next Semester" style="color: yellow;">Warning</a></td>
-                                </tr>
-                                <!-- End of Sample Row -->
+                                <c:forEach var="entry" items="${attendanceMap}">
+                                    <c:set var="absentSessions" value="0" />
+                                    <tr class="text-center">
+                                        <td style="font-size: 12px; white-space: nowrap;">${entry.key}</td>
+                                        <td><img class="toggleImage" style="width: 50px; height: 50px;" src="https://cdn.discordapp.com/attachments/947741416992436235/1171005032691404921/profile.png?ex=655b1a6c&is=6548a56c&hm=428202d73c6b3e95f3b966e3840f79186e79afdc98a879ea0492fa4957d08806&" alt=""/></td>
+                                            <c:forEach var="status" items="${entry.value.attendances}">
+                                            <td style="font-size: 12px;">
+                                                <c:choose>
+                                                    <c:when test="${!status}">
+                                                        <c:set var="absentSessions" value="${absentSessions + 1}" />A
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        P
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </td>
+                                        </c:forEach>
+                                        <c:forEach var="i" begin="${entry.value.attendances.size()}" end="${totalSession}">
+                                            <td style="font-size: 12px;">-</td>
+                                        </c:forEach>
+                                        <c:set var="totalSessions" value="${totalSession}" />
+                                        <c:set var="absentPercent" value="${(absentSessions / totalSessions) * 100}" />
+                                        <td style="color: ${absentPercent < 20 ? "red" : "blue"};font-size: 12px;">${absentPercent}%</td>
+                                        <td style="font-size: 12px;">
+                                            <c:choose>
+                                                <c:when test="${absentPercent >= 20}">
+                                                    <a href="mailto:${entry.value.email}?subject=Warning: High Absentee Percentage&body=Your Attendance Percentage is now 20%. Don't absent any slot or you'll retry this Subject next Semester" style="color: yellow;">Warning</a>
+                                                </c:when>
+                                                <c:otherwise>-</c:otherwise>
+                                            </c:choose>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
         </div>
-
         <script>
             document.getElementById("toggleImageCheckbox").addEventListener("change", function () {
                 var images = document.getElementsByClassName('toggleImage');
