@@ -74,70 +74,63 @@
                                     <div class="card mb-4">
                                         <div class="card-body">
                                             <div class="row">
-                                                <div class="col-sm-3">
+                                                <div class="col-sm-4">
                                                     <p class="mb-0">Full Name</p>
                                                 </div>
-                                                <div class="col-sm-9">
+                                                <div class="col-sm-8">
                                                     <input type="text-muted mb-0" class="form-control px-4 py-2 fs-5 rounded-xl"
                                                            placeholder="Username"
-                                                           value="${ins.getName()}"readonly
-                                                           >
+                                                           value="${ins.getName()}" hidden>
+                                                    <span>${ins.getName()}</span>
                                                 </div>
                                             </div>
                                             <hr>
                                             <div class="row">
-                                                <div class="col-sm-3">
+                                                <div class="col-sm-4">
                                                     <p class="mb-0">Instructor ID</p>
                                                 </div>
-                                                <div class="col-sm-9">
+                                                <div class="col-sm-8">
                                                     <input type="text-muted mb-0" class="form-control px-4 py-2 fs-5 rounded-xl"
                                                            placeholder="Username"
-                                                           value="${ins.getId()}"readonly
-                                                           >
+                                                           value="${ins.getId()}" hidden>
+                                                    <span>${ins.getId()}</span>
                                                 </div>
                                             </div>
                                             <hr>
                                             <div class="row">
-                                                <div class="col-sm-3">
+                                                <div class="col-sm-4">
                                                     <p class="mb-0">Email</p>
                                                 </div>
-                                                <div class="col-sm-9">
+                                                <div class="col-sm-8">
                                                     <input type="text-muted mb-0" class="form-control px-4 py-2 fs-5 rounded-xl"
                                                            value="${ins.getEmail()}"
-                                                           placeholder="Username" readonly>
+                                                           placeholder="Username" hidden>
+                                                    <span>${ins.getEmail()}</span>
                                                 </div>
                                             </div>
                                             <hr>
                                             <div class="row">
-                                                <div class="col-sm-3">
+                                                <div class="col-sm-4">
                                                     <p class="mb-0">Date of birth</p>
                                                 </div>
-                                                <div class="col-sm-9">
+                                                <div class="col-sm-8">
                                                     <input type="date"
                                                            value="${ins.getDob()}"
-                                                           class="form-control px-4 py-2 fs-5 rounded-xl" value="28/12/2003"readonly>
+                                                           class="form-control px-4 py-2 fs-5 rounded-xl" 
+                                                           value="28/12/2003" hidden>
+                                                    <span>${ins.getDob()}</span>
                                                 </div>
                                             </div>
                                             <hr>
                                             <div class="row">
-                                                <div class="col-sm-3">
+                                                <div class="col-sm-4">
                                                     <p class="mb-0">Gender</p>
                                                 </div>
-                                                <div class="col-sm-9">
-                                                    <div class="w-25">
-                                                        <label for="" class="d-flex align-items-center me-3 fs-5">Nam</label>
-                                                        <input type="checkbox" class="custom-checkbox" name="gender"
-                                                               ${ins.isGender()==true?'checked':''}
-                                                               class=""disabled
-                                                               style="color: #fff; background-color: #007bff;">
-                                                    </div>
-                                                    <div class="w-25">
-                                                        <label for="" class="d-flex align-items-center me-3 fs-5">Nữ</label>
-                                                        <input type="checkbox" class="custom-checkbox"
-                                                               ${ins.isGender()==false?'checked':''}
-                                                               name="gender"disabled
-                                                               style="color: #fff; background-color: #007bff;">
-                                                    </div>
+                                                <div class="col-sm-8">
+                                                    <input type="text-muted mb-0" class="form-control px-4 py-2 fs-5 rounded-xl"
+                                                           value="${ins.isGender() ? 'Nam' : 'Nữ'}"
+                                                           placeholder="Username" hidden>
+                                                    <span>${ins.isGender() ? 'Nam' : 'Nữ'}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -151,7 +144,7 @@
             </c:if>
             <c:if test="${requestScope.currentChoice==IConstant.PROFILE_OPTION[1]}">
                 <form method="POST" action="profile">
-                    <div class="">
+                    <div class="mx-auto" style="max-width: 800px;">
                         <h2 class="text-center">Change password</h2>
                         <div class="mx-auto">
                             <div class="">
@@ -162,7 +155,8 @@
                                             <input type="password"
                                                    name="oldPas"
                                                    class="form-control px-4 py-2 fs-5 rounded-xl"
-                                                   placeholder="Current password"required>
+                                                   placeholder="Current password"
+                                                   required>
                                             <button class="btn btn-outline-secondary" type="button" id="togglePassword1">
                                                 <span id="eyeIcon"><i class="bi bi-eye-slash-fill"></i></span>
                                             </button>
@@ -195,8 +189,11 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    
+                    <div class="text-center mt-4">
                     <button type="submit" class="ms-5 mt-5 px-5 fs-5 border-0 bg-success text-white rounded">Change</button>
+                    </div>
+                        </div>
                 </form>
                 <script>
             document.getElementById("togglePassword1").addEventListener("click", function () {
