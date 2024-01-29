@@ -79,6 +79,7 @@ public class LoginController extends HttpServlet {
         
         AccountDBContext DAO = new AccountDBContext();
         Account a = DAO.ValidateAccount(username, password);
+        
 
         if (a == null) {
             request.setAttribute("mess", "Wrong username or password");
@@ -87,6 +88,14 @@ public class LoginController extends HttpServlet {
             HttpSession session = request.getSession();
             session.setAttribute("acc", a);
             session.setMaxInactiveInterval(100000);
+            Account getAccountId = DAO.getAccountIdByUsername(username);
+            String accountId=null;
+            if(getAccountId.getInstructor()!=null){
+                accountId=getAccountId.getInstructor().getId();
+            }else if(getAccountId.getStudent().getId()!=null){
+                accountId=getAccountId.getStudent().getId();
+            }
+            session.setAttribute("accountId", accountId);
             if (a.role_id == 1) {
                     response.sendRedirect(request.getContextPath()+"/academicStaff/home");
             }

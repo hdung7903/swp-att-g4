@@ -172,7 +172,7 @@ public class SessionDBContext extends DBContext<Session> {
 
             String sql = "SELECT total_slots\n"
                     + "FROM class_subject_mapping\n"
-                    + "WHERE class_id= ? and instructor_id= ?";
+                    + "WHERE csm_id= ? and instructor_id= ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, gid);
             stm.setString(2, iid);

@@ -63,7 +63,7 @@
                                     <tr class="text-center">
                                         <th style="font-size: 12px; white-space: nowrap;"></th>
                                         <th style="font-size: 12px; white-space: nowrap;">Student</th>
-                                        <th style="font-size: 12px;"><input type="checkbox" name="show image" id="toggleImageCheckbox" checked onclick="toggleImages()" />Image</th>
+                                        <th style="font-size: 12px;"><input type="checkbox" name="show image" id="toggleImageCheckbox" onclick="toggleImages()" />Image</th>
                                         <th style="font-size: 12px; white-space: nowrap;">Status</th>
                                         <th style="white-space: nowrap;">Description</th>
                                     </tr>

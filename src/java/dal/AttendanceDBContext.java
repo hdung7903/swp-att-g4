@@ -89,7 +89,6 @@ public class AttendanceDBContext extends DBContext<Attendance> {
 
                     Student student = attendanceMap.computeIfAbsent(studentName, k -> new Student(studentName, new Instructor(instructorName), new Subject(subjectName), email, new ArrayList<>()));
                     student.getAttendances().add(status);
-                    student.getAttendances().add(status);
 
                 }
             }
