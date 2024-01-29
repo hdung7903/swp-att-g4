@@ -19,7 +19,7 @@ import jakarta.servlet.http.HttpSession;
 
 /**
  *
- * @author leduy
+ * @author HP
  */
 public class UserProfileController extends HttpServlet {
 
@@ -112,12 +112,14 @@ public class UserProfileController extends HttpServlet {
         String newPassword = request.getParameter("newPas");
         String confirmPassword = request.getParameter("confirmPas");
         String mess = "Change password success";
+        //check currentPassword
         HttpSession session = request.getSession();
         Account acc = (Account) session.getAttribute("acc");
         String newURL = request.getContextPath();
         AccountDBContext daoAcc = new AccountDBContext();
         boolean isSuccess = false;
         if (acc == null) {
+            // Điều hướng đến Servlet khác và thay đổi đường dẫn
             response.sendRedirect(newURL + "/login-page");
         } else {
             if (daoAcc.ValidateAccount(acc.getUsername(), currentPassword) != null) {

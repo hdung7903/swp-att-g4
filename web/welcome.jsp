@@ -21,8 +21,8 @@
                 color: orange;
             }
             .image-container img {
-                width: 100%; 
-                border-radius: 8px; 
+                width: 100%;
+                border-radius: 8px;
                 display: block;
                 height: 650px;
             }
@@ -38,10 +38,9 @@
                 background-color: white;
                 color: orange;
             }
-             a.text-reset {
+            a.text-reset {
                 text-decoration: none;
             }
-
         </style>
     </head>
 

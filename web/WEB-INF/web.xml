@@ -41,10 +41,6 @@
         <servlet-class>controller.instructor.EditAttendanceController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ScheduleTodayController</servlet-name>
-        <servlet-class>controller.instructor.ScheduleTodayController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ViewClassListController</servlet-name>
         <servlet-class>controller.instructor.ViewClassListController</servlet-class>
     </servlet>
@@ -55,6 +51,26 @@
     <servlet>
         <servlet-name>InstructorViewAttendanceStatistic</servlet-name>
         <servlet-class>controller.instructor.ViewAttendanceStatistic</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ScheduleToday</servlet-name>
+        <servlet-class>controller.instructor.ScheduleToday</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>NewPassword</servlet-name>
+        <servlet-class>controller.account.NewPassword</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ForgotPasswordController</servlet-name>
+        <servlet-class>controller.account.ForgotPasswordController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ValidateOtp</servlet-name>
+        <servlet-class>controller.account.ValidateOtp</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserProfileController</servlet-name>
+        <servlet-class>controller.account.UserProfileController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>login</servlet-name>
@@ -97,10 +113,6 @@
         <url-pattern>/instructor/editatt</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ScheduleTodayController</servlet-name>
-        <url-pattern>/instructor/slottoday</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>ViewClassListController</servlet-name>
         <url-pattern>/instructor/viewclass</url-pattern>
     </servlet-mapping>
@@ -111,6 +123,26 @@
     <servlet-mapping>
         <servlet-name>InstructorViewAttendanceStatistic</servlet-name>
         <url-pattern>/instructor/attstatistic</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ScheduleToday</servlet-name>
+        <url-pattern>/instructor/slottoday</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NewPassword</servlet-name>
+        <url-pattern>/account/newPassword</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ForgotPasswordController</servlet-name>
+        <url-pattern>/account/forgotPassword</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ValidateOtp</servlet-name>
+        <url-pattern>/account/validateOtp</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserProfileController</servlet-name>
+        <url-pattern>/profile</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

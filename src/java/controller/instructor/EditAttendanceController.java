@@ -6,13 +6,11 @@ package controller.instructor;
 
 import dal.AttendanceDBContext;
 import dal.SessionDBContext;
-import entity.Account;
 import entity.Attendance;
 import entity.Session;
 import entity.Student;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -20,9 +18,8 @@ import java.util.ArrayList;
 
 /**
  *
- * @author leduy
+ * @author Admin
  */
-@WebServlet(name = "EditAttendanceController", urlPatterns = {"/instructor/editatt"})
 public class EditAttendanceController extends HttpServlet {
 
     /**
@@ -57,7 +54,6 @@ public class EditAttendanceController extends HttpServlet {
         ArrayList<Attendance> attendances = attDB.getAttendances(id);
 
         request.setAttribute("atts", attendances);
-
         request.getRequestDispatcher("../instructor/editatt.jsp").forward(request, response);
     }
 
@@ -70,26 +66,28 @@ public class EditAttendanceController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String[] stuids = request.getParameterValues("stuid");
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String[] stuids = request.getParameterValues("student_id");
         Session ses = new Session();
-        ses.setId(Integer.parseInt(request.getParameter("sesid")));
+        ses.setId(Integer.parseInt(request.getParameter("session_id")));
         ArrayList<Attendance> atts = new ArrayList<>();
-        for (String stuid : stuids) {
+        for (String stu_id : stuids) {
+            String student_id = stu_id;
             Attendance a = new Attendance();
             Student s = new Student();
-            s.setId(stuid);
+            s.setId(student_id);
             a.setStudent(s);
             a.setSession(ses);
-            a.setDescription(request.getParameter("description" + stuid));
-//            a.setStatus(request.getParameter("status" + stuid).equals("present"));
+            a.setDescription(request.getParameter("att_description" + stu_id));
+            a.setStatus(request.getParameter("status" + stu_id).equals("Present"));
             atts.add(a);
         }
         ses.setAtts(atts);
         SessionDBContext sesDB = new SessionDBContext();
         sesDB.addAttendances(ses);
         request.setAttribute("message", "Attendance updated!");
-        response.sendRedirect(request.getContextPath() + "/home");
+        response.sendRedirect(request.getContextPath() + "/instructor/schedule");
     }
 
     /**

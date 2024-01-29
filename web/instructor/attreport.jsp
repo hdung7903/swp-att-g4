@@ -1,50 +1,53 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Statistic</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <style>
-        body {
-            background: #f1f1f1;
-        }
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Statistic</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+        <style>
+            body {
+                background: #f1f1f1;
+            }
 
-        .container {
-            background: #fff;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            padding: 30px;
-            margin-top: 20px;
-        }
+            .container {
+                background: #fff;
+                border-radius: 10px;
+                box-shadow: 0 0 10px rgba(0,0,0,0.1);
+                padding: 30px;
+                margin-top: 20px;
+            }
 
-        h1 {
-            color: #6c757d;
-        }
+            h1 {
+                color: #6c757d;
+            }
 
-        .table {
-            background: #fff;
-            box-shadow: 0 0 5px rgba(0,0,0,0.05);
-        }
+            .table {
+                background: #fff;
+                box-shadow: 0 0 5px rgba(0,0,0,0.05);
+            }
 
-        .btn {
-            background: #6c757d;
-            color: #fff;
-        }
+            .btn {
+                background: #6c757d;
+                color: #fff;
+            }
 
-        .btn:hover {
-            background: #5a6268;
-        }
+            .btn:hover {
+                background: #5a6268;
+            }
 
-        .toggleImage {
-            width: 50px;
-            height: 50px;
-        }
+            .toggleImage {
+                width: 50px;
+                height: 50px;
+            }
 
-        @media (max-width: 767px) {
-            .table th, .table td {
-                white-space: normal;
+            @media (max-width: 767px) {
+                .table th, .table td {
+                    white-space: normal;
+                }
             }
         </style>
     </head>
@@ -54,13 +57,31 @@
             <div class="container my-5">                    
                 <h1 class="text-center">Attendance Statistics</h1> 
             </div>
+            <div class="my-3 container">
+                <form method="get" action="${pageContext.request.contextPath}/instructor/attstatistic" id="attendanceForm">
+                    <div class="row">
+                        <div class="form-group col ml-10">
+                            <label for="groupIdSelect">Select Group:</label>
+                            <select class="form-select" aria-label="Default select example" name="groupId" id="groupIdSelect">
+                                <option selected disabled>Select a Group</option>
+                                <c:forEach items="${requestScope.groupList}" var="group">
+                                    <option value="${group.gsm.id}" data-group-name="${group.name}">${group.name}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                        <div class="col mt-4">
+                            <button type="submit" class="btn btn-primary">View</button> 
+                        </div>
+                    </div>
+                </form>
+            </div>
+
             <div class="row">
                 <div class="col-md-12">
                     <div class="table-responsive-lg">                        
                         <table class="table table-bordered table-hover">
                             <thead class="thead-dark">
                                 <tr class="text-center">
-                                    <th>Student ID</th>
                                     <th style="font-size: 12px; white-space: nowrap;">Name</th>
                                     <th style="font-size: 12px;"><input type="checkbox" name="show image" id="toggleImageCheckbox" onclick="toggleImages()" />Image</th>
                                         <c:forEach var="i" begin="1" end="${totalSession}" varStatus="loop">
@@ -88,7 +109,7 @@
                                                 </c:choose>
                                             </td>
                                         </c:forEach>
-                                        <c:forEach var="i" begin="${entry.value.attendances.size()}" end="${totalSession}">
+                                        <c:forEach var="i" begin="${entry.value.attendances.size()+1}" end="${totalSession}">
                                             <td style="font-size: 12px;">-</td>
                                         </c:forEach>
                                         <c:set var="totalSessions" value="${totalSession}" />
@@ -96,8 +117,11 @@
                                         <td style="color: ${absentPercent < 20 ? "red" : "blue"};font-size: 12px;">${absentPercent}%</td>
                                         <td style="font-size: 12px;">
                                             <c:choose>
-                                                <c:when test="${absentPercent >= 20}">
-                                                    <a href="mailto:${entry.value.email}?subject=Warning: High Absentee Percentage&body=Your Attendance Percentage is now 20%. Don't absent any slot or you'll retry this Subject next Semester" style="color: yellow;">Warning</a>
+                                                <c:when test="${absentPercent >= 10 && absentPercent <= 20}">
+                                                    <a href="mailto:${entry.value.email}?subject=Warning: High Absentee Percentage Status&body=Dear ${entry.key},%0D%0A%0D%0AI want to notify you about the attendance percentage for Subject ${entry.value.subject.name}: ${absentPercent}% absent.%0D%0A%0D%0AI should note that it is important to attend school diligently in the coming time to ensure success in the exams (participate in a minimum of 80% of the study). As a rule, the school will not make a call to compensate for students for any reason if students do not attend the lesson, including missed lessons due to late class arrangement. Also, do not forget to check the daily attendance to promptly handle errors in attendance.%0D%0A%0D%0AWish you achieve good results!%0D%0ABest regards,%0D%0A%0D%0A${entry.value.instructor.name}" style="color: yellow;">Warning</a>
+                                                </c:when>
+                                                <c:when test="${absentPercent > 20}">
+                                                    <a style="color: red;">Missed Out</a> 
                                                 </c:when>
                                                 <c:otherwise>-</c:otherwise>
                                             </c:choose>
@@ -107,64 +131,25 @@
                             </tbody>
                         </table>
                     </div>
-=======
-        }
-    </style>
-</head>
-<body>
-    <div class="container-fluid">
-        <%@include file="./navbar.jsp" %> 
-        <div class="container my-5">                    
-            <h1 class="text-center">Attendance Statistics</h1> 
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="table-responsive-lg">                        
-                    <table class="table table-bordered table-hover">
-                        <thead class="thead-dark">
-                            <tr class="text-center">
-                                <th>Name</th>
-                                <th><input type="checkbox" name="show image" id="toggleImageCheckbox" onclick="toggleImages()" />Image</th>
-                                <!-- Loop for sessions -->
-                                <th>S 1</th>
-                                <th>S 2</th>
-                                <!-- Add more sessions as needed -->
-                                <th>Absent %</th>
-                                <th>Report</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Sample Row -->
-                            <tr class="text-center">
-                                <td>Name</td>
-                                <td><img class="toggleImage" src="https://cdn.discordapp.com/attachments/947741416992436235/1171005032691404921/profile.png?ex=655b1a6c&is=6548a56c&hm=428202d73c6b3e95f3b966e3840f79186e79afdc98a879ea0492fa4957d08806&" alt=""/></td>
-                                <!-- Loop for session status -->
-                                <td>P</td>
-                                <td>A</td>
-                                <!-- Add more session status as needed -->
-                                <td style="color: red;">20%</td>
-                                <td><a href="mailto:email@example.com?subject=Warning: High Absentee Percentage&body=Your Attendance Percentage is now 20%. Don't absent any slot or you'll retry this Subject next Semester" style="color: yellow;">Warning</a></td>
-                            </tr>
-                            <!-- End of Sample Row -->
-                        </tbody>
-                    </table>
->>>>>>> parent of 45c02ac (Update Instructor Attendance Statistic)
                 </div>
             </div>
         </div>
-    </div>
-
-    <script>
-        document.getElementById("toggleImageCheckbox").addEventListener("change", function () {
-            var images = document.getElementsByClassName('toggleImage');
-            for (var i = 0; i < images.length; i++) {
-                if (this.checked) {
-                    images[i].style.display = "none";
-                } else {
-                    images[i].style.display = "block";
+        <script>
+            document.getElementById("toggleImageCheckbox").addEventListener("change", function () {
+                var images = document.getElementsByClassName('toggleImage');
+                for (var i = 0; i < images.length; i++) {
+                    if (this.checked) {
+                        images[i].style.display = "none";
+                    } else {
+                        images[i].style.display = "block";
+                    }
                 }
-            }
-        });
-    </script>
-</body>
+            });
+
+            document.getElementById("groupIdSelect").addEventListener("change", function () {
+                var selectedOption = this.options[this.selectedIndex];
+                document.getElementById("groupNameInput").value = selectedOption.dataset.groupName;
+            });
+        </script>
+    </body>
 </html>

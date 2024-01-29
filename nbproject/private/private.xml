@@ -5,6 +5,7 @@
         <group>
             <file>file:/E:/SWP/AttendanceSystem/src/java/dal/AttendanceDBContext.java</file>
             <file>file:/E:/SWP/AttendanceSystem/web/WEB-INF/web.xml</file>
+            <file>file:/E:/SWP/AttendanceSystem/web/welcome.jsp</file>
             <file>file:/E:/SWP/AttendanceSystem/nbproject/build-impl.xml</file>
         </group>
     </open-files>

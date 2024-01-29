@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author leduy
+ * @author Admin
  */
 public class ViewAttendanceController extends HttpServlet {
 
@@ -44,7 +44,6 @@ public class ViewAttendanceController extends HttpServlet {
 
         request.setAttribute("atts", attendances);
         request.getRequestDispatcher("../instructor/viewatt.jsp").forward(request, response);
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

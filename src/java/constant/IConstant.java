@@ -9,5 +9,6 @@ package constant;
  * @author leduy
  */
 public class IConstant {
-     public static final String[] PROFILE_OPTION = new String[]{"information", "change password"};
+
+    public static final String[] PROFILE_OPTION = new String[]{"Information", "Change password"};
 }
