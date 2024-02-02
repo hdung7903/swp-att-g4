@@ -5,15 +5,12 @@
 package dal;
 
 import entity.Account;
-import dal.DBContext;
 import entity.Instructor;
 import entity.Student;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -33,7 +30,30 @@ public class AccountDBContext extends DBContext<Account>{
                 acc = new Account(
                         rs.getString("username"),
                         rs.getString("password"),
-                        rs.getInt("role_id")
+                        rs.getInt("role_id"),
+                        rs.getString("email")
+                        );
+                return acc;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return acc;
+    }
+    
+    public Account ValidateAccountByEmail(String email) {
+        String sql = "Select * from Account where email = ?";
+        Account acc = null;
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, email);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {                
+                acc = new Account(
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getInt("role_id"),
+                        rs.getString("email")
                         );
                 return acc;
             }

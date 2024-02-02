@@ -19,25 +19,19 @@ public class Account extends BaseEntity{
     public Account() {
     }
 
-    public Account(String username, String password, int role_id) {
+    public Account(String username, String password, int role_id, String email) {
         this.username = username;
         this.password = password;
         this.role_id = role_id;
+        this.email = email;
     }
 
-    
     public Account(int role_id, String username, String password, Instructor instructor, Student student) {
         this.role_id = role_id;
         this.username = username;
         this.password = password;
         this.instructor = instructor;
         this.student = student;
-    }
-
-    public Account(String username, String password, String email) {
-        this.username = username;
-        this.password = password;
-        this.email = email;
     }
 
     public String getUsername() {

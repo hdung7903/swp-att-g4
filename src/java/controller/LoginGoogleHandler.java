@@ -7,6 +7,8 @@ package controller;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import dal.AccountDBContext;
+import entity.Account;
 import entity.UserGoogleDAO;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -14,6 +16,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.fluent.Form;
 import org.apache.http.client.fluent.Request;
@@ -40,7 +43,34 @@ public class LoginGoogleHandler extends HttpServlet {
 		String accessToken = getToken(code);
 		UserGoogleDAO user = getUserInfo(accessToken);
 		System.out.println(user);
-	}
+        String email = user.getEmail();
+        AccountDBContext DAO = new AccountDBContext();
+        Account a = DAO.ValidateAccountByEmail(email);
+        String username = a.getUsername();
+        Account accountId = DAO.getAccountIdByUsername(username);        
+        
+        if(a == null){
+            request.setAttribute("mess", "Wrong username or password");
+            request.getRequestDispatcher("Login.jsp").forward(request, response);
+        }else{
+            HttpSession session = request.getSession();
+            session.setAttribute("acc", a);
+            session.setAttribute("accountId", accountId);
+            session.setMaxInactiveInterval(100000);
+            if(a.role_id == 1){
+               response.sendRedirect("academicStaff/home.jsp");
+            }
+            if(a.role_id == 2){
+                response.sendRedirect("admin/home.jsp");
+            }
+            if(a.role_id == 3){
+                response.sendRedirect("instructor/home.jsp");
+            }
+            if(a.role_id == 4){
+                response.sendRedirect("student/home.jsp");
+            }
+        }    
+    }
 
 	public static String getToken(String code) throws ClientProtocolException, IOException {
 		// call api to get token
