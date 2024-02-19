@@ -56,7 +56,10 @@
             a.text-reset {
                 text-decoration: none;
             }
-
+            body {
+                max-width: 100%;
+                overflow-x: hidden;
+            }
         </style>
     </head>
     <body>
@@ -80,10 +83,6 @@
                         <a href="mailto:dichvusinhvien@fe.edu.vn" class="me-4 text-reset" target="_blank">
                             <i class="bi bi-google"></i> dichvusinhvien@fe.edu.vn
                         </a>
-                        <a href="https://www.facebook.com/profile.php?id=100013384535090" class="me-4 text-reset" target="_blank">
-                            <i class="bi bi-instagram"></i>
-                        </a>
-
                     </div>
                 </section>
             </div>
@@ -171,6 +170,5 @@
                 </div>
             </div>
         </div>
-
     </body>
 </html>

@@ -39,6 +39,28 @@ public class AccountDBContext extends DBContext<Account> {
         return acc;
     }
 
+    public Account ValidateAccountByEmail(String email) {
+        String sql = "Select * from Account where email = ?";
+        Account acc = null;
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, email);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                acc = new Account(
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getInt("role_id"),
+                        rs.getString("email")
+                );
+                return acc;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return acc;
+    }
+
     public boolean resetPassword(String email, String username, String newPassword) {
         boolean success = false;
         String sql = "UPDATE `swp`.`account`\n"
@@ -160,8 +182,7 @@ public class AccountDBContext extends DBContext<Account> {
         }
         return haveChange > 0;
     }
-   
-    
+
     @Override
     public ArrayList<Account> list() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

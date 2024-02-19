@@ -26,11 +26,12 @@ public class Student extends BaseEntity{
     private List<Boolean> attendances;
     private Instructor instructor;
     private Subject subject;
+    private List<Date> sesDate=new ArrayList<>();
 
     public Student() {
     }
 
-    public Student(String id, String name, String username, String email, Date dob, boolean gender, boolean isDeleted, List<Boolean> attendances) {
+    public Student(String id, String name, String username, String email, Date dob, boolean gender, boolean isDeleted, List<Boolean> attendances, Instructor instructor, Subject subject) {
         this.id = id;
         this.name = name;
         this.username = username;
@@ -39,11 +40,21 @@ public class Student extends BaseEntity{
         this.gender = gender;
         this.isDeleted = isDeleted;
         this.attendances = attendances;
+        this.instructor = instructor;
+        this.subject = subject;
     }
 
     public Student(String name,Instructor instructor,Subject subject, String email, List<Boolean> attendances) {
         this.name = name;
         this.email = email;
+        this.instructor=instructor;
+        this.subject=subject;
+        this.attendances = attendances;
+    }
+    
+    public Student(String name,Instructor instructor,Subject subject, List<Date> sesDate, List<Boolean> attendances) {
+        this.name = name;
+        this.sesDate = sesDate;
         this.instructor=instructor;
         this.subject=subject;
         this.attendances = attendances;
@@ -153,5 +164,14 @@ public class Student extends BaseEntity{
     public void setSubject(Subject subject) {
         this.subject = subject;
     }
+
+    public List<Date> getSesDate() {
+        return sesDate;
+    }
+
+    public void setSesDate(List<Date> sesDate) {
+        this.sesDate = sesDate;
+    }
+
     
 }

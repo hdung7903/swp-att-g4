@@ -34,6 +34,12 @@ public class Account extends BaseEntity {
         this.email = email;
     }
 
+    public Account( String username, String password,int role_id, String email) {       
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.role_id = role_id;
+    }
 
     public Instructor getInstructor() {
         return instructor;

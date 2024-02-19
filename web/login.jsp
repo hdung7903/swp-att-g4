@@ -1,10 +1,10 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Login</title>
         <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -29,13 +29,13 @@
 
             .img {
                 flex: 1;
-                max-width: 50%; /* Điều chỉnh chiều rộng của hình ảnh */
+                max-width: 50%; 
             }
 
             .login-wrap {
                 flex: 1;
                 max-width: 50%;
-                margin-top: 120px;/* Điều chỉnh chiều rộng của biểu mẫu đăng nhập */
+                margin-top: 120px;
             }
             .container{
                 margin: 0!important;

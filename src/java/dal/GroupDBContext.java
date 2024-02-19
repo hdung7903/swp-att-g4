@@ -7,6 +7,7 @@ package dal;
 import entity.Group;
 import entity.GroupSubjectMapping;
 import entity.Instructor;
+import entity.Subject;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.ArrayList;
@@ -62,6 +63,36 @@ public class GroupDBContext extends DBContext<Group> {
                 GroupSubjectMapping gsm = new GroupSubjectMapping();
                 gsm.setId(rs.getInt("csm_id"));
                 g.setGsm(gsm);
+                groups.add(g);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(GroupDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return groups;
+    }
+
+    public ArrayList<Group> getStudentGroup(String stuid) {
+        ArrayList<Group> groups = new ArrayList<>();
+        try {
+            String sql = "SELECT su.subject_name,c.class_name,csm.csm_id\n"
+                    + "FROM class_subject_mapping csm\n"
+                    + "INNER JOIN class c ON c.class_id=csm.class_id\n"
+                    + "INNER JOIN subject su ON su.subject_id=csm.subject_id \n"
+                    + "INNER JOIN student_class_mapping scm ON scm.class_id=c.class_id\n"
+                    + "INNER JOIN student s ON s.student_id=scm.student_id\n"
+                    + "WHERE s.student_id=?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, stuid);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Group g = new Group();
+                g.setName(rs.getString("class_name"));
+                GroupSubjectMapping gsm = new GroupSubjectMapping();
+                gsm.setId(rs.getInt("csm_id"));
+                g.setGsm(gsm);
+                Subject subject=new Subject();
+                subject.setName(rs.getString("subject_name"));
+                g.setSubject(subject);
                 groups.add(g);
             }
         } catch (SQLException ex) {
