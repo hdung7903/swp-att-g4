@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller.instructor;
+package controller.student;
 
 //import controller.authentication.BasedAuthorizationController;
 //import controller.authentication.BasedRequiredAuthenticationController;
@@ -38,7 +38,7 @@ public class ScheduleTodayController extends HttpServlet { //extends BasedAuthor
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            String instructorid = request.getParameter("id");
+            String studentid = request.getParameter("id");
             String dateStr = request.getParameter("date");
 
             java.sql.Date sqlDate;
@@ -51,11 +51,11 @@ public class ScheduleTodayController extends HttpServlet { //extends BasedAuthor
             }
 
             SessionDBContext sessionDB = new SessionDBContext();
-            List<Session> sessions = sessionDB.getSessionsByInstructorToday(instructorid, sqlDate);
+            List<Session> sessions = sessionDB.getSessionsByStudentToday(studentid, sqlDate);
 
             request.setAttribute("sessions", sessions);
             request.setAttribute("date", sqlDate);
-            request.getRequestDispatcher("../instructor/slottoday.jsp").forward(request, response);
+            request.getRequestDispatcher("../student/slottoday.jsp").forward(request, response);
 
         } catch (ParseException ex) {
             Logger.getLogger(ScheduleTodayController.class.getName()).log(Level.SEVERE, null, ex);

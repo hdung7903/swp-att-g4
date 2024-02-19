@@ -55,6 +55,7 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String rememberMe = request.getParameter("remember");
@@ -79,12 +80,13 @@ public class LoginController extends HttpServlet {
 
         AccountDBContext DAO = new AccountDBContext();
         Account a = DAO.ValidateAccount(username, password);
+        AccountDBContext DAL = new AccountDBContext();
+        Account accId = DAL.getAccountIdByUsername(username);
 
         if (a == null) {
             request.setAttribute("mess", "Wrong username or password");
             request.getRequestDispatcher("./login.jsp").forward(request, response);
         } else {
-            HttpSession session = request.getSession();
             session.setAttribute("acc", a);
             session.setMaxInactiveInterval(100000);
             if (a.role_id == 1) {
@@ -100,7 +102,8 @@ public class LoginController extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/student/home");
             }
         }
-
+        session.setAttribute("accId", accId);
+        session.setMaxInactiveInterval(100000);
     }
 
     /**

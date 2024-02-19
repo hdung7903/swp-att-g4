@@ -45,7 +45,7 @@
             <div class="container my-5">
                 <h1 class="text-center mb-4">Timetable</h1>
                 <div class="form-floating">
-                    <form action="${pageContext.request.contextPath}/instructor/slottoday" method="get" class="justify-content-center mb-3">
+                    <form action="${pageContext.request.contextPath}/student/slottoday" method="get" class="justify-content-center mb-3">
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="date" class="mr-2">Date</label>
@@ -54,7 +54,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <input type="hidden" value="${sessionScope.accId.instructor.id}" name="id" readonly />
+                                <input type="hidden" value="${sessionScope.accId.student.id}" name="id" readonly />
                                 <button type="submit" class="btn btn-primary">View</button>
                             </div>
                         </div>
@@ -70,7 +70,7 @@
                                     <th>Time Slot</th>
                                     <th>Group</th>
                                     <th>Subject</th>
-                                    <th>Action</th>
+                                    <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -81,14 +81,22 @@
                                             <td>${ses.time.description}</td>
                                             <td>${ses.group.name}</td> 
                                             <td>${ses.subject.name}</td>
-                                            <c:choose>
-                                                <c:when test="${ses.isAtt == true}">
-                                                    <td><a href="${pageContext.request.contextPath}/instructor/viewatt?id=${ses.id}" class="btn btn-success">View Attendance</a></td>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <td><a href="${pageContext.request.contextPath}/instructor/takeatt?id=${ses.id}" class="btn btn-primary">Take Attendance</a></td>
-                                                </c:otherwise>
-                                            </c:choose>
+                                            <td><c:choose>
+                                                    <c:when test="${ses.isAtt}">
+                                                        <c:choose>
+                                                            <c:when test="${ses.attendance.status}">
+                                                                <span style="color: green;">(Attended)</span>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <span style="color: red;">(Absent)</span>
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <span style="color: orange;">(Not yet)</span>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </td>
                                         </tr>
                                     </c:forEach>
                                 </c:if>

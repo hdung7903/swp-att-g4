@@ -61,6 +61,8 @@ public class AttendanceDBContext extends DBContext<Attendance> {
         }
         return atts;
     }
+    
+    
 
     public Map<String, Student> getAttendanceRecords(String groupId) throws SQLException {
         Map<String, Student> attendanceMap = new HashMap<>();

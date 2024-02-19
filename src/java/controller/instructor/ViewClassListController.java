@@ -37,7 +37,7 @@ public class ViewClassListController extends HttpServlet {
         ArrayList<GroupSubjectMapping> gsm = group.list();
         
         request.setAttribute("gsm", gsm);
-        request.getRequestDispatcher("../instructor/viewatt.jsp").forward(request, response);
+        request.getRequestDispatcher("../instructor/classlist.jsp").forward(request, response);
 
     }
 

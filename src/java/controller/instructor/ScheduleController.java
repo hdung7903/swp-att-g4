@@ -6,11 +6,7 @@ package controller.instructor;
 
 import dal.SessionDBContext;
 import dal.TimeSlotDBContext;
-import entity.Group;
-import entity.GroupSubjectMapping;
-import entity.Instructor;
 import entity.Session;
-import entity.Subject;
 import entity.TimeSlot;
 import java.io.IOException;
 import jakarta.servlet.ServletException;

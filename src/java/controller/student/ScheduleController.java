@@ -9,15 +9,14 @@ import dal.TimeSlotDBContext;
 import entity.Session;
 import entity.TimeSlot;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.sql.Date;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import util.DateTimeHelper;
@@ -39,7 +38,7 @@ public class ScheduleController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String instructorId = request.getParameter("id");
+        String studentId = request.getParameter("id");
         String r_from = request.getParameter("from");
         String r_to = request.getParameter("to");
         ArrayList<Date> dates = new ArrayList<>();
@@ -57,7 +56,7 @@ public class ScheduleController extends HttpServlet {
                     dates = DateTimeHelper.getSqlDatesInRange(r_from, r_to);
                 }
             } catch (ParseException ex) {
-                Logger.getLogger(controller.instructor.ScheduleController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ScheduleController.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else if (r_from == null) {
             dates = DateTimeHelper.getCurrentWeekDates();
@@ -67,7 +66,7 @@ public class ScheduleController extends HttpServlet {
         ArrayList<TimeSlot> slots = timeDB.list();
 
         SessionDBContext sessDB = new SessionDBContext();
-        ArrayList<Session> sessions = sessDB.getSessionsByInstructor(instructorId, dates.get(0), dates.get(dates.size() - 1));
+        ArrayList<Session> sessions = sessDB.getSessionsByStudent(studentId, dates.get(0), dates.get(dates.size() - 1));
 
         request.setAttribute("slots", slots);
         request.setAttribute("dates", dates);

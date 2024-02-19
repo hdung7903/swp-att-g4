@@ -43,7 +43,7 @@ public class AccountDBContext extends DBContext<Account> {
     }
 
     public Account getAccountIdByUsername(String username) {
-        String sql = "SELECT s.student_id, i.instructor_id,s.email as student_email,i.email as instructor_email\n"
+        String sql = "SELECT acc.username, s.student_id, i.instructor_id,s.email as student_email,i.email as instructor_email\n"
                 + "FROM Account acc \n"
                 + "LEFT JOIN Student s ON s.username = acc.username \n"
                 + "LEFT JOIN Instructor i ON i.username = acc.username \n"
@@ -54,15 +54,17 @@ public class AccountDBContext extends DBContext<Account> {
             st.setString(1, username);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
+                Account account = new Account();
+                account.setUsername(rs.getString("username"));
                 Student student = new Student();
                 student.setId(rs.getString("student_id"));
                 student.setEmail(rs.getString("student_email"));
-                acc.setStudent(student);
+                account.setStudent(student);
                 Instructor instructor = new Instructor();
                 instructor.setId(rs.getString("instructor_id"));
                 instructor.setEmail(rs.getString("instructor_email"));
-                acc.setInstructor(instructor);
-                return acc;
+                account.setInstructor(instructor);
+                return account;
             }
         } catch (SQLException e) {
             System.out.println(e);

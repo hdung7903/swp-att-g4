@@ -52,9 +52,17 @@ public class TakeAttendanceController extends HttpServlet {
 
         AttendanceDBContext attDB = new AttendanceDBContext();
         ArrayList<Attendance> attendances = attDB.getAttendances(id);
-
-        request.setAttribute("atts", attendances);
-        request.getRequestDispatcher("../instructor/takeatt.jsp").forward(request, response);
+        if (attendances.isEmpty()) {
+            SessionDBContext createDB = new SessionDBContext();
+            Session sess = createDB.get(s);
+            createDB.createAttendances(s);
+            request.setAttribute("sess", sess);
+            request.setAttribute("createDB", createDB);
+            request.getRequestDispatcher("../instructor/takeatt.jsp").forward(request, response);
+        } else {
+            request.setAttribute("atts", attendances);
+            request.getRequestDispatcher("../instructor/takeatt.jsp").forward(request, response);
+        }
     }
 
     /**
