@@ -4,39 +4,26 @@
  */
 package dal;
 
-import entity.Group;
+import entity.Instructor;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
+
 /**
  *
- * @author anhye
+ * @author Administrator
  */
-public class GroupDBContext extends DBContext<Group> {
-    public void insertClass(String name, String link_url){
-        String sql = "INSERT INTO Class (class_name, link_url) VALUES (?, ?);";
-        try{
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setString(1,  name);
-            ps.setString(2,  link_url);
-            
-            ps.executeUpdate();
-        }catch(SQLException e){
-            System.out.println(e);
-        }
-    }
-    
-    public List<Group> getAllClass() throws SQLException{
-        List<Group> list = new ArrayList<>();
-        String sql = "SELECT * FROM swp391_g4_ver1.class;";
+public class InstructorDBContext extends DBContext<Instructor> {
+    public List<Instructor> getAllInstructor() throws SQLException{
+        List<Instructor> list = new ArrayList<>();
+        String sql = "SELECT * FROM swp391_g4_ver1.instructor";
         try{
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                list.add(new Group(rs.getString(1), 
+                list.add(new Instructor(rs.getString(1), 
                         rs.getString(2), 
                         rs.getString(3)));
             }        
@@ -45,32 +32,28 @@ public class GroupDBContext extends DBContext<Group> {
         }     
         return list;    
     }
-
-    
-
     @Override
-    public ArrayList<Group> list() {
+    public ArrayList<Instructor> list() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public void insert(Group entity) {
+    public void insert(Instructor entity) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public void update(Group entity) {
+    public void update(Instructor entity) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public void delete(Group entity) {
+    public void delete(Instructor entity) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public Group get(Group entity) {
+    public Instructor get(Instructor entity) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
 }

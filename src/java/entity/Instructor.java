@@ -43,7 +43,11 @@ public class Instructor extends BaseEntity {
         this.gender = gender;
     }
 
-    
+    public Instructor(String id, String name, String username) {
+        this.id = id;
+        this.name = name;
+        this.username = username;
+    }
 
     public ArrayList<Session> getSessions() {
         return sessions;

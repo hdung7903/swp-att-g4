@@ -45,10 +45,9 @@ CREATE TABLE Instructor (
 
 -- Table: Class
 CREATE TABLE Class (
-    class_id VARCHAR(150) NOT NULL,
+    class_id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
     class_name VARCHAR(150) NOT NULL,
-    link_url VARCHAR(150) NOT NULL,
-    PRIMARY KEY (class_id)
+    link_url VARCHAR(150) NOT NULL
 );
 
 -- Table: Subject
@@ -60,12 +59,11 @@ CREATE TABLE Subject (
 
 -- Table: Class_subject_mapping
 CREATE TABLE Class_subject_mapping (
-    csm_id INT NOT NULL,
-    class_id VARCHAR(150) NOT NULL,
+    csm_id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    class_id int NOT NULL,
     subject_id VARCHAR(150) NOT NULL,
     total_slots INT NOT NULL,
     instructor_id VARCHAR(150) NOT NULL,
-    PRIMARY KEY (csm_id),
     FOREIGN KEY (class_id) REFERENCES Class (class_id),
     FOREIGN KEY (instructor_id) REFERENCES Instructor (instructor_id),
     FOREIGN KEY (subject_id) REFERENCES Subject (subject_id)
@@ -635,13 +633,42 @@ FROM
 
 USE swp391_g4_ver1;
 
+
+ALTER TABLE `swp391_g4_ver1`.`class_subject_mapping` 
+CHANGE COLUMN `class_id` `class_id` int NOT NULL ;
+ALTER TABLE `swp391_g4_ver1`.`class_subject_mapping` 
+ADD CONSTRAINT `class_subject_mapping_ibfk_1`
+  FOREIGN KEY (`class_id`)
+  REFERENCES `swp391_g4_ver1`.`class` (`class_id`);
+
+USE swp391_g4_ver1;  
+ALTER TABLE `swp391_g4_ver1`.`student_class_mapping` 
+CHANGE COLUMN `class_id` `class_id` int NOT NULL ;
+ALTER TABLE `swp391_g4_ver1`.`student_class_mapping` 
+ADD CONSTRAINT `student_class_mapping_ibfk_1`
+  FOREIGN KEY (`class_id`)
+  REFERENCES `swp391_g4_ver1`.`class` (`class_id`);
+
+USE swp391_g4_ver1; 
+ALTER TABLE `swp391_g4_ver1`.`session` 
+CHANGE COLUMN `csm_id` `csm_id` INT NULL ;
+ALTER TABLE `swp391_g4_ver1`.`session` 
+ADD CONSTRAINT `session_ibfk_1`
+  FOREIGN KEY (`csm_id`)
+  REFERENCES `swp391_g4_ver1`.`class_subject_mapping` (`csm_id`);
+DROP TABLE class;
+INSERT INTO Class (class_name, link_url)
+VALUES
+('SE1767', 'meet.google.com/xcs-aron-iyz');
+
+
 -- Update password for academic staff member with username 'staff'
 UPDATE Account
 SET password = '456'  -- replace 'new_password' with the actual new password
 WHERE username = 'staff';
 
-DROP TABLE Session;
-DROP TABLE Attendance;
+
+DROP TABLE class_subject_mapping;
 
 
 select * from Role;

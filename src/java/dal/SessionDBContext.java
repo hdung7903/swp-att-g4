@@ -55,7 +55,7 @@ public class SessionDBContext extends DBContext<Session> {
                 gsm.setId(rs.getInt("csm_id"));
                 session.setGsm(gsm);
                 Group group = new Group();
-                group.setName(rs.getString("class_name"));
+                group.setClass_name(rs.getString("class_name"));
                 group.setLink_url(rs.getString("link_url"));
                 session.setGroup(group);
                 Subject subject = new Subject();
@@ -103,7 +103,7 @@ public class SessionDBContext extends DBContext<Session> {
                 session.getGsm();
                 Group group = new Group();
                 group.setId(rs.getString("class_id"));
-                group.setName(rs.getString("class_name"));
+                group.setClass_name(rs.getString("class_name"));
                 group.setLink_url(rs.getString("link_url"));
                 session.getGroup();
                 Subject subject = new Subject();
@@ -252,7 +252,7 @@ public class SessionDBContext extends DBContext<Session> {
                 session.setTime(t);
                 Group g = new Group();
                 g.setId(rs.getString("class_id"));
-                g.setName(rs.getString("class_name"));
+                g.setClass_name(rs.getString("class_name"));
                 session.setGroup(g);
                 Subject subject = new Subject();
                 subject.setId(rs.getString("subject_id"));

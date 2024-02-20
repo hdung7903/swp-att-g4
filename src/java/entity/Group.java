@@ -12,16 +12,21 @@ import java.util.ArrayList;
  */
 public class Group extends BaseEntity {
     private String id;
-    private String name;
+    private String class_name;
     private String link_url;
     private ArrayList<Session> sessions = new ArrayList<>();
 
     public Group() {
     }
 
-    public Group(String id, String name, String link_url) {
+    public Group(String id, String class_name, String link_url) {
         this.id = id;
-        this.name = name;
+        this.class_name = class_name;
+        this.link_url = link_url;
+    }
+
+    public Group(String class_name, String link_url) {
+        this.class_name = class_name;
         this.link_url = link_url;
     }
 
@@ -33,13 +38,13 @@ public class Group extends BaseEntity {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getClass_name() {
+        return class_name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }    
+    public void setClass_name(String class_name) {
+        this.class_name = class_name;
+    }
 
     public String getLink_url() {
         return link_url;
