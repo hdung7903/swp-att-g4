@@ -1,54 +1,103 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Statistic</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-</head>
-<body>
-    <div class="container-fluid">
-        <%@include file="./navbar.jsp" %> 
-        <div class="container my-5">                    
-            <h1 class="text-center">Attendance Statistics</h1> 
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="table-responsive-lg">                        
-                    <table class="table table-bordered table-hover">
-                        <thead class="thead-dark">
-                            <tr class="text-center">
-                                <th>Name</th>
-                                <th><input type="checkbox" name="show image" id="toggleImageCheckbox" onclick="toggleImages()" />Image</th>
-                                <!-- Loop for sessions -->
-                                <th>S 1</th>
-                                <th>S 2</th>
-                                <!-- Add more sessions as needed -->
-                                <th>Absent %</th>
-                                <th>Report</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Sample Row -->
-                            <tr class="text-center">
-                                <td>Name</td>
-                                <td><img class="toggleImage" src="https://cdn.discordapp.com/attachments/947741416992436235/1171005032691404921/profile.png?ex=655b1a6c&is=6548a56c&hm=428202d73c6b3e95f3b966e3840f79186e79afdc98a879ea0492fa4957d08806&" alt=""/></td>
-                                <!-- Loop for session status -->
-                                <td>P</td>
-                                <td>A</td>
-                                <!-- Add more session status as needed -->
-                                <td style="color: red;">20%</td>
-                                <td><a href="mailto:email@example.com?subject=Warning: High Absentee Percentage&body=Your Attendance Percentage is now 20%. Don't absent any slot or you'll retry this Subject next Semester" style="color: yellow;">Warning</a></td>
-                            </tr>
-                            <!-- End of Sample Row -->
-                        </tbody>
-                    </table>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Statistic</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    </head>
+    <body>
+        <div class="container-fluid">
+            <%@include file="./navbar.jsp" %> 
+            <div class="container my-5">                    
+                <h1 class="display-4 text-center">Attendance Statistics</h1> 
+            </div>
+            <div class="row">
+                <div class="my-3 container">
+                    <form method="get" action="${pageContext.request.contextPath}/student/attreport" id="attendanceForm">
+                        <div class="row">
+                            <div class="form-group col ml-10">
+                                <label for="csmIdSelect">Choose a class from the list:</label>
+                                <select class="form-select" aria-label="Default select example" name="csmId" id="csmIdSelect">
+                                    <option selected disabled>Select a Group</option>
+                                    <c:forEach items="${requestScope.groupList}" var="group">
+                                        <option value="${group.gsm.id}" data-group-name="${group.name}">
+                                            ${group.name}-${group.subject.name}
+                                        </option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+                            <div class="col mt-4">
+                                <button type="submit" class="btn btn-primary">View</button>
+                            </div>
+                        </div>
+                    </form>                                   
                 </div>
+                <table class="table table-striped table-bordered">
+                    <tbody class="table-dark text-center">
+                        <tr></tr>
+                    </tbody>
+                    <thead class="text-center">
+                        <tr>
+                            <th>Date</th>
+                            <th>Slot</th>
+                            <th>Lecturer</th>
+                            <th>Group Name</th>
+                            <th>Attendance Status</th>
+                            <th>Lecturer's Comment</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-center">
+                        <c:set var="absentSessions" value="0" />
+                        <c:forEach items="${requestScope.statusRecord}" var="record">                                
+                            <tr>
+                                <td>
+                                    <fmt:formatDate value="${record.session.date}" pattern="dd-MM-yyyy" />
+                                </td>
+                                <td>${record.timeslot.description}</td>
+                                <td>${record.instructor.name}</td>
+                                <td>${record.group.name}</td>
+                                <td>
+                                    <c:choose>
+                                        <c:when test="${record.session.isAtt}">
+                                            <c:choose>
+                                                <c:when test="${record.status}">
+                                                    Present
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <c:set var="absentSessions" value="${absentSessions + 1}" />
+                                                    Absent
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:when>
+                                        <c:otherwise>
+                                            -
+                                        </c:otherwise>
+                                    </c:choose>
+                                </td>
+
+                                <td>${record.description}</td>
+                            </tr>
+                        </c:forEach>
+                        <c:set var="totalSessions" value="${requestScope.totalSession}" />
+                        <c:set var="absentPercent" value="${(absentSessions / totalSessions) * 100}" />
+                    </tbody>
+                    <tfoot class="table-light">
+                        <tr>
+                            <td colspan="7" class="ms-3">
+                                <b>Absent</b>: ${absentPercent}% absent so far.
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+
             </div>
         </div>
-    </div>
-
+    </body>
     <script>
         document.getElementById("toggleImageCheckbox").addEventListener("change", function () {
             var images = document.getElementsByClassName('toggleImage');
@@ -60,6 +109,10 @@
                 }
             }
         });
+
+        document.getElementById("groupIdSelect").addEventListener("change", function () {
+            var selectedOption = this.options[this.selectedIndex];
+            document.getElementById("groupNameInput").value = selectedOption.dataset.groupName;
+        });
     </script>
-</body>
 </html>

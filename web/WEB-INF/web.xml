@@ -41,12 +41,64 @@
         <servlet-class>controller.instructor.EditAttendanceController</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ViewClassListController</servlet-name>
+        <servlet-class>controller.instructor.ViewClassListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewAttendanceController</servlet-name>
+        <servlet-class>controller.instructor.ViewAttendanceController</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>InstructorViewAttendanceStatistic</servlet-name>
         <servlet-class>controller.instructor.ViewAttendanceStatistic</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ManageAccController</servlet-name>
-        <servlet-class>controller.admin.ManageAccController</servlet-class>
+        <servlet-name>ScheduleToday</servlet-name>
+        <servlet-class>controller.instructor.ScheduleToday</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>NewPassword</servlet-name>
+        <servlet-class>controller.account.NewPassword</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ForgotPasswordController</servlet-name>
+        <servlet-class>controller.account.ForgotPasswordController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ValidateOtp</servlet-name>
+        <servlet-class>controller.account.ValidateOtp</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserProfileController</servlet-name>
+        <servlet-class>controller.account.UserProfileController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ScheduleTodayController</servlet-name>
+        <servlet-class>controller.instructor.ScheduleTodayController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewAttendanceStatistic</servlet-name>
+        <servlet-class>controller.student.ViewAttendanceStatistic</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoginGoogleHandler</servlet-name>
+        <servlet-class>controller.account.LoginGoogleHandler</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminHomeController</servlet-name>
+        <servlet-class>controller.admin.HomeController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManageAccountController</servlet-name>
+        <servlet-class>controller.admin.ManageAccountController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateAccount</servlet-name>
+        <servlet-class>controller.admin.CreateAccount</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchAttendanceStatistic</servlet-name>
+        <servlet-class>controller.admin.SearchAttendanceStatistic</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>login</servlet-name>
@@ -66,7 +118,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AcademicHomeController</servlet-name>
-        <url-pattern>/academic/home</url-pattern>
+        <url-pattern>/acad/home</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>WelcomePage</servlet-name>
@@ -89,24 +141,60 @@
         <url-pattern>/instructor/editatt</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>ViewClassListController</servlet-name>
+        <url-pattern>/instructor/viewclass</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewAttendanceController</servlet-name>
+        <url-pattern>/instructor/viewatt</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>InstructorViewAttendanceStatistic</servlet-name>
         <url-pattern>/instructor/attstatistic</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ManageAccController</servlet-name>
-        <url-pattern>/admin/ManageAccController</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>ProfileController</servlet-name>
-        <servlet-class>controller.account.ProfileController</servlet-class>
-    </servlet>
-     <servlet-mapping>
-        <servlet-name>ProfileController</servlet-name>
-        <url-pattern>/instructor/profile</url-pattern>
+        <servlet-name>NewPassword</servlet-name>
+        <url-pattern>/account/newPassword</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ProfileController</servlet-name>
-        <url-pattern>/student/profile</url-pattern>
+        <servlet-name>ForgotPasswordController</servlet-name>
+        <url-pattern>/account/forgotPassword</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ValidateOtp</servlet-name>
+        <url-pattern>/account/validateOtp</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserProfileController</servlet-name>
+        <url-pattern>/profile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ScheduleTodayController</servlet-name>
+        <url-pattern>/instructor/slottoday</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewAttendanceStatistic</servlet-name>
+        <url-pattern>/student/attreport</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoginGoogleHandler</servlet-name>
+        <url-pattern>/LoginGoogleHandler</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminHomeController</servlet-name>
+        <url-pattern>/admin/home</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageAccountController</servlet-name>
+        <url-pattern>/admin/manageacc</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateAccount</servlet-name>
+        <url-pattern>/admin/createacc</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchAttendanceStatistic</servlet-name>
+        <url-pattern>/admin/searchattstatistic</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -2,13 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller.instructor;
+package controller.student;
 
 import dal.AttendanceDBContext;
 import dal.GroupDBContext;
 import dal.SessionDBContext;
+import entity.Attendance;
 import entity.Group;
-import entity.Student;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -17,7 +17,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Map;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -33,36 +35,34 @@ public class ViewAttendanceStatistic extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
+     * @throws java.sql.SQLException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         AttendanceDBContext attdb = new AttendanceDBContext();
-        SessionDBContext sesdb = new SessionDBContext();
         GroupDBContext gdb = new GroupDBContext();
+        SessionDBContext sesdb = new SessionDBContext();
         HttpSession session = request.getSession();
         String id = (String) session.getAttribute("accountId");
 
-        if (request.getParameter("groupId") != null) {
-            int groupId = Integer.parseInt(request.getParameter("groupId"));
-
-            int totalSession = sesdb.getTotalSession(groupId, id);
-            int attended = attdb.sessionAttended(groupId);
-            ArrayList<Group> groupList = gdb.getInstructorGroup(id);
-
-            Map<String, Student> attendanceMap = attdb.getAttendanceRecords(groupId);
-            request.setAttribute("attendanceMap", attendanceMap);
-            request.setAttribute("totalSession", totalSession);
-            request.setAttribute("attended", attended);
+        if (request.getParameter("csmId") != null) {
+            int csmId = Integer.parseInt(request.getParameter("csmId"));
+            ArrayList<Group> groupList = gdb.getStudentGroup(id);
+            List<Attendance> statusRecord = attdb.getStudentAttendanceRecords(id, csmId);
+            int totalSes=sesdb.getTotalSessionStudent(csmId, id);
+            request.setAttribute("statusRecord", statusRecord);
             request.setAttribute("groupList", groupList);
-            request.getRequestDispatcher("../instructor/attreport.jsp").forward(request, response);
+            request.setAttribute("totalSession", totalSes);
+            request.getRequestDispatcher("../student/attreport.jsp").forward(request, response);
+            
         } else {
-            ArrayList<Group> groupList = gdb.getInstructorGroup(id);
+            ArrayList<Group> groupList = gdb.getStudentGroup(id);
             request.setAttribute("groupList", groupList);
-            request.getRequestDispatcher("../instructor/attreport.jsp").forward(request, response);
+            request.getRequestDispatcher("../student/attreport.jsp").forward(request, response);
         }
     }
 
-// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -77,7 +77,7 @@ public class ViewAttendanceStatistic extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred while processing the request.");
+            Logger.getLogger(ViewAttendanceStatistic.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -95,7 +95,7 @@ public class ViewAttendanceStatistic extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred while processing the request.");
+            Logger.getLogger(ViewAttendanceStatistic.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

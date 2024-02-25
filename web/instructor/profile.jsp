@@ -1,9 +1,3 @@
-<%-- 
-    Document   : profile
-    Created on : 25 Jan, 2024, 11:59:24 PM
-    Author     : HP
---%>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.*" %>
@@ -25,7 +19,7 @@
         crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-        
+
         <style>
             li {
                 list-style: none;
@@ -139,7 +133,7 @@
                             </div>
 
                     </form>
-                                                               
+
                 </div>
             </c:if>
             <c:if test="${requestScope.currentChoice==IConstant.PROFILE_OPTION[1]}">
@@ -189,54 +183,54 @@
                                 </div>
                             </div>
                         </div>
-                    
-                    <div class="text-center mt-4">
-                    <button type="submit" class="ms-5 mt-5 px-5 fs-5 border-0 bg-success text-white rounded">Change</button>
-                    </div>
+
+                        <div class="text-center mt-4">
+                            <button type="submit" class="ms-5 mt-5 px-5 fs-5 border-0 bg-success text-white rounded">Change</button>
                         </div>
+                    </div>
                 </form>
                 <script>
-            document.getElementById("togglePassword1").addEventListener("click", function () {
-                var passwordInput = document.getElementsByName("oldPas")[0];
-                var eyeIcon = document.getElementById("eyeIcon");
+                    document.getElementById("togglePassword1").addEventListener("click", function () {
+                        var passwordInput = document.getElementsByName("oldPas")[0];
+                        var eyeIcon = document.getElementById("eyeIcon");
 
-                if (passwordInput.type === "password") {
-                    passwordInput.type = "text";
-                    eyeIcon.innerHTML = '<i class="bi bi-eye-fill"></i>';
-                } else {
-                    passwordInput.type = "password";
-                    eyeIcon.innerHTML = '<i class="bi bi-eye-slash-fill"></i>';
-                }
-            });
-        </script>
-        <script>
-            document.getElementById("togglePassword2").addEventListener("click", function () {
-                var passwordInput = document.getElementsByName("newPas")[0];
-                var eyeIcon = document.getElementById("eyeIcon");
+                        if (passwordInput.type === "password") {
+                            passwordInput.type = "text";
+                            eyeIcon.innerHTML = '<i class="bi bi-eye-fill"></i>';
+                        } else {
+                            passwordInput.type = "password";
+                            eyeIcon.innerHTML = '<i class="bi bi-eye-slash-fill"></i>';
+                        }
+                    });
+                </script>
+                <script>
+                    document.getElementById("togglePassword2").addEventListener("click", function () {
+                        var passwordInput = document.getElementsByName("newPas")[0];
+                        var eyeIcon = document.getElementById("eyeIcon");
 
-                if (passwordInput.type === "password") {
-                    passwordInput.type = "text";
-                    eyeIcon.innerHTML = '<i class="bi bi-eye-fill"></i>';
-                } else {
-                    passwordInput.type = "password";
-                    eyeIcon.innerHTML = '<i class="bi bi-eye-slash-fill"></i>';
-                }
-            });
-        </script>
-        <script>
-            document.getElementById("togglePassword3").addEventListener("click", function () {
-                var passwordInput = document.getElementsByName("confirmPas")[0];
-                var eyeIcon = document.getElementById("eyeIcon");
+                        if (passwordInput.type === "password") {
+                            passwordInput.type = "text";
+                            eyeIcon.innerHTML = '<i class="bi bi-eye-fill"></i>';
+                        } else {
+                            passwordInput.type = "password";
+                            eyeIcon.innerHTML = '<i class="bi bi-eye-slash-fill"></i>';
+                        }
+                    });
+                </script>
+                <script>
+                    document.getElementById("togglePassword3").addEventListener("click", function () {
+                        var passwordInput = document.getElementsByName("confirmPas")[0];
+                        var eyeIcon = document.getElementById("eyeIcon");
 
-                if (passwordInput.type === "password") {
-                    passwordInput.type = "text";
-                    eyeIcon.innerHTML = '<i class="bi bi-eye-fill"></i>';
-                } else {
-                    passwordInput.type = "password";
-                    eyeIcon.innerHTML = '<i class="bi bi-eye-slash-fill"></i>';
-                }
-            });
-        </script>
+                        if (passwordInput.type === "password") {
+                            passwordInput.type = "text";
+                            eyeIcon.innerHTML = '<i class="bi bi-eye-fill"></i>';
+                        } else {
+                            passwordInput.type = "password";
+                            eyeIcon.innerHTML = '<i class="bi bi-eye-slash-fill"></i>';
+                        }
+                    });
+                </script>
             </c:if>
         </div>
     </body>

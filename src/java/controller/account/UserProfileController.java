@@ -21,7 +21,7 @@ import jakarta.servlet.http.HttpSession;
  *
  * @author HP
  */
-public class ProfileController extends HttpServlet {
+public class UserProfileController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,10 +43,10 @@ public class ProfileController extends HttpServlet {
             String newURL = request.getContextPath();
             String service = request.getParameter("Service");
             if (acc != null) {
-                 if (service == null) {
+                if (service == null) {
                     service = IConstant.PROFILE_OPTION[0];
                 }
-                 request.setAttribute("currentChoice", service);
+                request.setAttribute("currentChoice", service);
                 if (service.equals(IConstant.PROFILE_OPTION[0])) {
                     switch (acc.role_id) {
                         case 3:
@@ -63,8 +63,8 @@ public class ProfileController extends HttpServlet {
                             throw new AssertionError();
                     }
                 }
-                 if (service.equals(IConstant.PROFILE_OPTION[1])) {
-                 switch (acc.role_id) {
+                if (service.equals(IConstant.PROFILE_OPTION[1])) {
+                    switch (acc.role_id) {
                         case 3:
                             request.getRequestDispatcher("/instructor/profile.jsp").forward(request, response);
                             break;
@@ -74,10 +74,10 @@ public class ProfileController extends HttpServlet {
                         default:
                             throw new AssertionError();
                     }
-                 }
+                }
             } else {
                 out.print("login");
-                response.sendRedirect(newURL+ "/login-page");
+                response.sendRedirect(newURL + "/login-page");
             }
         }
     }
@@ -94,7 +94,7 @@ public class ProfileController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         processRequest(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -108,25 +108,25 @@ public class ProfileController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            String currentPassword = request.getParameter("oldPas");
-            String newPassword = request.getParameter("newPas");
-            String confirmPassword = request.getParameter("confirmPas");
-            String mess = "Change password success";
-            //check currentPassword
-            HttpSession session = request.getSession();
-            Account acc = (Account) session.getAttribute("acc");
-            String newURL = request.getContextPath();
-            AccountDBContext daoAcc = new AccountDBContext();
-            boolean isSuccess = false;
-            if (acc == null) {
-                // Điều hướng đến Servlet khác và thay đổi đường dẫn
-                response.sendRedirect(newURL+ "/login-page");
-            } else {
-                if (daoAcc.ValidateAccount(acc.getUsername(), currentPassword) != null) {
-                    if(newPassword.equals(currentPassword)) {
-                     isSuccess = false;
-                     mess = "You must change new password";
-                    } else {
+        String currentPassword = request.getParameter("oldPas");
+        String newPassword = request.getParameter("newPas");
+        String confirmPassword = request.getParameter("confirmPas");
+        String mess = "Change password success";
+        //check currentPassword
+        HttpSession session = request.getSession();
+        Account acc = (Account) session.getAttribute("acc");
+        String newURL = request.getContextPath();
+        AccountDBContext daoAcc = new AccountDBContext();
+        boolean isSuccess = false;
+        if (acc == null) {
+            // Điều hướng đến Servlet khác và thay đổi đường dẫn
+            response.sendRedirect(newURL + "/login-page");
+        } else {
+            if (daoAcc.ValidateAccount(acc.getUsername(), currentPassword) != null) {
+                if (newPassword.equals(currentPassword)) {
+                    isSuccess = false;
+                    mess = "You must change new password";
+                } else {
                     if (newPassword.equals(confirmPassword)) {
                         daoAcc.changePassword(acc.getUsername(), newPassword);
                         isSuccess = true;
@@ -134,19 +134,19 @@ public class ProfileController extends HttpServlet {
                         mess = "The confirm password incorrect";
                     }
                 }
-                } else {
-                    mess = "The current password incorrect";
-                }
-                request.setAttribute("mess", mess);
-                request.setAttribute("isSuccess", isSuccess);
-                request.setAttribute("currentChoice",IConstant.PROFILE_OPTION[1]);
-                if(acc.getRole_id()==3) {
-                 request.getRequestDispatcher("/instructor/profile.jsp").forward(request, response);
-                }
-                if(acc.getRole_id()==4) {
-                 request.getRequestDispatcher("/student/profile.jsp").forward(request, response);
-                }
+            } else {
+                mess = "The current password incorrect";
             }
+            request.setAttribute("mess", mess);
+            request.setAttribute("isSuccess", isSuccess);
+            request.setAttribute("currentChoice", IConstant.PROFILE_OPTION[1]);
+            if (acc.getRole_id() == 3) {
+                request.getRequestDispatcher("/instructor/profile.jsp").forward(request, response);
+            }
+            if (acc.getRole_id() == 4) {
+                request.getRequestDispatcher("/student/profile.jsp").forward(request, response);
+            }
+        }
     }
 
     /**

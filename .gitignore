@@ -1,7 +1,3 @@
-/build/
+/nbproject/private/
 /dist/
-/controller/academicStaff/
-/controller/admin/
-/web/accademyStaff/
-/web/admin/
-/nbproject/
+/build/

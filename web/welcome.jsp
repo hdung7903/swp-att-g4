@@ -21,9 +21,8 @@
                 color: orange;
             }
             .image-container img {
-                width: 100%; /* Đảm bảo ảnh chiếm toàn bộ không gian trong container */
-                border-radius: 8px; /* Bo góc ảnh */
-                /*            margin: 0!important;*/
+                width: 100%;
+                border-radius: 8px;
                 display: block;
                 height: 650px;
             }
@@ -39,10 +38,9 @@
                 background-color: white;
                 color: orange;
             }
-             a.text-reset {
+            a.text-reset {
                 text-decoration: none;
             }
-
         </style>
     </head>
 
@@ -96,7 +94,6 @@
             <div class="text-center">
                 <div class="image-container">
                     <img src="https://scontent.fhan14-2.fna.fbcdn.net/v/t39.30808-6/414981424_753677770123822_6814149231170888051_n.png?stp=dst-png_p600x600&_nc_cat=108&ccb=1-7&_nc_sid=783fdb&_nc_ohc=1tyfIfM_zqcAX8bMxvu&_nc_ht=scontent.fhan14-2.fna&oh=00_AfBTww5LpdAo-r91OokWE4-eAp3uUMV5jEi-wrcW9M5Ftw&oe=65B60A65" alt="Your Image">
-                    <!--                <div class="image-text">WELCOME TO FPT UNIVERSITY</div>-->
                 </div>
 
             </div>

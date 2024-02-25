@@ -6,8 +6,10 @@ package constant;
 
 /**
  *
- * @author HP
+ * @author leduy
  */
 public class IConstant {
+
     public static final String[] PROFILE_OPTION = new String[]{"Information", "Change password"};
+    public static final String PATH_DOWN = "D:/allAccount.xlsx";
 }
