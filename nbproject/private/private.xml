@@ -3,14 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/ADMIN/Documents/SWP/SWP_Nhom/swp-att-g4/src/java/constant/IConstant.java</file>
-            <file>file:/C:/Users/ADMIN/Documents/SWP/SWP_Nhom/swp-att-g4/web/WEB-INF/web.xml</file>
-            <file>file:/C:/Users/ADMIN/Documents/SWP/SWP_Nhom/swp-att-g4/web/student/profile.jsp</file>
-            <file>file:/C:/Users/ADMIN/Documents/SWP/SWP_Nhom/swp-att-g4/src/java/entity/Attendance.java</file>
-            <file>file:/C:/Users/ADMIN/Documents/SWP/SWP_Nhom/swp-att-g4/src/java/entity/Account.java</file>
-            <file>file:/C:/Users/ADMIN/Documents/SWP/SWP_Nhom/swp-att-g4/web/instructor/profile.jsp</file>
-            <file>file:/C:/Users/ADMIN/Documents/SWP/SWP_Nhom/swp-att-g4/src/java/dal/AccountDBContext.java</file>
-            <file>file:/C:/Users/ADMIN/Documents/SWP/SWP_Nhom/swp-att-g4/src/java/controller/account/ProfileController.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/SWP/SWP2/swp-att-g4/src/java/controller/account/LoginController.java</file>
         </group>
     </open-files>
 </project-private>
