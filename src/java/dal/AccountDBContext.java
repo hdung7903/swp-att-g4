@@ -311,7 +311,7 @@ public class AccountDBContext extends DBContext<Account> {
             String username, String password,
             int role_id, String fullName, String email, String dob, int gender) {
         try {
-            String sql1 = "INSERT INTO `databasename`.`account`\n"
+            String sql1 = "INSERT INTO `swp`.`account`\n"
                     + "(`username`, `password`, `role_id`)\n"
                     + "VALUES (?, ?, ?);";
             PreparedStatement st1 = connection.prepareStatement(sql1);
@@ -322,7 +322,7 @@ public class AccountDBContext extends DBContext<Account> {
             if (rs > 0) {
                 String sql2 = "";
                 if (role_id == 3) {
-                    sql2 = "INSERT INTO `databasename`.`instructor`\n"
+                    sql2 = "INSERT INTO `swp`.`instructor`\n"
                             + "(`instructor_id`,\n"
                             + "`instructor_name`,\n"
                             + "`username`,\n"
@@ -333,7 +333,7 @@ public class AccountDBContext extends DBContext<Account> {
                             + "VALUES\n"
                             + "(?,?,?,?,?,?,?);";
                 } else if (role_id == 4) {
-                    sql2 = "INSERT INTO `databasename`.`student`\n"
+                    sql2 = "INSERT INTO `swp`.`student`\n"
                             + "(`student_id`,\n"
                             + "`student_name`,\n"
                             + "`username`,\n"
@@ -369,13 +369,13 @@ public class AccountDBContext extends DBContext<Account> {
                 table = "student";
             }
             // Xóa từ bảng student hoặc instructor
-            String sql1 = "DELETE FROM `databasename`.`"+table+"` WHERE username like '"+username+"'";
+            String sql1 = "DELETE FROM `swp`.`"+table+"` WHERE username like '"+username+"'";
             PreparedStatement stm1 = connection.prepareStatement(sql1);
             int rs1 = stm1.executeUpdate();
             System.out.println("s1 "+rs1);
             if (rs1 > 0) {
                 // Xóa từ bảng account
-                String sql2 = "DELETE FROM `databasename`.`account` WHERE username like '"+username+"'";
+                String sql2 = "DELETE FROM `swp`.`account` WHERE username like '"+username+"'";
                 PreparedStatement stm2 = connection.prepareStatement(sql2);
                 return stm2.executeUpdate() > 0;
             }
@@ -394,11 +394,11 @@ public class AccountDBContext extends DBContext<Account> {
                 case 4:
                     table = "student";
                     break;
-                default:
+                    default:
                     return false;
             }
             // Xóa từ bảng student hoặc instructor
-            String sql1 = "UPDATE `databasename`.`"+table+"` SET `isDeleted` = 1\n" +
+            String sql1 = "UPDATE `swp`.`"+table+"` SET `isDeleted` = 1\n" +
                           "WHERE `username` like '"+username+"'";
             PreparedStatement stm1 = connection.prepareStatement(sql1);
             return stm1.executeUpdate() > 0;
@@ -422,7 +422,7 @@ public class AccountDBContext extends DBContext<Account> {
                     return false;
             }
             // Xóa từ bảng student hoặc instructor
-            String sql1 = "UPDATE `databasename`.`"+table+"` SET `isDeleted` = 0\n" +
+            String sql1 = "UPDATE `swp`.`"+table+"` SET `isDeleted` = 0\n" +
                           "WHERE `username` like '"+username+"'";
             PreparedStatement stm1 = connection.prepareStatement(sql1);
             return stm1.executeUpdate() > 0;

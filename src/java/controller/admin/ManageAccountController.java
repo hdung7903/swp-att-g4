@@ -5,7 +5,7 @@
 
 package controller.admin;
 
-import constant.IConstant;
+import util.Constants;
 import dal.AccountDBContext;
 import entity.Account;
 import java.io.IOException;
@@ -16,10 +16,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.FileOutputStream;
 import java.util.List;
-//import org.apache.poi.ss.usermodel.Row;
-//import org.apache.poi.ss.usermodel.Sheet;
-//import org.apache.poi.ss.usermodel.Workbook;
-//import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  *
@@ -67,9 +67,7 @@ public class ManageAccountController extends HttpServlet {
          commonDirect(request, response, false);
          request.getRequestDispatcher("manageAccount.jsp").forward(request, response);
         }
-        if(action.equals("add")) {
-         request.getRequestDispatcher("createAccount.jsp").forward(request, response);
-        }
+       
         if(action.equals("search")) {
          String searchTxt = request.getParameter("q").trim();
          String deleted = request.getParameter("deleted");
@@ -115,7 +113,6 @@ public class ManageAccountController extends HttpServlet {
          commonDirect(request, response, true);
          request.getRequestDispatcher("manageAccountDelete.jsp").forward(request, response);
         }
-        
         if(action.equals("deletedRule")) {
          String username = request.getParameter("username");
          boolean hasDeleteRule = accDAO.deleteRuleAccount(username);
@@ -125,9 +122,9 @@ public class ManageAccountController extends HttpServlet {
          request.getRequestDispatcher("manageAccountDelete.jsp").forward(request, response);
         }
         if(action.equals("exprortExcel")) {
-//            boolean hasExport = exportToExcel(accDAO.getResultSet(), "D:/allOrders.xlsx");
-//            request.setAttribute("result", hasExport);
-//            request.setAttribute("mess", hasExport?"export success"+IConstant.PATH_DOWN:"export error");
+            boolean hasExport = exportToExcel(accDAO.getResultSet(), Constants.PATH_DOWN);
+            request.setAttribute("result", hasExport);
+            request.setAttribute("mess", hasExport?"export success"+Constants.PATH_DOWN:"export error");
             commonDirect(request, response, false);
             request.getRequestDispatcher("manageAccount.jsp").forward(request, response);
         }
@@ -149,59 +146,37 @@ public class ManageAccountController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        String action = request.getParameter("action");
-        if(action.equals("add")) {
-         String id = request.getParameter("id");
-         String type = request.getParameter("type");
-         String username = request.getParameter("username");
-         String fullname = request.getParameter("fullname");
-         String password = request.getParameter("password");
-         String email = request.getParameter("email");
-         String gender = request.getParameter("gender");
-         String dob = request.getParameter("dob");
-         String mess = "";
-         boolean isSuccess = false;
-        if (id.isEmpty() || type.isEmpty() || username.isEmpty() || fullname.isEmpty() 
-                || password.isEmpty() || email.isEmpty()
-                ||gender.isEmpty() || dob.isEmpty()
-                ) {
-                mess = "Please fill in all fields.";
-                setCommonAttributes(request, response, mess, isSuccess);
-                return;
-        }
-        if (accDAO.getAcountByUsername(username) != null) {
-                mess = "The account already is exist.";
-                setCommonAttributes(request, response, mess, isSuccess);
-                return;
-        }
-        if (!isValidPassword(password)) {
-                mess = "Password must be at least 8 character and combination of letters, numbers, and special characters.";
-                setCommonAttributes(request, response, mess, isSuccess);
-                return;
-        }
-        boolean hasInsert = accDAO.insertAccount(id, username, password,
-                 Integer.parseInt(type), fullname, email,
-                 dob, Integer.parseInt(gender));
-         request.setAttribute("result", hasInsert);
-         request.setAttribute("mess", hasInsert?"add success":"add error");
-         request.getRequestDispatcher("createAccount.jsp").forward(request, response);
-        }
+      
     }
-    private void setCommonAttributes(HttpServletRequest request,
-            HttpServletResponse response, String mess,
-            boolean isSuccess) throws ServletException, IOException {
-        request.setAttribute("isSuccess", isSuccess);
-        request.setAttribute("mess", mess);
-        request.getRequestDispatcher("createAccount.jsp").forward(request, response);
-    }
-    private boolean isValidPassword(String password) {
-        // Kiểm tra độ dài mật khẩu và mức độ mạnh
-        return password.length() >= 8 && password.matches(".*[A-Z].*") 
-                && password.matches(".*[a-z].*") && 
-                password.matches(".*\\d.*") && password.matches(".*[!@#$%^&*()].*");
-    }
+  
     
-   
+    public boolean exportToExcel(List<Account> accList, String filePath) {
+        Workbook workbook = new XSSFWorkbook();
+        Sheet sheet = workbook.createSheet("Order Data");
+        // Tạo hàng header
+        Row headerRow = sheet.createRow(0);
+        String[] headerColumns = {"username", "password", "roleName"};
+        for (int i = 0; i < headerColumns.length; i++) {
+            org.apache.poi.ss.usermodel.Cell cell = headerRow.createCell(i);
+            cell.setCellValue(headerColumns[i]);
+        }
+        // Đổ dữ liệu từ danh sách vào file Excel
+        int rowNum = 1;
+        for (Account acc : accList) {
+            Row row = sheet.createRow(rowNum++);
+            row.createCell(0).setCellValue(acc.getUsername());
+            row.createCell(1).setCellValue(acc.getPassword());
+            row.createCell(2).setCellValue(acc.getRoleName());
+        }
+        // Ghi workbook vào file
+        try (FileOutputStream fileOut = new FileOutputStream(filePath)) {
+            workbook.write(fileOut);
+            System.out.println("Excel file has been created successfully.");
+        } catch (IOException e) {
+            return false;
+        }
+        return true;
+    }
     /** 
      * Returns a short description of the servlet.
      * @return a String containing servlet description
@@ -212,7 +187,8 @@ public class ManageAccountController extends HttpServlet {
     }// </editor-fold>
  public static void main(String[] args) {
         AccountDBContext accDAO  = new AccountDBContext();
-        System.out.println(accDAO.deleteRuleAccount("student1"));
-//        System.out.println(accDAO.getResultSet());
+        System.out.println(accDAO.insertAccount(
+                "2121", "Phuoc2323", "Phuoc2024@", 4,
+                "le phuoc", "phuoc@gmail.com", "2000-01-01", 0));
     }
 }

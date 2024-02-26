@@ -22,7 +22,7 @@ import util.Constants;
 
 /**
  *
- * @author leduy
+ * @author Admin
  */
 public class LoginGoogleHandler extends HttpServlet {
 

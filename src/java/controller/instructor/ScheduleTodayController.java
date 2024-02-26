@@ -4,8 +4,6 @@
  */
 package controller.instructor;
 
-//import controller.authentication.BasedAuthorizationController;
-//import controller.authentication.BasedRequiredAuthenticationController;
 import dal.SessionDBContext;
 import dal.AccountDBContext;
 import dal.TimeSlotDBContext;
@@ -33,7 +31,7 @@ import util.DateTimeHelper;
  *
  * @author Admin
  */
-public class ScheduleTodayController extends HttpServlet { //extends BasedAuthorizationController {
+public class ScheduleTodayController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -109,4 +107,5 @@ public class ScheduleTodayController extends HttpServlet { //extends BasedAuthor
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
 }

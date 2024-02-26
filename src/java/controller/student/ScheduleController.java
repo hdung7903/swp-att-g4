@@ -25,7 +25,7 @@ import util.DateTimeHelper;
 
 /**
  *
- * @author leduy
+ * @author Admin
  */
 public class ScheduleController extends HttpServlet {
    
@@ -75,7 +75,7 @@ public class ScheduleController extends HttpServlet {
         request.setAttribute("sessions", sessions);
 
         request.getRequestDispatcher("../student/schedule.jsp").forward(request, response);
-    }
+    } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 

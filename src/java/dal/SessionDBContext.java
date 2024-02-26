@@ -17,6 +17,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -323,11 +324,54 @@ public class SessionDBContext extends DBContext<Session> {
                 subject.setId(rs.getString("subject_id"));
                 subject.setName(rs.getString("subject_name"));
                 session.setSubject(subject);
+                Instructor i = new Instructor();
+                i.setName(rs.getString("instructor_name"));
+                session.setInstructor(i);
                 return session;
             }
         } catch (SQLException ex) {
             Logger.getLogger(SessionDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+
+    public Timestamp getAttendanceDateTime(int sessionId) {
+        Timestamp attDateTime = null;
+        try {
+            String sql = "SELECT s.session_id,s.ses_date,t.timeslot_id,t.description,c.class_id,c.class_name,su.subject_id,su.subject_name,i.instructor_id,i.instructor_name,s.isAtt,a.att_datetime\n"
+                    + "FROM Session s \n"
+                    + "INNER JOIN class_subject_mapping csm ON csm.csm_id=s.csm_id\n"
+                    + "INNER JOIN Instructor i ON csm.instructor_id = i.instructor_id\n"
+                    + "INNER JOIN Class c ON c.class_id = csm.class_id\n"
+                    + "INNER JOIN TimeSlot t ON s.timeslot_id = t.timeslot_id\n"
+                    + "INNER JOIN Subject su ON csm.subject_id = su.subject_id\n"
+                    + "INNER JOIN Attendance a ON s.session_id = a.session_id\n"
+                    + "WHERE s.session_id = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, sessionId);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Session session = new Session();
+                session.setId(rs.getInt("session_id"));
+                session.setDate(rs.getDate("ses_date"));
+                session.setIsAtt(rs.getBoolean("isAtt"));
+                TimeSlot t = new TimeSlot();
+                t.setId(rs.getInt("timeslot_id"));
+                t.setDescription(rs.getString("description"));
+                session.setTime(t);
+                Group g = new Group();
+                g.setId(rs.getString("class_id"));
+                g.setName(rs.getString("class_name"));
+                session.setGroup(g);
+                Subject subject = new Subject();
+                subject.setId(rs.getString("subject_id"));
+                subject.setName(rs.getString("subject_name"));
+                session.setSubject(subject);
+                //attDateTime = rs.getTimestamp("att_datetime");
+                return rs.getTimestamp("att_datetime");
+            }
+        } catch (SQLException e) {
+        }
+        return attDateTime;
     }
 }
