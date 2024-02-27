@@ -88,6 +88,7 @@
                             <form id="classForm" action="${pageContext.request.contextPath}/instructor/viewclass" method="get">
                                 <div class="mb-3">
                                     <select class="form-select" id="classSelect" name="class_id" onchange="submitForm()">
+                                        <option selected disabled>Select a Group</option>
                                         <c:forEach items="${requestScope.gsm}" var="g" varStatus="index">
                                             <option value="${g.group.id}" ${g.group.id == param.class_id ? 'selected' : ''}>${g.group.name} - ${g.subject.name}</option>
                                         </c:forEach>
