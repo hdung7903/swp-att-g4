@@ -7,6 +7,7 @@ package dal;
 import entity.Account;
 import entity.Instructor;
 import entity.Student;
+//import entity.Admin;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -81,7 +82,7 @@ public class AccountDBContext extends DBContext<Account> {
     }
 
     public Account getAccountIdByUsername(String username) {
-        String sql = "SELECT s.student_id, i.instructor_id,s.email as student_email,i.email as instructor_email\n"
+        String sql = "SELECT s.student_id, i.instructor_id,s.email as student_email,i.email as instructor_email,acc.role_id\n"
                 + "FROM Account acc \n"
                 + "LEFT JOIN Student s ON s.username = acc.username \n"
                 + "LEFT JOIN Instructor i ON i.username = acc.username \n"
@@ -92,20 +93,25 @@ public class AccountDBContext extends DBContext<Account> {
             st.setString(1, username);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
-                if (rs.getString("student_id") != null) {
+                if (rs.getInt("role_id")==4) {
                     Student student = new Student();
                     student.setId(rs.getString("student_id"));
                     student.setEmail(rs.getString("student_email"));
                     acc.setStudent(student);
                 }
-
-                if (rs.getString("instructor_id") != null) {
+                
+                if (rs.getInt("role_id")==3) {
                     Instructor instructor = new Instructor();
                     instructor.setId(rs.getString("instructor_id"));
                     instructor.setEmail(rs.getString("instructor_email"));
                     acc.setInstructor(instructor);
                 }
-
+//                if(rs.getInt("role_id")==2){
+//                    Admin ad = new Admin();
+//                }
+//                if(rs.getInt("role_id")==1){
+//                    
+//                }
                 return acc;
             }
         } catch (SQLException e) {

@@ -23,7 +23,7 @@ import jakarta.servlet.http.HttpSession;
  *
  * @author Admin
  */
-public class AuthorAdminFilter implements Filter {
+public class AuthorStudentFilter implements Filter {
     
     private static final boolean debug = true;
 
@@ -32,13 +32,13 @@ public class AuthorAdminFilter implements Filter {
     // configured. 
     private FilterConfig filterConfig = null;
     
-    public AuthorAdminFilter() {
+    public AuthorStudentFilter() {
     }    
     
     private void doBeforeProcessing(ServletRequest request, ServletResponse response)
             throws IOException, ServletException {
         if (debug) {
-            log("AuthorAdminFilter:DoBeforeProcessing");
+            log("AuthorStudentFilter:DoBeforeProcessing");
         }
 
         // Write code here to process the request and/or response before
@@ -66,7 +66,7 @@ public class AuthorAdminFilter implements Filter {
     private void doAfterProcessing(ServletRequest request, ServletResponse response)
             throws IOException, ServletException {
         if (debug) {
-            log("AuthorAdminFilter:DoAfterProcessing");
+            log("AuthorStudentFilter:DoAfterProcessing");
         }
 
         // Write code here to process the request and/or response after
@@ -102,7 +102,7 @@ public class AuthorAdminFilter implements Filter {
             throws IOException, ServletException {
         
         if (debug) {
-            log("AuthorAdminFilter:doFilter()");
+            log("AuthorStudentFilter:doFilter()");
         }
         
         doBeforeProcessing(request, response);
@@ -115,14 +115,15 @@ public class AuthorAdminFilter implements Filter {
         if (account == null) {
             res.sendRedirect(req.getServletContext().getContextPath() + "/");
         } else{
-            if(account.getRole_id() == 2) {
-            //req.getRequestDispatcher("/admin").forward(request, response);
+            if(account.getRole_id() == 4) {
+            //req.getRequestDispatcher("/student").forward(request, response);
             chain.doFilter(request, response);
-            
         }else{
                 res.sendRedirect(req.getServletContext().getContextPath() + "/denied");
             }
         }
+        
+        
         
         Throwable problem = null;
         try {
@@ -179,7 +180,7 @@ public class AuthorAdminFilter implements Filter {
         this.filterConfig = filterConfig;
         if (filterConfig != null) {
             if (debug) {                
-                log("AuthorAdminFilter:Initializing filter");
+                log("AuthorStudentFilter:Initializing filter");
             }
         }
     }
@@ -190,9 +191,9 @@ public class AuthorAdminFilter implements Filter {
     @Override
     public String toString() {
         if (filterConfig == null) {
-            return ("AuthorAdminFilter()");
+            return ("AuthorStudentFilter()");
         }
-        StringBuffer sb = new StringBuffer("AuthorAdminFilter(");
+        StringBuffer sb = new StringBuffer("AuthorStudentFilter(");
         sb.append(filterConfig);
         sb.append(")");
         return (sb.toString());
