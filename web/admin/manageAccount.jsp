@@ -51,7 +51,7 @@
                 <a class="bg-success shadow px-5 d-block rounded text-decoration-none py-2 text-black 
                    bg-white border" 
                    href="manageacc?action=deletedList">
-                    <span>Deleted List</span>
+                    <span>Inactive List</span>
                     <i class='bx bx-trash ms-3'></i>
                 </a>
             </div>
@@ -98,7 +98,7 @@
                   <div class="col-3">
                     <div class="">  
                         <a href="" class="bg-info text-white border px-3 py-2 text-decoration-none">Update</a>
-                        <a href="manageacc?action=deletedRule&username=${acc.getUsername()}" class="bg-danger text-white border px-3 py-2 text-decoration-none">Delete</a>
+                        <a href="manageacc?action=deletedRule&username=${acc.getUsername()}" class="bg-danger text-white border px-3 py-2 text-decoration-none">Inactive</a>
                     </div>
                   </div>
                 </div>
@@ -117,7 +117,7 @@
                 <div class="col-3">
                     <div class="">
                         <a href="" class="bg-info text-white border px-3 py-2 text-decoration-none">Update</a>
-                        <a href="manageacc?action=deletedRule&username=${student.getUsername()}" class="bg-danger text-white border px-3 py-2 text-decoration-none">Delete</a>
+                        <a href="manageacc?action=deletedRule&username=${student.getUsername()}" class="bg-danger text-white border px-3 py-2 text-decoration-none">Inactive</a>
                     </div>
                 </div>
               </div>
@@ -136,7 +136,7 @@
                 <div class="col-3">
                     <div class="">
                         <a href="" class="bg-info text-white border px-3 py-2 text-decoration-none">Update</a>
-                        <a href="manageacc?action=deletedRule&username=${instructor.getUsername()}" class="bg-danger text-white border px-3 py-2 text-decoration-none">Delete</a>
+                        <a href="manageacc?action=deletedRule&username=${instructor.getUsername()}" class="bg-danger text-white border px-3 py-2 text-decoration-none">Inactive</a>
                     </div>
                 </div>
             </div>

@@ -83,14 +83,14 @@ public class CreateAccount extends HttpServlet {
          String dob = request.getParameter("dob");
          String mess = "";
          boolean isSuccess = false;
-        if (id.isEmpty() || type.isEmpty() || username.isEmpty() || fullname.isEmpty() 
-                || password.isEmpty() || email.isEmpty()
-                ||gender.isEmpty() || dob.isEmpty()
-                ) {
-                mess = "Please fill in all fields.";
-                setCommonAttributes(request, response, mess, isSuccess);
-                return;
-        }
+        //if (id.isEmpty() || type.isEmpty() || username.isEmpty() || fullname.isEmpty() 
+                //|| password.isEmpty() || email.isEmpty()
+                //||gender.isEmpty() || dob.isEmpty()
+                //) {
+                //mess = "Please fill in all fields.";
+                //setCommonAttributes(request, response, mess, isSuccess);
+                //return;
+        //}
         if (accDAO.getAcountByUsername(username) != null) {
                 mess = "The account already is exist.";
                 setCommonAttributes(request, response, mess, isSuccess);

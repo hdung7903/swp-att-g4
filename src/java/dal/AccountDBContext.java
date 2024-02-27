@@ -368,13 +368,11 @@ public class AccountDBContext extends DBContext<Account> {
             } else if (getAcountByUsername(username).getRole_id() == 4) {
                 table = "student";
             }
-            // Xóa từ bảng student hoặc instructor
             String sql1 = "DELETE FROM "+table+" WHERE username like '"+username+"'";
             PreparedStatement stm1 = connection.prepareStatement(sql1);
             int rs1 = stm1.executeUpdate();
             System.out.println("s1 "+rs1);
             if (rs1 > 0) {
-                // Xóa từ bảng account
                 String sql2 = "DELETE FROM account WHERE username like '"+username+"'";
                 PreparedStatement stm2 = connection.prepareStatement(sql2);
                 return stm2.executeUpdate() > 0;
@@ -421,7 +419,6 @@ public class AccountDBContext extends DBContext<Account> {
                 default:
                     return false;
             }
-            // Xóa từ bảng student hoặc instructor
             String sql1 = "UPDATE "+table+" SET isDeleted = 0\n" +
                           "WHERE `username` like '"+username+"'";
             PreparedStatement stm1 = connection.prepareStatement(sql1);
