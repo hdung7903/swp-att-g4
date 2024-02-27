@@ -79,7 +79,7 @@
         </div>
         <div class="mt-5">
             <div class="row border-bottom">
-                <div class="col-1">stt</div>
+                <div class="col-1">No.</div>
                 <div class="col-3">Email</div>
                 <div class="col-2">Full Name</div>
                 <div class="col-2">Account Name</div>
@@ -96,7 +96,7 @@
                   <div class="col-2">${acc.getUsername()}</div>
                   <div class="col-1">${acc.getRole_id()==1?'Academic Staff':'Admin'}</div>
                   <div class="col-3">
-                    <div class="">
+                    <div class="">  
                         <a href="" class="bg-info text-white border px-3 py-2 text-decoration-none">Update</a>
                         <a href="manageacc?action=deletedRule&username=${acc.getUsername()}" class="bg-danger text-white border px-3 py-2 text-decoration-none">Delete</a>
                     </div>

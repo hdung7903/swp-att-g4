@@ -311,8 +311,8 @@ public class AccountDBContext extends DBContext<Account> {
             String username, String password,
             int role_id, String fullName, String email, String dob, int gender) {
         try {
-            String sql1 = "INSERT INTO `swp`.`account`\n"
-                    + "(`username`, `password`, `role_id`)\n"
+            String sql1 = "INSERT INTO account\n"
+                    + "(username, password, role_id)\n"
                     + "VALUES (?, ?, ?);";
             PreparedStatement st1 = connection.prepareStatement(sql1);
             st1.setString(1, username);
@@ -322,25 +322,25 @@ public class AccountDBContext extends DBContext<Account> {
             if (rs > 0) {
                 String sql2 = "";
                 if (role_id == 3) {
-                    sql2 = "INSERT INTO `swp`.`instructor`\n"
-                            + "(`instructor_id`,\n"
-                            + "`instructor_name`,\n"
-                            + "`username`,\n"
-                            + "`email`,\n"
-                            + "`dob`,\n"
-                            + "`gender`,\n"
-                            + "`isDeleted`)\n"
+                    sql2 = "INSERT INTO instructor\n"
+                            + "(instructor_id,\n"
+                            + "instructor_name,\n"
+                            + "username,\n"
+                            + "email,\n"
+                            + "dob,\n"
+                            + "gender,\n"
+                            + "isDeleted)\n"
                             + "VALUES\n"
                             + "(?,?,?,?,?,?,?);";
                 } else if (role_id == 4) {
-                    sql2 = "INSERT INTO `swp`.`student`\n"
-                            + "(`student_id`,\n"
-                            + "`student_name`,\n"
-                            + "`username`,\n"
-                            + "`email`,\n"
-                            + "`dob`,\n"
-                            + "`gender`,\n"
-                            + "`isDeleted`)\n"
+                    sql2 = "INSERT INTO student\n"
+                            + "(student_id,\n"
+                            + "student_name,\n"
+                            + "username,\n"
+                            + "email,\n"
+                            + "dob,\n"
+                            + "gender,\n"
+                            + "isDeleted)\n"
                             + "VALUES\n"
                             + "(?,?,?,?,?,?,?);";
                 }
@@ -369,13 +369,13 @@ public class AccountDBContext extends DBContext<Account> {
                 table = "student";
             }
             // Xóa từ bảng student hoặc instructor
-            String sql1 = "DELETE FROM `swp`.`"+table+"` WHERE username like '"+username+"'";
+            String sql1 = "DELETE FROM "+table+" WHERE username like '"+username+"'";
             PreparedStatement stm1 = connection.prepareStatement(sql1);
             int rs1 = stm1.executeUpdate();
             System.out.println("s1 "+rs1);
             if (rs1 > 0) {
                 // Xóa từ bảng account
-                String sql2 = "DELETE FROM `swp`.`account` WHERE username like '"+username+"'";
+                String sql2 = "DELETE FROM account WHERE username like '"+username+"'";
                 PreparedStatement stm2 = connection.prepareStatement(sql2);
                 return stm2.executeUpdate() > 0;
             }
@@ -398,7 +398,7 @@ public class AccountDBContext extends DBContext<Account> {
                     return false;
             }
             // Xóa từ bảng student hoặc instructor
-            String sql1 = "UPDATE `swp`.`"+table+"` SET `isDeleted` = 1\n" +
+            String sql1 = "UPDATE "+table+" SET isDeleted = 1\n" +
                           "WHERE `username` like '"+username+"'";
             PreparedStatement stm1 = connection.prepareStatement(sql1);
             return stm1.executeUpdate() > 0;
@@ -422,7 +422,7 @@ public class AccountDBContext extends DBContext<Account> {
                     return false;
             }
             // Xóa từ bảng student hoặc instructor
-            String sql1 = "UPDATE `swp`.`"+table+"` SET `isDeleted` = 0\n" +
+            String sql1 = "UPDATE "+table+" SET isDeleted = 0\n" +
                           "WHERE `username` like '"+username+"'";
             PreparedStatement stm1 = connection.prepareStatement(sql1);
             return stm1.executeUpdate() > 0;
@@ -486,8 +486,4 @@ public class AccountDBContext extends DBContext<Account> {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    public static void main(String[] args) {
-        AccountDBContext acc = new AccountDBContext();
-        System.out.println(acc.getResultSet());
-    }
 }

@@ -124,7 +124,7 @@ public class ManageAccountController extends HttpServlet {
         if(action.equals("exprortExcel")) {
             boolean hasExport = exportToExcel(accDAO.getResultSet(), Constants.PATH_DOWN);
             request.setAttribute("result", hasExport);
-            request.setAttribute("mess", hasExport?"export success"+Constants.PATH_DOWN:"export error");
+            request.setAttribute("mess", hasExport?"export successfully at: "+Constants.PATH_DOWN:"export error");
             commonDirect(request, response, false);
             request.getRequestDispatcher("manageAccount.jsp").forward(request, response);
         }
@@ -153,14 +153,12 @@ public class ManageAccountController extends HttpServlet {
     public boolean exportToExcel(List<Account> accList, String filePath) {
         Workbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet("Order Data");
-        // Tạo hàng header
         Row headerRow = sheet.createRow(0);
-        String[] headerColumns = {"username", "password", "roleName"};
+        String[] headerColumns = {"Username", "Password", "Role"};
         for (int i = 0; i < headerColumns.length; i++) {
             org.apache.poi.ss.usermodel.Cell cell = headerRow.createCell(i);
             cell.setCellValue(headerColumns[i]);
         }
-        // Đổ dữ liệu từ danh sách vào file Excel
         int rowNum = 1;
         for (Account acc : accList) {
             Row row = sheet.createRow(rowNum++);
@@ -168,7 +166,6 @@ public class ManageAccountController extends HttpServlet {
             row.createCell(1).setCellValue(acc.getPassword());
             row.createCell(2).setCellValue(acc.getRoleName());
         }
-        // Ghi workbook vào file
         try (FileOutputStream fileOut = new FileOutputStream(filePath)) {
             workbook.write(fileOut);
             System.out.println("Excel file has been created successfully.");
@@ -185,10 +182,4 @@ public class ManageAccountController extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
- public static void main(String[] args) {
-        AccountDBContext accDAO  = new AccountDBContext();
-        System.out.println(accDAO.insertAccount(
-                "2121", "Phuoc2323", "Phuoc2024@", 4,
-                "le phuoc", "phuoc@gmail.com", "2000-01-01", 0));
-    }
 }

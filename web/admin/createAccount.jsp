@@ -51,43 +51,46 @@
                 <div class="row">
                  <div class="mt-3 col-6">
                     <label for="" class="label_option fs-5 fw-blod">Id</label>
-                    <input type="text" name="id" class="w-100 p-2 border-0" 
+                    <input autofocus type="text" name="id" class="w-100 p-2 border-0" 
                            style="background-color: #f2f2f2; border-radius: 5px;">
                  </div>
+                    <span id="passwordHint" class="hint-msg">Your password must have more than 8 characters and contain at least 1 number and 1 special character.</span>
                  <div class="mt-3 col-6">
                     <label for="" class="label_option fs-5 fw-blod">Username</label>
-                    <input type="text" name="username" class="w-100 p-2 border-0"
+                    <input autofocus type="text" name="username" class="w-100 p-2 border-0"
                            style="background-color: #f2f2f2; border-radius: 5px;">
+                    <span id="passwordHint" class="hint-msg">Your password must have more than 8 characters and contain at least 1 number and 1 special character.</span>
                  </div>
                  <div class="mt-3 col-6">
                     <label for="" class="label_option fs-5 fw-blod">Password</label>
-                    <input type="text" name="password" class="w-100 p-2 border-0"
+                    <input autofocus type="text" name="password" class="w-100 p-2 border-0"
                            style="background-color: #f2f2f2; border-radius: 5px;">
+                    <span id="passwordHint" class="hint-msg">Your password must have more than 8 characters and contain at least 1 number and 1 special character.</span>
                  </div>
                  <div class="mt-3 col-6">
                     <div class="">
                         <div class="label_option fs-5 fw-blod">Gender</div>
                         <div class="mt-2">
                         <label for="" class="fs-6">Male</label>
-                        <input type="radio" name="gender" value="1" checked>
+                        <input type="radio" name="gender" value="0" checked>
                         <label for="" class="ms-3 fs-6">Female</label>
-                        <input type="radio" name="gender" value="0">
+                        <input type="radio" name="gender" value="1">
                         </div>
                     </div>
                 </div>
                  <div class="mt-3 col-6">
                      <label for="" class="label_option fs-5 fw-blod">FullName</label>
-                    <input type="text" name="fullname" class="w-100 p-2 border-0"
+                    <input autofocus type="text" name="fullname" class="w-100 p-2 border-0"
                            style="background-color: #f2f2f2; border-radius: 5px;">
                  </div>
                  <div class="mt-3 col-6">
                     <label for="" class="label_option fs-5 fw-blod">Email</label>
-                    <input type="text" name="email" class="w-100 p-2 border-0"
+                    <input autofocus type="text" name="email" class="w-100 p-2 border-0"
                            style="background-color: #f2f2f2; border-radius: 5px;">
                  </div>
                   <div class="mt-3 col-6">
-                    <label for="" class="label_option fs-5 fw-blod">DateOfBirth</label>
-                    <input type="date" name="dob" class="w-100 p-2 border-0"
+                    <label for="" class="label_option fs-5 fw-blod">Birthdate</label>
+                    <input autofocus type="date" name="dob" class="w-100 p-2 border-0"
                            style="background-color: #f2f2f2; border-radius: 5px;">
                   </div>
                   <div class="mt-3 col-6">
