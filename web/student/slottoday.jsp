@@ -82,18 +82,11 @@
                                             <td>${ses.group.name}</td> 
                                             <td>${ses.subject.name}</td>
                                             <td><c:choose>
-                                                    <c:when test="${ses.isAtt}">
-                                                        <c:choose>
-                                                            <c:when test="${ses.attendance.status}">
-                                                                <span style="color: green;">(Attended)</span>
-                                                            </c:when>
-                                                            <c:otherwise>
-                                                                <span style="color: red;">(Absent)</span>
-                                                            </c:otherwise>
-                                                        </c:choose>
+                                                    <c:when test="${ses.attendance.status}">
+                                                        <span style="color: green;">Attended</span>
                                                     </c:when>
                                                     <c:otherwise>
-                                                        <span style="color: red;">(Absent)</span>
+                                                        <span style="color: red;">Absent</span>
                                                     </c:otherwise>
                                                 </c:choose>
                                             </td>
