@@ -13,6 +13,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.sql.Date;
@@ -38,7 +39,7 @@ public class ScheduleController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String studentId = request.getParameter("id");
+        String student_id = request.getParameter("id");
         String r_from = request.getParameter("from");
         String r_to = request.getParameter("to");
         ArrayList<Date> dates = new ArrayList<>();
@@ -66,7 +67,7 @@ public class ScheduleController extends HttpServlet {
         ArrayList<TimeSlot> slots = timeDB.list();
 
         SessionDBContext sessDB = new SessionDBContext();
-        ArrayList<Session> sessions = sessDB.getSessionsByStudent(studentId, dates.get(0), dates.get(dates.size() - 1));
+        ArrayList<Session> sessions = sessDB.getSessionsByStudent(student_id, dates.get(0), dates.get(dates.size() - 1));
 
         request.setAttribute("slots", slots);
         request.setAttribute("dates", dates);

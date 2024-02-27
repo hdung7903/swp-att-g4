@@ -13,6 +13,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -38,7 +39,7 @@ public class ScheduleTodayController extends HttpServlet { //extends BasedAuthor
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            String studentid = request.getParameter("id");
+            String student_id = request.getParameter("id");;
             String dateStr = request.getParameter("date");
 
             java.sql.Date sqlDate;
@@ -51,7 +52,7 @@ public class ScheduleTodayController extends HttpServlet { //extends BasedAuthor
             }
 
             SessionDBContext sessionDB = new SessionDBContext();
-            List<Session> sessions = sessionDB.getSessionsByStudentToday(studentid, sqlDate);
+            List<Session> sessions = sessionDB.getSessionsByStudentToday(student_id, sqlDate);
 
             request.setAttribute("sessions", sessions);
             request.setAttribute("date", sqlDate);

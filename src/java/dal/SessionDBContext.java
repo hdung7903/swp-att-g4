@@ -168,7 +168,7 @@ public class SessionDBContext extends DBContext<Session> {
         }
         return sessions;
     }
-    
+
     public ArrayList<Session> getSessionsByStudentToday(String student_id, Date day) {
         ArrayList<Session> sessions = new ArrayList<>();
         try {
@@ -219,15 +219,15 @@ public class SessionDBContext extends DBContext<Session> {
         return sessions;
     }
 
-    public int getTotalSession(String iid, String gid) {
+    public int getTotalSession(int gid, String iid) {
         int total = 0;
         try {
 
             String sql = "SELECT total_slots\n"
                     + "FROM class_subject_mapping\n"
-                    + "WHERE class_id= ? and instructor_id= ?";
+                    + "WHERE csm_id= ? and instructor_id= ?";
             PreparedStatement stm = connection.prepareStatement(sql);
-            stm.setString(1, gid);
+            stm.setInt(1, gid);
             stm.setString(2, iid);
             ResultSet rs = stm.executeQuery();
             if (rs.next()) {
@@ -316,6 +316,28 @@ public class SessionDBContext extends DBContext<Session> {
                 Logger.getLogger(SessionDBContext.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+    
+    public int getTotalSessionStudent(int gid, String stuid) {
+        int total = 0;
+        try {
+
+            String sql = "SELECT csm.total_slots\n"
+                    + "FROM class_subject_mapping csm\n"
+                    + "INNER JOIN student_class_mapping scm ON scm.class_id=csm.class_id\n"
+                    + "WHERE csm.csm_id= ? and scm.student_id=?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, gid);
+            stm.setString(2, stuid);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                total = rs.getInt("total_slots");
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(SessionDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return total;
     }
 
     @Override

@@ -2,17 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller.instructor;
+package controller.staff;
 
 import dal.GroupDBContext;
-import entity.Account;
-import entity.GroupSubjectMapping;
-import entity.StudentClassMapping;
+import entity.Student;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -20,7 +17,7 @@ import java.util.ArrayList;
  *
  * @author Admin
  */
-public class ViewClassListController extends HttpServlet {
+public class SearchStudentController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,9 +30,6 @@ public class ViewClassListController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        String instructorid = (String) session.getAttribute("accountId");
-        String class_id = request.getParameter("class_id");
         String searchTxt = request.getParameter("search");
         if (searchTxt == null) {
             searchTxt = "";
@@ -43,22 +37,12 @@ public class ViewClassListController extends HttpServlet {
             searchTxt = searchTxt.trim();
         }
 
-        GroupDBContext group = new GroupDBContext();
-        ArrayList<GroupSubjectMapping> gsm = group.getGroupbyInstructor(instructorid);
-
         GroupDBContext studentList = new GroupDBContext();
-        ArrayList<StudentClassMapping> scm;
-
-        if (class_id != null && !class_id.isEmpty()) {
-            scm = studentList.getStudentbyGroup(class_id);
-        } else {
-            scm = studentList.getStudentbyInstructor(searchTxt, instructorid);
-        }
+        ArrayList<Student> scm = studentList.getStudentbyStaff(searchTxt);
 
         request.setAttribute("searchTxt", searchTxt);
-        request.setAttribute("gsm", gsm);
         request.setAttribute("scm", scm);
-        request.getRequestDispatcher("../instructor/studentlist.jsp").forward(request, response);
+        request.getRequestDispatcher("../staff/searchstu.jsp").forward(request, response);
 
     }
 

@@ -74,7 +74,6 @@
                                             <button class="btn btn-outline-secondary" type="button" id="togglePassword">
                                                 <span id="eyeIcon"><i class="bi bi-eye-slash-fill"></i></span>
                                             </button>
-
                                         </div>
                                     </div>
                                     <div class="form-group d-md-flex">

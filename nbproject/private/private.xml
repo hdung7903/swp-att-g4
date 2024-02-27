@@ -3,9 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/Admin/Downloads/SWP391/gitCloneSWP/swp-att-g4/src/java/dal/GroupDBContext.java</file>
+            <file>file:/C:/Users/Admin/Downloads/SWP391/gitCloneSWP/swp-att-g4/web/staff/home.jsp</file>
+            <file>file:/C:/Users/Admin/Downloads/SWP391/gitCloneSWP/swp-att-g4/src/java/controller/instructor/ScheduleTodayController.java</file>
             <file>file:/C:/Users/Admin/Downloads/SWP391/gitCloneSWP/swp-att-g4/src/java/controller/student/ScheduleController.java</file>
-            <file>file:/C:/Users/Admin/Downloads/SWP391/gitCloneSWP/swp-att-g4/web/WEB-INF/web.xml</file>
-            <file>file:/C:/Users/Admin/Downloads/SWP391/gitCloneSWP/swp-att-g4/web/student/schedule.jsp</file>
+            <file>file:/C:/Users/Admin/Downloads/SWP391/gitCloneSWP/swp-att-g4/src/java/controller/student/ScheduleTodayController.java</file>
+            <file>file:/C:/Users/Admin/Downloads/SWP391/gitCloneSWP/swp-att-g4/src/java/controller/staff/SearchStudentController.java</file>
+            <file>file:/C:/Users/Admin/Downloads/SWP391/gitCloneSWP/swp-att-g4/web/staff/searchstu.jsp</file>
         </group>
     </open-files>
 </project-private>

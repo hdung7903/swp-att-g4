@@ -11,24 +11,28 @@ import java.util.Date;
  * @author leduy
  */
 public class Attendance extends BaseEntity {
-
+    
     private Session session;
     private Student student;
     private boolean status;
     private Group group;
     private String description;
     private Date datetime;
+    private Instructor instructor;
+    private TimeSlot timeslot;
 
     public Attendance() {
     }
 
-    public Attendance(Session session, Student student, boolean status, Group group, String description, Date datetime) {
+    public Attendance(Session session, Student student, boolean status, Group group, String description, Date datetime, Instructor instructor, TimeSlot timeslot) {
         this.session = session;
         this.student = student;
         this.status = status;
         this.group = group;
         this.description = description;
         this.datetime = datetime;
+        this.instructor = instructor;
+        this.timeslot = timeslot;
     }
 
     public Session getSession() {
@@ -79,4 +83,21 @@ public class Attendance extends BaseEntity {
         this.status = status;
     }
 
+    public Instructor getInstructor() {
+        return instructor;
+    }
+
+    public void setInstructor(Instructor instructor) {
+        this.instructor = instructor;
+    }
+
+    public TimeSlot getTimeslot() {
+        return timeslot;
+    }
+
+    public void setTimeslot(TimeSlot timeslot) {
+        this.timeslot = timeslot;
+    }
+    
+    
 }

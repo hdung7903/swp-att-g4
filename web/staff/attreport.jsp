@@ -14,12 +14,14 @@
     <body>
         <div class="container-fluid">
             <%@include file="./navbar.jsp" %> 
-            <div class="container my-5">                    
-                <h1 class="display-4 text-center">Attendance Statistics</h1> 
+            <div class="container my-5">
+                <h1 class="display-4 text-center mb-4">Attendance Statistics</h1>
+                <h3 class="display-6 text-center mb-4">Of student: ${requestScope.groupList[0].student.name}</h3>
             </div>
+
             <div class="row">
                 <div class="my-3 container">
-                    <form method="get" action="${pageContext.request.contextPath}/student/attreport" id="attendanceForm">
+                    <form method="get" action="${pageContext.request.contextPath}/staff/attreport" id="attendanceForm">
                         <div class="row">
                             <div class="form-group col ml-10">
                                 <label for="csmIdSelect">Choose a class from the list:</label>
@@ -31,12 +33,13 @@
                                         </option>
                                     </c:forEach>
                                 </select>
+                                <input type="hidden" value="${requestScope.groupList[0].student.id}" name="student_id" id="studentId" readonly />
                             </div>
                             <div class="col mt-4">
                                 <button type="submit" class="btn btn-primary">View</button>
                             </div>
                         </div>
-                    </form>                                   
+                    </form>
                 </div>
             </div>
             <table class="table table-striped table-bordered" >

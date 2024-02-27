@@ -34,6 +34,15 @@ public class Instructor extends BaseEntity {
         this.gender = gender;
         this.isDeleted = isDeleted;
     }
+    
+    public Instructor(String id, String name, String username, String email, Date dob, boolean gender) {
+        this.id = id;
+        this.name = name;
+        this.username = username;
+        this.email = email;
+        this.dob = dob;
+        this.gender = gender;
+    }
 
     public ArrayList<Session> getSessions() {
         return sessions;

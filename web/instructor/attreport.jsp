@@ -57,13 +57,31 @@
             <div class="container my-5">                    
                 <h1 class="text-center">Attendance Statistics</h1> 
             </div>
+            <div class="my-3 container">
+                <form method="get" action="${pageContext.request.contextPath}/instructor/attstatistic" id="attendanceForm">
+                    <div class="row">
+                        <div class="form-group col ml-10">
+                            <label for="groupIdSelect">Select Group:</label>
+                            <select class="form-select" aria-label="Default select example" name="groupId" id="groupIdSelect">
+                                <option selected disabled>Select a Group</option>
+                                <c:forEach items="${requestScope.groupList}" var="group">
+                                    <option value="${group.gsm.id}" data-group-name="${group.name}">${group.name}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                        <div class="col mt-4">
+                            <button type="submit" class="btn btn-primary">View</button> 
+                        </div>
+                    </div>
+                </form>
+            </div>
+
             <div class="row">
                 <div class="col-md-12">
                     <div class="table-responsive-lg">                        
                         <table class="table table-bordered table-hover">
                             <thead class="thead-dark">
                                 <tr class="text-center">
-                                    <th>Student ID</th>
                                     <th style="font-size: 12px; white-space: nowrap;">Name</th>
                                     <th style="font-size: 12px;"><input type="checkbox" name="show image" id="toggleImageCheckbox" onclick="toggleImages()" />Image</th>
                                         <c:forEach var="i" begin="1" end="${totalSession}" varStatus="loop">
@@ -91,7 +109,7 @@
                                                 </c:choose>
                                             </td>
                                         </c:forEach>
-                                        <c:forEach var="i" begin="${entry.value.attendances.size()}" end="${totalSession}">
+                                        <c:forEach var="i" begin="${entry.value.attendances.size()+1}" end="${totalSession}">
                                             <td style="font-size: 12px;">-</td>
                                         </c:forEach>
                                         <c:set var="totalSessions" value="${totalSession}" />
@@ -99,8 +117,11 @@
                                         <td style="color: ${absentPercent < 20 ? "red" : "blue"};font-size: 12px;">${absentPercent}%</td>
                                         <td style="font-size: 12px;">
                                             <c:choose>
-                                                <c:when test="${absentPercent >= 20}">
-                                                    <a href="mailto:${entry.value.email}?subject=Warning: High Absentee Percentage&body=Your Attendance Percentage is now 20%. Don't absent any slot or you'll retry this Subject next Semester" style="color: yellow;">Warning</a>
+                                                <c:when test="${absentPercent >= 10 && absentPercent <= 20}">
+                                                    <a href="mailto:${entry.value.email}?subject=Warning: High Absentee Percentage Status&body=Dear ${entry.key},%0D%0A%0D%0AI want to notify you about the attendance percentage for Subject ${entry.value.subject.name}: ${absentPercent}% absent.%0D%0A%0D%0AI should note that it is important to attend school diligently in the coming time to ensure success in the exams (participate in a minimum of 80% of the study). As a rule, the school will not make a call to compensate for students for any reason if students do not attend the lesson, including missed lessons due to late class arrangement. Also, do not forget to check the daily attendance to promptly handle errors in attendance.%0D%0A%0D%0AWish you achieve good results!%0D%0ABest regards,%0D%0A%0D%0A${entry.value.instructor.name}" style="color: yellow;">Warning</a>
+                                                </c:when>
+                                                <c:when test="${absentPercent > 20}">
+                                                    <a style="color: red;">Missed Out</a> 
                                                 </c:when>
                                                 <c:otherwise>-</c:otherwise>
                                             </c:choose>
@@ -123,6 +144,11 @@
                         images[i].style.display = "block";
                     }
                 }
+            });
+
+            document.getElementById("groupIdSelect").addEventListener("change", function () {
+                var selectedOption = this.options[this.selectedIndex];
+                document.getElementById("groupNameInput").value = selectedOption.dataset.groupName;
             });
         </script>
     </body>

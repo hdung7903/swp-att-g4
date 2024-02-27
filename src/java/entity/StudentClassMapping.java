@@ -13,14 +13,16 @@ public class StudentClassMapping extends BaseEntity {
     private int id;
     private Student student;
     private Group group;
+    private Subject subject;
 
     public StudentClassMapping() {
     }
 
-    public StudentClassMapping(int id, Student student, Group group) {
+    public StudentClassMapping(int id, Student student, Group group, Subject subject) {
         this.id = id;
         this.student = student;
         this.group = group;
+        this.subject = subject;
     }
 
     public int getId() {
@@ -45,6 +47,14 @@ public class StudentClassMapping extends BaseEntity {
 
     public void setGroup(Group group) {
         this.group = group;
+    }
+
+    public Subject getSubject() {
+        return subject;
+    }
+
+    public void setSubject(Subject subject) {
+        this.subject = subject;
     }
 
 }

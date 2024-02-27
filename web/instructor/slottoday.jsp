@@ -54,7 +54,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <input type="hidden" value="${sessionScope.accId.instructor.id}" name="id" readonly />
+                                <input type="hidden" value="${sessionScope.accountId}" name="id" readonly />
                                 <button type="submit" class="btn btn-primary">View</button>
                             </div>
                         </div>
