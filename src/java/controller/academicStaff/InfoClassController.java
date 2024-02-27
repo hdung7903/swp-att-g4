@@ -7,12 +7,13 @@ package controller.academicStaff;
 
 import dal.GroupDBContext;
 import dal.InstructorDBContext;
+import dal.StudentDBContext;
 import dal.SubjectDBContext;
 import entity.Group;
 import entity.Instructor;
+import entity.Student;
 import entity.Subject;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -41,14 +42,19 @@ public class InfoClassController extends HttpServlet {
         InstructorDBContext idb = new InstructorDBContext();
         SubjectDBContext sdb = new SubjectDBContext();
         GroupDBContext gdb = new GroupDBContext();
+        StudentDBContext studb = new StudentDBContext();
         try {
+            Group gNewest = gdb.getClassNewset();
             List<Instructor> listIns = idb.getAllInstructor();
             List<Subject> listSub = sdb.getAllSubject();
             List<Group> listG = gdb.getAllClass();
+            List<Student> listStu = studb.getAllStudent();
             request.setAttribute("listIns", listIns);
             request.setAttribute("listSub", listSub);
             request.setAttribute("listG", listG);
-            request.getRequestDispatcher("AddClass.jsp").forward(request, response);
+            request.setAttribute("listStu", listStu);
+            request.setAttribute("gNewest", gNewest);
+            request.getRequestDispatcher("createClass.jsp").forward(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(InfoClassController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -65,9 +71,8 @@ public class InfoClassController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+       processRequest(request, response);
     } 
-
     /** 
      * Handles the HTTP <code>POST</code> method.
      * @param request servlet request

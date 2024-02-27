@@ -42,10 +42,10 @@
                             <a class="nav-link active" aria-current="page" href="#"><i class="bi bi-house"></i> Home</a>
                         </li>
                         <li class="nav-item mx-3">
-                            <a class="nav-link" href="AddClass.jsp"><i class="bi bi-calendar2-event"></i> Manage Class</a>
+                            <a class="nav-link" href="info"><i class="bi bi-calendar2-event"></i> Create Class</a>
                         </li>
                         <li class="nav-item mx-3">
-                            <a class="nav-link" href="instructor"><i class="bi bi-card-checklist"></i> Insert Class</a>
+                            <a class="nav-link" href="insertClass.jsp"><i class="bi bi-card-checklist"></i> Delete Class</a>
                         </li>
                         <li class="nav-item mx-3">
                             <a class="nav-link" href="#"><i class="bi bi-clipboard-data"></i> Attendance Report</a>

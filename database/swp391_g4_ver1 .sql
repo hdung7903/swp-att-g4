@@ -72,10 +72,9 @@ CREATE TABLE Class_subject_mapping (
 
 -- Table: Student_class_mapping
 CREATE TABLE Student_class_mapping (
-    scm_id INT NOT NULL,
+    scm_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     student_id VARCHAR(150) NOT NULL,
-    class_id VARCHAR(150) NOT NULL,
-    PRIMARY KEY (scm_id),
+    class_id int NOT NULL,
     FOREIGN KEY (class_id) REFERENCES Class (class_id),
     FOREIGN KEY (student_id) REFERENCES Student (student_id)
 );
@@ -617,6 +616,9 @@ VALUES ('1', '12', 1, 'thg nay kha', NOW());
 
 UPDATE Session SET isAtt = 0 WHERE session_id =1;
 
+INSERT INTO Class_subject_mapping (class_id, subject_id, total_slots, instructor_id)
+VALUES
+('2', '1', 20, '1');
                     
 SELECT 
     s.student_id,
@@ -632,8 +634,6 @@ FROM
     INNER JOIN Attendance  a ON a.student_id = s.student_id;
 
 USE swp391_g4_ver1;
-
-
 ALTER TABLE `swp391_g4_ver1`.`class_subject_mapping` 
 CHANGE COLUMN `class_id` `class_id` int NOT NULL ;
 ALTER TABLE `swp391_g4_ver1`.`class_subject_mapping` 
@@ -668,7 +668,7 @@ SET password = '456'  -- replace 'new_password' with the actual new password
 WHERE username = 'staff';
 
 
-DROP TABLE class_subject_mapping;
+DROP TABLE student_class_mapping;
 
 
 select * from Role;

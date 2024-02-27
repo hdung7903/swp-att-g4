@@ -38,46 +38,55 @@ public class LoginController extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String rememberMe = request.getParameter("remember");
-        
+
         //tao cookie
         Cookie cuser = new Cookie("cuser", username);
         Cookie cpass = new Cookie("cpass", password);
         Cookie crmb = new Cookie("crmb", rememberMe);
-        if(rememberMe!=null){
-            cuser.setMaxAge(60*60*24*1);//1 ngay
-            cpass.setMaxAge(60*60*24*1);
-            crmb.setMaxAge(60*60*24*1);
-        }else{
+        if (rememberMe != null) {
+            cuser.setMaxAge(60 * 60 * 24 * 1);//1 ngay
+            cpass.setMaxAge(60 * 60 * 24 * 1);
+            crmb.setMaxAge(60 * 60 * 24 * 1);
+        } else {
             cuser.setMaxAge(0);
             cpass.setMaxAge(0);
             crmb.setMaxAge(0);
         }
-        
+
         response.addCookie(cuser);
         response.addCookie(cpass);
         response.addCookie(crmb);
-        
+
         AccountDBContext DAO = new AccountDBContext();
         Account a = DAO.ValidateAccount(username, password);
-        Account accountId = DAO.getAccountIdByUsername(username);
-        if(a == null){
+        if (a == null) {
             request.setAttribute("mess", "Wrong username or password");
             request.getRequestDispatcher("Login.jsp").forward(request, response);
-        }else{
+        } else {
             HttpSession session = request.getSession();
             session.setAttribute("acc", a);
-            session.setAttribute("accountId", accountId);
             session.setMaxInactiveInterval(100000);
-            if(a.role_id == 1){
-               response.sendRedirect("academicStaff/home.jsp");
+            Account getAccountId = DAO.getAccountIdByUsername(username);
+            String accountId = null;
+            if (getAccountId.getInstructor() != null) {
+                accountId = getAccountId.getInstructor().getId();
+            } else if (getAccountId.getStudent() != null && getAccountId.getStudent().getId() != null) {
+                accountId = getAccountId.getStudent().getId();
+            } else {
+                accountId = null;
             }
-            if(a.role_id == 2){
+
+            session.setAttribute("accountId", accountId);
+            if (a.role_id == 1) {
+                response.sendRedirect("academicStaff/home.jsp");
+            }
+            if (a.role_id == 2) {
                 response.sendRedirect("admin/home.jsp");
             }
-            if(a.role_id == 3){
+            if (a.role_id == 3) {
                 response.sendRedirect("instructor/home.jsp");
             }
-            if(a.role_id == 4){
+            if (a.role_id == 4) {
                 response.sendRedirect("student/home.jsp");
             }
         }
@@ -108,7 +117,7 @@ public class LoginController extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {   
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 

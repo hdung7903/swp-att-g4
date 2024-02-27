@@ -55,7 +55,7 @@
                             <label for="to" class="mr-2">To</label>
                             <input type="date" id="to" name="to" value="${requestScope.to}" class="form-control mr-3"/>
                         </div>                       
-                        <input type="hidden" value="${sessionScope.acc.accountId}" name="id" readonly />
+                        <input type="hidden" value="${sessionScope.accountId}" name="id" readonly />
                         <button type="submit" class="btn btn-primary my-2 col-3">View</button>
                     </form>
                 </div>

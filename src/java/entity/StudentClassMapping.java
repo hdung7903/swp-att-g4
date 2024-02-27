@@ -9,24 +9,24 @@ package entity;
  * @author leduy
  */
 public class StudentClassMapping extends BaseEntity {
-    private int id;
+    private String id;
     private Student student;
     private Group group;
 
     public StudentClassMapping() {
     }
 
-    public StudentClassMapping(int id, Student student, Group group) {
+    public StudentClassMapping(String id, Student student, Group group) {
         this.id = id;
         this.student = student;
         this.group = group;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

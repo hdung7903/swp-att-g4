@@ -14,6 +14,8 @@ public class Account extends BaseEntity{
     public Instructor instructor;
     public String code;
     public Student student;
+    public Admin admin;
+    public AcademicStaff staff;
     public String email;
 
     public Account() {
@@ -90,9 +92,25 @@ public class Account extends BaseEntity{
         this.student = student;
     }
 
-    @Override
-    public String toString() {
-        return "Account{" + "username=" + username + ", password=" + password + ", role_id=" + role_id + ", instructor=" + instructor + ", code=" + code + ", student=" + student + ", email=" + email + '}';
+    public Admin getAdmin() {
+        return admin;
     }
 
+    public void setAdmin(Admin admin) {
+        this.admin = admin;
+    }
+
+    public AcademicStaff getStaff() {
+        return staff;
+    }
+
+    public void setStaff(AcademicStaff staff) {
+        this.staff = staff;
+    }
+
+    @Override
+    public String toString() {
+        return "Account{" + "username=" + username + ", password=" + password + ", role_id=" + role_id + ", instructor=" + instructor + ", code=" + code + ", student=" + student + ", admin=" + admin + ", staff=" + staff + ", email=" + email + '}';
+    }
+    
 }

@@ -52,7 +52,7 @@ public class SessionDBContext extends DBContext<Session> {
                 instructor.setName(rs.getString("instructor_name"));
                 session.setInstructor(instructor);
                 GroupSubjectMapping gsm = new GroupSubjectMapping();
-                gsm.setId(rs.getInt("csm_id"));
+                gsm.setId(rs.getString("csm_id"));
                 session.setGsm(gsm);
                 Group group = new Group();
                 group.setClass_name(rs.getString("class_name"));
@@ -99,7 +99,7 @@ public class SessionDBContext extends DBContext<Session> {
                 student.setName(rs.getString("student_name"));
                 session.getStudent();
                 GroupSubjectMapping gsm = new GroupSubjectMapping();
-                gsm.setId(rs.getInt("csm_id"));
+                gsm.setId(rs.getString("csm_id"));
                 session.getGsm();
                 Group group = new Group();
                 group.setId(rs.getString("class_id"));
