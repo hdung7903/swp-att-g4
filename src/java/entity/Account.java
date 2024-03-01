@@ -13,17 +13,19 @@ public class Account extends BaseEntity {
     private String username;
     private String password;
     private String email;
+    private String roleName;
     private Instructor instructor;
     private Student student;
 
     public Account() {
     }
 
-    public Account(int role_id, String username, String password, String email, Instructor instructor, Student student) {
+    public Account(int role_id, String username, String password, String email, String roleName, Instructor instructor, Student student) {
         this.role_id = role_id;
         this.username = username;
         this.password = password;
         this.email = email;
+        this.roleName = roleName;
         this.instructor = instructor;
         this.student = student;
     }
@@ -41,6 +43,12 @@ public class Account extends BaseEntity {
         this.role_id = role_id;
     }
 
+    public Account(String username, String password,int role_id) {        
+        this.username = username;
+        this.password = password;
+        this.role_id = role_id;
+    }
+    
     public Instructor getInstructor() {
         return instructor;
     }
@@ -89,5 +97,14 @@ public class Account extends BaseEntity {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
+    
     
 }

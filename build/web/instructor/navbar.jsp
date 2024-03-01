@@ -42,13 +42,16 @@
                             <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/instructor/home"><i class="bi bi-house"></i> Home</a>
                         </li>
                         <li class="nav-item mx-3">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/instructor/schedule"><i class="bi bi-calendar2-event"></i> Schedule</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/instructor/schedule?id=${sessionScope.accountId}"><i class="bi bi-calendar2-event"></i> Schedule</a>
                         </li>
                         <li class="nav-item mx-3">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/instructor/slottoday"><i class="bi bi-card-checklist"></i> Attendance</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/instructor/slottoday?id=${sessionScope.accountId}"><i class="bi bi-card-checklist"></i> Attendance</a>
                         </li>
                         <li class="nav-item mx-3">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/instructor/attstatistic"><i class="bi bi-clipboard-data"></i> Attendance Report</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/instructor/attstatistic?id=${sessionScope.accountId}"><i class="bi bi-clipboard-data"></i> Attendance Report</a>
+                        </li>
+                        <li class="nav-item mx-3">
+                            <a class="nav-link" href="${pageContext.request.contextPath}/instructor/studentlist"><i class="bi bi-clipboard-data"></i> Student List</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav ml-auto">                    

@@ -4,7 +4,7 @@
  */
 package controller.account;
 
-import constant.IConstant;
+import util.Constants;
 import dal.AccountDBContext;
 import entity.Account;
 import entity.Instructor;
@@ -34,7 +34,6 @@ public class UserProfileController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
@@ -44,10 +43,10 @@ public class UserProfileController extends HttpServlet {
             String service = request.getParameter("Service");
             if (acc != null) {
                 if (service == null) {
-                    service = IConstant.PROFILE_OPTION[0];
+                    service = Constants.PROFILE_OPTION[0];
                 }
                 request.setAttribute("currentChoice", service);
-                if (service.equals(IConstant.PROFILE_OPTION[0])) {
+                if (service.equals(Constants.PROFILE_OPTION[0])) {
                     switch (acc.role_id) {
                         case 3:
                             Instructor ins = daoAcc.getIntructorByUserName(acc.getUsername());
@@ -63,7 +62,7 @@ public class UserProfileController extends HttpServlet {
                             throw new AssertionError();
                     }
                 }
-                if (service.equals(IConstant.PROFILE_OPTION[1])) {
+                if (service.equals(Constants.PROFILE_OPTION[1])) {
                     switch (acc.role_id) {
                         case 3:
                             request.getRequestDispatcher("/instructor/profile.jsp").forward(request, response);
@@ -76,7 +75,6 @@ public class UserProfileController extends HttpServlet {
                     }
                 }
             } else {
-                out.print("login");
                 response.sendRedirect(newURL + "/login-page");
             }
         }
@@ -139,7 +137,7 @@ public class UserProfileController extends HttpServlet {
             }
             request.setAttribute("mess", mess);
             request.setAttribute("isSuccess", isSuccess);
-            request.setAttribute("currentChoice", IConstant.PROFILE_OPTION[1]);
+            request.setAttribute("currentChoice", Constants.PROFILE_OPTION[1]);
             if (acc.getRole_id() == 3) {
                 request.getRequestDispatcher("/instructor/profile.jsp").forward(request, response);
             }

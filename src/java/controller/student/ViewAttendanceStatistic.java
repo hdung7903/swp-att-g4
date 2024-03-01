@@ -75,7 +75,35 @@ public class ViewAttendanceStatistic extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            processRequest(request, response);
+            String getId = request.getParameter("id");
+            HttpSession session = request.getSession();
+            String accountId = (String) session.getAttribute("accountId");
+            if (getId.equals(accountId)) {
+                String raw = request.getParameter("csmId");
+
+                if (raw == null) {
+                    processRequest(request, response);
+                } else {
+                    int csmId = Integer.parseInt(raw);
+                    GroupDBContext gdb = new GroupDBContext();
+                    ArrayList<Group> studentGroups = gdb.getStudentGroup(accountId);
+                    boolean found = false;
+                    for (Group group : studentGroups) {
+                        int getcsmId = group.getGsm().getId();
+                        if (csmId == getcsmId) {
+                            processRequest(request, response);
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (!found) {
+                        response.sendRedirect(request.getContextPath() + "/denied");
+                    }
+                }
+
+            } else {
+                response.sendRedirect(request.getServletContext().getContextPath() + "/denied");
+            }
         } catch (SQLException ex) {
             Logger.getLogger(ViewAttendanceStatistic.class.getName()).log(Level.SEVERE, null, ex);
         }

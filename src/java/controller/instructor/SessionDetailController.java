@@ -3,20 +3,23 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package controller.admin;
+package controller.instructor;
 
+import dal.AttendanceDBContext;
+import dal.SessionDBContext;
+import entity.Session;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.sql.Timestamp;
 
 /**
  *
  * @author leduy
  */
-public class SearchAttendanceStatistic extends HttpServlet {
+public class SessionDetailController extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -27,19 +30,20 @@ public class SearchAttendanceStatistic extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet SearchAttendanceStatistic</title>");  
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet SearchAttendanceStatistic at " + request.getContextPath () + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        SessionDBContext sesDB = new SessionDBContext();
+        AttendanceDBContext attDB = new AttendanceDBContext();
+
+        int id = Integer.parseInt(request.getParameter("id"));
+
+        Session s = new Session();
+        s.setId(id);
+        Session ses = sesDB.get(s);
+        request.setAttribute("ses", ses);
+
+        Timestamp attDateTime = sesDB.getAttendanceDateTime(id);
+        request.setAttribute("attDateTime", attDateTime);
+
+        request.getRequestDispatcher("../instructor/sessiondetail.jsp").forward(request, response);
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

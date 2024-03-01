@@ -68,6 +68,7 @@
                                     <option value="${group.gsm.id}" data-group-name="${group.name}">${group.name}</option>
                                 </c:forEach>
                             </select>
+                            <input type="hidden" value="${sessionScope.accountId}" name="id" readonly />
                         </div>
                         <div class="col mt-4">
                             <button type="submit" class="btn btn-primary">View</button> 

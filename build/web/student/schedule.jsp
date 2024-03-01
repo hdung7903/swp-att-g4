@@ -88,7 +88,7 @@
                                                                 <c:forEach items="${requestScope.sessions}" var="ses">
                                                                     <c:if test="${ses.time.id eq s.id and ses.date eq d}">
                                                                         <div class="mb-2">
-                                                                            <a class="font-weight-bold text-dark">
+                                                                            <a href="${pageContext.request.contextPath}/student/sessiondetail?id=${ses.id}" class="font-weight-bold text-dark">
                                                                                 ${ses.group.name} - ${ses.subject.name}
                                                                             </a>
                                                                             <br>

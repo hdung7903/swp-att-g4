@@ -1,15 +1,9 @@
-<%-- 
-    Document   : profile
-    Created on : 25 Jan, 2024, 11:59:24 PM
-    Author     : HP
---%>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.*" %>
 <%@page import="dal.*" %>
 <%@page import="entity.*" %>
-<%@page import="constant.*" %>
+<%@page import="util.*" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -41,7 +35,7 @@
         <div class="container">
             <div class="text-center">
                 <ul class="d-flex py-4 border-top border-bottom text-center w-75">
-                    <c:forEach var="info" items="${IConstant.PROFILE_OPTION}">
+                    <c:forEach var="info" items="${Constants.PROFILE_OPTION}">
                         <li class="me-5">
                             <a href="profile?Service=${info}" class="text-decoration-none
                                ${info.equals(requestScope.currentChoice)?'text-danger':'text-black'}">
@@ -57,7 +51,7 @@
                 </div>
             </c:if>
 
-            <c:if test="${requestScope.currentChoice==IConstant.PROFILE_OPTION[0]}">
+            <c:if test="${requestScope.currentChoice==Constants.PROFILE_OPTION[0]}">
                 <div class="mb-5">
                     <h2 class="text-center">Account Information</h2>
                     <form>

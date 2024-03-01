@@ -3,20 +3,29 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package controller.admin;
+package controller.academicStaff;
 
+import dal.AttendanceDBContext;
+import dal.GroupDBContext;
+import dal.SessionDBContext;
+import entity.Attendance;
+import entity.Group;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author leduy
  */
-public class CreateAccount extends HttpServlet {
+public class ViewAttendanceStatistic extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -26,19 +35,27 @@ public class CreateAccount extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet CreateAccount</title>");  
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet CreateAccount at " + request.getContextPath () + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+    throws ServletException, IOException, SQLException {
+        AttendanceDBContext attdb = new AttendanceDBContext();
+        GroupDBContext gdb = new GroupDBContext();
+        SessionDBContext sesdb = new SessionDBContext();
+
+        String id = request.getParameter("student_id");
+
+        if (request.getParameter("csmId") != null) {
+            int csmId = Integer.parseInt(request.getParameter("csmId"));
+            ArrayList<Group> groupList = gdb.getStudentGroup(id);
+            List<Attendance> statusRecord = attdb.getStudentAttendanceRecords(id, csmId);
+            int totalSes = sesdb.getTotalSessionStudent(csmId, id);
+            request.setAttribute("statusRecord", statusRecord);
+            request.setAttribute("groupList", groupList);
+            request.setAttribute("totalSession", totalSes);
+            request.getRequestDispatcher("../academicStaff/attreport.jsp").forward(request, response);
+
+        } else {
+            ArrayList<Group> groupList = gdb.getStudentGroup(id);
+            request.setAttribute("groupList", groupList);
+            request.getRequestDispatcher("../academicStaff/attreport.jsp").forward(request, response);
         }
     } 
 
@@ -53,7 +70,11 @@ public class CreateAccount extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(ViewAttendanceStatistic.class.getName()).log(Level.SEVERE, null, ex);
+        }
     } 
 
     /** 
@@ -66,7 +87,11 @@ public class CreateAccount extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(ViewAttendanceStatistic.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /** 

@@ -83,7 +83,14 @@ public class ScheduleTodayController extends HttpServlet { //extends BasedAuthor
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String getId = request.getParameter("id");
+        HttpSession session = request.getSession();
+        String accountId = (String) session.getAttribute("accountId");
+        if (accountId == null || !accountId.equals(getId)) {
+            response.sendRedirect(request.getServletContext().getContextPath() + "/denied");
+        } else {
+            processRequest(request, response);
+        }
     }
 
     /**

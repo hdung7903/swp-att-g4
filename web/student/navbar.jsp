@@ -39,16 +39,19 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav m-auto mb-2 mb-md-0">
                         <li class="nav-item mx-3">
-                            <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/instructor/home"><i class="bi bi-house"></i> Home</a>
+                            <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/student/home"><i class="bi bi-house"></i> Home</a>
                         </li>
                         <li class="nav-item mx-3">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/student/schedule"><i class="bi bi-calendar2-event"></i> Schedule</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/student/schedule?id=${sessionScope.accountId}"><i class="bi bi-calendar2-event"></i> Schedule</a>
                         </li>
                         <li class="nav-item mx-3">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/student/slottoday"><i class="bi bi-card-checklist"></i> Attendance</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/student/slottoday?id=${sessionScope.accountId}"><i class="bi bi-card-checklist"></i> Attendance</a>
                         </li>
                         <li class="nav-item mx-3">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/student/attreport"><i class="bi bi-clipboard-data"></i> Attendance Report</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/student/attreport?id=${sessionScope.accountId}"><i class="bi bi-clipboard-data"></i> Attendance Report</a>
+                        </li>
+                        <li class="nav-item mx-3">
+                            <a class="nav-link" href="${pageContext.request.contextPath}/student/studentlist?id=${sessionScope.accountId}"><i class="bi bi-clipboard-data"></i> Student List</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav ml-auto">                    

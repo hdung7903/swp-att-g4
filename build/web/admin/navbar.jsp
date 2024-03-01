@@ -6,24 +6,44 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+        
+        <style>
+            .container-fluid{
+                margin: 0!important;
+                padding: 0!important;
+            }
+            .navbar-brand {
+                background-color: black;
+                padding: 30px;
+                border-radius: 5px;
+                margin-right: 10px;
+                margin-left: 20px;
+                color: orange;
+            }
+            .navbar-toggler{
+                outline: none!important;
+                padding: none!important;
+            }
+            .nav-item{
+                padding-top: 15px;
+                padding-bottom: 15px;
+            }
+        </style>
+        
     </head>
     <body>
         <nav class="navbar navbar-expand-md navbar-dark bg-dark" aria-label="Fourth navbar example">
             <div class="container-fluid">
+                <a class="navbar-brand fw-bold" style="color: orange;" href="#">FPT UNIVERSITY</a>
                 <div class="collapse navbar-collapse" id="navbarsExample04">
                     <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                        <li class="nav-item">
+                        <li class="nav-item mx-3">
                             <a class="nav-link active" aria-current="page" href="#">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Schedule</a>
+                        <li class="nav-item mx-3">
+                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/manageacc">Manage Account</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Attendance</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Attendance Report</a>
-                        </li>
+                        
                     </ul>
                     <ul class="navbar-nav ml-auto">                    
                         <li class="nav-link px-2 text-secondary">

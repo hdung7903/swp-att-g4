@@ -90,14 +90,16 @@ public class LoginController extends HttpServlet {
             session.setMaxInactiveInterval(100000);
             Account getAccountId = DAO.getAccountIdByUsername(username);
             String accountId=null;
-            if(getAccountId.getInstructor()!=null){
-                accountId=getAccountId.getInstructor().getId();
-            }else if(getAccountId.getStudent().getId()!=null){
-                accountId=getAccountId.getStudent().getId();
+            if (getAccountId.getInstructor() != null) {
+                accountId = getAccountId.getInstructor().getId();
+            } else if (getAccountId.getStudent() != null && getAccountId.getStudent().getId() != null) {
+                accountId = getAccountId.getStudent().getId();
+            } else {
+                accountId = null;
             }
             session.setAttribute("accountId", accountId);
             if (a.role_id == 1) {
-                    response.sendRedirect(request.getContextPath()+"/academicStaff/home");
+                    response.sendRedirect(request.getContextPath()+"/acad/home");
             }
             if (a.role_id == 2) {
                 response.sendRedirect(request.getContextPath()+"/admin/home");

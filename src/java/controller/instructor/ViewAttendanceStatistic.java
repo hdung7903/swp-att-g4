@@ -75,7 +75,36 @@ public class ViewAttendanceStatistic extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            processRequest(request, response);
+            String getId = request.getParameter("id");
+            HttpSession session = request.getSession();
+            String accountId = (String) session.getAttribute("accountId");
+            if (getId.equals(accountId)) {
+                String raw = request.getParameter("groupId");
+
+                if (raw == null) {
+                    processRequest(request, response);
+                } else {
+                    int groupId = Integer.parseInt(request.getParameter("groupId"));
+                    GroupDBContext gdb = new GroupDBContext();
+                    ArrayList<Group> instructorGroups = gdb.getInstructorGroup(accountId);
+                    boolean found = false;
+                    for (Group group : instructorGroups) {
+                        int csmId = group.getGsm().getId();
+                        if (csmId == groupId) {
+                            processRequest(request, response);
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (!found) {
+                        response.sendRedirect(request.getContextPath() + "/denied");
+                    }
+                }
+
+            } else {
+                response.sendRedirect(request.getServletContext().getContextPath() + "/denied");
+            }
+
         } catch (SQLException ex) {
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred while processing the request.");
         }

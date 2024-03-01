@@ -56,7 +56,10 @@
             a.text-reset {
                 text-decoration: none;
             }
-
+            body {
+                max-width: 100%;
+                overflow-x: hidden;
+            }
         </style>
     </head>
     <body>
@@ -80,10 +83,6 @@
                         <a href="mailto:dichvusinhvien@fe.edu.vn" class="me-4 text-reset" target="_blank">
                             <i class="bi bi-google"></i> dichvusinhvien@fe.edu.vn
                         </a>
-                        <a href="https://www.facebook.com/profile.php?id=100013384535090" class="me-4 text-reset" target="_blank">
-                            <i class="bi bi-instagram"></i>
-                        </a>
-
                     </div>
                 </section>
             </div>
@@ -99,21 +98,21 @@
             </div>
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="https://scontent.fhan14-3.fna.fbcdn.net/v/t1.15752-9/395552079_6819782658115889_3201581416699991953_n.png?_nc_cat=110&ccb=1-7&_nc_sid=8cd0a2&_nc_ohc=2owmGNDd5AwAX-6vaQ_&_nc_ht=scontent.fhan14-3.fna&oh=03_AdRyq8cFxnPJO0uM-5J2ELqiGCgwqWNwTXEcMT3ZUaL_uA&oe=65D32D6B" class="d-block w-100" alt="...">
+                    <img src="https://cdn.discordapp.com/attachments/1207588646270541874/1211577496445648926/thumb.png?ex=65eeb479&is=65dc3f79&hm=b01560645d383ab461ac3bece06a953f18351ec337b6a3c1a2afb92df2161d18&" class="d-block w-100" alt="...">
                     <div class="carousel-caption d-block">
                         <h5>THÔNG BÁO</h5>
-                        <p>Lịch nghỉ Tết Nguyên Đán năm 2024.Từ ngày 02/02 - 18/02/2024 </p>
+                        <p>Lịch nghỉ Tết Nguyên Đán năm 2024: Từ ngày 02/02 - 18/02/2024 </p>
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <img src="https://scontent.fhan14-3.fna.fbcdn.net/v/t1.15752-9/395552079_6819782658115889_3201581416699991953_n.png?_nc_cat=110&ccb=1-7&_nc_sid=8cd0a2&_nc_ohc=2owmGNDd5AwAX-6vaQ_&_nc_ht=scontent.fhan14-3.fna&oh=03_AdRyq8cFxnPJO0uM-5J2ELqiGCgwqWNwTXEcMT3ZUaL_uA&oe=65D32D6B" class="d-block w-100" alt="...">
+                    <img src="https://cdn.discordapp.com/attachments/1207588646270541874/1211577496445648926/thumb.png?ex=65eeb479&is=65dc3f79&hm=b01560645d383ab461ac3bece06a953f18351ec337b6a3c1a2afb92df2161d18&" class="d-block w-100" alt="...">
                     <div class="carousel-caption d-block">
                         <h5>Second slide label</h5>
                         <p>Some representative placeholder content for the second slide.</p>
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <img src="https://scontent.fhan14-3.fna.fbcdn.net/v/t1.15752-9/395552079_6819782658115889_3201581416699991953_n.png?_nc_cat=110&ccb=1-7&_nc_sid=8cd0a2&_nc_ohc=2owmGNDd5AwAX-6vaQ_&_nc_ht=scontent.fhan14-3.fna&oh=03_AdRyq8cFxnPJO0uM-5J2ELqiGCgwqWNwTXEcMT3ZUaL_uA&oe=65D32D6B" class="d-block w-100" alt="...">
+                    <img src="https://cdn.discordapp.com/attachments/1207588646270541874/1211577496445648926/thumb.png?ex=65eeb479&is=65dc3f79&hm=b01560645d383ab461ac3bece06a953f18351ec337b6a3c1a2afb92df2161d18&" class="d-block w-100" alt="...">
                     <div class="carousel-caption d-block">
                         <h5>Third slide label</h5>
                         <p>Some representative placeholder content for the third slide.</p>
@@ -151,7 +150,11 @@
                                                             <td valign="top">
                                                                 <h4>Information Access (Tra cứu thông tin)</h4>
                                                                 <ul>
-                                                                    <li><a href="#">In develop process</a> (Đang trong quá trình phát triển)</li>
+                                                                    <li><a href="#">Weekly timetable</a> (Thời khóa biểu từng tuần)</li>
+                                                                    <li><a href="#">Take attendance</a> (Thực hiện điểm danh)</li>
+                                                                    <li><a href="#">View Schedule</a> (Xem thông tin điểm danh)</li>
+                                                                    <li><a href="#">Edit Schedule</a> (Sửa thông tin điểm danh)</li>
+                                                                    <li><a href="#">Attendance Statistic</a> (Thống kê điểm danh)</li>
                                                                 </ul>
                                                             </td>
                                                         </tr>
@@ -167,6 +170,5 @@
                 </div>
             </div>
         </div>
-
     </body>
 </html>

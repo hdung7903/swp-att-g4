@@ -93,7 +93,7 @@
         <main class="container-fluid">
             <div class="text-center">
                 <div class="image-container">
-                    <img src="https://scontent.fhan14-2.fna.fbcdn.net/v/t39.30808-6/414981424_753677770123822_6814149231170888051_n.png?stp=dst-png_p600x600&_nc_cat=108&ccb=1-7&_nc_sid=783fdb&_nc_ohc=1tyfIfM_zqcAX8bMxvu&_nc_ht=scontent.fhan14-2.fna&oh=00_AfBTww5LpdAo-r91OokWE4-eAp3uUMV5jEi-wrcW9M5Ftw&oe=65B60A65" alt="Your Image">
+                    <img src="https://cdn.discordapp.com/attachments/1207588646270541874/1211569259994550272/414981424_753677770123822_6814149231170888051_n.png?ex=65eeaccd&is=65dc37cd&hm=1baf1ede8e32732eb89bb9135447397cb1bd82f2d75d31d2a0b653584b92a332&" alt="Your Image">
                 </div>
 
             </div>
