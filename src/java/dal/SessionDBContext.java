@@ -384,7 +384,7 @@ public class SessionDBContext extends DBContext<Session> {
     @Override
     public Session get(Session entity) {
         try {
-            String sql = "SELECT s.session_id,s.ses_date,t.timeslot_id,t.description,c.class_id,c.class_name,su.subject_id,su.subject_name,i.instructor_id,i.instructor_name,s.isAtt,a.att_datetime\n"
+            String sql = "SELECT s.session_id,s.ses_date,t.timeslot_id,t.description,c.class_id,c.class_name,c.link_url,su.subject_id,su.subject_name,i.instructor_id,i.instructor_name,s.isAtt,a.att_datetime\n"
                     + "FROM Session s \n"
                     + "INNER JOIN class_subject_mapping csm ON csm.csm_id=s.csm_id\n"
                     + "INNER JOIN Instructor i ON csm.instructor_id = i.instructor_id\n"
@@ -408,11 +408,15 @@ public class SessionDBContext extends DBContext<Session> {
                 Group g = new Group();
                 g.setId(rs.getString("class_id"));
                 g.setName(rs.getString("class_name"));
+                g.setLink_url(rs.getString("link_url"));
                 session.setGroup(g);
                 Subject subject = new Subject();
                 subject.setId(rs.getString("subject_id"));
                 subject.setName(rs.getString("subject_name"));
                 session.setSubject(subject);
+                Instructor i = new Instructor();
+                i.setName(rs.getString("instructor_name"));
+                session.setInstructor(i);
                 return session;
             }
         } catch (SQLException ex) {

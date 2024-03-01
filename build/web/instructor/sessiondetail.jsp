@@ -130,12 +130,10 @@
                             <div style="width: 12px; height: 8px; left: 397px; top: 20.02px; position: absolute"></div>
                         </div>
                     </div>            
-
                 </div>
                 <div style="width: 986px; padding-top: 19px; padding-bottom: 21px; padding-left: 45.03px; padding-right: 49.97px; left: 240px; top: 61px; position: absolute; background: linear-gradient(90deg, rgba(21, 72, 132, 0.94) 0%, rgba(21, 72, 132, 0.69) 100%); border-radius: 100px; justify-content: center; align-items: center; display: inline-flex">
                     <div style="text-align: center; color: white; font-size: 30px; font-family: Inter; font-weight: 800; line-height: 20px; word-wrap: break-word">Session Information</div>
                 </div>
-
             </div>
         </div>
     </body>
