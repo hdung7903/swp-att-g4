@@ -89,7 +89,7 @@
                                             </label>
                                         </div>
                                         <div class="w-50 text-right">
-                                            <a href="account/forgotPassword.jsp">Forgot Password?</a>
+                                            <a href="account/forgotPassword">Forgot Password?</a>
                                         </div>
                                     </div>
                                     <div class="g-recaptcha" data-sitekey="6LcXVF4pAAAAAB_m0xoYKzmMOj5pS1cZVp2wDJfJ"></div>

@@ -44,7 +44,7 @@
                                     <input type="number" class="form-input" name="slot" placeholder="Enter slot's number" required/>
                                 </div>
                             </div>
-                                <p style="color: red; font-size: 18px" >${requestScope.mess}</p>
+                            <p style="color: red; font-size: 18px" >${requestScope.mess}</p>
                             <div class="form-row">
                                 <div class="form-group">
                                     <label for="sub">Choose subject's class:</label><br>
