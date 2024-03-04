@@ -18,6 +18,10 @@
                 background-color: #f8f9fa;
                 font-family: Arial, sans-serif;
             }
+            .container-fluid{
+                margin: 0!important;
+                padding: 0!important;
+            }
             .container {
                 padding: 20px;
             }

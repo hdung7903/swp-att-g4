@@ -15,6 +15,10 @@
             body {
                 background-color: #f8f9fa;
             }
+            .container-fluid{
+                margin: 0!important;
+                padding: 0!important;
+            }
             .navbar {
                 box-shadow: 0 2px 4px rgba(0,0,0,.1);
             }

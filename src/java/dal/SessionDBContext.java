@@ -123,7 +123,7 @@ public class SessionDBContext extends DBContext<Session> {
     public ArrayList<Session> getSessionsByInstructorToday(String instructor_id, Date day) {
         ArrayList<Session> sessions = new ArrayList<>();
         try {
-            String sql = "SELECT i.instructor_id, i.instructor_name, su.subject_name, c.class_name, c.link_url,s.session_id, s.session_index, s.ses_date, s.isAtt,csm.csm_id,t.timeslot_id \n"
+            String sql = "SELECT i.instructor_id, i.instructor_name, su.subject_name, c.class_name, c.link_url,s.session_id, s.session_index, s.ses_date, s.isAtt,csm.csm_id,t.timeslot_id,t.description  \n"
                     + "FROM Session s\n"
                     + "INNER JOIN Class_subject_mapping csm ON csm.csm_id = s.csm_id\n"
                     + "INNER JOIN Instructor i ON i.instructor_id = csm.instructor_id\n"
@@ -155,7 +155,7 @@ public class SessionDBContext extends DBContext<Session> {
                 subject.setName(rs.getString("subject_name"));
                 session.setSubject(subject);
                 TimeSlot t = new TimeSlot();
-                t.setId(rs.getInt("timeslot_id"));
+                t.setDescription(rs.getString("description"));
                 session.setTime(t);
                 sessions.add(session);
             }
@@ -315,7 +315,7 @@ public class SessionDBContext extends DBContext<Session> {
         ArrayList<Session> sessions = new ArrayList<>();
         try {
             String sql = "SELECT stu.student_id, stu.student_name, su.subject_name, c.class_name, "
-                    + "c.link_url, s.session_id, s.session_index, s.ses_date, s.isAtt, csm.csm_id, t.timeslot_id, a.status \n"
+                    + "c.link_url, s.session_id, s.session_index, s.ses_date, s.isAtt, csm.csm_id, t.timeslot_id, a.status,t.description \n"
                     + "FROM Session s\n"
                     + "INNER JOIN Attendance a ON a.session_id = s.session_id\n"
                     + "INNER JOIN Student stu ON stu.student_id = a.student_id\n"
@@ -351,7 +351,7 @@ public class SessionDBContext extends DBContext<Session> {
                 subject.setName(rs.getString("subject_name"));
                 session.setSubject(subject);
                 TimeSlot t = new TimeSlot();
-                t.setId(rs.getInt("timeslot_id"));
+                t.setDescription(rs.getString("description"));
                 session.setTime(t);
                 sessions.add(session);
             }

@@ -14,6 +14,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 
 /**
@@ -79,7 +80,9 @@ public class TakeAttendanceController extends HttpServlet {
         SessionDBContext sesDB = new SessionDBContext();
         sesDB.addAttendances(ses);
         request.setAttribute("message", "Attendance updated!");
-        response.sendRedirect(request.getContextPath() + "/instructor/schedule");
+        HttpSession session = request.getSession();
+        String accountId = (String) session.getAttribute("accountId");
+        response.sendRedirect(request.getContextPath() + "/instructor/schedule?id="+accountId);
     }
 
     /**

@@ -61,6 +61,29 @@ public class AccountDBContext extends DBContext<Account> {
         }
         return acc;
     }
+    
+     public Account ValidateAccountByEmailAndUsername(String userName, String email) {
+        String sql = "Select * from Account where username = ? and email = ?";
+        Account acc = null;
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, userName);
+            st.setString(2, email);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {                
+                acc = new Account(
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getInt("role_id"),
+                        rs.getString("email")
+                        );
+                return acc;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return acc;
+    }
 
     public boolean resetPassword(String email, String username, String newPassword) {
         boolean success = false;

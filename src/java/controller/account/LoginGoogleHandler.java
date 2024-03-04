@@ -46,7 +46,6 @@ public class LoginGoogleHandler extends HttpServlet {
         AccountDBContext DAO = new AccountDBContext();
         Account a = DAO.ValidateAccountByEmail(email);
         String username = a.getUsername();
-        Account accountId = DAO.getAccountIdByUsername(username);
 
         if (a == null) {
             request.setAttribute("mess", "Wrong username or password");
@@ -54,8 +53,17 @@ public class LoginGoogleHandler extends HttpServlet {
         } else {
             HttpSession session = request.getSession();
             session.setAttribute("acc", a);
-            session.setAttribute("accountId", accountId);
             session.setMaxInactiveInterval(100000);
+            Account getAccountId = DAO.getAccountIdByUsername(username);
+            String accountId = null;
+            if (getAccountId.getInstructor() != null) {
+                accountId = getAccountId.getInstructor().getId();
+            } else if (getAccountId.getStudent() != null && getAccountId.getStudent().getId() != null) {
+                accountId = getAccountId.getStudent().getId();
+            } else {
+                accountId = null;
+            }
+            session.setAttribute("accountId", accountId);
             if (a.role_id == 1) {
                 response.sendRedirect("acad/home");
             }

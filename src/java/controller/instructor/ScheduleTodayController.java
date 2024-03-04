@@ -6,24 +6,17 @@ package controller.instructor;
 
 //import controller.authentication.BasedAuthorizationController;
 //import controller.authentication.BasedRequiredAuthenticationController;
+
 import dal.SessionDBContext;
-import dal.AccountDBContext;
-import dal.TimeSlotDBContext;
 import entity.Session;
-import entity.Account;
-import entity.Role;
-import entity.TimeSlot;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;

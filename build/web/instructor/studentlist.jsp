@@ -7,10 +7,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Student list</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
         <style>
             body {
                 background-color: #f8f9fa;
                 font-family: Arial, sans-serif;
+            }
+            .container-fluid{
+                margin: 0!important;
+                padding: 0!important;
             }
             .container {
                 padding: 20px;
@@ -95,7 +100,7 @@
                             <form id="searchForm" action="${pageContext.request.contextPath}/instructor/studentlist" method="get">
                                 <div class="input-group mb-3">
                                     <input class="form-control" placeholder="Search" name="search" value="${searchTxt}">
-                                    <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i></button>
+                                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i></button>
                                 </div>          
                             </form>
                         </div>

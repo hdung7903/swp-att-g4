@@ -12,7 +12,10 @@
             body {
                 background: #f1f1f1;
             }
-
+            .container-fluid{
+                margin: 0!important;
+                padding: 0!important;
+            }
             .container {
                 background: #fff;
                 border-radius: 10px;

@@ -4,11 +4,9 @@
  */
 package controller.account;
 
+import dal.AccountDBContext;
+import entity.Account;
 import jakarta.mail.Message;
-import java.io.IOException;
-import java.util.Properties;
-import java.util.Random;
-
 import jakarta.mail.MessagingException;
 import jakarta.mail.PasswordAuthentication;
 import jakarta.mail.Session;
@@ -16,11 +14,14 @@ import jakarta.mail.Transport;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 import jakarta.servlet.RequestDispatcher;
+import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.Properties;
+import java.util.Random;
 
 /**
  *
@@ -39,17 +40,47 @@ public class ForgotPasswordController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        request.getRequestDispatcher("forgotPassword.jsp").forward(request, response);
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         String username = request.getParameter("username");
         String email = request.getParameter("email");
         RequestDispatcher dispatcher = null;
         int otpvalue = 0;
         HttpSession mySession = request.getSession();
+         AccountDBContext accDB = new AccountDBContext();
+        Account acc = accDB.ValidateAccountByEmailAndUsername(username, email);      
 
-        if (email != null || !email.equals("")) {
+        if (acc != null) {
             // sending otp
             Random rand = new Random();
-            otpvalue = rand.nextInt(999999);
+            otpvalue = rand.nextInt(900000) + 100000;
 
             String to = email;// change accordingly
             // Get the session object
@@ -80,7 +111,7 @@ public class ForgotPasswordController extends HttpServlet {
             } catch (MessagingException e) {
                 throw new RuntimeException(e);
             }
-            request.setAttribute("message", "OTP is sent to your email id");
+            request.setAttribute("message", "OTP is sent to your email");
             //request.setAttribute("connection", con);
             mySession.setAttribute("otp", otpvalue);
             mySession.setAttribute("email", email);
@@ -88,35 +119,10 @@ public class ForgotPasswordController extends HttpServlet {
             request.getRequestDispatcher("EnterOtp.jsp").forward(request, response);
             //request.setAttribute("status", "success");
         }
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+        else{
+            request.setAttribute("mess", "Username or Email was wrong");
+            request.getRequestDispatcher("forgotPassword.jsp").forward(request, response);
+        }
     }
 
     /**
