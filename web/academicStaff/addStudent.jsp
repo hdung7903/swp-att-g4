@@ -27,19 +27,15 @@
                     <div class="signup-content">
                         <form method="POST" id="signup-form" class="signup-form" action="addStudent">
                             <h2 for="first_name">Create Class</h2>
-                            <c:set var="gsmNew" value="${requestScope.gsm}"/>
+                            <c:set var="gsmNew" value="${requestScope.gNew}"/>
                             <div class="form-row">
                                 <div class="form-group">
                                     <label for="first_name">Class Name</label>
-                                    <input type="text" class="form-input" name="classname" value="${gsmNew.getGroup().class_name}" readonly />
+                                    <input type="text" class="form-input" name="classname" value="${gNew.class_name}" readonly />
                                 </div>
                                 <div class="form-group">
-                                    <label for="last_name">Instructor</label>
-                                    <input type="text" class="form-input" name="link_url" value="${gsmNew.getInstructor().name}" readonly />
-                                </div>
-                                <div class="form-group">
-                                    <label for="last_name">Subject</label>
-                                    <input type="text" class="form-input" name="link_url" value="${gsmNew.getSubject().name}" readonly />
+                                    <label for="last_name">Link Meet</label>
+                                    <input type="text" class="form-input" name="link_url" value="${gNew.link_url}" readonly />
                                 </div>
                             </div>  
                             <div class="form-row">
@@ -67,6 +63,9 @@
                             </div>    
                             <div class="form-group">
                                 <input type="submit" name="submit" id="submit" class="form-submit" value="Add Student"/>
+                            </div>
+                            <div class="form-group">
+                                <a href="home.jsp">Back to Home</a>
                             </div>
                         </form>
                     </div>

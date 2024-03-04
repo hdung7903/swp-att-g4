@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -55,6 +56,45 @@ public class GSMDBContext extends DBContext<GroupSubjectMapping>{
         }
         return null;
     }
+    
+    public List<GroupSubjectMapping> getAllClass() {
+    List<GroupSubjectMapping> listGSM = new ArrayList<>();
+    String sql = """
+                    SELECT csm_id, i.instructor_name, i.instructor_id, c.class_name, c.class_id, c.link_url, su.subject_name, su.subject_id
+                    FROM class_subject_mapping csm 
+                    INNER JOIN instructor i ON i.instructor_id = csm.instructor_id
+                    INNER JOIN class c ON c.class_id = csm.class_id
+                    INNER JOIN subject su ON su.subject_id = csm.subject_id
+                    ORDER BY c.class_name
+                 """;
+    try {
+        PreparedStatement st = connection.prepareStatement(sql);
+        ResultSet rs = st.executeQuery();
+        while (rs.next()) {
+            String id = rs.getString("csm_id");
+            String instructorId = rs.getString("instructor_id");
+            String instructorName = rs.getString("instructor_name");
+            String classId = rs.getString("class_id");
+            String className = rs.getString("class_name");
+            String linkUrl = rs.getString("link_url");
+            String subjectId = rs.getString("subject_id");
+            String subjectName = rs.getString("subject_name");
+
+            Instructor instructor = new Instructor(instructorId, instructorName);
+            Group group = new Group(classId, className, linkUrl);
+            Subject subject = new Subject(subjectId, subjectName);
+
+            GroupSubjectMapping gsm = new GroupSubjectMapping(id, instructor, group, subject);
+
+            listGSM.add(gsm);
+        }
+        return listGSM;
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return null;
+}
+
     
     public boolean checkSubjectExist(String class_id, String subject_id) {
     String sql = "SELECT * FROM swp391_g4_ver1.class_subject_mapping WHERE class_id = ? AND subject_id = ?";

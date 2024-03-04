@@ -44,7 +44,7 @@ public class CreateClassController extends HttpServlet {
             request.getRequestDispatcher("info").forward(request, response);
         } else {
             gdb.createClass(className, link_url);
-            response.sendRedirect("addInsAndSub");
+            response.sendRedirect("addStudent");
         }
     } 
 

@@ -80,6 +80,9 @@
                             <div class="form-group">
                                 <input type="submit" name="submit" id="submit" class="form-submit" value="Create"/>
                             </div>
+                            <div class="form-group">
+                                <a href="home.jsp">Back to Home</a>
+                            </div>
                         </form>
                     </div>
                 </div>

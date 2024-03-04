@@ -95,7 +95,8 @@ public class AddInsAndSub extends HttpServlet {
             request.getRequestDispatcher("addClass").forward(request, response);
         }else{
             gdb.insertClass(class_id, subId, slot, insId);
-            response.sendRedirect("addStudent");
+            request.setAttribute("mess", "Create Class Success!");
+            request.getRequestDispatcher("info").forward(request, response);
         }
         
     }

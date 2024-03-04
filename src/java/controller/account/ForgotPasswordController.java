@@ -4,6 +4,8 @@
  */
 package controller.account;
 
+import dal.AccountDBContext;
+import entity.Account;
 import java.io.IOException;
 import java.util.Properties;
 import java.util.Random;
@@ -72,11 +74,13 @@ public class ForgotPasswordController extends HttpServlet {
             throws ServletException, IOException {
         String username = request.getParameter("username");
         String email = request.getParameter("email");
+        AccountDBContext accDB = new AccountDBContext();
+        Account acc = accDB.ValidateAccountByEmailAndUsername(username, email);
         RequestDispatcher dispatcher = null;
         int otpvalue = 0;
         HttpSession mySession = request.getSession();
 
-        if (email != null || !email.equals("")) {
+        if (acc != null) {
             // sending otp
             Random rand = new Random();
             otpvalue = rand.nextInt(999999);
@@ -117,6 +121,9 @@ public class ForgotPasswordController extends HttpServlet {
             mySession.setAttribute("username", username);
             request.getRequestDispatcher("EnterOtp.jsp").forward(request, response);
             //request.setAttribute("status", "success");
+        }else{
+            request.setAttribute("mess", "Username or Email was wrong");
+            request.getRequestDispatcher("forgotPassword.jsp").forward(request, response);
         }
     }
 

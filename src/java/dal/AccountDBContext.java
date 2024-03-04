@@ -63,6 +63,29 @@ public class AccountDBContext extends DBContext<Account>{
         return acc;
     }
     
+    public Account ValidateAccountByEmailAndUsername(String userName, String email) {
+        String sql = "Select * from Account where username = ? and email = ?";
+        Account acc = null;
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, userName);
+            st.setString(2, email);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {                
+                acc = new Account(
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getInt("role_id"),
+                        rs.getString("email")
+                        );
+                return acc;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return acc;
+    }
+    
     public Account getAccountIdByUsername(String username) {
         String sql = "SELECT s.student_id, i.instructor_id,s.email as student_email,i.email as instructor_email\n"
                 + "FROM Account acc \n"
@@ -70,17 +93,11 @@ public class AccountDBContext extends DBContext<Account>{
                 + "LEFT JOIN Instructor i ON i.username = acc.username \n"
                 + "WHERE acc.username= ?";
         Account acc = new Account();
-        String accountId = null;
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, username);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
-                accountId = rs.getString("student_id");
-                        if (accountId == null) {
-                            accountId = rs.getString("instructor_id");
-                        }
-                        
                 if (rs.getString("student_id") != null) {
                     Student student = new Student();
                     student.setId(rs.getString("student_id"));
@@ -192,7 +209,7 @@ public class AccountDBContext extends DBContext<Account>{
     }
     public static void main(String[] args) {
         AccountDBContext da = new AccountDBContext();
-        System.out.println(da.ValidateAccount("admin", "123"));
+        System.out.println(da.ValidateAccountByEmailAndUsername("", "quangpn808@gmail.com"));
     }
 
     @Override

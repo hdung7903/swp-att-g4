@@ -46,7 +46,8 @@ public class LoginGoogleHandler extends HttpServlet {
         String email = user.getEmail();
         AccountDBContext DAO = new AccountDBContext();
         Account a = DAO.ValidateAccountByEmail(email);
-        String username = a.getUsername();      
+        String username = a.getUsername();   
+        
         
         if(a == null){
             request.setAttribute("mess", "Wrong username or password");

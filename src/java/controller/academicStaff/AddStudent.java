@@ -62,13 +62,13 @@ public class AddStudent extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            GSMDBContext gsmDB = new GSMDBContext();
+            GroupDBContext gdb = new GroupDBContext();
             StudentDBContext stuDB = new StudentDBContext();
 
-            GroupSubjectMapping gsm = gsmDB.getClassNewset();
+            Group gNewest = gdb.getClassNewset();
             List<Student> listStu = stuDB.getAllStudent();
 
-            request.setAttribute("gsm", gsm);
+            request.setAttribute("gNew", gNewest);
             request.setAttribute("listStu", listStu);
             request.getRequestDispatcher("addStudent.jsp").forward(request, response);
         } catch (SQLException ex) {
@@ -89,16 +89,15 @@ public class AddStudent extends HttpServlet {
             throws ServletException, IOException {
         String[] stuIds = request.getParameterValues("stuId");
 
-        GSMDBContext gsmDB = new GSMDBContext();
-        GroupSubjectMapping gsm = gsmDB.getClassNewset();
-        String class_id = gsm.getGroup().getId();
+        GroupDBContext gdb = new GroupDBContext();
+        Group gr = gdb.getClassNewset();
+        String class_id = gr.getId();
 
         SCMDBContext scmDB = new SCMDBContext();
         for (String stu_id : stuIds) {
             scmDB.insertStuinClass(stu_id, class_id);
         }
-        request.setAttribute("mess", "Add Student Success!");
-        request.getRequestDispatcher("info").forward(request, response);
+        response.sendRedirect("addInsAndSub");
     }
 
     /**
