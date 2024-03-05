@@ -43,6 +43,11 @@ public class Instructor extends BaseEntity {
         this.dob = dob;
         this.gender = gender;
     }
+        public Instructor(String id, String name, String username) {
+        this.id = id;
+        this.name = name;
+        this.username = username;
+    }
     
     public Instructor(String name){
         this.name=name;

@@ -11,8 +11,10 @@ package entity;
 public class Account extends BaseEntity {
     public int role_id;
     private String username;
+    private String fullname;
     private String password;
     private String email;
+    private String roleName;
     private Instructor instructor;
     private Student student;
 
@@ -28,19 +30,28 @@ public class Account extends BaseEntity {
         this.student = student;
     }
 
-    public Account(String username, String password, String email) {
+    public Account(String username, String fullname, String password, String email, int role_id) {
+        this.fullname = fullname;
         this.username = username;
         this.password = password;
         this.email = email;
+        this.role_id = role_id;
     }
-
+    
+    
     public Account( String username, String password,int role_id, String email) {       
         this.username = username;
         this.password = password;
         this.email = email;
         this.role_id = role_id;
     }
-
+    
+    public Account( String username, String password, int role_id) {       
+        this.username = username;
+        this.password = password;
+        this.role_id = role_id;
+    }
+    
     public Instructor getInstructor() {
         return instructor;
     }
@@ -88,6 +99,33 @@ public class Account extends BaseEntity {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getFullname() {
+        return fullname;
+    }
+
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
+
+    public Account(String username, String password, String roleName) {
+        this.username = username;
+        this.password = password;
+        this.roleName = roleName;
+    }
+
+    @Override
+    public String toString() {
+        return "Account{" + "username=" + username + ", password=" + password + ", roleName=" + roleName + '}';
     }
     
 }

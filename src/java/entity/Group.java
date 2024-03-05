@@ -11,12 +11,14 @@ import java.util.ArrayList;
  * @author leduy
  */
 public class Group extends BaseEntity {
+
     private String id;
     private String name;
     private String link_url;
     private ArrayList<Session> sessions = new ArrayList<>();
     private GroupSubjectMapping gsm;
     private Subject subject;
+    private Student student;
 
     public Group() {
     }
@@ -27,6 +29,26 @@ public class Group extends BaseEntity {
         this.link_url = link_url;
         this.gsm = gsm;
         this.subject = subject;
+    }
+
+    public Group(String id, String name, String link_url, GroupSubjectMapping gsm, Subject subject, Student student) {
+        this.id = id;
+        this.name = name;
+        this.link_url = link_url;
+        this.gsm = gsm;
+        this.subject = subject;
+        this.student = student;
+    }
+
+    public Group(String id, String name, String link_url) {
+        this.id = id;
+        this.name = name;
+        this.link_url = link_url;
+    }
+
+    public Group(String name, String link_url) {
+        this.name = name;
+        this.link_url = link_url;
     }
 
     public String getId() {
@@ -43,7 +65,7 @@ public class Group extends BaseEntity {
 
     public void setName(String name) {
         this.name = name;
-    }    
+    }
 
     public String getLink_url() {
         return link_url;
@@ -77,5 +99,12 @@ public class Group extends BaseEntity {
         this.subject = subject;
     }
 
-    
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
 }

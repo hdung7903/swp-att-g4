@@ -1,18 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package entity;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-/**
- *
- * @author leduy
- */
-public class Student extends BaseEntity{
+public class Student extends BaseEntity {
 
     private String id;
     private String name;
@@ -26,7 +18,7 @@ public class Student extends BaseEntity{
     private List<Boolean> attendances;
     private Instructor instructor;
     private Subject subject;
-    private List<Date> sesDate=new ArrayList<>();
+    private List<Date> sesDate = new ArrayList<>();
 
     public Student() {
     }
@@ -44,19 +36,30 @@ public class Student extends BaseEntity{
         this.subject = subject;
     }
 
-    public Student(String name,Instructor instructor,Subject subject, String email, List<Boolean> attendances) {
+    public Student(String id, String name, String username, String email) {
+        this.id = id;
+        this.name = name;
+        this.username = username;
+        this.email = email;
+    }
+
+    public Student(String id) {
+        this.id = id;
+    }
+
+    public Student(String name, Instructor instructor, Subject subject, String email, List<Boolean> attendances) {
         this.name = name;
         this.email = email;
-        this.instructor=instructor;
-        this.subject=subject;
+        this.instructor = instructor;
+        this.subject = subject;
         this.attendances = attendances;
     }
-    
-    public Student(String name,Instructor instructor,Subject subject, List<Date> sesDate, List<Boolean> attendances) {
+
+    public Student(String name, Instructor instructor, Subject subject, List<Date> sesDate, List<Boolean> attendances) {
         this.name = name;
         this.sesDate = sesDate;
-        this.instructor=instructor;
-        this.subject=subject;
+        this.instructor = instructor;
+        this.subject = subject;
         this.attendances = attendances;
     }
 
@@ -173,5 +176,4 @@ public class Student extends BaseEntity{
         this.sesDate = sesDate;
     }
 
-    
 }

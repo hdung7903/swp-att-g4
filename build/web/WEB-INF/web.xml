@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
-    <filter>
+    <!--    <filter>
         <filter-name>HomeFilter</filter-name>
         <filter-class>filter.HomeFilter</filter-class>
     </filter>
@@ -12,19 +12,42 @@
         <filter-name>AuthorAdminFilter</filter-name>
         <filter-class>filter.AuthorAdminFilter</filter-class>
     </filter>
+    <filter>
+        <filter-name>AuthorInstructorFilter</filter-name>
+        <filter-class>filter.AuthorInstructorFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>AuthorStudentFilter</filter-name>
+        <filter-class>filter.AuthorStudentFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>AuthorAcadFilter</filter-name>
+        <filter-class>filter.AuthorAcadFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AuthorAcadFilter</filter-name>
+        <url-pattern>/acad/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>AuthorStudentFilter</filter-name>
+        <url-pattern>/student/*</url-pattern>
+    </filter-mapping>
     <filter-mapping>
         <filter-name>AuthorAdminFilter</filter-name>
-        <url-pattern>/admin</url-pattern>
+        <url-pattern>/admin/*</url-pattern>
     </filter-mapping>
     <filter-mapping>
         <filter-name>RoleFilter</filter-name>
+        <url-pattern>/admin/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>AuthorInstructorFilter</filter-name>
         <url-pattern>/instructor/*</url-pattern>
-        <url-pattern>/student/*</url-pattern>
     </filter-mapping>
     <filter-mapping>
         <filter-name>HomeFilter</filter-name>
         <url-pattern>/*</url-pattern>
-    </filter-mapping>
+    </filter-mapping>-->
     <servlet>
         <servlet-name>LoginController</servlet-name>
         <servlet-class>controller.account.LoginController</servlet-class>
@@ -133,6 +156,30 @@
         <servlet-name>denied</servlet-name>
         <servlet-class>view.denied</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LoadAppController</servlet-name>
+        <servlet-class>controller.academicStaff.LoadAppController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewContentController</servlet-name>
+        <servlet-class>controller.academicStaff.ViewContentController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ApproveController</servlet-name>
+        <servlet-class>controller.academicStaff.ApproveController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateApplicationController</servlet-name>
+        <servlet-class>controller.student.CreateApplicationController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewStatusController</servlet-name>
+        <servlet-class>controller.student.ViewStatusController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateNewController</servlet-name>
+        <servlet-class>controller.academicStaff.CreateNewController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -240,6 +287,30 @@
     <servlet-mapping>
         <servlet-name>denied</servlet-name>
         <url-pattern>/denied</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoadAppController</servlet-name>
+        <url-pattern>/acad/load</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewContentController</servlet-name>
+        <url-pattern>/acad/viewContent</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ApproveController</servlet-name>
+        <url-pattern>/acad/approve</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateApplicationController</servlet-name>
+        <url-pattern>/student/createApplication</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewStatusController</servlet-name>
+        <url-pattern>/student/viewStatus</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateNewController</servlet-name>
+        <url-pattern>/acad/createNew</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

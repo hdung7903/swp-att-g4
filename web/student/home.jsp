@@ -65,17 +65,13 @@
     <body>
         <header class="text-center text-lg-start bg-primary text-white">
             <div class="container">
-                <!-- Section: Social media -->
                 <section class="d-flex justify-content-center justify-content-lg-between p-3">
 
-                    <!-- Left -->
                     <div class="me-5 d-none d-lg-block">
                         <span class="mx-3"><i class="fa fa-phone mx-2"></i> 0945712105</span>
                         <span><i class="fa fa-calendar mx-1"></i> Mon-Fri: 07:30-17:40</span>
                     </div>
-                    <!-- Left -->
 
-                    <!-- Right -->
                     <div>
                         <a href="https://www.facebook.com/DaihocFPTHaNoi" class="me-4 text-reset" target="_blank">
                             <i class="bi bi-facebook"></i> Fanpage
