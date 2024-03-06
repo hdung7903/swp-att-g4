@@ -46,24 +46,24 @@
             </c:if>
             <div class="w-50 bg-white shadow mx-auto p-5" style="height: 600px; border-radius: 15px;">
               <h3>Create account</h3>
-              <form action="createacc" method="POST">
+              <form action="createacc" method="POST" id="addForm" >
                 <input type="text" name="action" value="add" hidden required>
                 <div class="row">
                  <div class="mt-3 col-6">
                     <label for="" class="label_option fs-5 fw-blod">Id</label>
                     <input autofocus type="text" name="id" class="w-100 p-2 border-0" 
-                           style="background-color: #f2f2f2; border-radius: 2px;" required>
+                           style="background-color: #f2f2f2; border-radius: 2px;" required value="${param.id}">
                  </div>
                  <div class="mt-3 col-6">
                     <label for="" class="label_option fs-5 fw-blod">Username</label>
                     <input autofocus type="text" name="username" class="w-100 p-2 border-0"
-                           style="background-color: #f2f2f2; border-radius: 2px;" required>
+                           style="background-color: #f2f2f2; border-radius: 2px;" required value="${param.username}">
                     <span id="passwordHint" class="hint-msg" style="color: #808080; font-size: 10px;">* Must be no special chars</span>
                  </div>
                  <div class="mt-3 col-6">
                     <label for="" class="label_option fs-5 fw-blod">Password</label>
                     <input autofocus type="text" name="password" class="w-100 p-2 border-0"
-                           style="background-color: #f2f2f2; border-radius: 2px;" required>
+                           style="background-color: #f2f2f2; border-radius: 2px;" required value="${param.password}">
                     <span id="passwordHint" class="hint-msg" style="color: #808080; font-size: 10px;">* Must have 8 chars, 1 num, 1uppercase, 1 special</span>
                  </div>
                  <div class="mt-3 col-6">
@@ -81,19 +81,19 @@
                  <div class="mt-3 col-6">
                      <label for="" class="label_option fs-5 fw-blod">FullName</label>
                     <input autofocus type="text" name="fullname" class="w-100 p-2 border-0"
-                           style="background-color: #f2f2f2; border-radius: 5px;" required>
+                           style="background-color: #f2f2f2; border-radius: 5px;" required value="${param.fullname}">
                     <span id="passwordHint" class="hint-msg"></span>
                  </div>
                  <div class="mt-3 col-6">
                     <label for="" class="label_option fs-5 fw-blod">Email</label>
                     <input autofocus type="text" name="email" class="w-100 p-2 border-0"
-                           style="background-color: #f2f2f2; border-radius: 5px;" required>
+                           style="background-color: #f2f2f2; border-radius: 5px;" required value="${param.email}">
                     <span id="passwordHint" class="hint-msg"></span>
                  </div>
                   <div class="mt-3 col-6">
                     <label for="" class="label_option fs-5 fw-blod">Birthdate</label>
                     <input autofocus type="date" name="dob" class="w-100 p-2 border-0"
-                           style="background-color: #f2f2f2; border-radius: 5px;" required>
+                           style="background-color: #f2f2f2; border-radius: 5px;" required value="${param.dob}">
                     <span id="passwordHint" class="hint-msg"></span>
                   </div>
                   <div class="mt-3 col-6">
@@ -106,14 +106,12 @@
                     <span id="passwordHint" class="hint-msg"></span>
                 </div>
                 </div>
-                
                 <div class="mt-5">
                     <button type="submit" class="px-5 py-2 border-0 bg-success text-white"
                             style="border-radius: 5px;">Add</button>
                     <button type="reset" class="px-5 ms-3 text-white bg-danger py-2 border-0 "
                             style="border-radius: 5px;">Reset</button>
                 </div>
-                
             </form>
             </div>
         </div>

@@ -16,7 +16,7 @@ public abstract class DBContext<T extends BaseEntity> {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            String url = "jdbc:mysql://localhost:3306/swp";
+            String url = "jdbc:mysql://localhost:3306/swp2";
             String user = "root";
             String password = "12345678";
 

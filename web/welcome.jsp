@@ -9,94 +9,100 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <style>
-            .container-fluid{
-                margin: 0!important;
-                padding: 0!important;
+            body {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
+            .navbar-height {
+                padding: 1rem 0;
             }
             .navbar-brand {
-                background-color: white;
-                padding: 20px;
-                border-radius: 5px;
-                margin-right: 10px;
-                color: orange;
+                font-weight: bold;
+                color: #f36d21;
             }
             .image-container img {
                 width: 100%;
-                border-radius: 8px;
-                display: block;
-                height: 650px;
+                object-fit: cover;
+                border-radius: 6px;
+                max-height: 60vh; /* Control the maximum height of the image */
             }
-
-            .image-text {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                font-size: 24px;
+            .footer-custom {
+                background-color: #343a40;
+                padding: 2rem;
+                color: white;
             }
-            .navbar-brand:hover {
-                background-color: white;
-                color: orange;
+            .footer-links a {
+                color: #dcdcdc;
+                transition: color 0.3s;
             }
-            a.text-reset {
+            .footer-links a:hover {
+                color: #ffffff;
                 text-decoration: none;
+            }
+            /* Medium Devices, Desktops */
+            @media only screen and (max-width: 768px) {
+                .image-container {
+                    margin-top: 56px; /* To account for the fixed navbar */
+                }
+                .footer-custom {
+                    text-align: center;
+                }
             }
         </style>
     </head>
-
-
-    <body>
-
-        <header class="text-center text-lg-start bg-primary text-white">
-            <div class="container">
-                <section class="d-flex justify-content-center justify-content-lg-between p-3 border-bottom">
-                    <div class="me-5 d-none d-lg-block">
-                        <span class="mx-3"><i class="fa fa-phone mx-2"></i> 0945712105</span>
-                        <span><i class="fa fa-calendar mx-1"></i> Mon-Fri: 07:30-17:40</span>
-                        <span><i class="fa fa-envelope mx-2"></i> <a href="mailto:#" class="text-white">thainhhe172393@fpt.edu.vn</a></span>
-                    </div>
-                    <div>
-                        <a href="https://www.facebook.com/DaihocFPTHaNoi" class="me-4 text-reset" target="_blank">
-                            <i class="bi bi-facebook"></i>
-                        </a>
-                        <a href="" class="me-4 text-reset">
-                            <i class="fa fa-twitter"></i>
-                        </a>
-                        <a href="" class="me-4 text-reset">
-                            <i class="fa fa-google"></i>
-                        </a>
-                        <a href="" class="me-4 text-reset">
-                            <i class="fa fa-instagram"></i>
-                        </a>
-                    </div>
-                </section>
+    <body class="d-flex flex-column h-100 text-bg-white">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark navbar-height fixed-top">
+            <div class="container-fluid">
+                <a class="navbar-brand mb-0 h1 ms-4">FPT UNIVERSITY</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end me-4" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="btn btn-primary" href="login-page"><i class="bi bi-box-arrow-in-left"></i> Log in</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </header>
-        <div class="container-fluid">
-            <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
-                <div class="container">
-                    <a class="navbar-brand fw-bold text-orange" >FPT UNIVERSITY</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                        <ul class="navbar-nav">                    
-                            <li class="nav-item">
-                                <a class="btn btn-primary" href="login-page"><i class="bi bi-box-arrow-in-left"></i> Log in</a>
-                            </li>
+        </nav>
+        <div class="flex-grow-1">
+            <main class="mt-5">
+                <div class="image-container">
+                    <img src="https://cdn.discordapp.com/attachments/1207588646270541874/1211569259994550272/414981424_753677770123822_6814149231170888051_n.png?ex=65eeaccd&amp;is=65dc37cd&amp;hm=1baf1ede8e32732eb89bb9135447397cb1bd82f2d75d31d2a0b653584b92a332&amp;" alt="FPT University" alt="FPT University">
+                </div>
+                <div class="container my-4">
+                    <h1>Welcome to FPT University</h1>
+                    <p class="lead">Your journey to excellence starts here. Explore, learn, and become part of our vibrant academic community.</p>
+                </div>
+            </main>
+        </div>
+        <footer class="footer-custom text-light">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <h5>About</h5>
+                        <p>FPT University is dedicated to providing world-class education and an inclusive learning environment for all students.</p>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <h5>Contact</h5>
+                        <ul class="list-unstyled footer-links">
+                            <li><i class="bi bi-telephone-fill"></i> 0945712105</li>
+                            <li><i class="bi bi-calendar3"></i> Mon-Fri: 07:30-17:40</li>
+                            <li><i class="bi bi-envelope-fill"></i> <a href="mailto:thainhhe172393@fpt.edu.vn" class="text-reset">thainhhe172393@fpt.edu.vn</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <h5>Follow Us</h5>
+                        <ul class="list-unstyled footer-links">
+                            <li><a href="https://www.facebook.com/DaihocFPTHaNoi" target="_blank"><i class="bi bi-facebook"></i> Facebook</a></li>
+                            <li><a href="https://twitter.com/" target="_blank"><i class="bi bi-twitter"></i> Twitter</a></li>
+                            <li><a href="https://www.google.com/" target="_blank"><i class="bi bi-google"></i> Google</a></li>
+                            <li><a href="https://www.instagram.com/" target="_blank"><i class="bi bi-instagram"></i> Instagram</a></li>
                         </ul>
                     </div>
                 </div>
-            </nav>
-        </div>
-
-        <main class="container-fluid">
-            <div class="text-center">
-                <div class="image-container">
-                    <img src="https://scontent.fhan14-2.fna.fbcdn.net/v/t39.30808-6/414981424_753677770123822_6814149231170888051_n.png?stp=dst-png_p600x600&_nc_cat=108&ccb=1-7&_nc_sid=783fdb&_nc_ohc=1tyfIfM_zqcAX8bMxvu&_nc_ht=scontent.fhan14-2.fna&oh=00_AfBTww5LpdAo-r91OokWE4-eAp3uUMV5jEi-wrcW9M5Ftw&oe=65B60A65" alt="Your Image">
-                </div>
-
             </div>
-        </main>
+        </footer>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>

@@ -2,22 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-
 package controller.instructor;
 
 import dal.SessionDBContext;
 import dal.TimeSlotDBContext;
-import entity.Group;
-import entity.GroupSubjectMapping;
-import entity.Instructor;
 import entity.Session;
-import entity.Subject;
 import entity.TimeSlot;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.sql.Date;
@@ -28,19 +24,21 @@ import util.DateTimeHelper;
 
 /**
  *
- * @author Admin
+ * @author leduy
  */
 public class ScheduleController extends HttpServlet {
-   
-    /** 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         String instructorId = request.getParameter("id");
         String r_from = request.getParameter("from");
         String r_to = request.getParameter("to");
@@ -78,11 +76,12 @@ public class ScheduleController extends HttpServlet {
         request.setAttribute("sessions", sessions);
 
         request.getRequestDispatcher("../instructor/schedule.jsp").forward(request, response);
-    } 
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /** 
+    /**
      * Handles the HTTP <code>GET</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -90,12 +89,20 @@ public class ScheduleController extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        processRequest(request, response);
-    } 
+            throws ServletException, IOException {
+        String getId = request.getParameter("id");
+        HttpSession session = request.getSession();
+        String accountId = (String) session.getAttribute("accountId");
+        if (accountId == null || !accountId.equals(getId)) {
+            response.sendRedirect(request.getServletContext().getContextPath() + "/denied");
+        } else {
+            processRequest(request, response);
+        }
+    }
 
-    /** 
+    /**
      * Handles the HTTP <code>POST</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -103,12 +110,13 @@ public class ScheduleController extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /** 
+    /**
      * Returns a short description of the servlet.
+     *
      * @return a String containing servlet description
      */
     @Override

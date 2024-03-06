@@ -12,6 +12,10 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
         <style>
+            .container-fluid{
+                margin: 0!important;
+                padding: 0!important;
+            }
             .description-input-cell,
             .student-name-cell {
                 text-align: center;
@@ -24,22 +28,27 @@
             }
         </style>
         <script>
-            function confirmAttendance() {
-                var conf = confirm("Sure attended?");
-                return conf;
-            }
-
             function toggleImages() {
                 var images = document.getElementsByClassName('toggleImage');
                 var checkbox = document.getElementById("toggleImageCheckbox");
-
                 for (var i = 0; i < images.length; i++) {
-                    if (checkbox.checked) {
-                        images[i].style.display = "block";
-                    } else {
-                        images[i].style.display = "none";
-                    }
+                    images[i].style.display = checkbox.checked ? "block" : "none";
                 }
+            }
+
+            function submitAttendanceForm() {
+                var attendanceForm = document.getElementById('attendanceForm');
+                var confirmationModal = new bootstrap.Modal(document.getElementById('confirmationModal'));
+                confirmationModal.show();
+
+                document.getElementById('confirmSubmit').addEventListener('click', function() {
+                    attendanceForm.submit();
+                });
+            }
+
+            function showSuccessModal() {
+                var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+                successModal.show();
             }
         </script>
     </head>

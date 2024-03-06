@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Admin
+ * @author leduy
  */
 public class WelcomePage extends HttpServlet {
    

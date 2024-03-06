@@ -3,7 +3,7 @@
 <%@page import="java.util.*" %>
 <%@page import="dal.*" %>
 <%@page import="entity.*" %>
-<%@page import="constant.*" %>
+<%@page import="util.*" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,7 +35,7 @@
         <div class="container">
             <div class="text-center">
                 <ul class="d-flex py-4 border-top border-bottom text-center w-75">
-                    <c:forEach var="info" items="${IConstant.PROFILE_OPTION}">
+                    <c:forEach var="info" items="${Constants.PROFILE_OPTION}">
                         <li class="me-5">
                             <a href="profile?Service=${info}" class="text-decoration-none
                                ${info.equals(requestScope.currentChoice)?'text-danger':'text-black'}">
@@ -51,13 +51,12 @@
                 </div>
             </c:if>
 
-            <c:if test="${requestScope.currentChoice==IConstant.PROFILE_OPTION[0]}">
+            <c:if test="${requestScope.currentChoice==Constants.PROFILE_OPTION[0]}">
                 <div class="mb-5">
                     <h2 class="text-center">Account Information</h2>
                     <form>
                         <div class="">
                             <div class="">
-                                <!-- Inside the Account Information Section -->
                                 <div class="row">
                                     <div class="col-lg-12 text-center mb-4">
                                         <img src="https://cdn.discordapp.com/attachments/947741416992436235/1171005032691404921/profile.png?ex=655b1a6c&is=6548a56c&hm=428202d73c6b3e95f3b966e3840f79186e79afdc98a879ea0492fa4957d08806&" 
@@ -136,7 +135,7 @@
 
                 </div>
             </c:if>
-            <c:if test="${requestScope.currentChoice==IConstant.PROFILE_OPTION[1]}">
+            <c:if test="${requestScope.currentChoice==Constants.PROFILE_OPTION[1]}">
                 <form method="POST" action="profile">
                     <div class="mx-auto" style="max-width: 800px;">
                         <h2 class="text-center">Change password</h2>

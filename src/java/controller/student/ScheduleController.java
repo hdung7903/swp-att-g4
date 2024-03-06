@@ -15,6 +15,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -25,7 +26,7 @@ import util.DateTimeHelper;
 
 /**
  *
- * @author Admin
+ * @author leduy
  */
 public class ScheduleController extends HttpServlet {
    
@@ -75,7 +76,7 @@ public class ScheduleController extends HttpServlet {
         request.setAttribute("sessions", sessions);
 
         request.getRequestDispatcher("../student/schedule.jsp").forward(request, response);
-    } 
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
@@ -88,7 +89,14 @@ public class ScheduleController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+//        String getId = request.getParameter("id");
+//        HttpSession session = request.getSession();
+//        String accountId = (String) session.getAttribute("accountId");
+//        if (accountId == null || !accountId.equals(getId)) {
+//            response.sendRedirect(request.getServletContext().getContextPath() + "/denied");
+//        } else {
+            processRequest(request, response);
+//        }
     } 
 
     /** 

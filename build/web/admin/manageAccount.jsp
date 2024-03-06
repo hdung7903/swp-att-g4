@@ -36,6 +36,7 @@
                     ${mess}
                 </div>
             </c:if>
+        <%@include file="./navbar.jsp" %> 
     </div>
     <div class="container mt-5">
         <div class="d-flex align-items-center justify-content-between">

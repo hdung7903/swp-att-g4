@@ -18,6 +18,10 @@
             .navbar {
                 box-shadow: 0 2px 4px rgba(0,0,0,.1);
             }
+            .container-fluid{
+                margin: 0!important;
+                padding: 0!important;
+            }
             .container {
                 margin-top: 20px;
             }
@@ -121,7 +125,18 @@
                             <div style="width: 12px; height: 8px; left: 397px; top: 20.02px; position: absolute"></div>
                         </div>
                     </div>
+                    <div style="color: #02033B; font-size: 25px; font-family: Inter; font-weight: 800; line-height: 20px; word-wrap: break-word">Link</div>
+                    <div style="width: 440px; height: 48px; position: relative">
+                        <div style="width: 440px; height: 48px; left: 0px; top: 0px; position: absolute; border-radius: 32px; border: 1px #9B99AF solid">
+                            <div style="width: 355px; padding-right: 190px; left: 25px; top: 11.02px; position: absolute; justify-content: flex-start; align-items: flex-start; display: inline-flex">
+                                <div style="color: black; font-size: 18px; font-family: Inter; font-weight: 400; word-wrap: break-word"><a href="https://${requestScope.ses.group.link_url}" target="_blank">Link Meet</a></div>
+                                <div style="width: 10px; height: 10px; position: relative"></div>
+                            </div>
+                            <div style="width: 12px; height: 8px; left: 397px; top: 20.02px; position: absolute"></div>
+                        </div>
+                    </div>
                 </div>
+
                 <div style="width: 986px; padding-top: 19px; padding-bottom: 21px; padding-left: 45.03px; padding-right: 49.97px; left: 240px; top: 61px; position: absolute; background: linear-gradient(90deg, rgba(21, 72, 132, 0.94) 0%, rgba(21, 72, 132, 0.69) 100%); border-radius: 100px; justify-content: center; align-items: center; display: inline-flex">
                     <div style="text-align: center; color: white; font-size: 30px; font-family: Inter; font-weight: 800; line-height: 20px; word-wrap: break-word">Session Information</div>
                 </div>

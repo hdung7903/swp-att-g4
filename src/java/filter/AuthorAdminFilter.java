@@ -116,7 +116,8 @@ public class AuthorAdminFilter implements Filter {
             res.sendRedirect(req.getServletContext().getContextPath() + "/");
         } else{
             if(account.getRole_id() == 2) {
-            req.getRequestDispatcher("/admin").forward(request, response);
+            //req.getRequestDispatcher("/admin").forward(request, response);
+            chain.doFilter(request, response);
             
         }else{
                 res.sendRedirect(req.getServletContext().getContextPath() + "/denied");

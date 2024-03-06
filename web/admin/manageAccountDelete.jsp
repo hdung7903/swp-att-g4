@@ -24,17 +24,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
-<style>
-    .label_option {
-        min-width: 130px;
-    }
-    .bg-image {
-        margin: auto; background-size: 100% !important;
-        background-image: url('https://phunugioi.com/wp-content/uploads/2022/07/Hinh-nen-powerpoint-hoc-tap.jpg')!important; 
-        background-repeat: no-repeat !important;
-        background-position: center !important;
-    }
-</style>
+
 <body>
     <div class="">
             <c:if test="${mess!=null}">
@@ -53,7 +43,7 @@
             </a>
         </div>
         <div class="d-flex align-items-center justify-content-between">
-            <h3>List Inactive Account</h3>
+            <h3>List Account Delete</h3>
         </div>
         <div class="mt-3 d-flex align-items-center justify-content-between">
             <form action="manageacc" method="GET">
@@ -77,7 +67,7 @@
         </div>
         <div class="mt-5">
             <div class="row border-bottom">
-                <div class="col-1">No</div>
+                <div class="col-1">stt</div>
                 <div class="col-3">Email</div>
                 <div class="col-2">Full Name</div>
                 <div class="col-2">Account Name</div>

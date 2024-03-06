@@ -20,8 +20,8 @@
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cancel</button>
-                        <form action="/swp391_thai/logout" method="post">
-                            <a type="submit" class="btn btn-primary" href="${pageContext.request.contextPath}/logout">Log out</a>
+                        <form action="/AttendanceSystem/logout" method="post">
+                            <button type="submit" class="btn btn-primary" mLogout" href="${pageContext.request.contextPath}/logout">Log out</button>
                         </form>
                     </div>
                 </div>

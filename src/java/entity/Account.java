@@ -11,7 +11,6 @@ package entity;
 public class Account extends BaseEntity {
     public int role_id;
     private String username;
-    private String fullname;
     private String password;
     private String email;
     private String roleName;
@@ -21,32 +20,30 @@ public class Account extends BaseEntity {
     public Account() {
     }
 
-    public Account(int role_id, String username, String password, String email, Instructor instructor, Student student) {
+    public Account(int role_id, String username, String password, String email, String roleName, Instructor instructor, Student student) {
         this.role_id = role_id;
         this.username = username;
         this.password = password;
         this.email = email;
+        this.roleName = roleName;
         this.instructor = instructor;
         this.student = student;
     }
 
-    public Account(String username, String fullname, String password, String email, int role_id) {
-        this.fullname = fullname;
+    public Account(String username, String password, String email) {
         this.username = username;
         this.password = password;
         this.email = email;
-        this.role_id = role_id;
     }
-    
-    
+
     public Account( String username, String password,int role_id, String email) {       
         this.username = username;
         this.password = password;
         this.email = email;
         this.role_id = role_id;
     }
-    
-    public Account( String username, String password, int role_id) {       
+
+    public Account(String username, String password,int role_id) {        
         this.username = username;
         this.password = password;
         this.role_id = role_id;
@@ -101,14 +98,6 @@ public class Account extends BaseEntity {
         this.email = email;
     }
 
-    public String getFullname() {
-        return fullname;
-    }
-
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
-    }
-
     public String getRoleName() {
         return roleName;
     }
@@ -116,16 +105,6 @@ public class Account extends BaseEntity {
     public void setRoleName(String roleName) {
         this.roleName = roleName;
     }
-
-    public Account(String username, String password, String roleName) {
-        this.username = username;
-        this.password = password;
-        this.roleName = roleName;
-    }
-
-    @Override
-    public String toString() {
-        return "Account{" + "username=" + username + ", password=" + password + ", roleName=" + roleName + '}';
-    }
+    
     
 }

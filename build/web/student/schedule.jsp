@@ -12,7 +12,10 @@
             body {
                 background: #f1f1f1;
             }
-
+            .container-fluid{
+                margin: 0!important;
+                padding: 0!important;
+            }
             .container {
                 background: #fff;
                 border-radius: 10px;
@@ -96,10 +99,10 @@
                                                                             <br>
                                                                             <c:choose>
                                                                                 <c:when test="${ses.attendance.status}">
-                                                                                    <a class="text-success font-weight-bold">Attended</a>
+                                                                                    <a class="text-success font-weight-bold">Present</a>
                                                                                 </c:when>
                                                                                 <c:otherwise>
-                                                                                    <a href="${pageContext.request.contextPath}/lecture/takeatt?id=${ses.id}" class="text-danger font-weight-bold">Not Attended</a>
+                                                                                    <a class="text-danger font-weight-bold">Absent</a>
                                                                                 </c:otherwise>
                                                                             </c:choose>
                                                                         </div>
@@ -149,10 +152,10 @@
                                                                         <br>
                                                                         <c:choose>
                                                                             <c:when test="${ses.attendance.status}">
-                                                                                <a href="${pageContext.request.contextPath}/lecture/viewatt?id=${ses.id}" class="text-success font-weight-bold">Attended</a>
+                                                                                <a class="text-success font-weight-bold">Present</a>
                                                                             </c:when>
                                                                             <c:otherwise>
-                                                                                <a href="${pageContext.request.contextPath}/lecture/takeatt?id=${ses.id}" class="text-danger font-weight-bold">Not Attended</a>
+                                                                                <a class="text-danger font-weight-bold">Absent</a>
                                                                             </c:otherwise>
                                                                         </c:choose>
                                                                     </div>
