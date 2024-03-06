@@ -89,14 +89,14 @@ public class ScheduleController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-//        String getId = request.getParameter("id");
-//        HttpSession session = request.getSession();
-//        String accountId = (String) session.getAttribute("accountId");
-//        if (accountId == null || !accountId.equals(getId)) {
-//            response.sendRedirect(request.getServletContext().getContextPath() + "/denied");
-//        } else {
+        String getId = request.getParameter("id");
+        HttpSession session = request.getSession();
+        String accountId = (String) session.getAttribute("accountId");
+        if (accountId == null || !accountId.equals(getId)) {
+            response.sendRedirect(request.getServletContext().getContextPath() + "/denied");
+        } else {
             processRequest(request, response);
-//        }
+        }
     } 
 
     /** 

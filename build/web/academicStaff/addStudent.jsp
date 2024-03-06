@@ -1,9 +1,3 @@
-<%-- 
-    Document   : addStudent
-    Created on : Feb 27, 2024, 10:15:09 PM
-    Author     : Admin
---%>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -13,91 +7,76 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Create Class</title>
-
-        <!-- Font Icon -->
-        <link rel="stylesheet" href="../css/fonts/material-icon/css/material-design-iconic-font.min.css">
-        <link rel="stylesheet" href="../css/vendor/jquery-ui/jquery-ui.min.css">
-
-        <!-- Main css -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
         <link rel="stylesheet" href="../css/style.css">
     </head>
     <body>
-        <div class="main">
-            <section class="signup">
-                <div class="container">
-                    <div class="signup-content">
-                        <form method="POST" id="signup-form" class="signup-form" action="${pageContext.request.contextPath}/acad/addStudent">
-                            <h2 for="first_name">Create Class</h2>
-                            <c:set var="gsmNew" value="${requestScope.gsm}"/>
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="first_name">Class Name</label>
-                                    <input type="text" class="form-input" name="classname" value="${gsmNew.getGroup().name}" readonly />
-                                </div>
-                                <div class="form-group">
-                                    <label for="last_name">Instructor</label>
-                                    <input type="text" class="form-input" name="link_url" value="${gsmNew.getInstructor().name}" readonly />
-                                </div>
-                                <div class="form-group">
-                                    <label for="last_name">Subject</label>
-                                    <input type="text" class="form-input" name="link_url" value="${gsmNew.getSubject().name}" readonly />
-                                </div>
-                            </div>  
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="sub">Choose student's class:</label>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <table style="width: 100%; border-collapse: collapse;">
-                                    <tr>
-                                        <c:forEach items="${requestScope.listStu}" var="stu" varStatus="status">
-                                            <td>
-                                                <div style="display: flex; align-items: center;">
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <form method="POST" id="signup-form" class="card p-4" action="${pageContext.request.contextPath}/acad/addStudent">
+                        <h2 class="text-center mb-4">Create Class <i class="fas fa-chalkboard"></i></h2>
+                            <c:set var="gsmNew" value="${requestScope.gsm}" />
+                        <div class="mb-3">
+                            <label for="classname" class="form-label">Class Name</label>
+                            <input type="text" class="form-control" name="classname" value="${gsmNew.getGroup().name}" readonly />
+                        </div>
 
-                                                    <label style="margin-left: 5px;">${stu.name}</label>
-                                                    <input style="width: 20px" type="checkbox" name="stuId" value="${stu.id}" onclick="handleCheckboxClick();"/>
-                                                </div>
-                                            </td>
-                                            <c:if test="${status.index % 3 == 2}">
-                                            </tr><tr>
-                                            </c:if>
-                                        </c:forEach>
-                                    </tr>
-                                </table>    
-                            </div>    
-                            <div class="form-group">
-                                <input type="submit" name="submit" id="submit" class="form-submit" value="Add Student"/>
+                        <div class="mb-3">
+                            <label for="instructor" class="form-label">Instructor</label>
+                            <input type="text" class="form-control" name="instructor" value="${gsmNew.getInstructor().name}" readonly />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="subject" class="form-label">Subject</label>
+                            <input type="text" class="form-control" name="subject" value="${gsmNew.getSubject().name}" readonly />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="sub" class="form-label">Choose student's class:</label>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="row">
+                                <c:forEach items="${requestScope.listStu}" var="stu" varStatus="status">
+                                    <div class="col-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="stuId" value="${stu.id}" id="stu${status.index + 1}" onclick="handleCheckboxClick();" />
+                                            <label class="form-check-label" for="stu${status.index + 1}">${stu.name}</label>
+                                        </div>
+                                    </div>
+                                </c:forEach>
                             </div>
-                        </form>
-                    </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <button type="submit" name="submit" class="btn btn-primary"><i class="fas fa-user-plus me-2"></i>Add Student</button>
+                        </div>
+                    </form>
                 </div>
-            </section>
+            </div>
         </div>
-        <!-- JS -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
         <script>
-            var maxClicks = 15; // Số lượt checkbox tối đa được bấm
-            var clickCount = 0; // Biến đếm số lượt checkbox đã được bấm
+                                                var maxClicks = 15;
+                                                var clickCount = 0;
 
-            function handleCheckboxClick() {
-                var checkbox = event.target;
+                                                function handleCheckboxClick() {
+                                                    var checkbox = event.target;
 
-                if (checkbox.checked) {
-                    if (clickCount >= maxClicks) {
-                        checkbox.checked = false; // Không cho phép bấm thêm checkbox nếu đã đạt giới hạn
-                        alert("You have reached the maximum number of clicks.");
-                    } else {
-                        clickCount++;
-                    }
-                } else {
-                    clickCount--;
-                }
-            }
+                                                    if (checkbox.checked) {
+                                                        if (clickCount >= maxClicks) {
+                                                            checkbox.checked = false; // Không cho phép bấm thêm checkbox nếu đã đạt giới hạn
+                                                            alert("You have reached the maximum number of clicks.");
+                                                        } else {
+                                                            clickCount++;
+                                                        }
+                                                    } else {
+                                                        clickCount--;
+                                                    }
+                                                }
         </script>
-        <script src="vendor/jquery/jquery.min.js"></script>
-        <script src="vendor/jquery-ui/jquery-ui.min.js"></script>
-        <script src="vendor/jquery-validation/dist/jquery.validate.min.js"></script>
-        <script src="vendor/jquery-validation/dist/additional-methods.min.js"></script>
-        <script src="js/main.js"></script>
     </body>
 </html>

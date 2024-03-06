@@ -62,9 +62,6 @@
                         <li class="nav-item">
                             <a class="nav-link" href="${pageContext.request.contextPath}/student/attreport?id=${sessionScope.accountId}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Attendance Report"><i class="fa-solid fa-chart-bar"></i> Attendance Report</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/student/studentlist" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Student List"><i class="fa-solid fa-users"></i> Student List</a>
-                        </li>
                     </ul>
                     <div class="user-dropdown dropdown">
                         <a class="d-flex align-items-center text-decoration-none dropdown-toggle me-4" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">

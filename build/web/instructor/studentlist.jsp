@@ -100,7 +100,7 @@
                             <form id="searchForm" action="${pageContext.request.contextPath}/instructor/studentlist" method="get">
                                 <div class="input-group mb-3">
                                     <input class="form-control" placeholder="Search" name="search" value="${searchTxt}">
-                                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i></button>
+                                    <button type="submit" class="btn btn-primary" onclick="handleView()"><i class="fa-solid fa-magnifying-glass"></i></button>
                                 </div>          
                             </form>
                         </div>
@@ -146,6 +146,11 @@
                 </div>
             </div>
         </c:if>
+        <script>
+            const handleView = () => {
+                window.location.reload();
+            };
+        </script>
     </body>
 </html>
 

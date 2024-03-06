@@ -11,7 +11,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Student list</title>
+        <title>Student List</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
         <style>
             body {
@@ -67,89 +67,78 @@
         </style>
         <script>
             function submitForm() {
-                document.getElementById("classForm").submit();
+            document.getElementById("classForm").submit();
             }
 
             function submitSearch() {
-                document.getElementById("searchForm").submit();
+            document.getElementById("searchForm").submit();
             }
 
             document.getElementById("searchInput").addEventListener("keyup", function (event) {
-                if (event.key === "Enter") {
-                    submitSearch();
-                }
+            if (event.key === "Enter") {
+            submitSearch();
+            }
             });
+            <script>
         </script>
-    </head>
-    <body>
-        <%@include file="./navbar.jsp" %>
-        <div class="container">
-            <div class="container">
-                <div class="card">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h2 class="card-title">Your Class</h2>
-                            <form id="classForm" action="${pageContext.request.contextPath}/student/studentlist" method="get">
-                                <div class="mb-3">
-                                    <select class="form-select" id="classSelect" name="class_id" onchange="submitForm()">
-                                        <option selected disabled>Select a Group</option>
-                                        <c:forEach items="${requestScope.gsm}" var="g" varStatus="index">
-                                            <option value="${g.group.id}" ${g.group.id == param.class_id ? 'selected' : ''}>${g.group.name} - ${g.subject.name}</option>
-                                        </c:forEach>
-                                    </select>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="col-md-6">
-                            <h2 class="card-title">Search by name-id-mail:</h2>
-                            <form id="searchForm" action="${pageContext.request.contextPath}/student/studentlist" method="get">
-                                <div class="input-group mb-3">
-                                    <input class="form-control" placeholder="Search" name="search" value="${searchTxt}">
-                                    <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i></button>
-                                </div>          
-                            </form>
-                        </div>
+    </script>
+</head>
+<body>
+    <%@include file="./navbar.jsp" %>
+    <div class="container my-4">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title"><i class="fas fa-users"></i> Your Class</h2>
+                <form id="classForm" action="${pageContext.request.contextPath}/student/studentlist" method="get">
+                    <div class="mb-3">
+                        <label for="classSelect" class="form-label">Select a Group:</label>
+                        <select class="form-select" id="classSelect" name="class_id" onchange="submitForm()">
+                            <option selected disabled>Select a Group</option>
+                            <c:forEach items="${requestScope.gsm}" var="g" varStatus="index">
+                                <option value="${g.group.id}" ${g.group.id == param.class_id ? 'selected' : ''}>${g.group.name} - ${g.subject.name}</option>
+                            </c:forEach>
+                        </select>
+                        <button type="button" class="btn btn-primary mt-3" onclick="submitForm()">
+                            <i class="fas fa-search"></i> Submit
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <c:if test="${not empty scm}">
+            <div class="card mt-4">
+                <div class="card-body">
+                    <h2 class="card-title"><i class="fas fa-list"></i> Student List</h2>
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle">
+                            <thead class="table-light">
+                                <tr class="text-center">
+                                    <th><i class="fas fa-id-badge"></i> ID</th>             
+                                    <th><i class="fas fa-user"></i> Full Name</th>
+                                    <th><i class="fas fa-envelope"></i> Email</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <c:forEach items="${requestScope.scm}" var="scm" varStatus="index">
+                                    <tr class="text-center">                                                                                      
+                                        <c:choose>
+                                            <c:when test="${not empty scm.student}">
+                                                <td>${scm.student.id}</td>
+                                                <td>${scm.student.name}</td>
+                                                <td>${scm.student.email}</td>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <td colspan="3">Student Data Unavailable</td>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </tr>
+                                </c:forEach>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <c:set var="scm" value="${requestScope.scm}"/>
-        <c:if test="${not empty scm}">
-            <div class="card">
-                <h2 class="card-title">Student List</h2>
-                <div class="table-responsive">
-                    <table class="table table-bordered table-striped">
-                        <thead>
-                            <tr class="text-center">
-                                <th>Index</th>
-                                <th>Image</th>
-                                <th>ID</th>
-                                <th>Full Name</th>
-                                <th>Email</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <c:forEach items="${requestScope.scm}" var="scm" varStatus="index">
-                                <tr class="text-center">
-                                    <td>${index.index + 1}</td>
-                                    <td><img src="" alt="Image" class="img-thumbnail"></td>
-                                        <c:choose>
-                                            <c:when test="${not empty scm.student}">
-                                            <td>${scm.student.id}</td>
-                                            <td>${scm.student.name}</td>
-                                            <td>${scm.student.email}</td>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <td colspan="3">Student Data Unavailable</td>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </tr>
-                            </c:forEach>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
         </c:if>
-    </body>
+    </div>
+</body>
 </html>

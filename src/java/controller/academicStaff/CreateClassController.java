@@ -42,7 +42,7 @@ public class CreateClassController extends HttpServlet {
             request.getRequestDispatcher("../academicStaff/info").forward(request, response);
         } else {
             gdb.createClass(className, link_url);
-            response.sendRedirect(request.getServletContext().getContextPath() + "/acad/addInsAndSub");
+            response.sendRedirect(request.getServletContext().getContextPath() + "/acad/addStudent");
         }
     } 
 

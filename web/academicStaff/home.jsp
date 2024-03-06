@@ -59,24 +59,24 @@
                             </div>
                             <div class="list-group">
                                 <a href="#" class="list-group-item list-group-item-action feature-link">
-                                    <i class="fa-solid fa-envelope"></i> Send Application
+                                    <i class="fa-solid fa-envelope"></i> List Application
                                 </a>
                                 <a href="#" class="list-group-item list-group-item-action feature-link">
-                                    <i class="fa-solid fa-list-check"></i> Application Status
+                                    <i class="fa-solid fa-list-check"></i> View Application
                                 </a>
                             </div>
                         </div>
                         <div class="col">
                             <div class="feature-header">
                                 <i class="bi bi-book feature-icon"></i>
-                                <h2 class="d-inline-block ms-3">Academic Information</h2>
+                                <h2 class="d-inline-block ms-3">Manage Account</h2>
                             </div>
                             <div class="list-group">
                                 <a href="#" class="list-group-item list-group-item-action feature-link">
-                                    <i class="fa-solid fa-calendar-week"></i> Weekly Timetable
+                                    <i class="fa-solid fa-calendar-week"></i> Create Class
                                 </a>
                                 <a href="#" class="list-group-item list-group-item-action feature-link">
-                                    <i class="fa-solid fa-calendar-day"></i> Schedule today
+                                    <i class="fa-solid fa-calendar-day"></i> Student Attendance Statistic
                                 </a>
                                 <a href="#" class="list-group-item list-group-item-action feature-link">
                                     <i class="fa-solid fa-users"></i> Student List

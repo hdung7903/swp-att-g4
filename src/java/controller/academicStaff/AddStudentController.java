@@ -81,9 +81,8 @@ public class AddStudentController extends HttpServlet {
         for (String stu_id : stuIds) {
             scmDB.insertStuinClass(stu_id, class_id);
         }
-//        request.setAttribute("mess", "Add Student Success!");
-//        request.getRequestDispatcher("../academicStaff/info.jsp").forward(request, response);
-        response.sendRedirect(request.getServletContext().getContextPath() +"/acad/info");
+        
+        response.sendRedirect(request.getServletContext().getContextPath() +"/acad/addInsAndSub");
         request.getSession().setAttribute("mess", "Add Student Success!");
     }
 

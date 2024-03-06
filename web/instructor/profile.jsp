@@ -135,7 +135,7 @@
 
                 </div>
             </c:if>
-            <c:if test="${requestScope.currentChoice==IConstant.PROFILE_OPTION[1]}">
+            <c:if test="${requestScope.currentChoice==Constants.PROFILE_OPTION[1]}">
                 <form method="POST" action="profile">
                     <div class="mx-auto" style="max-width: 800px;">
                         <h2 class="text-center">Change password</h2>

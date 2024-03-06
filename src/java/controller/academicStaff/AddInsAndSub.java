@@ -91,7 +91,7 @@ public class AddInsAndSub extends HttpServlet {
             request.getRequestDispatcher("../academicStaff/addClass.jsp").forward(request, response);
         }else{
             gdb.insertClass(class_id, subId, slot, insId);
-            response.sendRedirect(request.getServletContext().getContextPath() +"/acad/addStudent");
+            response.sendRedirect(request.getServletContext().getContextPath() +"/acad/info");
         }
     }
 

@@ -51,37 +51,23 @@
             <div class="container my-5">
                 <%@include file="../carousel.jsp" %>
                 <div class="feature-content my-5">
-                    <div class="row row-cols-1 row-cols-md-2 g-4">
-                        <div class="col">
-                            <div class="feature-header">
-                                <i class="bi bi-pencil-square feature-icon"></i>
-                                <h2 class="d-inline-block ms-3">Application</h2>
-                            </div>
-                            <div class="list-group">
-                                <a href="#" class="list-group-item list-group-item-action feature-link">
-                                    <i class="fa-solid fa-envelope"></i> Send Application
-                                </a>
-                                <a href="#" class="list-group-item list-group-item-action feature-link">
-                                    <i class="fa-solid fa-list-check"></i> Application Status
-                                </a>
-                            </div>
-                        </div>
+                    <div class="row row-cols-1 row-cols-md-2 g-4">                       
                         <div class="col">
                             <div class="feature-header">
                                 <i class="bi bi-book feature-icon"></i>
                                 <h2 class="d-inline-block ms-3">Academic Information</h2>
                             </div>
                             <div class="list-group">
-                                <a href="#" class="list-group-item list-group-item-action feature-link">
+                                <a href="${pageContext.request.contextPath}/instructor/schedule?id=${sessionScope.accountId}" class="list-group-item list-group-item-action feature-link">
                                     <i class="fa-solid fa-calendar-week"></i> Weekly Timetable
                                 </a>
-                                <a href="#" class="list-group-item list-group-item-action feature-link">
+                                <a href="${pageContext.request.contextPath}/instructor/slottoday?id=${sessionScope.accountId}" class="list-group-item list-group-item-action feature-link">
                                     <i class="fa-solid fa-calendar-day"></i> Schedule today
                                 </a>
-                                <a href="#" class="list-group-item list-group-item-action feature-link">
+                                <a href="${pageContext.request.contextPath}/instructor/studentlist" class="list-group-item list-group-item-action feature-link">
                                     <i class="fa-solid fa-users"></i> Student List
                                 </a>
-                                <a href="#" class="list-group-item list-group-item-action feature-link">
+                                <a href="${pageContext.request.contextPath}/instructor/attstatistic?id=${sessionScope.accountId}" class="list-group-item list-group-item-action feature-link">
                                     <i class="fa-solid fa-chart-bar"></i> Attendance Statistic
                                 </a>
                             </div>

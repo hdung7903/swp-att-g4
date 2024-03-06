@@ -4,27 +4,29 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Statistic</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
         <style>
-             .container-fluid{
+            .container-fluid {
                 margin: 0!important;
                 padding: 0!important;
             }
         </style>
     </head>
+
     <body>
         <div class="container-fluid">
-            <%@include file="./navbar.jsp" %> 
+            <%@include file="./navbar.jsp" %>
             <div class="container my-5">
                 <h1 class="display-4 text-center mb-4">Attendance Statistics</h1>
-                <h3 class="display-6 text-center mb-4">Of student: ${requestScope.groupList[0].student.name}</h3>
+                <h3 class="display-6 text-center mb-4">Of student: ???</h3>
             </div>
-
             <div class="row">
                 <div class="my-3 container">
                     <form method="get" action="${pageContext.request.contextPath}/acad/attreport" id="attendanceForm">
@@ -118,23 +120,3 @@
         </div>
 
     </body>
-    <script>
-        document.getElementById("toggleImageCheckbox").addEventListener("change", function () {
-            var images = document.getElementsByClassName('toggleImage');
-            for (var i = 0; i < images.length; i++) {
-                if (this.checked) {
-                    images[i].style.display = "none";
-                } else {
-                    images[i].style.display = "block";
-                }
-            }
-        });
-
-        document.getElementById("groupIdSelect").addEventListener("change", function () {
-            var selectedOption = this.options[this.selectedIndex];
-            document.getElementById("groupNameInput").value = selectedOption.dataset.groupName;
-        });
-    </script>
-
-
-</html>

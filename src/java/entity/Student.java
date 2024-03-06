@@ -1,17 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package entity;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-/**
- *
- * @author leduy
- */
 public class Student extends BaseEntity{
 
     private String id;
@@ -74,6 +67,10 @@ public class Student extends BaseEntity{
         this.name = name;
         this.username = username;
         this.email = email;
+    }
+    
+    public Student(String id) {
+        this.id = id;
     }
     
     public ArrayList<Session> getSessions() {

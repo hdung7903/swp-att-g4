@@ -63,7 +63,7 @@
                                     <p class="text-success">${status}</p>
                                 </div>
 
-                                <button type="submit" class="btn btn-primary w-100 mb-3">Sign In</button>
+                                <button type="submit" class="btn btn-primary w-100 mb-3" onclick="handleLogin()">Sign In</button>
                                 <h5 class="text-center">OR</h5>
 
                                 <a href="https://accounts.google.com/o/oauth2/auth?scope=email%20profile%20openid&redirect_uri=http://localhost:9999/AttendanceSystem/LoginGoogleHandler&response_type=code&client_id=105080679537-2ard711gqiernlhfflh57gv5jm6tt3sm.apps.googleusercontent.com&approval_prompt=force" class="btn btn-danger w-100">

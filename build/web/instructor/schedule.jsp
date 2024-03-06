@@ -35,10 +35,10 @@
                 width: 100%;
                 height: calc(100% - 90px);
                 background: rgba(255, 255, 255, 0.8);
-                display: none; 
+                display: none;
                 justify-content: center;
                 align-items: center;
-                z-index: 1050; 
+                z-index: 1050;
             }
         </style>
     </head>
@@ -53,11 +53,6 @@
                         + Every slot learning in Morning will start at 8:00AM and end at 11:00PM<br>
                         + Every slot learning in Afternoon will start at 2:00PM and end at 5:00PM
                     </div>
-                    <div id="spinnerOverlay" class="spinner-overlay">
-                        <div class="spinner-border text-primary" role="status">
-                            <span class="visually-hidden">Loading...</span>
-                        </div>
-                    </div>
                     <form action="${pageContext.request.contextPath}/instructor/schedule" method="get" class="row g-3 justify-content-center" onsubmit="showSpinner()">
                         <div class="col-md-4">
                             <label for="from" class="form-label">From</label>
@@ -69,7 +64,7 @@
                         </div>
                         <input type="hidden" value="${sessionScope.accountId}" name="id" readonly />
                         <div class="col-md-4 d-grid">
-                            <button type="submit" class="btn btn-primary">View</button>
+                            <button type="submit" class="btn btn-primary" onclick="handleView()">View</button>
                         </div>
                     </form>
                 </div>
@@ -191,15 +186,9 @@
             </div>
         </div>
         <script>
-            function showSpinner() {
-                document.getElementById('spinnerOverlay').style.display = 'flex';
-            }
-
-            function hideSpinner() {
-                document.getElementById('spinnerOverlay').style.display = 'none';
-            }
-
-            window.addEventListener('load', hideSpinner);
+            const handleView = () => {
+                window.location.reload();
+            };
         </script>
     </body>
 </html>
