@@ -19,8 +19,8 @@
                 <div class="col-md-6">
                     <form method="POST" id="signup-form" class="card p-4" action="${pageContext.request.contextPath}/acad/createClass">
                         <h2 class="text-center mb-4">Create Class <i class="fas fa-chalkboard-teacher"></i></h2>
-                        <p class="text-danger fs-5">${sessionScope.messAddStu}</p>
-
+                        <p style="color: green; font-size: 18px" >${requestScope.mess}</p>
+                        
                         <div class="mb-3">
                             <label for="classname" class="form-label">Class Name</label>
                             <input type="text" class="form-control" name="classname" placeholder="Enter class name" required />
@@ -41,7 +41,7 @@
                         <div class="mb-3">
                             <button type="submit" name="submit" class="btn btn-primary"><i class="fas fa-plus-circle me-2"></i>Create</button>
                         </div>
-
+                        
                         <div class="mb-3 text-center">
                             <a href="home.jsp" class="text-decoration-none"><i class="fas fa-home me-2"></i>Back to Home</a>
                         </div>

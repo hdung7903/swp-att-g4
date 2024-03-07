@@ -68,14 +68,66 @@
                             <button type="submit" class="btn btn-primary" onclick="handleView()"><i class="fas fa-eye"></i> View</button>
                         </div>
                     </form>
-                </div>
-                <div class="table-container rounded">  
-                    <c:choose>
-                        <c:when test="${dates.size() > 0}">
-                            <c:set var="tableIndex" value="1" />
-                            <c:set var="remainingDays" value="${dates.size()}" />
-                            <c:forEach var="date" items="${dates}">
-                                <c:if test="${remainingDays >= 7}">
+                    <div class="table-container rounded">  
+                        <c:choose>
+                            <c:when test="${dates.size() > 0}">
+                                <c:set var="tableIndex" value="1" />
+                                <c:set var="remainingDays" value="${dates.size()}" />
+                                <c:forEach var="date" items="${dates}">
+                                    <c:if test="${remainingDays >= 7}">
+                                        <div class="table-container">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered table-striped table-hover">
+                                                    <thead class="thead-light">
+                                                        <tr>
+                                                            <th></th>
+                                                                <c:forEach var="d" begin="${(tableIndex - 1) * 7}" end="${tableIndex * 7 - 1}" items="${dates}">
+                                                                <th class="text-center">
+                                                                    <fmt:formatDate value="${d}" pattern="dd-MM-yyyy" var="formattedDate" />
+                                                                    ${formattedDate}
+                                                                </th>
+                                                            </c:forEach>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <c:forEach items="${requestScope.slots}" var="s">
+                                                            <tr>
+                                                                <td class="align-middle">${s.description}</td>
+                                                                <c:forEach var="d" begin="${(tableIndex - 1) * 7}" end="${tableIndex * 7 - 1}" items="${dates}">
+                                                                    <td>
+                                                                        <c:forEach items="${requestScope.sessions}" var="ses">
+                                                                            <c:if test="${ses.time.id eq s.id and ses.date eq d}">
+                                                                                <div class="mb-2">
+                                                                                    <a href="${pageContext.request.contextPath}/student/sessiondetail?id=${ses.id}" class="font-weight-bold text-dark">
+                                                                                        ${ses.group.name} - ${ses.subject.name}
+                                                                                    </a>
+                                                                                    <p class="mb-2">
+                                                                                        <a href="https://${ses.group.link_url}" target="_blank">Link Class</a>
+                                                                                    </p>
+                                                                                    <c:choose>
+                                                                                        <c:when test="${ses.attendance.status}">
+                                                                                            <span class="badge bg-success">Present</span>
+                                                                                        </c:when>
+                                                                                        <c:otherwise>
+                                                                                            <span class="badge bg-danger">Absent</span>
+                                                                                        </c:otherwise>
+                                                                                    </c:choose>
+                                                                                </div>
+                                                                            </c:if>
+                                                                        </c:forEach>
+                                                                    </td>
+                                                                </c:forEach>
+                                                            </tr>
+                                                        </c:forEach>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <c:set var="tableIndex" value="${tableIndex + 1}" />
+                                        <c:set var="remainingDays" value="${remainingDays - 7}" />
+                                    </c:if>
+                                </c:forEach>
+                                <c:if test="${remainingDays > 0}">
                                     <div class="table-container">
                                         <div class="table-responsive">
                                             <table class="table table-bordered table-striped table-hover">
@@ -99,18 +151,18 @@
                                                                     <c:forEach items="${requestScope.sessions}" var="ses">
                                                                         <c:if test="${ses.time.id eq s.id and ses.date eq d}">
                                                                             <div class="mb-2">
-                                                                                <a href="${pageContext.request.contextPath}/student/sessiondetail?id=${ses.id}" class="font-weight-bold text-dark mb-2">
+                                                                                <a href="${pageContext.request.contextPath}/student/sessiondetail?id=${ses.id}" class="font-weight-bold text-dark">
                                                                                     ${ses.group.name} - ${ses.subject.name}
                                                                                 </a>
-                                                                                <br>
-                                                                                <small><a href="https://${ses.group.link_url}" target="_blank">Link Class</a></small>
-                                                                                <br>
+                                                                                <p class="mb-2">
+                                                                                    <a href="https://${ses.group.link_url}" target="_blank">Link Class</a>
+                                                                                </p>
                                                                                 <c:choose>
                                                                                     <c:when test="${ses.attendance.status}">
-                                                                                        <span class="badge bg-success mt-2">Present</span>
+                                                                                        <span class="badge bg-success">Present</span>
                                                                                     </c:when>
                                                                                     <c:otherwise>
-                                                                                        <span class="badge bg-danger mt-2">Absent</span>
+                                                                                        <span class="badge bg-danger">Absent</span>
                                                                                     </c:otherwise>
                                                                                 </c:choose>
                                                                             </div>
@@ -124,72 +176,20 @@
                                             </table>
                                         </div>
                                     </div>
-                                    <c:set var="tableIndex" value="${tableIndex + 1}" />
-                                    <c:set var="remainingDays" value="${remainingDays - 7}" />
                                 </c:if>
-                            </c:forEach>
-                            <c:if test="${remainingDays > 0}">
-                                <div class="table-container">
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered table-striped table-hover">
-                                            <thead class="thead-light">
-                                                <tr>
-                                                    <th></th>
-                                                        <c:forEach var="d" begin="${(tableIndex - 1) * 7}" end="${tableIndex * 7 - 1}" items="${dates}">
-                                                        <th class="text-center">
-                                                            <fmt:formatDate value="${d}" pattern="dd-MM-yyyy" var="formattedDate" />
-                                                            ${formattedDate}
-                                                        </th>
-                                                    </c:forEach>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <c:forEach items="${requestScope.slots}" var="s">
-                                                    <tr>
-                                                        <td class="align-middle">${s.description}</td>
-                                                        <c:forEach var="d" begin="${(tableIndex - 1) * 7}" end="${tableIndex * 7 - 1}" items="${dates}">
-                                                            <td>
-                                                                <c:forEach items="${requestScope.sessions}" var="ses">
-                                                                    <c:if test="${ses.time.id eq s.id and ses.date eq d}">
-                                                                        <div class="mb-2">
-                                                                            <a href="${pageContext.request.contextPath}/student/sessiondetail?id=${ses.id}" class="font-weight-bold text-dark">
-                                                                                ${ses.group.name} - ${ses.subject.name}
-                                                                            </a>
-                                                                            <br>
-                                                                            <small><a href="https://${ses.group.link_url}" target="_blank">Link Class</a></small>
-                                                                            <br>
-                                                                            <c:choose>
-                                                                                <c:when test="${ses.attendance.status}">
-                                                                                    <span class="badge bg-success mt-2">Present</span>
-                                                                                </c:when>
-                                                                                <c:otherwise>
-                                                                                    <span class="badge bg-danger mt-2">Absent</span>
-                                                                                </c:otherwise>
-                                                                            </c:choose>
-                                                                        </div>
-                                                                    </c:if>
-                                                                </c:forEach>
-                                                            </td>
-                                                        </c:forEach>
-                                                    </tr>
-                                                </c:forEach>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </c:if>
-                        </c:when>
-                        <c:otherwise>
-                            <span class="text-danger d-block text-center">Invalid From-To Range</span>
-                        </c:otherwise>
-                    </c:choose>           
+                            </c:when>
+                            <c:otherwise>
+                                <span class="text-danger d-block text-center">Invalid From-To Range</span>
+                            </c:otherwise>
+                        </c:choose>           
+                    </div>
                 </div>
             </div>
-
-            <script>
-                const handleView = () => {
-                    window.location.reload();
-                };
-            </script>
+        </div>
+        <script>
+            const handleView = () => {
+                window.location.reload();
+            };
+        </script>
     </body>
 </html>

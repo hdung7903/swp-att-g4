@@ -36,10 +36,10 @@ public class CreateClassController extends HttpServlet {
         Group gMeet = gdb.checkMeetExist(link_url);
         if (gName != null) {
             request.setAttribute("mess", "Class name exist!");
-            request.getRequestDispatcher("../academicStaff/info").forward(request, response);
+            request.getRequestDispatcher("info").forward(request, response);
         } else if (gMeet != null) {
             request.setAttribute("mess", "Link Meet exist in another class!");
-            request.getRequestDispatcher("../academicStaff/info").forward(request, response);
+            request.getRequestDispatcher("info").forward(request, response);
         } else {
             gdb.createClass(className, link_url);
             response.sendRedirect(request.getServletContext().getContextPath() + "/acad/addStudent");

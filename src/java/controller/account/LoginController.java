@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.io.PrintWriter;
 
 /**
  *
@@ -76,10 +77,9 @@ public class LoginController extends HttpServlet {
         response.addCookie(cuser);
         response.addCookie(cpass);
         response.addCookie(crmb);
-        
+
         AccountDBContext DAO = new AccountDBContext();
         Account a = DAO.ValidateAccount(username, password);
-        
 
         if (a == null) {
             request.setAttribute("mess", "Wrong username or password");
@@ -89,7 +89,7 @@ public class LoginController extends HttpServlet {
             session.setAttribute("acc", a);
             session.setMaxInactiveInterval(100000);
             Account getAccountId = DAO.getAccountIdByUsername(username);
-            String accountId=null;
+            String accountId = null;
             if (getAccountId.getInstructor() != null) {
                 accountId = getAccountId.getInstructor().getId();
             } else if (getAccountId.getStudent() != null && getAccountId.getStudent().getId() != null) {
@@ -99,17 +99,19 @@ public class LoginController extends HttpServlet {
             }
             session.setAttribute("accountId", accountId);
             if (a.role_id == 1) {
-                    response.sendRedirect(request.getContextPath()+"/acad/home");
+                response.sendRedirect(request.getContextPath() + "/acad/home");
             }
             if (a.role_id == 2) {
-                response.sendRedirect(request.getContextPath()+"/admin/home");
+                response.sendRedirect(request.getContextPath() + "/admin/home");
             }
             if (a.role_id == 3) {
-                response.sendRedirect(request.getContextPath()+"/instructor/home");
+                response.sendRedirect(request.getContextPath() + "/instructor/home");
             }
             if (a.role_id == 4) {
-                response.sendRedirect(request.getContextPath()+"/student/home");
+                response.sendRedirect(request.getContextPath() + "/student/home");
             }
+            PrintWriter out = response.getWriter();
+            out.println("<script>showSuccessNotification('Login successful!');</script>");
         }
 
     }

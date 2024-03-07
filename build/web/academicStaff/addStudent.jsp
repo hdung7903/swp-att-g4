@@ -17,21 +17,16 @@
                 <div class="col-md-8">
                     <form method="POST" id="signup-form" class="card p-4" action="${pageContext.request.contextPath}/acad/addStudent">
                         <h2 class="text-center mb-4">Create Class <i class="fas fa-chalkboard"></i></h2>
-                            <c:set var="gsmNew" value="${requestScope.gsm}" />
+                            <c:set var="gNew" value="${requestScope.gNew}" />
                         <div class="mb-3">
                             <label for="classname" class="form-label">Class Name</label>
-                            <input type="text" class="form-control" name="classname" value="${gsmNew.getGroup().name}" readonly />
+                            <input type="text" class="form-control" name="classname" value="${gNew.name}" readonly />
                         </div>
 
                         <div class="mb-3">
-                            <label for="instructor" class="form-label">Instructor</label>
-                            <input type="text" class="form-control" name="instructor" value="${gsmNew.getInstructor().name}" readonly />
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="subject" class="form-label">Subject</label>
-                            <input type="text" class="form-control" name="subject" value="${gsmNew.getSubject().name}" readonly />
-                        </div>
+                            <label for="instructor" class="form-label">Meet Link</label>
+                            <input type="text" class="form-control" name="instructor" value="${gNew.link_url}" readonly />
+                        </div>                     
 
                         <div class="mb-3">
                             <label for="sub" class="form-label">Choose student's class:</label>

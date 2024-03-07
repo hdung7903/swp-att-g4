@@ -6,6 +6,8 @@
         <title>Login</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.14.0/toastify.min.css" integrity="sha512-D0I6m33cU6Vb/F7JtS4v8GnGcI5JxMkTmD0J5jIz9f+0OzG+B5uRyi+PvE0qU6RqF3HmU9c8R/ZTk4mQb4Zw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.14.0/toastify.min.js" integrity="sha512-7n+KIyD1/1nZfPzJv4A5RkNK8WxLyVL0qGQwB+XN8q9+LcVqQ3h+/HUkKvEe5L3kMqU1x3YO/NvKjB+0H6GwA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <style>
             body {
                 background-image: url('https://cdn.discordapp.com/attachments/1207588646270541874/1211569718100754514/bg-2.jpg?ex=65eead3a&is=65dc383a&hm=a7c45a356fe19b68e2c69ab561f14fc92d9b9c6bef9e275b802f803ceee81482&');
@@ -78,36 +80,60 @@
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
         <script>
-            document.getElementById("togglePassword").addEventListener("click", function () {
-                var passwordInput = document.getElementsByName("password")[0];
-                var eyeIcon = document.getElementById("togglePassword").querySelector("i");
+                                    document.getElementById("togglePassword").addEventListener("click", function () {
+                                        var passwordInput = document.getElementsByName("password")[0];
+                                        var eyeIcon = document.getElementById("togglePassword").querySelector("i");
 
-                if (passwordInput.type === "password") {
-                    passwordInput.type = "text";
-                    eyeIcon.classList.remove("bi-eye-slash-fill");
-                    eyeIcon.classList.add("bi-eye-fill");
-                } else {
-                    passwordInput.type = "password";
-                    eyeIcon.classList.remove("bi-eye-fill");
-                    eyeIcon.classList.add("bi-eye-slash-fill");
-                }
-            });
+                                        if (passwordInput.type === "password") {
+                                            passwordInput.type = "text";
+                                            eyeIcon.classList.remove("bi-eye-slash-fill");
+                                            eyeIcon.classList.add("bi-eye-fill");
+                                        } else {
+                                            passwordInput.type = "password";
+                                            eyeIcon.classList.remove("bi-eye-fill");
+                                            eyeIcon.classList.add("bi-eye-slash-fill");
+                                        }
+                                    });
 
-            window.onload = function () {
-                let isValid = false;
-                const form = document.getElementById("form");
-                const error = document.getElementById("error");
+                                    window.onload = function () {
+                                        let isValid = false;
+                                        const form = document.getElementById("form");
+                                        const error = document.getElementById("error");
 
-                form.addEventListener("submit", function (event) {
-                    event.preventDefault();
-                    const response = grecaptcha.getResponse();
-                    if (response) {
-                        form.submit();
-                    } else {
-                        error.innerHTML = "Please check";
-                    }
-                });
-            };
+                                        form.addEventListener("submit", function (event) {
+                                            event.preventDefault();
+                                            const response = grecaptcha.getResponse();
+                                            if (response) {
+                                                form.submit();
+                                            } else {
+                                                error.innerHTML = "Please check";
+                                            }
+                                        });
+                                    };
+                                    function showSuccessNotification(message) {
+                                        Toastify({
+                                            text: message,
+                                            duration: 3000,
+                                            close: true,
+                                            backgroundColor: "#4caf50",
+                                            gravity: "top",
+                                            position: "right",
+                                            stopOnFocus: true,
+                                            onClick: function () {}
+                                        }).showToast();
+                                    }
+                                    function showErrorNotification(message) {
+                                        Toastify({
+                                            text: message,
+                                            duration: 3000,
+                                            close: true,
+                                            backgroundColor: "#f44336",
+                                            gravity: "top",
+                                            position: "right",
+                                            stopOnFocus: true,
+                                            onClick: function () {}
+                                        }).showToast();
+                                    }
         </script>
         <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     </body>

@@ -86,12 +86,14 @@ public class AddInsAndSub extends HttpServlet {
         String class_id = gNewest.getId();
         
         boolean gsmCheck = gsmDB.checkSubjectExist(class_id, subId);
+        
         if(gsmCheck == true){
             request.setAttribute("mess", "Subject has exist in this class");
-            request.getRequestDispatcher("../academicStaff/addClass.jsp").forward(request, response);
+            request.getRequestDispatcher("addClass").forward(request, response);
         }else{
             gdb.insertClass(class_id, subId, slot, insId);
-            response.sendRedirect(request.getServletContext().getContextPath() +"/acad/info");
+            request.setAttribute("mess", "Create Class Success!");
+            request.getRequestDispatcher("info").forward(request, response);
         }
     }
 

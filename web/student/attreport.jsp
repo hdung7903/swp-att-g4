@@ -16,7 +16,9 @@
                 margin: 0!important;
                 padding: 0!important;
             }
-
+            body{
+                overflow-x:hidden;
+            }
             .form-group {
                 margin-bottom: 1rem;
             }
@@ -82,7 +84,7 @@
                     </form>
                 </div>
             </div>
-            <table class="table table-striped table-bordered">
+            <table class="table table-striped table-bordered mx-2">
                 <tbody class="table-dark text-center">
                     <tr></tr>
                 </tbody>

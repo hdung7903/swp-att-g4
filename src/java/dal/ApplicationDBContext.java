@@ -60,7 +60,7 @@ public class ApplicationDBContext extends DBContext<Application> {
             String sql = "SELECT a.app_id, a.content, a.create_date, a.student_id, s.student_name, a.isApprove, a.`comment` "
                     + "FROM application a "
                     + "INNER JOIN student s ON s.student_id = a.student_id "
-                    + "INNER JOIN type_application t ON t.type_id = a.type_id";
+                    + "INNER JOIN type_application t ON t.type_id = a.type_id ORDER BY a.app_id";
             PreparedStatement stm = connection.prepareStatement(sql);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {

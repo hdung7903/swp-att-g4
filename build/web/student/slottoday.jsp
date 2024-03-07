@@ -6,6 +6,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Schedule Today</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
         <style>
@@ -48,21 +49,20 @@
             <div class="container my-5">
                 <h1 class="text-center mb-4">Timetable</h1>
                 <div class="form-floating">
-                    <form action="${pageContext.request.contextPath}/student/slottoday" method="get" class="justify-content-center mb-3">
-                        <div class="row">
+                    <form action="${pageContext.request.contextPath}/student/slottoday" method="get" class="mb-3">
+                        <div class="row align-items-center">
                             <div class="col-md-6 mb-3">
-                                <label for="date" class="mr-2">Date</label>
-                                <input type="date" id="date" name="date" value="${requestScope.date}" class="form-control"/>
+                                <label for="date" class="form-label">Date</label>
+                                <div class="input-group">
+                                    <input type="date" id="date" name="date" value="${requestScope.date}" class="form-control"/>
+                                    <div class="input-group-append mx-2">
+                                        <button type="submit" class="btn btn-primary" onclick="handleView()"><i class="fas fa-eye"></i> View</button>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <input type="hidden" value="${sessionScope.accountId}" name="id" readonly />
-                                <button type="submit" class="btn btn-primary" onclick="handleView()">View</button>
-                            </div>
+                            <input type="hidden" value="${sessionScope.acc.role_id}" name="id" readonly />
                         </div>
                     </form>
-
                 </div>
                 <div class="table-container">
                     <div class="table-responsive">
@@ -82,14 +82,15 @@
                                         <tr>
                                             <td><fmt:formatDate value="${ses.date}" pattern="dd-MM-yyyy"/></td>
                                             <td>${ses.time.description}</td>
-                                            <td>${ses.group.name}</td> 
+                                            <td>${ses.group.name}</td>
                                             <td>${ses.subject.name}</td>
-                                            <td><c:choose>
+                                            <td>
+                                                <c:choose>
                                                     <c:when test="${ses.attendance.status}">
-                                                        <span style="color: green;">Attended</span>
+                                                        <span class="text-success"><i class="fas fa-check-circle"></i> Attended</span>
                                                     </c:when>
                                                     <c:otherwise>
-                                                        <span style="color: red;">Absent</span>
+                                                        <span class="text-danger"><i class="fas fa-times-circle"></i> Absent</span>
                                                     </c:otherwise>
                                                 </c:choose>
                                             </td>

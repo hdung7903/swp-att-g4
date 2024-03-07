@@ -54,17 +54,17 @@
                         + Every slot learning in Afternoon will start at 2:00PM and end at 5:00PM
                     </div>
                     <form action="${pageContext.request.contextPath}/instructor/schedule" method="get" class="row g-3 justify-content-center" onsubmit="showSpinner()">
-                        <div class="col-md-4">
+                        <div class="col-md-5">
                             <label for="from" class="form-label">From</label>
                             <input type="date" id="from" name="from" value="${requestScope.from}" class="form-control"/>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-5">
                             <label for="to" class="form-label">To</label>
                             <input type="date" id="to" name="to" value="${requestScope.to}" class="form-control"/>
                         </div>
                         <input type="hidden" value="${sessionScope.accountId}" name="id" readonly />
-                        <div class="col-md-4 d-grid">
-                            <button type="submit" class="btn btn-primary" onclick="handleView()">View</button>
+                        <div class="input-group-append mx-2">
+                            <button type="submit" class="btn btn-primary btn-sm" onclick="handleView()"><i class="fas fa-eye"></i> View</button>
                         </div>
                     </form>
                 </div>
@@ -101,9 +101,9 @@
                                                                                 <a href="${pageContext.request.contextPath}/instructor/sessiondetail?id=${ses.id}" class="font-weight-bold text-dark">
                                                                                     ${ses.group.name} - ${ses.subject.name}
                                                                                 </a>
-                                                                                <br>
-                                                                                <small><a href="https://${ses.group.link_url}" target="_blank">Link Class</a></small>
-                                                                                <br>
+                                                                                <p>
+                                                                                    <a href="https://${ses.group.link_url}" target="_blank">Link Class</a>
+                                                                                </p>                                                                              
                                                                                 <c:choose>
                                                                                     <c:when test="${ses.isAtt}">
                                                                                         <a href="${pageContext.request.contextPath}/instructor/viewatt?id=${ses.id}" class="text-success font-weight-bold">View Attendance</a>
@@ -154,9 +154,9 @@
                                                                             <a href="${pageContext.request.contextPath}/instructor/sessiondetail?id=${ses.id}" class="font-weight-bold text-dark">
                                                                                 ${ses.group.name} - ${ses.subject.name}
                                                                             </a>
-                                                                            <br>
-                                                                            <small><a href="https://${ses.group.link_url}" target="_blank">Link Class</a></small>
-                                                                            <br>
+                                                                            <p>
+                                                                                <a href="https://${ses.group.link_url}" target="_blank">Link Class</a>
+                                                                            </p>
                                                                             <c:choose>
                                                                                 <c:when test="${ses.isAtt}">
                                                                                     <a href="${pageContext.request.contextPath}/instructor/viewatt?id=${ses.id}" class="text-success font-weight-bold">View Attendance</a>

@@ -26,7 +26,7 @@
 
             h1 {
                 text-align: center;
-                color: #0d6efd;
+                color: black;
                 margin-bottom: 30px;
             }
 
@@ -35,14 +35,14 @@
             }
 
             .btn-primary {
-                background-color: #198754;
-                border-color: #198754;
+                background-color: #1533c4;
+                border-color: #1533c4;
                 width: 100%;
             }
 
             .btn-primary:hover {
-                background-color: #157347;
-                border-color: #157347;
+                background-color: #1567c4;
+                border-color: #1567c4;
             }
 
             .form-control {
@@ -61,7 +61,7 @@
             }
 
             .input-group-text {
-                background-color: #198754;
+                background-color: #1533c4;
                 border-color: #198754;
                 color: #ffffff;
             }
@@ -74,7 +74,7 @@
 
     <body>
         <div id="container">
-            <h1>Create New Application <i class="fas fa-pencil-alt"></i></h1>
+            <h1>Create New Application</h1>
             <form action="${pageContext.request.contextPath}/student/createApplication" method="post">
                 <div class="mb-3">
                     <label for="typeId" class="form-label">Type</label>
@@ -98,13 +98,17 @@
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Submit</button>
-                <div class="mb-3 text-center">
-                    <a href="home.jsp" class="text-decoration-none"><i class="fas fa-home me-2"></i>Back to Home</a>
+                <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane" onclick="showMessage("Application have been submitted")"></i> Submit</button>
+                <div class="my-3 text-center">
+                    <a href="${pageContext.request.contextPath}/student/home" class="text-decoration-none text-black"><i class="fas fa-home me-2"></i>Back to Home</a>
                 </div>
             </form>
         </div>
-
+         <script>
+            function showMessage(message) {
+                alert(message);
+            }
+        </script>       
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>

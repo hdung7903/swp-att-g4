@@ -6,8 +6,10 @@
 package controller.academicStaff;
 
 import dal.GSMDBContext;
+import dal.GroupDBContext;
 import dal.SCMDBContext;
 import dal.StudentDBContext;
+import entity.Group;
 import entity.GroupSubjectMapping;
 import entity.Student;
 import java.io.IOException;
@@ -45,21 +47,21 @@ public class AddStudentController extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-       try {
-            GSMDBContext gsmDB = new GSMDBContext();
+            throws ServletException, IOException {
+        try {
+            GroupDBContext gdb = new GroupDBContext();
             StudentDBContext stuDB = new StudentDBContext();
 
-            GroupSubjectMapping gsm = gsmDB.getClassNewset();
+            Group gNewest = gdb.getClassNewset();
             List<Student> listStu = stuDB.getAllStudent();
 
-            request.setAttribute("gsm", gsm);
+            request.setAttribute("gNew", gNewest);
             request.setAttribute("listStu", listStu);
             request.getRequestDispatcher("../academicStaff/addStudent.jsp").forward(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(AddStudentController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    } 
+    }
 
     /** 
      * Handles the HTTP <code>POST</code> method.
@@ -70,21 +72,20 @@ public class AddStudentController extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         String[] stuIds = request.getParameterValues("stuId");
 
-        GSMDBContext gsmDB = new GSMDBContext();
-        GroupSubjectMapping gsm = gsmDB.getClassNewset();
-        String class_id = gsm.getGroup().getId();
+        GroupDBContext gdb = new GroupDBContext();
+        Group gr = gdb.getClassNewset();
+        String class_id = gr.getId();
 
         SCMDBContext scmDB = new SCMDBContext();
         for (String stu_id : stuIds) {
             scmDB.insertStuinClass(stu_id, class_id);
         }
-        
         response.sendRedirect(request.getServletContext().getContextPath() +"/acad/addInsAndSub");
-        request.getSession().setAttribute("mess", "Add Student Success!");
     }
+
 
     /** 
      * Returns a short description of the servlet.
