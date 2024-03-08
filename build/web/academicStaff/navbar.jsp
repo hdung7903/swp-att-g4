@@ -62,23 +62,19 @@
                         <li class="nav-item">
                             <a class="nav-link" href="${pageContext.request.contextPath}/acad/searchstu" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Search Student"><i class="fa-solid fa-chart-bar"></i> Search Student</a>
                         </li>
-                        
+                         <li class="nav-item">
+                            <a class="nav-link" href="${pageContext.request.contextPath}/acad/listNews" data-bs-toggle="tooltip" data-bs-placement="bottom" title="List News"><i class="fa-solid fa-chart-bar"></i> List News</a>
+                        </li>
                     </ul>
-                    <div class="user-dropdown dropdown">
-                        <a class="d-flex align-items-center text-decoration-none dropdown-toggle me-4" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div class="user-profile d-flex align-items-center me-4">
+                        <a href="${pageContext.request.contextPath}/profile" class="text-decoration-none">
                             <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle me-2">
                             ${sessionScope.acc.username}
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/profile"><i class="fa-solid fa-user me-2"></i>Profile</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li>
-                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#logoutModal">
-                                    <i class="fa-solid fa-arrow-right-from-bracket me-2"></i>Sign out
-                                </a>
-                            </li>                        
-                        </ul>
-                    </div
+                        <a href="#" class="btn btn-outline-light ms-2" data-bs-toggle="modal" data-bs-target="#logoutModal">
+                            <i class="fas fa-arrow-right-from-bracket"></i> Sign out
+                        </a>
+                    </div>
                 </div>
             </div>
             <%@include file="../modal/logoutModal.jsp" %>

@@ -23,7 +23,7 @@
     <body>
         <div class="container-fluid">
             <%@include file="./navbar.jsp" %>
-            <div class="container">
+            <div class="container mx-3">
                 <h1 class="mt-4">List of Applications</h1>
                 <a href="${pageContext.request.contextPath}/student/createApplication?id=${sessionScope.accountId}" class="btn btn-primary mt-3">
                     <i class="fas fa-plus"></i> Create Application
@@ -47,13 +47,22 @@
                                     ${formattedDate}
                                 </td>
                                 <td>${app.content}</td>
-                                <td>
+                                <td>                                           
                                     <c:choose>
-                                        <c:when test="${app.isApprove}">
-                                            <span class="badge bg-success"><i class="fas fa-check"></i> Approve</span>
+                                        <c:when test="${app.isSpend}">
+                                            <c:choose>
+                                                <c:when test="${app.isApprove}">
+                                                    <span class="badge bg-success"><i class="fas fa-check"></i> Approve</span>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <span class="badge bg-danger"><i class="fas fa-times"></i> Reject</span>
+                                                </c:otherwise>
+                                            </c:choose>
                                         </c:when>
                                         <c:otherwise>
-                                            <span class="badge bg-danger"><i class="fas fa-times"></i> Reject</span>
+                                            <span class="text-muted">
+                                                <i class="fas fa-eye-slash"></i> Not View
+                                            </span>
                                         </c:otherwise>
                                     </c:choose>
                                 </td>

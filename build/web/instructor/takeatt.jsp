@@ -12,7 +12,7 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
         <style>
-            .container-fluid{
+            .container-fluid {
                 margin: 0!important;
                 padding: 0!important;
             }
@@ -23,8 +23,36 @@
             }
 
             .toggleImage {
-                display: none; 
-                margin: auto; 
+                display: none;
+                margin: auto;
+            }
+
+            /* Navbar Styles */
+            .navbar-brand {
+                font-weight: bold;
+                font-size: 1.5rem;
+                transition: transform 0.3s ease;
+            }
+            .navbar-brand:hover {
+                transform: scale(1.05);
+            }
+            .nav-link {
+                transition: color 0.2s ease;
+            }
+            .nav-link:hover, .nav-link:focus {
+                color: #f8f9fa !important;
+            }
+            .active .nav-link {
+                color: #ffffff !important;
+                background-color: rgba(255, 255, 255, 0.1);
+                border-radius: 0.25rem;
+            }
+            .user-profile img {
+                border-radius: 50%;
+                transition: border-color 0.3s ease;
+            }
+            .user-profile img:hover {
+                border-color: #f8f9fa;
             }
         </style>
         <script>
@@ -56,7 +84,7 @@
         <div class="container-fluid">
             <%@include file="./navbar.jsp" %> 
             <div class="container">
-                <h1 class="text-center mb-4">Attendance Sheet</h1>
+                <h1 class="text-center my-3">Attendance Sheet</h1>
                 <div class="card mb-3">
                     <div class="card-body text-center">
                         <h5 class="card-title d-inline-block mr-2">Class: ${requestScope.ses.group.name}</h5>
@@ -96,7 +124,7 @@
                                                     <label class="form-check-label">Absent</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" 
+                                                    <input class="form-check-input" type="radio"
                                                            name="status${a.student.id}" value="Present"/>
                                                     <label class="form-check-label">Present</label>
                                                 </div>
@@ -112,7 +140,7 @@
                             <input type="hidden" value="${requestScope.ses.id}" name="session_id"/>
                             <input type="submit" class="btn btn-primary center" value="Take Attendance"/>
                         </form>
-                    </div> 
+                    </div>
                 </div>
             </div>
         </div>

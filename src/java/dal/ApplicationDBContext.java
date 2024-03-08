@@ -127,7 +127,7 @@ public class ApplicationDBContext extends DBContext<Application> {
         ArrayList<Application> appByStu = new ArrayList<>();
 
         try {
-            String sql = "SELECT a.app_id, a.content, a.create_date, a.student_id, s.student_name, a.isApprove, a.`comment` "
+            String sql = "SELECT a.app_id, a.content, a.create_date, a.student_id, s.student_name, a.isApprove, a.`comment`,a.isSend "
                     + "FROM application a "
                     + "INNER JOIN student s ON s.student_id = a.student_id "
                     + "INNER JOIN type_application t ON t.type_id = a.type_id "
@@ -139,6 +139,7 @@ public class ApplicationDBContext extends DBContext<Application> {
                 String content = rs.getString("content");
                 Date createDate = rs.getDate("create_date");
                 boolean isApprove = rs.getBoolean("isApprove");
+                boolean isSend=rs.getBoolean("isSend");
                 String comment = rs.getString("comment");
 
                 Student student = new Student();
@@ -152,6 +153,7 @@ public class ApplicationDBContext extends DBContext<Application> {
                 application.setStudent(student);
                 application.setIsApprove(isApprove);
                 application.setComment(comment);
+                application.setIsSend(isSend);
 
                 appByStu.add(application);
             }

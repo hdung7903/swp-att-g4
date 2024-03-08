@@ -8,36 +8,30 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
         <style>
             .navbar-brand {
-                color: #fff;
                 font-weight: bold;
                 font-size: 1.5rem;
+                transition: transform 0.3s ease;
             }
-            .navbar-dark .navbar-nav .nav-link {
-                color: rgba(255, 255, 255, 0.55);
+            .navbar-brand:hover {
+                transform: scale(1.05);
             }
-            .navbar-dark .navbar-nav .nav-link:hover,
-            .navbar-dark .navbar-nav .nav-link:focus {
-                color: rgba(255, 255, 255, 0.75);
+            .nav-link {
+                transition: color 0.2s ease;
             }
-            .navbar-dark .navbar-nav .active>.nav-link {
-                color: #fff;
+            .nav-link:hover, .nav-link:focus {
+                color: #f8f9fa !important;
             }
-            .user-dropdown img {
-                border: 2px solid #fff;
+            .active .nav-link {
+                color: #ffffff !important;
+                background-color: rgba(255, 255, 255, 0.1);
+                border-radius: 0.25rem;
             }
-            .user-dropdown .dropdown-toggle::after {
-                display: none;
+            .user-profile img {
+                border-radius: 50%;
+                transition: border-color 0.3s ease;
             }
-            .user-dropdown .dropdown-menu {
-                right: 0;
-                left: auto;
-            }
-            .user-dropdown .dropdown-item {
-                padding: 10px;
-                transition: background-color 0.3s;
-            }
-            .user-dropdown .dropdown-item:hover {
-                background-color: #f8f9fa; 
+            .user-profile img:hover {
+                border-color: #f8f9fa;
             }
         </style>
     </head>
@@ -58,21 +52,15 @@
                         </li>
                         
                     </ul>
-                    <div class="user-dropdown dropdown">
-                        <a class="d-flex align-items-center text-decoration-none dropdown-toggle me-4" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div class="user-profile d-flex align-items-center me-4">
+                        <a href="${pageContext.request.contextPath}/profile" class="text-decoration-none">
                             <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle me-2">
                             ${sessionScope.acc.username}
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/profile"><i class="fa-solid fa-user me-2"></i>Profile</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li>
-                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#logoutModal">
-                                    <i class="fa-solid fa-arrow-right-from-bracket me-2"></i>Sign out
-                                </a>
-                            </li>                        
-                        </ul>
-                    </div
+                        <a href="#" class="btn btn-outline-light ms-2" data-bs-toggle="modal" data-bs-target="#logoutModal">
+                            <i class="fas fa-arrow-right-from-bracket"></i> Sign out
+                        </a>
+                    </div>
                 </div>
             </div>
             <%@include file="../modal/logoutModal.jsp" %>

@@ -60,9 +60,13 @@
                                 </div>
                                 <div class="g-recaptcha mb-3" data-sitekey="6LcXVF4pAAAAAB_m0xoYKzmMOj5pS1cZVp2wDJfJ"></div>
                                 <div class="mb-3">
-                                    <p id="error" class="text-danger"></p>
-                                    <p class="text-danger">${mess}</p>
-                                    <p class="text-success">${status}</p>
+                                    <div id="recaptchaAlert" class="alert alert-warning d-none" role="alert">
+                                        Please complete the reCAPTCHA to proceed.
+                                    </div>
+                                    <div id="loginFailedAlert" class="alert alert-danger d-none" role="alert">
+                                        ${mess}
+                                    </div>
+                                    <div class="text-success">${status}</div>
                                 </div>
 
                                 <button type="submit" class="btn btn-primary w-100 mb-3" onclick="handleLogin()">Sign In</button>
@@ -98,7 +102,8 @@
                                     window.onload = function () {
                                         let isValid = false;
                                         const form = document.getElementById("form");
-                                        const error = document.getElementById("error");
+                                        const recaptchaAlert = document.getElementById("recaptchaAlert");
+                                        const loginFailedAlert = document.getElementById("loginFailedAlert");
 
                                         form.addEventListener("submit", function (event) {
                                             event.preventDefault();
@@ -106,34 +111,14 @@
                                             if (response) {
                                                 form.submit();
                                             } else {
-                                                error.innerHTML = "Please check";
+                                                recaptchaAlert.classList.remove("d-none");
                                             }
                                         });
+                                       
+                                        if ("${mess}" !== "") {
+                                            loginFailedAlert.classList.remove("d-none");
+                                        }
                                     };
-                                    function showSuccessNotification(message) {
-                                        Toastify({
-                                            text: message,
-                                            duration: 3000,
-                                            close: true,
-                                            backgroundColor: "#4caf50",
-                                            gravity: "top",
-                                            position: "right",
-                                            stopOnFocus: true,
-                                            onClick: function () {}
-                                        }).showToast();
-                                    }
-                                    function showErrorNotification(message) {
-                                        Toastify({
-                                            text: message,
-                                            duration: 3000,
-                                            close: true,
-                                            backgroundColor: "#f44336",
-                                            gravity: "top",
-                                            position: "right",
-                                            stopOnFocus: true,
-                                            onClick: function () {}
-                                        }).showToast();
-                                    }
         </script>
         <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     </body>

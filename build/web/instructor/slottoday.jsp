@@ -62,23 +62,21 @@
                             <input type="hidden" value="${sessionScope.acc.role_id}" name="id" readonly />
                         </div>
                     </form>
-
-
                 </div>
-                <div class="table-container">
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-striped table-hover">
-                            <thead class="thead-light">
-                                <tr>
-                                    <th>Date</th>
-                                    <th>Time Slot</th>
-                                    <th>Group</th>
-                                    <th>Subject</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <c:if test="${not empty sessions}">
+                <c:if test="${not empty sessions}">
+                    <div class="table-container">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped table-hover">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Time Slot</th>
+                                        <th>Group</th>
+                                        <th>Subject</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
                                     <c:forEach var="ses" items="${sessions}">
                                         <tr>
                                             <td><fmt:formatDate value="${ses.date}" pattern="dd-MM-yyyy"/></td>
@@ -95,14 +93,18 @@
                                             </c:choose>
                                         </tr>
                                     </c:forEach>
-                                </c:if>
-                                <c:if test="${empty sessions}">
-                                    <tr>
-                                        <td colspan="5" style="text-align: center; color: red;">No sessions found</td>
-                                    </tr>
-                                </c:if>
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </c:if>
+                        <c:if test="${empty sessions}">
+                            <div class="alert alert-danger d-flex align-items-center" role="alert">
+                                <i class="fas fa-exclamation-triangle me-2"></i>
+                                <div>
+                                    No sessions found
+                                </div>
+                            </div>
+                        </c:if>
+
                     </div>
                 </div>
             </div>

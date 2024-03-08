@@ -2,27 +2,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller.student;
+package controller.academicStaff;
 
-import dal.ApplicationDBContext;
-import dal.TypeApplicationDBContext;
-import entity.Application;
-import entity.Student;
-import entity.TypeApplication;
+import dal.NewsDBContext;
+import entity.News;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.sql.Date;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
  *
- * @author Admin
+ * @author leduy
  */
-public class CreateApplicationController extends HttpServlet {
+public class ListNewsController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,28 +30,10 @@ public class CreateApplicationController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        TypeApplicationDBContext typeDBContext = new TypeApplicationDBContext();
-
-        ArrayList<TypeApplication> types = typeDBContext.list();
-        request.setAttribute("types", types);
-        request.getRequestDispatcher("../student/createApp.jsp").forward(request, response);
-        String studentId = request.getParameter("id");
-        String content = request.getParameter("content");
-        int typeId = Integer.parseInt(request.getParameter("typeId"));
-
-        Application application = new Application();
-        application.setStudent(new Student(studentId));
-        application.setContent(content);
-
-        TypeApplication type = new TypeApplication();
-        type.setId(typeId);
-        application.setType(type);
-
-        application.setCreate_date(Date.valueOf(LocalDate.now()));
-
-        ApplicationDBContext dbContext = new ApplicationDBContext();
-        dbContext.insert(application);
-
+        NewsDBContext dbContext = new NewsDBContext();
+        ArrayList<News> listNews = dbContext.list();
+        request.setAttribute("listNews", listNews);
+        request.getRequestDispatcher("../academicStaff/listNews.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

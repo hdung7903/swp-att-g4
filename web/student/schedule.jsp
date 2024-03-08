@@ -179,7 +179,12 @@
                                 </c:if>
                             </c:when>
                             <c:otherwise>
-                                <span class="text-danger d-block text-center">Invalid From-To Range</span>
+                                <div class="alert alert-danger d-flex align-items-center" role="alert">
+                                    <i class="fas fa-exclamation-triangle me-2"></i>
+                                    <div>
+                                        Invalid from-to range
+                                    </div>
+                                </div>
                             </c:otherwise>
                         </c:choose>           
                     </div>

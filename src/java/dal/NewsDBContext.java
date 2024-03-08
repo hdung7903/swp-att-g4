@@ -21,15 +21,15 @@ public class NewsDBContext extends DBContext<News> {
     public ArrayList<News> list() {
          ArrayList<News> newsList = new ArrayList<>();
         try {
-            String sql = "SELECT news_id,news_title,news_content,date"
+            String sql = "SELECT *"
                     + "FROM news";
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt("news_id");
                 Date createDate = rs.getDate("date");
-                String title = rs.getString("news_title");
-                String content = rs.getString("news_content");
+                String title = rs.getString("title");
+                String content = rs.getString("content");
                 News news = new News(id,title,content,createDate);
                 newsList.add(news);
             }
@@ -41,17 +41,41 @@ public class NewsDBContext extends DBContext<News> {
 
     @Override
     public void insert(News entity) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+         try {
+            String sql = "INSERT INTO news (title, content, date) VALUES (?, ?, NOW())";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, entity.getTitle());
+            stm.setString(2, entity.getContent());
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 
     @Override
     public void update(News entity) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+         try {
+            String sql = "UPDATE news SET title = ?, content = ? WHERE news_id = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, entity.getTitle());
+            stm.setString(2, entity.getContent());
+            stm.setInt(3, entity.getId());
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 
     @Override
     public void delete(News entity) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            String sql = "DELETE FROM news WHERE news_id = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, entity.getId());
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 
     @Override
@@ -59,4 +83,44 @@ public class NewsDBContext extends DBContext<News> {
        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
+    public ArrayList<News> getContentById(int id) {
+        ArrayList<News> newsList = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM news where news_id = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, id);
+            ResultSet rs = stm.executeQuery();
+
+            while (rs.next()) {
+
+                Date createDate = rs.getDate("date");
+                String title = rs.getString("title");
+                String content = rs.getString("content");
+                News news = new News(id, title, content, createDate);
+                newsList.add(news);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return newsList;
+    }
+    public ArrayList<News> listNews() {
+        ArrayList<News> newsList = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM news order by news_id desc";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("news_id");
+                Date createDate = rs.getDate("date");
+                String title = rs.getString("title");
+                String content = rs.getString("content");
+                News news = new News(id, title, content,createDate);
+                newsList.add(news);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return newsList;
+    }
 }
