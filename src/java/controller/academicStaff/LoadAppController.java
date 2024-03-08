@@ -45,12 +45,40 @@ public class LoadAppController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-         LoadAppDBContext dbContext = new LoadAppDBContext();
+//        LoadAppDBContext dbContext = new LoadAppDBContext();
+//
+//        ArrayList<Application> applications = dbContext.list();
+//
+//        request.setAttribute("applications", applications);
+//        request.getRequestDispatcher("../academicStaff/loadApp.jsp").forward(request, response);
+
+
+        LoadAppDBContext dbContext = new LoadAppDBContext();
 
         ArrayList<Application> applications = dbContext.list();
 
-        request.setAttribute("applications", applications);
+        int totalApplications = applications.size();
+
+        int currentPage = 1;
+        int recordsPerPage = 5; 
+        int totalPages = (int) Math.ceil((double) totalApplications / recordsPerPage);
+        if (request.getParameter("page") != null) {
+            currentPage = Integer.parseInt(request.getParameter("page"));
+        }
+
+        int startIndex = (currentPage - 1) * recordsPerPage;
+        int endIndex = Math.min(startIndex + recordsPerPage, totalApplications);
+
+        ArrayList<Application> currentPageApplications = new ArrayList<>(applications.subList(startIndex, endIndex));
+
+        request.setAttribute("applications", currentPageApplications);
+        request.setAttribute("totalApplications", totalApplications);
+        request.setAttribute("totalPages", totalPages);
+        request.setAttribute("currentPage", currentPage);
+
+        
         request.getRequestDispatcher("../academicStaff/loadApp.jsp").forward(request, response);
+    
     } 
 
     /** 

@@ -32,10 +32,6 @@ public class ViewStatusController extends HttpServlet {
     throws ServletException, IOException {
     String studentId = (String) request.getSession().getAttribute("accountId");
 
-    if (studentId == null) {
-        response.sendRedirect("login.jsp"); 
-        return;
-    }
 
     LoadAppDBContext dbContext = new LoadAppDBContext();
     ArrayList<Application> appByStu = dbContext.getAppByStudent(studentId);

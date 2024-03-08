@@ -22,7 +22,10 @@
                             <a class="nav-link" href="#">Attendance</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Attendance Report</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/acad/listNews">List News</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="${pageContext.request.contextPath}/acad/load">list app</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav ml-auto">                    

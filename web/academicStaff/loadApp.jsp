@@ -42,9 +42,9 @@
                             <td>${application.student.name}</td>
                             <td>${application.student.id}</td>
                             <td>
-                                <form action="load" method="post">
+                                <form action="load" method="get">
                                     <input type="hidden" name="applicationId" value="${application.id}">
-                                    <a href="${pageContext.request.contextPath}/acad/viewContent?id=${application.id}" class="btn btn-primary">View</a>
+                                    <a href="${pageContext.request.contextPath}/acad/viewContent?id=${application.id}" class="btn btn-primary" >View</a>
                                 </form>
                             </td>
                             <td>
@@ -62,7 +62,33 @@
                     </c:forEach>
                 </tbody>
             </table>
-
+            <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            <c:if test="${currentPage > 1}">
+                <li class="page-item">
+                    <a class="page-link" href="?page=1">&laquo;</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page=${currentPage - 1}">&lt;</a>
+                </li>
+            </c:if>
+            
+            <c:forEach begin="1" end="${totalPages}" var="page">
+                <li class="page-item ${page == currentPage ? 'active' : ''}">
+                    <a class="page-link" href="?page=${page}">${page}</a>
+                </li>
+            </c:forEach>
+            
+            <c:if test="${currentPage < totalPages}">
+                <li class="page-item">
+                    <a class="page-link" href="?page=${currentPage + 1}">&gt;</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page=${totalPages}">&raquo;</a>
+                </li>
+            </c:if>
+        </ul>
+    </nav>
         </div>
 
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

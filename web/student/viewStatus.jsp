@@ -36,11 +36,18 @@
                             <td>${app.content}</td>
                             <td>
                                 <c:choose>
-                                    <c:when test="${app.isApprove}">
-                                        <span class="badge badge-success">Chấp Nhận</span>
+                                    <c:when test="${app.isSpend}">
+                                        <c:choose>
+                                            <c:when test="${app.isApprove}">
+                                                <span class="badge badge-success">Chấp Nhận</span>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <span class="badge badge-danger">Từ chối</span>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </c:when>
                                     <c:otherwise>
-                                        <span class="badge badge-danger">Từ chối</span>
+                                        not view
                                     </c:otherwise>
                                 </c:choose>
                             </td>

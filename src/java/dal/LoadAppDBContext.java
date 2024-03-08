@@ -18,7 +18,8 @@ public class LoadAppDBContext extends DBContext<Application> {
             String sql = "SELECT a.app_id, a.content, a.create_date, a.student_id, s.student_name, a.isApprove, a.`comment` "
                     + "FROM application a "
                     + "INNER JOIN student s ON s.student_id = a.student_id "
-                    + "INNER JOIN type_application t ON t.type_id = a.type_id";
+                    + "INNER JOIN type_application t ON t.type_id = a.type_id "
+                    + "ORDER BY a.app_id";
             PreparedStatement stm = connection.prepareStatement(sql);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
@@ -40,7 +41,6 @@ public class LoadAppDBContext extends DBContext<Application> {
                 application.setComment(comment);
 
                 applications.add(application);
-
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -85,11 +85,12 @@ public class LoadAppDBContext extends DBContext<Application> {
         ArrayList<Application> appByStu = new ArrayList<>();
 
         try {
-            String sql = "SELECT a.app_id, a.content, a.create_date, a.student_id, s.student_name, a.isApprove, a.`comment` "
+            String sql = "SELECT a.app_id, a.content, a.create_date, a.student_id, s.student_name, a.isApprove, a.isSend, a.`comment` "
                     + "FROM application a "
                     + "INNER JOIN student s ON s.student_id = a.student_id "
                     + "INNER JOIN type_application t ON t.type_id = a.type_id "
-                    + "WHERE a.student_id = ?";
+                    + "WHERE a.student_id = ? "
+                    + "order by a.app_id";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setString(1, student_id);
             ResultSet rs = stm.executeQuery();
@@ -97,6 +98,7 @@ public class LoadAppDBContext extends DBContext<Application> {
                 String content = rs.getString("content");
                 Date createDate = rs.getDate("create_date");
                 boolean isApprove = rs.getBoolean("isApprove");
+                boolean isSend = rs.getBoolean("isSend");
                 String comment = rs.getString("comment");
 
                 Student student = new Student();
@@ -109,6 +111,7 @@ public class LoadAppDBContext extends DBContext<Application> {
                 application.setCreate_date(createDate);
                 application.setStudent(student);
                 application.setIsApprove(isApprove);
+                application.setIsSpend(isSend);
                 application.setComment(comment);
 
                 appByStu.add(application);
@@ -117,11 +120,6 @@ public class LoadAppDBContext extends DBContext<Application> {
             ex.printStackTrace();
         }
         return appByStu;
-    }
-
-    @Override
-    public void insert(Application entity) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
@@ -136,6 +134,11 @@ public class LoadAppDBContext extends DBContext<Application> {
 
     @Override
     public Application get(Application entity) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void insert(Application entity) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

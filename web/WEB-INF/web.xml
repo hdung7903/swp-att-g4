@@ -180,6 +180,18 @@
         <servlet-name>CreateNewController</servlet-name>
         <servlet-class>controller.academicStaff.CreateNewController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>NewController</servlet-name>
+        <servlet-class>controller.student.NewController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>NewsDetailController</servlet-name>
+        <servlet-class>controller.student.NewsDetailController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ListNewsController</servlet-name>
+        <servlet-class>controller.academicStaff.ListNewsController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -310,7 +322,19 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CreateNewController</servlet-name>
-        <url-pattern>/acad/createNew</url-pattern>
+        <url-pattern>/acad/createNews</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NewController</servlet-name>
+        <url-pattern>/student/news</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NewsDetailController</servlet-name>
+        <url-pattern>/student/newsDetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListNewsController</servlet-name>
+        <url-pattern>/acad/listNews</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

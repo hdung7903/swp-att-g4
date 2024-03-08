@@ -2,13 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller.academicStaff;
+package controller.student;
 
-import dal.LoadAppDBContext;
-import dal.UpdateStatusDBContext;
-import entity.Application;
+import dal.NewDBContext;
+import entity.New;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,7 +17,7 @@ import java.util.ArrayList;
  *
  * @author Admin
  */
-public class ViewContentController extends HttpServlet {
+public class NewsDetailController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,16 +30,16 @@ public class ViewContentController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String appIdStr = request.getParameter("id");
-        
-        int appId = Integer.parseInt(appIdStr);
 
-        LoadAppDBContext dbContext = new LoadAppDBContext();
+        String idNews = request.getParameter("id");
+        int newsId = Integer.parseInt(idNews);
 
-        Application application = dbContext.get(appId);
+        NewDBContext dbContext = new NewDBContext();
+        ArrayList<New> newsDetail = dbContext.getContentById(newsId);
 
-        request.setAttribute("application", application);
-        request.getRequestDispatcher("../academicStaff/ViewContent.jsp").forward(request, response);
+        request.setAttribute("detail", newsDetail);
+        request.getRequestDispatcher("../student/newsDetail.jsp").forward(request, response);
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -56,12 +54,6 @@ public class ViewContentController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String appIdStr = request.getParameter("id");
-        int appId = Integer.parseInt(appIdStr);
-
-        UpdateStatusDBContext updateAppDBContext = new UpdateStatusDBContext();
-        updateAppDBContext.updateIsSend(appId);
-
         processRequest(request, response);
     }
 

@@ -15,6 +15,7 @@ import java.util.ArrayList;
  */
 public class InsertAppDBContext extends DBContext<Application> {
     
+    @Override
     public void insert(Application entity) {
         try {
            

@@ -53,6 +53,9 @@
                         <li class="nav-item mx-3">
                             <a class="nav-link" href="${pageContext.request.contextPath}/student/viewStatus?id=${sessionScope.accountId}"><i class="bi bi-clipboard-data"></i>List Application</a>
                         </li>
+                        <li class="nav-item mx-3">
+                            <a class="nav-link" href="${pageContext.request.contextPath}/student/news"><i class="bi bi-clipboard-data"></i>NEWS</a>
+                        </li>
                     </ul>
                     <ul class="navbar-nav ml-auto">                    
                         <li class="nav-link px-2 text-secondary">

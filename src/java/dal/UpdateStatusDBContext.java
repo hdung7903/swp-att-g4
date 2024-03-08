@@ -23,7 +23,6 @@ public class UpdateStatusDBContext extends DBContext<Application>{
             stm.setInt(1, appId);
             stm.executeUpdate();
         } catch (SQLException ex) {
-            ex.printStackTrace();
         }
     
     }
@@ -39,7 +38,6 @@ public class UpdateStatusDBContext extends DBContext<Application>{
             
             stm.executeUpdate();
         } catch (SQLException ex) {
-            ex.printStackTrace();
         }
     }
     
