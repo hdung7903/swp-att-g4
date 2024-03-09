@@ -6,7 +6,6 @@ package controller.instructor;
 
 import dal.SessionDBContext;
 import dal.TimeSlotDBContext;
-import entity.Account;
 import entity.Session;
 import entity.TimeSlot;
 import java.io.IOException;
@@ -25,7 +24,7 @@ import util.DateTimeHelper;
 
 /**
  *
- * @author Admin
+ * @author leduy
  */
 public class ScheduleController extends HttpServlet {
 
@@ -40,99 +39,43 @@ public class ScheduleController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String currentInstructorId = getCurrentInstructorIdFromSessionOrRequest(request);
         String instructorId = request.getParameter("id");
-        if (instructorId == null) {
-            String r_from = request.getParameter("from");
-            String r_to = request.getParameter("to");
-            ArrayList<Date> dates = new ArrayList<>();
+        String r_from = request.getParameter("from");
+        String r_to = request.getParameter("to");
+        ArrayList<Date> dates = new ArrayList<>();
 
-            if (r_from != null && r_to != null) {
-                try {
-                    java.util.Date fromDate = new SimpleDateFormat("yyyy-MM-dd").parse(r_from);
-                    java.util.Date toDate = new SimpleDateFormat("yyyy-MM-dd").parse(r_to);
+        if (r_from != null && r_to != null) {
+            try {
+                java.util.Date fromDate = new SimpleDateFormat("yyyy-MM-dd").parse(r_from);
+                java.util.Date toDate = new SimpleDateFormat("yyyy-MM-dd").parse(r_to);
 
-                    if (toDate.before(fromDate)) {
-                        request.setAttribute("errorMessage", "Invalid date range. 'To' date cannot be before 'From' date.");
-                        request.getRequestDispatcher("../instructor/schedule.jsp").forward(request, response);
-                        return;
-                    } else {
-                        dates = DateTimeHelper.getSqlDatesInRange(r_from, r_to);
-                    }
-                } catch (ParseException ex) {
-                    Logger.getLogger(ScheduleController.class.getName()).log(Level.SEVERE, null, ex);
+                if (toDate.before(fromDate)) {
+                    request.setAttribute("errorMessage", "Invalid date range. 'To' date cannot be before 'From' date.");
+                    request.getRequestDispatcher("../instructor/schedule.jsp").forward(request, response);
+                    return;
+                } else {
+                    dates = DateTimeHelper.getSqlDatesInRange(r_from, r_to);
                 }
-            } else if (r_from == null) {
-                dates = DateTimeHelper.getCurrentWeekDates();
+            } catch (ParseException ex) {
+                Logger.getLogger(ScheduleController.class.getName()).log(Level.SEVERE, null, ex);
             }
-
-            TimeSlotDBContext timeDB = new TimeSlotDBContext();
-            ArrayList<TimeSlot> slots = timeDB.list();
-
-            SessionDBContext sessDB = new SessionDBContext();
-            ArrayList<Session> sessions = sessDB.getSessionsByInstructor(instructorId, dates.get(0), dates.get(dates.size() - 1));
-
-            request.setAttribute("slots", slots);
-            request.setAttribute("dates", dates);
-            request.setAttribute("from", dates.get(0));
-            request.setAttribute("to", dates.get(dates.size() - 1));
-            request.setAttribute("sessions", sessions);
-
-            request.getRequestDispatcher("../instructor/schedule.jsp").forward(request, response);
-        } else {
-            if (currentInstructorId == null || !currentInstructorId.equals(instructorId)) {
-                response.sendError(HttpServletResponse.SC_FORBIDDEN, "You are not authorized to access this schedule.");
-                return;
-            }
-            String r_from = request.getParameter("from");
-            String r_to = request.getParameter("to");
-            ArrayList<Date> dates = new ArrayList<>();
-
-            if (r_from != null && r_to != null) {
-                try {
-                    java.util.Date fromDate = new SimpleDateFormat("yyyy-MM-dd").parse(r_from);
-                    java.util.Date toDate = new SimpleDateFormat("yyyy-MM-dd").parse(r_to);
-
-                    if (toDate.before(fromDate)) {
-                        request.setAttribute("errorMessage", "Invalid date range. 'To' date cannot be before 'From' date.");
-                        request.getRequestDispatcher("../instructor/schedule.jsp").forward(request, response);
-                        return;
-                    } else {
-                        dates = DateTimeHelper.getSqlDatesInRange(r_from, r_to);
-                    }
-                } catch (ParseException ex) {
-                    Logger.getLogger(ScheduleController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } else if (r_from == null) {
-                dates = DateTimeHelper.getCurrentWeekDates();
-            }
-
-            TimeSlotDBContext timeDB = new TimeSlotDBContext();
-            ArrayList<TimeSlot> slots = timeDB.list();
-
-            SessionDBContext sessDB = new SessionDBContext();
-            ArrayList<Session> sessions = sessDB.getSessionsByInstructor(instructorId, dates.get(0), dates.get(dates.size() - 1));
-
-            request.setAttribute("slots", slots);
-            request.setAttribute("dates", dates);
-            request.setAttribute("from", dates.get(0));
-            request.setAttribute("to", dates.get(dates.size() - 1));
-            request.setAttribute("sessions", sessions);
-
-            request.getRequestDispatcher("../instructor/schedule.jsp").forward(request, response);
+        } else if (r_from == null) {
+            dates = DateTimeHelper.getCurrentWeekDates();
         }
-    }
 
-    private String getCurrentInstructorIdFromSessionOrRequest(HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        if (session != null) {
-            Account accId = (Account) session.getAttribute("accId");
-            Account a = (Account) session.getAttribute("acc");
-            if (accId != null && a.role_id == 3) {
-                return accId.getInstructor().getId(); // Assuming getId() returns the instructor ID
-            }
-        }
-        return null;
+        TimeSlotDBContext timeDB = new TimeSlotDBContext();
+        ArrayList<TimeSlot> slots = timeDB.list();
+
+        SessionDBContext sessDB = new SessionDBContext();
+        ArrayList<Session> sessions = sessDB.getSessionsByInstructor(instructorId, dates.get(0), dates.get(dates.size() - 1));
+
+        request.setAttribute("slots", slots);
+        request.setAttribute("dates", dates);
+        request.setAttribute("from", dates.get(0));
+        request.setAttribute("to", dates.get(dates.size() - 1));
+        request.setAttribute("sessions", sessions);
+
+        request.getRequestDispatcher("../instructor/schedule.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -147,7 +90,14 @@ public class ScheduleController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String getId = request.getParameter("id");
+        HttpSession session = request.getSession();
+        String accountId = (String) session.getAttribute("accountId");
+        if (accountId == null || !accountId.equals(getId)) {
+            response.sendRedirect(request.getServletContext().getContextPath() + "/denied");
+        } else {
+            processRequest(request, response);
+        }
     }
 
     /**

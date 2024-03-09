@@ -110,7 +110,8 @@
                                     <td>${student.name}</td>
                                     <td>${student.email}</td>
                                     <td>
-                                        <a href="${pageContext.request.contextPath}/staff/attreport?student_id=${student.id}" class="text-danger font-weight-bold">View Statistic</a>
+                                        <a href="${pageContext.request.contextPath}/staff/attreport?student_id=${student.id}" class="font-weight-bold">View Statistic</a>
+                                        / <a href="${pageContext.request.contextPath}/staff/viewfb?student_id=${student.id}" class="font-weight-bold">View FeedBack</a>
                                         <input type="hidden" name="student_id" value="${student.id}"/>
                                     </td>
                                 </tr>

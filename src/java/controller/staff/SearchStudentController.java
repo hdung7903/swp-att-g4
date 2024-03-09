@@ -4,7 +4,7 @@
  */
 package controller.staff;
 
-import dal.GroupDBContext;
+import dal.StudentDBContext;
 import entity.Student;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -37,7 +37,7 @@ public class SearchStudentController extends HttpServlet {
             searchTxt = searchTxt.trim();
         }
 
-        GroupDBContext studentList = new GroupDBContext();
+        StudentDBContext studentList = new StudentDBContext();
         ArrayList<Student> scm = studentList.getStudentbyStaff(searchTxt);
 
         request.setAttribute("searchTxt", searchTxt);

@@ -21,6 +21,10 @@ public class Group extends BaseEntity {
 
     public Group() {
     }
+    
+    public Group(String id) {
+        this.id = id;
+    }
 
     public Group(String id, String name, String link_url, GroupSubjectMapping gsm, Subject subject, Student student) {
         this.id = id;

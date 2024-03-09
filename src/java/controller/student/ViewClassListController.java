@@ -5,6 +5,7 @@
 package controller.student;
 
 import dal.GroupDBContext;
+import dal.SCMDBContext;
 import entity.Account;
 import entity.GroupSubjectMapping;
 import entity.StudentClassMapping;
@@ -36,26 +37,13 @@ public class ViewClassListController extends HttpServlet {
         HttpSession session = request.getSession();
         String student_id = (String) session.getAttribute("accountId");
         String class_id = request.getParameter("class_id");
-        String searchTxt = request.getParameter("search");
-        if (searchTxt == null) {
-            searchTxt = "";
-        } else {
-            searchTxt = searchTxt.trim();
-        }
 
-        GroupDBContext group = new GroupDBContext();
+        SCMDBContext group = new SCMDBContext();
         ArrayList<StudentClassMapping> gsm = group.getGroupbyStudent(student_id);
 
-        GroupDBContext studentList = new GroupDBContext();
-        ArrayList<StudentClassMapping> scm;
+        SCMDBContext studentList = new SCMDBContext();
+        ArrayList<StudentClassMapping> scm = studentList.getStudentbyGroup(class_id);
 
-        if (class_id != null && !class_id.isEmpty()) {
-            scm = studentList.getStudentbyGroup(class_id);
-        } else {
-            scm = studentList.getStudentbyInstructor(searchTxt, student_id);
-        }
-
-        request.setAttribute("searchTxt", searchTxt);
         request.setAttribute("gsm", gsm);
         request.setAttribute("scm", scm);
         request.getRequestDispatcher("../student/classlist.jsp").forward(request, response);

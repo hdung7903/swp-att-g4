@@ -30,6 +30,10 @@ public class Student extends BaseEntity{
 
     public Student() {
     }
+    
+    public Student(String id) {
+        this.id = id;
+    }
 
     public Student(String id, String name, String username, String email, Date dob, boolean gender, boolean isDeleted, List<Boolean> attendances, Instructor instructor, Subject subject) {
         this.id = id;

@@ -4,8 +4,8 @@
  */
 package controller.instructor;
 
-import dal.GroupDBContext;
-import entity.Account;
+import dal.GSMDBContext;
+import dal.SCMDBContext;
 import entity.GroupSubjectMapping;
 import entity.StudentClassMapping;
 import jakarta.servlet.ServletException;
@@ -43,10 +43,10 @@ public class ViewClassListController extends HttpServlet {
             searchTxt = searchTxt.trim();
         }
 
-        GroupDBContext group = new GroupDBContext();
+        GSMDBContext group = new GSMDBContext();
         ArrayList<GroupSubjectMapping> gsm = group.getGroupbyInstructor(instructorid);
 
-        GroupDBContext studentList = new GroupDBContext();
+        SCMDBContext studentList = new SCMDBContext();
         ArrayList<StudentClassMapping> scm;
 
         if (class_id != null && !class_id.isEmpty()) {

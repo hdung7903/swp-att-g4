@@ -12,7 +12,10 @@
             body {
                 background: #f1f1f1;
             }
-
+            .container-fluid{
+                margin: 0!important;
+                padding: 0!important;
+            }
             .container {
                 background: #fff;
                 border-radius: 10px;
@@ -95,18 +98,11 @@
                                                                             <small><a href="https://${ses.group.link_url}" target="_blank">Link Class</a></small>
                                                                             <br>
                                                                             <c:choose>
-                                                                                <c:when test="${ses.isAtt}">
-                                                                                    <c:choose>
-                                                                                        <c:when test="${ses.attendance.status}">
-                                                                                            <span style="color: green;">(Attended)</span>
-                                                                                        </c:when>
-                                                                                        <c:otherwise>
-                                                                                            <span style="color: red;">(Absent)</span>
-                                                                                        </c:otherwise>
-                                                                                    </c:choose>
+                                                                                <c:when test="${ses.attendance.status}">
+                                                                                    <a class="text-success font-weight-bold">Present</a>
                                                                                 </c:when>
                                                                                 <c:otherwise>
-                                                                                    <span style="color: orange;">(Not yet)</span>
+                                                                                    <a class="text-danger font-weight-bold">Absent</a>
                                                                                 </c:otherwise>
                                                                             </c:choose>
                                                                         </div>
@@ -155,18 +151,11 @@
                                                                         <small><a href="https://${ses.group.link_url}" target="_blank">Link Class</a></small>
                                                                         <br>
                                                                         <c:choose>
-                                                                            <c:when test="${ses.isAtt}">
-                                                                                <c:choose>
-                                                                                    <c:when test="${ses.attendance.status}">
-                                                                                        <span style="color: green;">(Attended)</span>
-                                                                                    </c:when>
-                                                                                    <c:otherwise>
-                                                                                        <span style="color: red;">(Absent)</span>
-                                                                                    </c:otherwise>
-                                                                                </c:choose>
+                                                                            <c:when test="${ses.attendance.status}">
+                                                                                <a class="text-success font-weight-bold">Present</a>
                                                                             </c:when>
                                                                             <c:otherwise>
-                                                                                <span style="color: orange;">(Not yet)</span>
+                                                                                <a class="text-danger font-weight-bold">Absent</a>
                                                                             </c:otherwise>
                                                                         </c:choose>
                                                                     </div>

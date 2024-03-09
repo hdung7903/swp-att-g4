@@ -24,7 +24,7 @@ public class Session extends BaseEntity {
     private GroupSubjectMapping gsm;
     private Subject subject;
     private TimeSlot time;
-    private ArrayList<Attendance> atts = new ArrayList<>();
+    private ArrayList<Attendance> atts= new ArrayList<>(); 
 
     public Session() {
     }
@@ -41,7 +41,7 @@ public class Session extends BaseEntity {
         this.gsm = gsm;
         this.subject = subject;
         this.time = time;
-    }
+    }    
 
     public TimeSlot getTime() {
         return time;
@@ -138,5 +138,11 @@ public class Session extends BaseEntity {
     public void setSubject(Subject subject) {
         this.subject = subject;
     }
+
+    
+
+    
+    
+
 
 }

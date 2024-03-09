@@ -13,6 +13,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Student list</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
         <style>
             body {
                 background-color: #f8f9fa;
@@ -85,7 +86,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <h2 class="card-title">Your Class</h2>
-                            <form id="classForm" action="${pageContext.request.contextPath}/student/viewclass" method="get">
+                            <form id="classForm" action="${pageContext.request.contextPath}/student/studentlist" method="get">
                                 <div class="mb-3">
                                     <select class="form-select" id="classSelect" name="class_id" onchange="submitForm()">
                                         <option selected disabled>Select a Group</option>
@@ -94,15 +95,6 @@
                                         </c:forEach>
                                     </select>
                                 </div>
-                            </form>
-                        </div>
-                        <div class="col-md-6">
-                            <h2 class="card-title">Search by name-id-mail:</h2>
-                            <form id="searchForm" action="${pageContext.request.contextPath}/student/viewclass" method="get">
-                                <div class="input-group mb-3">
-                                    <input class="form-control" placeholder="Search" name="search" value="${searchTxt}">
-                                    <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i></button>
-                                </div>          
                             </form>
                         </div>
                     </div>
