@@ -10,6 +10,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -32,6 +34,34 @@ public class StudentDBContext extends DBContext<Student> {
             System.out.println(e);
         }     
         return list;    
+    }
+    
+    public ArrayList<Student> getStudentbyStaff(String txtSearch) {
+        ArrayList<Student> students = new ArrayList<>();
+        try {
+            String sql = "SELECT student_id, student_name, email\n"
+                    + "FROM student ";
+            if (txtSearch != null && !txtSearch.equals("")) {
+                sql += "WHERE CONCAT(student_id, student_name, email) LIKE ?";
+            }
+            sql += " GROUP BY student_id, student_name, email;";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            if (txtSearch != null && !txtSearch.equals("")) {
+                stm.setString(1, "%" + txtSearch + "%");
+            }
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Student student = new Student();
+                student.setId(rs.getString("student_id"));
+                student.setName(rs.getString("student_name"));
+                student.setEmail(rs.getString("email"));
+                students.add(student);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(GroupDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return students;
     }
 
     @Override

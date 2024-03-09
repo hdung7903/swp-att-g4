@@ -15,6 +15,8 @@ public class Group extends BaseEntity {
     private String class_name;
     private String link_url;
     private ArrayList<Session> sessions = new ArrayList<>();
+    private GroupSubjectMapping gsm;
+    private Subject subject;
 
     public Group() {
     }
@@ -28,6 +30,14 @@ public class Group extends BaseEntity {
     public Group(String class_name, String link_url) {
         this.class_name = class_name;
         this.link_url = link_url;
+    }
+
+    public Group(String id, String class_name, String link_url, GroupSubjectMapping gsm, Subject subject) {
+        this.id = id;
+        this.class_name = class_name;
+        this.link_url = link_url;
+        this.gsm = gsm;
+        this.subject = subject;
     }
 
     public String getId() {
@@ -62,5 +72,22 @@ public class Group extends BaseEntity {
         this.sessions = sessions;
     }
 
+    public GroupSubjectMapping getGsm() {
+        return gsm;
+    }
+
+    public void setGsm(GroupSubjectMapping gsm) {
+        this.gsm = gsm;
+    }
+
+    public Subject getSubject() {
+        return subject;
+    }
+
+    public void setSubject(Subject subject) {
+        this.subject = subject;
+    }
+
+    
     
 }

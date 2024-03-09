@@ -6,18 +6,14 @@ package controller.instructor;
 
 import dal.SessionDBContext;
 import dal.TimeSlotDBContext;
-import entity.Group;
-import entity.GroupSubjectMapping;
-import entity.Instructor;
 import entity.Session;
-import entity.Subject;
 import entity.TimeSlot;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.sql.Date;
@@ -94,7 +90,14 @@ public class ScheduleController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String getId = request.getParameter("id");
+        HttpSession session = request.getSession();
+        String accountId = (String) session.getAttribute("accountId");
+        if (accountId == null || !accountId.equals(getId)) {
+            response.sendRedirect(request.getServletContext().getContextPath() + "/denied");
+        } else {
+            processRequest(request, response);
+        }
     }
 
     /**

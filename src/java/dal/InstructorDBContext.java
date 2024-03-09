@@ -18,7 +18,7 @@ import java.util.List;
 public class InstructorDBContext extends DBContext<Instructor> {
     public List<Instructor> getAllInstructor() throws SQLException{
         List<Instructor> list = new ArrayList<>();
-        String sql = "SELECT * FROM swp391_g4_ver1.instructor";
+        String sql = "";
         try{
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -32,6 +32,7 @@ public class InstructorDBContext extends DBContext<Instructor> {
         }     
         return list;    
     }
+    
     @Override
     public ArrayList<Instructor> list() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

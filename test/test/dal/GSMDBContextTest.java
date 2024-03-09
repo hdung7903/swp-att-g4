@@ -4,6 +4,11 @@
  */
 package test.dal;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 /**
  *
  * @author Administrator
@@ -11,7 +16,8 @@ package test.dal;
 public class GSMDBContextTest {
     
     public GSMDBContextTest() {
-        
+                // Create a mock connection and prepare the expected result
+
     }
     
 }

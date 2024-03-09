@@ -17,6 +17,37 @@ CREATE TABLE Account (
     FOREIGN KEY (role_id) REFERENCES Role (role_id)
 );
 
+CREATE TABLE subject_instructor_mapping (
+    sim_id int NOT NULL auto_increment,
+	subject_id VARCHAR(150) NOT NULL,
+    instructor_id VARCHAR(150) NOT NULL,
+    PRIMARY KEY (sim_id),
+    FOREIGN KEY (subject_id) REFERENCES Subject (subject_id),
+    FOREIGN KEY (instructor_id) REFERENCES Instructor (instructor_id)
+);
+
+CREATE TABLE registion (
+	regis_id int not null auto_increment primary key,
+    class_id int not null,
+    student_id int not null
+);
+
+
+insert into resgistion (class_id, student_id)
+values
+('1','1');
+
+CREATE TABLE subject_instructor_mapping (
+    sim_id int NOT NULL auto_increment,
+	subject_id VARCHAR(150) NOT NULL,
+    instructor_id VARCHAR(150) NOT NULL,
+    PRIMARY KEY (sim_id),
+    FOREIGN KEY (subject_id) REFERENCES Subject (subject_id),
+    FOREIGN KEY (instructor_id) REFERENCES Instructor (instructor_id)
+);
+
+
+
 -- Table: Student
 CREATE TABLE Student (
     student_id VARCHAR(150) NOT NULL,
@@ -113,6 +144,12 @@ INSERT INTO Role (role_id, role_name) VALUES
 (3, 'Instructor'),
 (4, 'Student');
 
+INSERT INTO subject_instructor_mapping (subject_id, instructor_id) VALUES
+(1, 'Academic Staff'),
+(2, 'Admin'),
+(3, 'Instructor'),
+(4, 'Student');
+
 -- Insert accounts with role 'Academic Staff'
 INSERT INTO Account (username, password, role_id) VALUES
 ('staff', '123', 1);
@@ -123,6 +160,12 @@ INSERT INTO Account (username, password, role_id) VALUES
 
 -- Insert accounts with role 'Instructor'
 INSERT INTO Account (username, password, role_id) VALUES
+('QuangPN', '123', 3),
+('DungLDH', '123', 3),
+('ThaiNH', '123', 3),
+('TuanHD', '123', 3),
+('PhuocLH', '123', 3),
+('SonNT', '123', 3),
 ('HoanNN', '123', 3),
 ('LoanBT', '123', 3),
 ('HoaiBM', '123', 3),
@@ -231,7 +274,14 @@ VALUES
 ('1', 'Nguyễn Ngọc Hoan', 'HoanNN', 'hoannn@gmail.com', '1980-01-01', 1, 0),
 ('2', 'Bùi Thị Loan', 'LoanBT', 'loanbt@example.com', '1981-02-02', 0, 0),
 ('3', 'Bùi Minh Hoài', 'HoaiBM', 'hoaibm@example.com', '1982-03-03', 0, 0),
-('4', 'Phạm Đức Thắng', 'ThangPD', 'thangpd@example.com', '1983-04-04', 1, 0);
+('4', 'Phạm Đức Thắng', 'ThangPD', 'thangpd@example.com', '1983-04-04', 1, 0),
+('5', 'Phạm Ngọc Quang', 'QuangPN', 'QuangPN@gmail.com', '1980-01-01', 1, 0),
+('6', 'Nguyễn Hữu Thái', 'ThaiNH', 'ThaiNH@gmail.com', '1980-01-01', 1, 0),
+('7', 'Lê Duy Hoàng Dũng', 'DungLDH', 'DungLDH@gmail.com', '1980-01-01', 1, 0),
+('8', 'Ngô Tùng Sơn', 'SonNT', 'SonNT@gmail.com', '1980-01-01', 1, 0),
+('9', 'Hoàng Đình Tuấn', 'TuanHD', 'TuanHD@gmail.com', '1980-01-01', 1, 0),
+('10', 'Lê Hồng Phước', 'PhuocLH', 'PhuocLH@gmail.com', '1980-01-01', 1, 0);
+
 
 -- Thêm 4 lớp vào bảng Class
 INSERT INTO Class (class_id, class_name, link_url)
@@ -247,7 +297,65 @@ VALUES
 ('1', 'FER202'),
 ('2', 'SWP391'),
 ('3', 'SWR302'),
-('4', 'SWT301');
+('4', 'SWT301'),
+('5', 'LAB211'),
+('6', 'PRJ301'),
+('7', 'CSI104'),
+('8', 'JPD113'),
+('9', 'IOT102'),
+('10', 'PRO192');
+
+INSERT INTO subject_instructor_mapping (subject_id, instructor_id)
+VALUES
+('1', '1'),
+('1', '2'),
+('1', '3'),
+('1', '4'),
+
+('2', '5'),
+('2', '6'),
+('2', '7'),
+('2', '8'),
+
+('3', '7'),
+('3', '8'),
+('3', '9'),
+('3', '10'),
+
+('4', '9'),
+('4', '10'),
+('4', '1'),
+('4', '2'),
+
+('5', '3'),
+('5', '4'),
+('5', '5'),
+('5', '6'),
+
+('6', '7'),
+('6', '8'),
+('6', '9'),
+('6', '10'),
+
+('7', '1'),
+('7', '2'),
+('7', '3'),
+('7', '4'),
+
+('8', '5'),
+('8', '6'),
+('8', '7'),
+('8', '8'),
+
+('9', '9'),
+('9', '10'),
+('9', '1'),
+('9', '2'),
+
+('10', '3'),
+('10', '4'),
+('10', '5'),
+('10', '6');
 
 -- Chèn sinh viên vào lớp SE1753
 INSERT INTO Student_class_mapping (scm_id, student_id, class_id)

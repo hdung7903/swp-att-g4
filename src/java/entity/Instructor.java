@@ -54,6 +54,10 @@ public class Instructor extends BaseEntity {
         this.name = name;
     }
 
+    public Instructor(String id) {
+                this.id = id;
+    }
+
     public ArrayList<Session> getSessions() {
         return sessions;
     }

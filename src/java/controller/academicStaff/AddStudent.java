@@ -4,26 +4,17 @@
  */
 package controller.academicStaff;
 
-import dal.GSMDBContext;
 import dal.GroupDBContext;
-import dal.InstructorDBContext;
 import dal.SCMDBContext;
 import dal.StudentDBContext;
-import dal.SubjectDBContext;
 import entity.Group;
-import entity.GroupSubjectMapping;
-import entity.Instructor;
 import entity.Student;
-import entity.StudentClassMapping;
-import entity.Subject;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -62,15 +53,16 @@ public class AddStudent extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+            String class_id = request.getParameter("id");
             GroupDBContext gdb = new GroupDBContext();
             StudentDBContext stuDB = new StudentDBContext();
 
-            Group gNewest = gdb.getClassNewset();
+            Group gNewest = gdb.getClassById(class_id);
             List<Student> listStu = stuDB.getAllStudent();
 
             request.setAttribute("gNew", gNewest);
             request.setAttribute("listStu", listStu);
-            request.getRequestDispatcher("addStudent.jsp").forward(request, response);
+            request.getRequestDispatcher("../academicStaff/addStudent.jsp").forward(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(AddStudent.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -88,16 +80,13 @@ public class AddStudent extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String[] stuIds = request.getParameterValues("stuId");
-
-        GroupDBContext gdb = new GroupDBContext();
-        Group gr = gdb.getClassNewset();
-        String class_id = gr.getId();
+        String class_id = request.getParameter("class_id");
 
         SCMDBContext scmDB = new SCMDBContext();
         for (String stu_id : stuIds) {
             scmDB.insertStuinClass(stu_id, class_id);
         }
-        response.sendRedirect("addInsAndSub");
+        response.sendRedirect(request.getServletContext().getContextPath() +"/acad/addInsAndSub?id=" + class_id);
     }
 
     /**

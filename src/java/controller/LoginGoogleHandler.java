@@ -47,8 +47,7 @@ public class LoginGoogleHandler extends HttpServlet {
         AccountDBContext DAO = new AccountDBContext();
         Account a = DAO.ValidateAccountByEmail(email);
         String username = a.getUsername();   
-        
-        
+              
         if(a == null){
             request.setAttribute("mess", "Wrong username or password");
             request.getRequestDispatcher("Login.jsp").forward(request, response);
@@ -65,17 +64,18 @@ public class LoginGoogleHandler extends HttpServlet {
             } else {
                 accountId = null;
             }
-            if(a.role_id == 1){
-               response.sendRedirect("academicStaff/home.jsp");
+            session.setAttribute("accountId", accountId);
+            if (a.role_id == 1) {
+                response.sendRedirect("acad/home");
             }
-            if(a.role_id == 2){
-                response.sendRedirect("admin/home.jsp");
+            if (a.role_id == 2) {
+                response.sendRedirect("admin/home");
             }
-            if(a.role_id == 3){
-                response.sendRedirect("instructor/home.jsp");
+            if (a.role_id == 3) {
+                response.sendRedirect("instructor/home");
             }
-            if(a.role_id == 4){
-                response.sendRedirect("student/home.jsp");
+            if (a.role_id == 4) {
+                response.sendRedirect("student/home");
             }
         }    
     }

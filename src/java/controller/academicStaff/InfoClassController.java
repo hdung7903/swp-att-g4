@@ -45,10 +45,7 @@ public class InfoClassController extends HttpServlet {
         SubjectDBContext sdb = new SubjectDBContext();
         GroupDBContext gdb = new GroupDBContext();
         StudentDBContext studb = new StudentDBContext();
-        GSMDBContext gsmdb = new GSMDBContext();
         try {
-            Group gNewest = gdb.getClassNewset();
-            List<GroupSubjectMapping> listGSM = gsmdb.getAllClass();
             List<Instructor> listIns = idb.getAllInstructor();
             List<Subject> listSub = sdb.getAllSubject();
             List<Group> listG = gdb.getAllClass();
@@ -58,14 +55,12 @@ public class InfoClassController extends HttpServlet {
             request.setAttribute("listSub", listSub);
             request.setAttribute("listG", listG);
             request.setAttribute("listStu", listStu);
-            request.setAttribute("gNewest", gNewest);
-            request.setAttribute("listGSM", listGSM);
             
-//            request.getRequestDispatcher("listClass.jsp").forward(request, response);
-            request.getRequestDispatcher("createClass.jsp").forward(request, response);
+            request.getRequestDispatcher("../academicStaff/createClass.jsp").forward(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(InfoClassController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -79,7 +74,7 @@ public class InfoClassController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-       processRequest(request, response);
+         processRequest(request, response);
     } 
     /** 
      * Handles the HTTP <code>POST</code> method.
@@ -91,7 +86,7 @@ public class InfoClassController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+         processRequest(request, response);
     }
 
     /** 

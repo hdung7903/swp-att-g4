@@ -20,7 +20,6 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 /**
  *
  * @author Administrator
@@ -35,7 +34,7 @@ public class AddClassController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+    throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try {
             GroupDBContext gdb = new GroupDBContext();
@@ -44,12 +43,10 @@ public class AddClassController extends HttpServlet {
             
             List<Instructor> listIns = idb.getAllInstructor();
             List<Subject> listSub = sdb.getAllSubject();
-            Group gNewest = gdb.getClassNewset();
             
             request.setAttribute("listIns", listIns);
             request.setAttribute("listSub", listSub);
-            request.setAttribute("gNew", gNewest);
-            request.getRequestDispatcher("addClass.jsp").forward(request, response);
+            request.getRequestDispatcher("../academicStaff/addClass.jsp").forward(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(AddInsAndSub.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -66,7 +63,11 @@ public class AddClassController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(AddClassController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     } 
 
     /** 
@@ -79,7 +80,11 @@ public class AddClassController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(AddClassController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /** 

@@ -12,7 +12,10 @@
             body {
                 background: #f1f1f1;
             }
-
+            .container-fluid{
+                margin: 0!important;
+                padding: 0!important;
+            }
             .container {
                 background: #fff;
                 border-radius: 10px;
@@ -46,7 +49,7 @@
             <div class="container my-5">
                 <h1 class="text-center mb-4">Timetable</h1>
                 <div class="form-floating">
-                    <form action="${pageContext.request.contextPath}/instructor/schedule" method="get" class="form-inline justify-content-center mb-3 row">
+                    <form action="${pageContext.request.contextPath}/student/schedule" method="get" class="form-inline justify-content-center mb-3 row">
                         <div class="col-6">
                             <label for="from" class="mr-2">From</label>
                             <input type="date" id="from" name="from" value="${requestScope.from}" class="form-control mr-3"/>
@@ -55,7 +58,7 @@
                             <label for="to" class="mr-2">To</label>
                             <input type="date" id="to" name="to" value="${requestScope.to}" class="form-control mr-3"/>
                         </div>                       
-                        <input type="hidden" value="${sessionScope.acc.role_id}" name="id" readonly />
+                        <input type="hidden" value="${sessionScope.accountId}" name="id" readonly />
                         <button type="submit" class="btn btn-primary my-2 col-3">View</button>
                     </form>
                 </div>
@@ -88,7 +91,7 @@
                                                                 <c:forEach items="${requestScope.sessions}" var="ses">
                                                                     <c:if test="${ses.time.id eq s.id and ses.date eq d}">
                                                                         <div class="mb-2">
-                                                                            <a href="${pageContext.request.contextPath}/lecture/sessiondetail?id=${ses.id}" class="font-weight-bold text-dark">
+                                                                            <a href="${pageContext.request.contextPath}/student/sessiondetail?id=${ses.id}" class="font-weight-bold text-dark">
                                                                                 ${ses.group.name} - ${ses.subject.name}
                                                                             </a>
                                                                             <br>
@@ -96,10 +99,10 @@
                                                                             <br>
                                                                             <c:choose>
                                                                                 <c:when test="${ses.attendance.status}">
-                                                                                    <a href="${pageContext.request.contextPath}/lecture/viewatt?id=${ses.id}" class="text-success font-weight-bold">Attended</a>
+                                                                                    <a class="text-success font-weight-bold">Present</a>
                                                                                 </c:when>
                                                                                 <c:otherwise>
-                                                                                    <a href="${pageContext.request.contextPath}/lecture/takeatt?id=${ses.id}" class="text-danger font-weight-bold">Not Attended</a>
+                                                                                    <a class="text-danger font-weight-bold">Absent</a>
                                                                                 </c:otherwise>
                                                                             </c:choose>
                                                                         </div>
@@ -141,18 +144,18 @@
                                                             <c:forEach items="${requestScope.sessions}" var="ses">
                                                                 <c:if test="${ses.time.id eq s.id and ses.date eq d}">
                                                                     <div class="mb-2">
-                                                                        <a href="${pageContext.request.contextPath}/lecture/sessiondetail?id=${ses.id}" class="font-weight-bold text-dark">
+                                                                        <a href="${pageContext.request.contextPath}/student/sessiondetail?id=${ses.id}" class="font-weight-bold text-dark">
                                                                             ${ses.group.name} - ${ses.subject.name}
                                                                         </a>
                                                                         <br>
                                                                         <small><a href="https://${ses.group.link_url}" target="_blank">Link Class</a></small>
                                                                         <br>
                                                                         <c:choose>
-                                                                            <c:when test="${ses.isAtt}">
-                                                                                <a href="${pageContext.request.contextPath}/lecture/viewatt?id=${ses.id}" class="text-success font-weight-bold">View Attendance</a>
+                                                                            <c:when test="${ses.attendance.status}">
+                                                                                <a class="text-success font-weight-bold">Present</a>
                                                                             </c:when>
                                                                             <c:otherwise>
-                                                                                <a href="${pageContext.request.contextPath}/lecture/takeatt?id=${ses.id}" class="text-danger font-weight-bold">Take Attendance</a>
+                                                                                <a class="text-danger font-weight-bold">Absent</a>
                                                                             </c:otherwise>
                                                                         </c:choose>
                                                                     </div>

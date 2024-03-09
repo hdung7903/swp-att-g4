@@ -15,6 +15,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -38,7 +39,7 @@ public class ScheduleController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        String instructorId = request.getParameter("id");
+        String studentId = request.getParameter("id");
         String r_from = request.getParameter("from");
         String r_to = request.getParameter("to");
         ArrayList<Date> dates = new ArrayList<>();
@@ -56,7 +57,7 @@ public class ScheduleController extends HttpServlet {
                     dates = DateTimeHelper.getSqlDatesInRange(r_from, r_to);
                 }
             } catch (ParseException ex) {
-                Logger.getLogger(controller.instructor.ScheduleController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(controller.student.ScheduleController.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else if (r_from == null) {
             dates = DateTimeHelper.getCurrentWeekDates();
@@ -66,7 +67,7 @@ public class ScheduleController extends HttpServlet {
         ArrayList<TimeSlot> slots = timeDB.list();
 
         SessionDBContext sessDB = new SessionDBContext();
-        ArrayList<Session> sessions = sessDB.getSessionsByInstructor(instructorId, dates.get(0), dates.get(dates.size() - 1));
+        ArrayList<Session> sessions = sessDB.getSessionsByStudent(studentId, dates.get(0), dates.get(dates.size() - 1));
 
         request.setAttribute("slots", slots);
         request.setAttribute("dates", dates);
@@ -88,7 +89,14 @@ public class ScheduleController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+//        String getId = request.getParameter("id");
+//        HttpSession session = request.getSession();
+//        String accountId = (String) session.getAttribute("accountId");
+//        if (accountId == null || !accountId.equals(getId)) {
+//            response.sendRedirect(request.getServletContext().getContextPath() + "/denied");
+//        } else {
+            processRequest(request, response);
+//        }
     } 
 
     /** 

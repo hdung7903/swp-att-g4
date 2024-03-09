@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * @author leduy
  */
 public class GroupSubjectMapping extends BaseEntity {
-    private String id;
+    private int id;
     private Group group;
     private Subject subject;
     private int total_slots;
@@ -22,7 +22,7 @@ public class GroupSubjectMapping extends BaseEntity {
     public GroupSubjectMapping() {
     }
     
-    public GroupSubjectMapping(String id, Group group, Subject subject, int total_slots, Instructor instructor, Session session) {
+    public GroupSubjectMapping(int id, Group group, Subject subject, int total_slots, Instructor instructor, Session session) {
         this.id = id;
         this.group = group;
         this.subject = subject;
@@ -37,18 +37,19 @@ public class GroupSubjectMapping extends BaseEntity {
         this.instructor = instructor;
     }
     
-    public GroupSubjectMapping(String id, Instructor instructor, Group group, Subject subject) {
+    public GroupSubjectMapping(int id, int total_slots, Instructor instructor, Group group, Subject subject) {
         this.id = id;
+        this.total_slots = total_slots;
         this.group = group;
         this.subject = subject;
         this.instructor = instructor;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

@@ -61,7 +61,7 @@ public class LoginController extends HttpServlet {
         Account a = DAO.ValidateAccount(username, password);
         if (a == null) {
             request.setAttribute("mess", "Wrong username or password");
-            request.getRequestDispatcher("Login.jsp").forward(request, response);
+            request.getRequestDispatcher("/login.jsp").forward(request, response);
         } else {
             HttpSession session = request.getSession();
             session.setAttribute("acc", a);
@@ -78,16 +78,16 @@ public class LoginController extends HttpServlet {
 
             session.setAttribute("accountId", accountId);
             if (a.role_id == 1) {
-                response.sendRedirect("academicStaff/home.jsp");
+                response.sendRedirect(request.getContextPath()+"/acad/home");
             }
             if (a.role_id == 2) {
-                response.sendRedirect("admin/home.jsp");
+                response.sendRedirect(request.getContextPath()+"/admin/home");
             }
             if (a.role_id == 3) {
-                response.sendRedirect("instructor/home.jsp");
+                response.sendRedirect(request.getContextPath()+"/instructor/home");
             }
             if (a.role_id == 4) {
-                response.sendRedirect("student/home.jsp");
+                response.sendRedirect(request.getContextPath()+"/student/home");
             }
         }
     }

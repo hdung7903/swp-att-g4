@@ -53,18 +53,17 @@ public class AddInsAndSub extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         try {
+            String class_id = request.getParameter("id");
+            
             GroupDBContext gdb = new GroupDBContext();
-            InstructorDBContext idb = new InstructorDBContext();
             SubjectDBContext sdb = new SubjectDBContext();
             
-            List<Instructor> listIns = idb.getAllInstructor();
             List<Subject> listSub = sdb.getAllSubject();
-            Group gNewest = gdb.getClassNewset();
+            Group gNewest = gdb.getClassById(class_id);
             
-            request.setAttribute("listIns", listIns);
             request.setAttribute("listSub", listSub);
             request.setAttribute("gNew", gNewest);
-            request.getRequestDispatcher("addClass.jsp").forward(request, response);
+            request.getRequestDispatcher("../academicStaff/addClass.jsp").forward(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(AddInsAndSub.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -81,22 +80,18 @@ public class AddInsAndSub extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         String subId = request.getParameter("sub");
-        String insId = request.getParameter("ins");
         String slot = request.getParameter("slot");
+        String class_id = request.getParameter("class_id");
             
-        GroupDBContext gdb = new GroupDBContext();
         GSMDBContext gsmDB = new GSMDBContext();
-        Group gNewest = gdb.getClassNewset();
-        String class_id = gNewest.getId();
         
         boolean gsmCheck = gsmDB.checkSubjectExist(class_id, subId);
         if(gsmCheck == true){
             request.setAttribute("mess", "Subject has exist in this class");
             request.getRequestDispatcher("addClass").forward(request, response);
         }else{
-            gdb.insertClass(class_id, subId, slot, insId);
-            request.setAttribute("mess", "Create Class Success!");
-            request.getRequestDispatcher("info").forward(request, response);
+            gsmDB.insertClass(class_id, subId, slot);
+             response.sendRedirect(request.getServletContext().getContextPath() +"/acad/details?id=" + class_id); 
         }
         
     }
