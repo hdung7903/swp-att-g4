@@ -142,11 +142,42 @@ public class GSMDBContext extends DBContext<GroupSubjectMapping> {
         }
         return students;
     }
-
-
     
-
-
+    public ArrayList<GroupSubjectMapping> getGSMbyId(String csm_id) {
+        ArrayList<GroupSubjectMapping> groups = new ArrayList<>();
+        try {
+            String sql = "SELECT i.instructor_id, i.instructor_name, csm.csm_id,\n"
+                    + "su.subject_name, c.class_id, c.class_name \n"
+                    + "FROM Instructor i \n"
+                    + "INNER JOIN Class_subject_mapping csm ON i.instructor_id = csm.instructor_id\n"
+                    + "INNER JOIN Class c ON c.class_id = csm.class_id\n"
+                    + "INNER JOIN Subject su ON su.subject_id = csm.subject_id\n"
+                    + "WHERE csm.csm_id = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, csm_id);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                GroupSubjectMapping gsm = new GroupSubjectMapping();
+                gsm.setId(rs.getInt("csm_id"));
+                Instructor instructor = new Instructor();
+                instructor.setId(rs.getString("instructor_id"));
+                instructor.setName(rs.getString("instructor_name"));
+                gsm.setInstructor(instructor);
+                Group group = new Group();
+                group.setId(rs.getString("class_id"));
+                group.setName(rs.getString("class_name"));
+                gsm.setGroup(group);
+                Subject subject = new Subject();
+                subject.setName(rs.getString("subject_name"));
+                gsm.setSubject(subject);
+                groups.add(gsm);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(GSMDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return groups;
+    }
+    
     @Override
     public ArrayList<GroupSubjectMapping> list() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

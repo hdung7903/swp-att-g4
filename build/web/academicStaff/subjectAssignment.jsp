@@ -6,9 +6,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Subject Assignment</title>
-        <!-- Bootstrap CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-        <!-- Font Awesome CSS -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha256-dzpCJV1B6dSwA9fRjPb2yBAh9pF4WBKlTdLWU5/KOpU=" crossorigin="anonymous">
     </head>
     <body>
@@ -36,34 +34,27 @@
                     <h1>Empty</h1>
                 </c:when>
                 <c:otherwise>
-                    <c:choose>
-                        <c:when test="${requestScope.assignSuccess}">
-                            <p style="color: green;">Subject assignment was successful.</p>
-                        </c:when>
-                        <c:otherwise>
-                            <h2>Unassigned Subjects</h2>
-                            <form action="${pageContext.request.contextPath}/acad/assignsub" method="post">
-                                <table class="table table-bordered text-center">
-                                    <thead>
-                                        <tr>
-                                            <th>Subject Name</th>
-                                            <th>Add Subject</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <c:forEach var="subject" items="${unassignedSubjects}">
-                                            <tr>
-                                                <td>${subject.name}</td>
-                                                <td><input type="checkbox" name="subjectIds" value="${subject.id}" class="form-check-input"/></td>
-                                            </tr>
-                                        </c:forEach>
-                                    </tbody>
-                                </table>
-                                <input type="hidden" name="instructorId" value="${requestScope.insid}" />
-                                <button type="submit" class="btn btn-success"><i class="fas fa-check"></i> Assign Subjects</button>
-                            </form>
-                        </c:otherwise>
-                    </c:choose>
+                    <h2>Unassigned Subjects</h2>
+                    <form action="${pageContext.request.contextPath}/acad/assignsub" method="post">
+                        <table class="table table-bordered text-center">
+                            <thead>
+                                <tr>
+                                    <th>Subject Name</th>
+                                    <th>Add Subject</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <c:forEach var="subject" items="${unassignedSubjects}">
+                                    <tr>
+                                        <td>${subject.name}</td>
+                                        <td><input type="checkbox" name="subjectIds" value="${subject.id}" class="form-check-input"/></td>
+                                    </tr>
+                                </c:forEach>
+                            </tbody>
+                        </table>
+                        <input type="hidden" name="instructorId" value="${requestScope.insid}" />
+                        <button type="submit" class="btn btn-success"><i class="fas fa-check"></i> Assign Subjects</button>
+                    </form>
                 </c:otherwise>
             </c:choose>
         </div>

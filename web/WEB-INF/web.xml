@@ -237,12 +237,36 @@
         <servlet-class>controller.academicStaff.ListNewsController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>CreateNewController</servlet-name>
-        <servlet-class>controller.academicStaff.CreateNewController</servlet-class>
+        <servlet-name>CreateNewsController</servlet-name>
+        <servlet-class>controller.academicStaff.CreateNewsController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UpdateNewsController</servlet-name>
         <servlet-class>controller.academicStaff.UpdateNewsController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RemoveAssignSubjectController</servlet-name>
+        <servlet-class>controller.academicStaff.RemoveAssignSubjectController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditAccountController</servlet-name>
+        <servlet-class>controller.admin.EditAccountController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TakeFeedbackController</servlet-name>
+        <servlet-class>controller.student.TakeFeedbackController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditFeedbackController</servlet-name>
+        <servlet-class>controller.student.EditFeedbackController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FeedbackController</servlet-name>
+        <servlet-class>controller.student.FeedbackController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewStudentFeedbackController</servlet-name>
+        <servlet-class>controller.academicStaff.ViewStudentFeedbackController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>login</servlet-name>
@@ -425,12 +449,36 @@
         <url-pattern>/acad/listNews</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>CreateNewController</servlet-name>
+        <servlet-name>CreateNewsController</servlet-name>
         <url-pattern>/acad/createNews</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UpdateNewsController</servlet-name>
         <url-pattern>/acad/updateNews</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RemoveAssignSubjectController</servlet-name>
+        <url-pattern>/acad/removesub</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditAccountController</servlet-name>
+        <url-pattern>/acad/editacc</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TakeFeedbackController</servlet-name>
+        <url-pattern>/student/takefb</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditFeedbackController</servlet-name>
+        <url-pattern>/student/editfb</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FeedbackController</servlet-name>
+        <url-pattern>/student/feedback</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewStudentFeedbackController</servlet-name>
+        <url-pattern>/acad/viewfb</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -55,6 +55,28 @@ public class SubjectDBContext extends DBContext<Subject> {
         return list;
     }
 
+    public List<Subject> getAssignedSubjects(String instructorId) throws SQLException {
+        List<Subject> list = new ArrayList<>();
+        String sql = "SELECT *\n"
+                + "FROM subject\n"
+                + "WHERE subject_id  IN (\n"
+                + "SELECT subject_id\n"
+                + "FROM subject_instructor_mapping\n"
+                + "WHERE instructor_id IN (?)\n"
+                + ")";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, instructorId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Subject(rs.getString(1), rs.getString(2)));
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
     @Override
     public ArrayList<Subject> list() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

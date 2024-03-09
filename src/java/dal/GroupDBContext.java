@@ -186,7 +186,7 @@ public class GroupDBContext extends DBContext<Group> {
     public ArrayList<Group> getStudentGroup(String stuid) {
         ArrayList<Group> groups = new ArrayList<>();
         try {
-            String sql = "SELECT su.subject_name,c.class_name,csm.csm_id\n"
+            String sql = "SELECT su.subject_name,c.class_name,csm.csm_id,s.student_id, s.student_name \n"
                     + "FROM class_subject_mapping csm\n"
                     + "INNER JOIN class c ON c.class_id=csm.class_id\n"
                     + "INNER JOIN subject su ON su.subject_id=csm.subject_id \n"
@@ -205,6 +205,10 @@ public class GroupDBContext extends DBContext<Group> {
                 Subject subject = new Subject();
                 subject.setName(rs.getString("subject_name"));
                 g.setSubject(subject);
+                Student student = new Student();
+                student.setId(rs.getString("student_id"));
+                student.setName(rs.getString("student_name"));
+                g.setStudent(student);
                 groups.add(g);
             }
         } catch (SQLException ex) {
@@ -212,4 +216,5 @@ public class GroupDBContext extends DBContext<Group> {
         }
         return groups;
     }
+
 }

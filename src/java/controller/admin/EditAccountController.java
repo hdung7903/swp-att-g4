@@ -3,11 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package controller.academicStaff;
+package controller.admin;
 
-import dal.NewsDBContext;
-import entity.News;
 import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,8 +16,8 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author leduy
  */
-public class CreateNewController extends HttpServlet {
-    private boolean submitted = false; 
+public class EditAccountController extends HttpServlet {
+   
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
@@ -28,18 +27,12 @@ public class CreateNewController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-         String title = request.getParameter("title");
-        String content = request.getParameter("content");
-        
-        News news = new News();
-        news.setTitle(title);
-        news.setContent(content);
-        NewsDBContext dbContext = new NewsDBContext();
-        dbContext.insert(news);
-        
-        submitted = true;
-        response.sendRedirect(request.getContextPath() + "/acad/listNews");
+         String action = request.getParameter("action");
+        if(action.equals("edit")) {
+         request.getRequestDispatcher("createAccount.jsp").forward(request, response);
+        }
     } 
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
      * Handles the HTTP <code>GET</code> method.
@@ -51,7 +44,7 @@ public class CreateNewController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        request.getRequestDispatcher("/academicStaff/createNews.jsp").forward(request, response);
+        processRequest(request, response);
     } 
 
     /** 
@@ -64,9 +57,7 @@ public class CreateNewController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-         if (!submitted) { 
-            processRequest(request, response);
-        }
+        processRequest(request, response);
     }
 
     /** 

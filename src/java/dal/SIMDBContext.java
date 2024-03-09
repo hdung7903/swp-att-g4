@@ -56,4 +56,16 @@ public class SIMDBContext extends DBContext<SubjectInstructorMapping> {
             ex.printStackTrace();
         }
     }
+
+    public void deleteSubjectAssignment(String instructorId, List<String> subjectIds) throws SQLException {
+        String sql = "DELETE FROM subject_instructor_mapping WHERE instructor_id = ? AND subject_id = ?";
+        try ( PreparedStatement stm = connection.prepareStatement(sql)) {
+            for (String subjectId : subjectIds) {
+                stm.setString(1, instructorId);
+                stm.setString(2, subjectId);
+                stm.addBatch();
+            }
+            stm.executeBatch();
+        }
+    }
 }

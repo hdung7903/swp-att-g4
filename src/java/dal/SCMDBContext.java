@@ -5,6 +5,8 @@
 package dal;
 
 import entity.Group;
+import entity.GroupSubjectMapping;
+import entity.Instructor;
 import entity.Student;
 import entity.StudentClassMapping;
 import entity.Subject;
@@ -33,14 +35,15 @@ public class SCMDBContext extends DBContext<StudentClassMapping> {
         }
     }
 
-    public ArrayList<StudentClassMapping> getGroupbyStudent(String student_id) {
+     public ArrayList<StudentClassMapping> getGroupbyStudent(String student_id) {
         ArrayList<StudentClassMapping> groups = new ArrayList<>();
         try {
-            String sql = "SELECT stu.student_id, stu.student_name, stu.email, c.class_id, su.subject_name, c.class_name\n"
+            String sql = "SELECT stu.student_id, stu.student_name, stu.email, c.class_id, su.subject_name, c.class_name, i.instructor_name, csm.csm_id\n"
                     + "FROM student stu \n"
                     + "INNER JOIN student_class_mapping scm ON stu.student_id = scm.student_id\n"
                     + "inner join class c on c.class_id = scm.class_id\n"
                     + "INNER JOIN Class_subject_mapping csm ON csm.class_id = c.class_id\n"
+                    + "INNER JOIN Instructor i ON i.instructor_id = csm.instructor_id\n"
                     + "INNER JOIN Subject su ON su.subject_id = csm.subject_id\n"
                     + "where stu.student_id = ?;";
             PreparedStatement stm = connection.prepareStatement(sql);
@@ -60,11 +63,17 @@ public class SCMDBContext extends DBContext<StudentClassMapping> {
                 Subject subject = new Subject();
                 subject.setName(rs.getString("subject_name"));
                 scm.setSubject(subject);
+                GroupSubjectMapping gsm = new GroupSubjectMapping();
+                gsm.setId(rs.getInt("csm_id"));
+                scm.setGsm(gsm);
+                Instructor instructor = new Instructor();
+                instructor.setName(rs.getString("instructor_name"));
+                scm.setInstructor(instructor);
                 groups.add(scm);
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(GroupDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(StudentClassMapping.class.getName()).log(Level.SEVERE, null, ex);
         }
         return groups;
     }
