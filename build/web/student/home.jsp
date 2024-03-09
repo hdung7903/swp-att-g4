@@ -49,7 +49,7 @@
         <div class="container-fluid">
             <%@include file="./navbar.jsp" %>
             <div class="container my-5">
-                <%@include file="../carousel.jsp" %>
+                
                 <div class="feature-content my-5">
                     <div class="row row-cols-1 row-cols-md-2 g-4">
                         <div class="col">

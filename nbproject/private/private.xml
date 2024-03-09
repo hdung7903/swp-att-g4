@@ -3,17 +3,19 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/ADMIN/Documents/SWP/Inter_3/swp-att-g4-hoangdung/web/instructor/home.jsp</file>
-            <file>file:/C:/Users/ADMIN/Documents/SWP/Inter_3/swp-att-g4-hoangdung/web/student/schedule.jsp</file>
-            <file>file:/C:/Users/ADMIN/Documents/SWP/Inter_3/swp-att-g4-hoangdung/src/java/controller/student/ViewStudentListController.java</file>
-            <file>file:/C:/Users/ADMIN/Documents/SWP/Inter_3/swp-att-g4-hoangdung/src/java/controller/student/ScheduleController.java</file>
-            <file>file:/C:/Users/ADMIN/Documents/SWP/Inter_3/swp-att-g4-hoangdung/src/java/controller/student/SessionDetailController.java</file>
-            <file>file:/C:/Users/ADMIN/Documents/SWP/Inter_3/swp-att-g4-hoangdung/web/student/home.jsp</file>
-            <file>file:/C:/Users/ADMIN/Documents/SWP/Inter_3/swp-att-g4-hoangdung/src/java/controller/student/ViewAttendanceStatistic.java</file>
-            <file>file:/C:/Users/ADMIN/Documents/SWP/Inter_3/swp-att-g4-hoangdung/web/instructor/sessiondetail.jsp</file>
-            <file>file:/C:/Users/ADMIN/Documents/SWP/Inter_3/swp-att-g4-hoangdung/src/java/controller/student/HomeController.java</file>
-            <file>file:/C:/Users/ADMIN/Documents/SWP/Inter_3/swp-att-g4-hoangdung/web/instructor/schedule.jsp</file>
-            <file>file:/C:/Users/ADMIN/Documents/SWP/Inter_3/swp-att-g4-hoangdung/web/instructor/editatt.jsp</file>
+            <file>file:/C:/Users/ADMIN/Documents/SWP/SWP_Nhom/swp-att-g4/web/WEB-INF/web.xml</file>
+            <file>file:/C:/Users/ADMIN/Documents/SWP/SWP_Nhom/swp-att-g4/web/admin/createAccount.jsp</file>
+            <file>file:/C:/Users/ADMIN/Documents/SWP/SWP_Nhom/swp-att-g4/src/java/controller/admin/EditInformationController.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/SWP/SWP_Nhom/swp-att-g4/web/instructor/studentlist.jsp</file>
+            <file>file:/C:/Users/ADMIN/Documents/SWP/SWP_Nhom/swp-att-g4/web/admin/editInfor.jsp</file>
+            <file>file:/C:/Users/ADMIN/Documents/SWP/SWP_Nhom/swp-att-g4/src/java/dal/AttendanceDBContext.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/SWP/SWP_Nhom/swp-att-g4/src/java/controller/admin/EditInforController.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/SWP/SWP_Nhom/swp-att-g4/web/student/navbar.jsp</file>
+            <file>file:/C:/Users/ADMIN/Documents/SWP/SWP_Nhom/swp-att-g4/web/admin/manageAccount.jsp</file>
+            <file>file:/C:/Users/ADMIN/Documents/SWP/SWP_Nhom/swp-att-g4/src/java/controller/admin/CreateAccountController.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/SWP/SWP_Nhom/swp-att-g4/web/student/home.jsp</file>
+            <file>file:/C:/Users/ADMIN/Documents/SWP/SWP_Nhom/swp-att-g4/src/java/dal/AccountDBContext.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/SWP/SWP_Nhom/swp-att-g4/web/instructor/navbar.jsp</file>
         </group>
     </open-files>
 </project-private>

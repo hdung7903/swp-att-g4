@@ -51,7 +51,7 @@
                 <div class="collapse navbar-collapse justify-content-between" id="navbarNavDropdown">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/instructor/home" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Home"><i class="fa-solid fa-house"></i> Home</a>
+                            <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/instructor/home?id=${sessionScope.accountId}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Home"><i class="fa-solid fa-house"></i> Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page" href="${pageContext.request.contextPath}/instructor/schedule?id=${sessionScope.accountId}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Schedule"><i class="fa-regular fa-calendar"></i> Schedule</a>
@@ -63,7 +63,7 @@
                             <a class="nav-link" href="${pageContext.request.contextPath}/instructor/attstatistic?id=${sessionScope.accountId}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Attendance Report"><i class="fa-solid fa-chart-bar"></i> Attendance Report</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/instructor/studentlist" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Student List"><i class="fa-solid fa-users"></i> Student List</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/instructor/studentlist?id=${sessionScope.accountId}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Student List"><i class="fa-solid fa-users"></i> Student List</a>
                         </li>
                     </ul>
                     <div class="user-dropdown dropdown">
@@ -80,7 +80,7 @@
                                 </a>
                             </li>                        
                         </ul>
-                    </div
+                    </div>
                 </div>
             </div>
             <%@include file="../modal/logoutModal.jsp" %>

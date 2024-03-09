@@ -480,6 +480,43 @@ public class AccountDBContext extends DBContext<Account> {
         }
         return list;
     }
+    
+    public boolean editInformation(String id, String username, String password, int role_id, String fullName, String email, String dob, int gender) {
+    boolean success = false;
+    String sql1 = "UPDATE account SET password = ?, role_id = ?, email = ? WHERE username = ?";
+    try {
+        PreparedStatement st1 = connection.prepareStatement(sql1);
+        st1.setString(1, password);
+        st1.setInt(2, role_id);
+        st1.setString(3, email);
+        st1.setString(4, username);
+        int rowCount1 = st1.executeUpdate();
+        if (rowCount1 > 0) {
+            String sql2 = "";
+            if (role_id == 3) {
+                sql2 = "UPDATE instructor SET instructor_id = ?, instructor_name = ?, email = ?, dob = ?, gender = ? WHERE username = ?";
+            } else if (role_id == 4) {
+                sql2 = "UPDATE student SET student_id = ?, student_name = ?, email = ?, dob = ?, gender = ? WHERE username = ?";
+            }
+            PreparedStatement st2 = connection.prepareStatement(sql2);
+            st2.setString(1, id);
+            st2.setString(2, fullName);
+            st2.setString(3, email);
+            st2.setString(4, dob);
+            st2.setInt(5, gender);
+            st2.setString(6, username);
+            int rowCount2 = st2.executeUpdate();
+            success = rowCount2 > 0;
+        }
+    } catch (SQLException e) {
+        System.out.println(e);
+    }
+    return success;
+}
+    
+
+
+
 
     @Override
     public ArrayList<Account> list() {

@@ -80,7 +80,7 @@
                                 </a>
                             </li>                        
                         </ul>
-                    </div
+                    </div>
                 </div>
             </div>
             <%@include file="../modal/logoutModal.jsp" %>
