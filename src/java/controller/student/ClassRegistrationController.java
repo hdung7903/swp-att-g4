@@ -26,7 +26,7 @@ import java.util.ArrayList;
  *
  * @author Admin
  */
-public class EnrollClassController extends HttpServlet {
+public class ClassRegistrationController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -102,7 +102,7 @@ public class EnrollClassController extends HttpServlet {
             request.setAttribute("mess", "You have registered for this class!");
         } else {
             sdb.enrollClass(enroll);
-            request.setAttribute("mess", "Enroll successfull!");
+            request.setAttribute("mess", "Register successfull!");
         }
         request.getRequestDispatcher("../student/enrollClass.jsp").forward(request, response);
     }

@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
@@ -108,6 +109,7 @@
                                     <th>Teaching Skills</th>
                                     <th>Teacher's Support</th>
                                     <th>Comment</th>
+                                    <th>Date</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -153,6 +155,7 @@
                                                     </c:choose>
                                                 </td>
                                                 <td>${fb.comment}</td>
+                                                <td><fmt:formatDate value="${fb.datetime}" pattern="dd-MM-yyyy"/></td>
                                             </tr>
                                         </c:forEach>
                                     </c:otherwise>

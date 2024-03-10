@@ -19,7 +19,8 @@ import java.util.logging.Logger;
 public class FeedBackDBContext extends DBContext<FeedBack> {
 
     public ArrayList<FeedBack> checkFeedBackExist(String csm_id, String student_id) {
-        String sql = "SELECT fb.fb_id, fb.student_id, s.student_name, fb.csm_id, fb.punctuality, fb.fully_syllabus, fb.intructor_skills, fb.instructor_support, fb.comment\n"
+        String sql = "SELECT fb.fb_id, fb.student_id, s.student_name, fb.csm_id, fb.punctuality, fb.fully_syllabus,"
+                + " fb.intructor_skills, fb.instructor_support, fb.comment, fb_datetime\n"
                 + "FROM feed_back fb \n"
                 + "INNER JOIN class_subject_mapping csm ON csm.csm_id = fb.csm_id\n"
                 + "INNER JOIN student s ON s.student_id = fb.student_id\n"
@@ -38,6 +39,7 @@ public class FeedBackDBContext extends DBContext<FeedBack> {
                 fb.setIntructor_skills(rs.getInt("intructor_skills"));
                 fb.setInstructor_support(rs.getInt("instructor_support"));
                 fb.setComment(rs.getString("comment"));
+                fb.setDatetime(rs.getDate("fb_datetime"));
                 feedbackList.add(fb);
             }
         } catch (SQLException e) {
@@ -48,8 +50,8 @@ public class FeedBackDBContext extends DBContext<FeedBack> {
 
     public void addFeedback(FeedBack fb) {
         try {
-            String sql = "INSERT INTO feed_back (student_id, csm_id, punctuality, fully_syllabus, intructor_skills, instructor_support, comment) "
-                    + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO feed_back (student_id, csm_id, punctuality, fully_syllabus, intructor_skills, instructor_support, comment, fb_datetime) "
+                    + "VALUES (?, ?, ?, ?, ?, ?, ?, NOW())";
 
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setString(1, fb.getStudent().getId());
@@ -81,6 +83,7 @@ public class FeedBackDBContext extends DBContext<FeedBack> {
                     + "    intructor_skills = ?,\n"
                     + "    instructor_support = ?,\n"
                     + "    comment = ?\n"
+                    + "    fb_datetime= NOW(),\n"
                     + "WHERE fb_id = ?; ";
 
             PreparedStatement stm = connection.prepareStatement(sql);

@@ -4,6 +4,8 @@
  */
 package entity;
 
+import java.util.Date;
+
 /**
  *
  * @author Admin
@@ -17,8 +19,9 @@ public class FeedBack extends BaseEntity{
     private int  intructor_skills;
     private int instructor_support;
     private String comment;
+    private Date datetime;
 
-    public FeedBack(int id, Student student, GroupSubjectMapping gsm, int punctuality, int fully_syllabus, int intructor_skills, int instructor_support, String comment) {
+    public FeedBack(int id, Student student, GroupSubjectMapping gsm, int punctuality, int fully_syllabus, int intructor_skills, int instructor_support, String comment, Date datetime) {
         this.id = id;
         this.student = student;
         this.gsm = gsm;
@@ -27,6 +30,7 @@ public class FeedBack extends BaseEntity{
         this.intructor_skills = intructor_skills;
         this.instructor_support = instructor_support;
         this.comment = comment;
+        this.datetime = datetime;
     }
     
     public FeedBack(){
@@ -96,7 +100,13 @@ public class FeedBack extends BaseEntity{
     public void setComment(String comment) {
         this.comment = comment;
     }
-    
-    
+
+    public Date getDatetime() {
+        return datetime;
+    }
+
+    public void setDatetime(Date datetime) {
+        this.datetime = datetime;
+    }
     
 }

@@ -82,7 +82,7 @@
     </servlet>
     <servlet>
         <servlet-name>EnrollClassController</servlet-name>
-        <servlet-class>controller.student.EnrollClassController</servlet-class>
+        <servlet-class>controller.student.ClassRegistrationController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ApproveController</servlet-name>

@@ -57,9 +57,9 @@
         </form>
 
         <div class="card">
-            <h2 class="text-center mb-4">Enroll Class <i class="fas fa-chalkboard-teacher"></i></h2>
+            <h2 class="text-center mb-4"> Class Register<i class="fas fa-chalkboard-teacher"></i></h2>
             <c:choose>
-                    <c:when test="${mess == 'Enroll successfull!'}">
+                    <c:when test="${mess == 'Register successfull!'}">
                     <p style="color: green; font-size: 18px; text-align: center">${mess}</p>
                 </c:when>
                 <c:otherwise>
