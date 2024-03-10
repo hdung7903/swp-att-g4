@@ -5,12 +5,12 @@
 package controller.student;
 
 import dal.GSMDBContext;
-import dal.RegistrantionClassDBContext;
+import dal.RegistionDBContext;
 import dal.SCMDBContext;
 import dal.SessionDBContext;
 import entity.Group;
 import entity.GroupSubjectMapping;
-import entity.RegistrationClass;
+import entity.Registion;
 import entity.Session;
 import entity.Student;
 import entity.StudentClassMapping;
@@ -78,29 +78,33 @@ public class EnrollClassController extends HttpServlet {
         HttpSession session = request.getSession();
         String student_id = (String) session.getAttribute("accountId");
         String class_id = request.getParameter("class_id");
+        String subject_name = request.getParameter("subject_name");
 
         GSMDBContext Id = new GSMDBContext();
-        int cms_id = Id.getGSM_Id(student_id, class_id);
+        int cms_id = Id.getGSM_Id(subject_name, class_id);
         SessionDBContext gdb = new SessionDBContext();
-        ArrayList<Session> gName = gdb.checkClassStart(cms_id);
+        Session gName = gdb.checkClassStart(cms_id);
         SCMDBContext list = new SCMDBContext();
-        ArrayList<StudentClassMapping> gStudent = list.checkStudentExist(class_id, student_id);
+        StudentClassMapping gStudent = list.checkStudentExist(class_id, student_id);
+        RegistionDBContext rdb = new RegistionDBContext();
+        Registion rCheck = rdb.checkStudentExist(class_id, student_id);
 
-        RegistrationClass enroll = new RegistrationClass();
+        Registion enroll = new Registion();
         enroll.setStudent(new Student(student_id));
         enroll.setGroup(new Group(class_id));
-        RegistrantionClassDBContext sdb = new RegistrantionClassDBContext();
-//        sdb.enrollClass(enroll);
-//        request.setAttribute("mess", "Enroll successfull!");
+        RegistionDBContext sdb = new RegistionDBContext();
 
         if (gName != null) {
-            request.setAttribute("mess", "Class name has started studying!");
+            request.setAttribute("mess", "The class has started!!");
         } else if (gStudent != null) {
-            request.setAttribute("mess", "You has been in class!");
+            request.setAttribute("mess", "You has been in the class!");
+        } else if (rCheck != null) {
+            request.setAttribute("mess", "You have registered for this class!");
         } else {
             sdb.enrollClass(enroll);
             request.setAttribute("mess", "Enroll successfull!");
         }
+        request.getRequestDispatcher("../student/enrollClass.jsp").forward(request, response);
     }
 
     /**

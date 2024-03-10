@@ -132,7 +132,7 @@ public class SCMDBContext extends DBContext<StudentClassMapping> {
         }
         return groups;
     }
-    
+
     public void enrollClass(StudentClassMapping enroll) {
         try {
 
@@ -153,26 +153,21 @@ public class SCMDBContext extends DBContext<StudentClassMapping> {
             }
         }
     }
-    
-        public ArrayList<StudentClassMapping> checkStudentExist(String class_id, String student_id) {
-        ArrayList<StudentClassMapping> list = new ArrayList<>();
+
+    public StudentClassMapping checkStudentExist(String class_id, String student_id) {
         String sql = "SELECT * FROM student_class_mapping\n"
                 + "Where class_id = ? and student_id= ?;";
+        StudentClassMapping list = null;
         try {
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setString(1, class_id);
-            stm.setString(1, student_id);
+            stm.setString(2, student_id);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
-                StudentClassMapping scm = new StudentClassMapping();
-                scm.setId(rs.getInt("scm_id"));
-                Student student = new Student();
-                student.setId(rs.getString("student_id"));
-                scm.setStudent(student);
-                Group group = new Group();
-                group.setId(rs.getString("class_id"));
-                scm.setGroup(group);
-                list.add(scm);
+                list = new StudentClassMapping(
+                        rs.getInt("scm_id")
+                );
+                return list;
             }
         } catch (SQLException ex) {
             Logger.getLogger(SCMDBContext.class.getName()).log(Level.SEVERE, null, ex);

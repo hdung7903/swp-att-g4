@@ -43,6 +43,11 @@ public class Session extends BaseEntity {
         this.time = time;
     }    
 
+    public Session(int id, boolean isAtt) {
+        this.id = id;
+        this.isAtt = isAtt;
+    }
+
     public TimeSlot getTime() {
         return time;
     }

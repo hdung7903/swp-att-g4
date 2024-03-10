@@ -66,10 +66,10 @@ public class GSMDBContext extends DBContext<GroupSubjectMapping> {
                     + "FROM Subject su \n"
                     + "INNER JOIN Class_subject_mapping csm ON csm.subject_id = su.subject_id\n"
                     + "INNER JOIN Class c ON c.class_id = csm.class_id\n"
-                    + "INNER JOIN Student_class_mapping scm ON scm.class_id = csm.class_id\n"
+                    + "LEFT JOIN Student_class_mapping scm ON scm.class_id = csm.class_id\n"
                     + "WHERE su.subject_name = ?\n"
                     + "GROUP BY c.class_id, c.class_name, su.subject_name, su.subject_id, csm.csm_id\n"
-                    + "HAVING COUNT(scm.student_id) < 20;";
+                    + "HAVING COUNT(scm.student_id) < 15;";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setString(1, subject_name);
             ResultSet rs = stm.executeQuery();
@@ -101,13 +101,16 @@ public class GSMDBContext extends DBContext<GroupSubjectMapping> {
                     + "FROM class_subject_mapping csm \n"
                     + "INNER JOIN Subject su ON su.subject_id = csm.subject_id\n"
                     + "INNER JOIN Class c ON c.class_id = csm.class_id\n"
-                    + "WHERE su.subject_name = ? and c.class_id = ?;";
+                    + "WHERE su.subject_name = ? AND c.class_id = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setString(1, subject_name);
+            stm.setString(2, class_id);
             ResultSet rs = stm.executeQuery();
             if (rs.next()) {
                 gsm_Id = rs.getInt("csm_id");
             }
+            rs.close(); 
+            stm.close(); 
         } catch (SQLException ex) {
             Logger.getLogger(GSMDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }

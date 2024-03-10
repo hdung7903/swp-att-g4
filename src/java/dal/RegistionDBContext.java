@@ -4,7 +4,7 @@
  */
 package dal;
 
-import entity.RegistrationClass;
+import entity.Registion;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,12 +16,12 @@ import java.util.logging.Logger;
  *
  * @author Admin
  */
-public class RegistrantionClassDBContext extends DBContext<RegistrationClass>{
+public class RegistionDBContext extends DBContext<Registion>{
 
-    public void enrollClass(RegistrationClass enroll) {
+    public void enrollClass(Registion enroll) {
         try {
            
-            String sql = "INSERT INTO registration_class (class_id, student_id) "
+            String sql = "INSERT INTO registion (class_id, student_id) "
                        + "VALUES (?, ?)";
             
             PreparedStatement stm = connection.prepareStatement(sql);
@@ -32,34 +32,56 @@ public class RegistrantionClassDBContext extends DBContext<RegistrationClass>{
         } catch (SQLException ex) {
             try {
                 connection.rollback();
-                Logger.getLogger(RegistrantionClassDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(RegistionDBContext.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SQLException ex1) {
-                Logger.getLogger(RegistrantionClassDBContext.class.getName()).log(Level.SEVERE, null, ex1);
+                Logger.getLogger(RegistionDBContext.class.getName()).log(Level.SEVERE, null, ex1);
             }
         }
     }
+    
+    public Registion checkStudentExist(String class_id, String student_id) {
+        String sql = "SELECT * FROM registion\n"
+                + "Where class_id = ? and student_id= ?;";
+        Registion list = null;
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, class_id);
+            stm.setString(2, student_id);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                list = new Registion(
+                        rs.getInt("rs_id")
+                );
+                return list;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SCMDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+    
     @Override
-    public ArrayList<RegistrationClass> list() {
+    public ArrayList<Registion> list() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public void insert(RegistrationClass entity) {
+    public void insert(Registion entity) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public void update(RegistrationClass entity) {
+    public void update(Registion entity) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public void delete(RegistrationClass entity) {
+    public void delete(Registion entity) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public RegistrationClass get(RegistrationClass entity) {
+    public Registion get(Registion entity) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     

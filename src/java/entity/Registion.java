@@ -10,25 +10,39 @@ import java.util.ArrayList;
  *
  * @author Admin
  */
-public class RegistrationClass extends BaseEntity{
+public class Registion extends BaseEntity{
+    private int id;
     private Group group;
     private Student student;
-    private ArrayList<RegistrationClass> newEnroll = new ArrayList<>();
+    private ArrayList<Registion> newEnroll = new ArrayList<>();
 
-    public RegistrationClass(Group group, Student student) {
+    public Registion(int id, Group group, Student student) {
+        this.id =id;
         this.group = group;
         this.student = student;
     }
 
-    public RegistrationClass() { 
+    public Registion() { 
         
     }
 
-    public ArrayList<RegistrationClass> getNewEnroll() {
+    public Registion(int id) {
+        this.id =id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public ArrayList<Registion> getNewEnroll() {
         return newEnroll;
     }
 
-    public void setNewEnroll(ArrayList<RegistrationClass> newEnroll) {
+    public void setNewEnroll(ArrayList<Registion> newEnroll) {
         this.newEnroll = newEnroll;
     }
 

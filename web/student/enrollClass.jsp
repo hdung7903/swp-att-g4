@@ -56,34 +56,28 @@
             </div>          
         </form>
 
-
         <div class="card">
-            <h2 class="card-title">Class list: </h2>
-            <c:if test="${not empty requestScope.mess}">
-                <div class="alert alert-info" role="alert">
-                    ${requestScope.mess}
-                </div>
-            </c:if>
+            <h2 class="text-center mb-4">Enroll Class <i class="fas fa-chalkboard-teacher"></i></h2>
+            <p style="color: red; font-size: 18px">${mess}</p>
             <div class="table-responsive">
                 <table class="table table-bordered table-striped">
                     <thead>
                         <tr class="text-center">
                             <th>Class Name</th>
                             <th>Number of Students</th>
-                            <th>Number of Students</th>
                             <th>Enroll</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <c:forEach items="${requestScope.gsm}"  var="g">
+                        <c:forEach items="${requestScope.gsm}" var="g" varStatus="loop">
                             <tr class="text-center">
                                 <td>${g.group.name}</td>
-                                <td>${g.group.id}</td>
                                 <td>${g.numStudents}</td>
                                 <td>
-                                    <form action="${pageContext.request.contextPath}/student/enroll" method="POST">
+                                    <form id="enrollForm${loop.index}" action="${pageContext.request.contextPath}/student/enroll" method="POST">
+                                        <input type="hidden" value="${g.subject.name}" name="subject_name"/>
                                         <input type="hidden" value="${g.group.id}" name="class_id"/>
-                                        <input type="submit" class="btn btn-primary center" value="Enroll"/>
+                                        <button type="submit" class="btn btn-primary center">Enroll</button>
                                     </form>
                                 </td>
                             </tr>
