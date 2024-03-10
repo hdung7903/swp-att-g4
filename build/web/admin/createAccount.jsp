@@ -29,6 +29,7 @@
     }
 </style>
 <body class="bg-image">
+    <%@include file="./navbar.jsp" %>
     <div class="mt-5">
         <div class="container">
             <div>

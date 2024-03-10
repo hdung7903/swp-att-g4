@@ -27,6 +27,7 @@
         }
     </style>
     <body class="bg-image">
+        <%@include file="./navbar.jsp" %>
         <div class="mt-5">
             <div class="container">
                 <div>
@@ -47,39 +48,50 @@
                 </c:if>
                 <div class="w-50 bg-white shadow mx-auto p-5" style="height: 600px; border-radius: 15px;">
                     <h2>Edit Account</h2>
-                    <div class="mt-3">
-    <form method="post" action="editacc">
-        <input type="hidden" name="username" value="${userinfo.username}" />
-        <input type="hidden" name="role" value="${role}" />
-        <div class="mb-3">
-            <label for="name" class="label_option fs-5 fw-blod">Full Name:</label>
-            <input type="text" id="name" name="name" class="w-100 p-2 border-0 mb-3" 
-                   style="background-color: #f2f2f2; border-radius: 2px;" required value="${userinfo.name}">
-        </div>
-        <div class="mb-3">
-            <label for="email" class="label_option fs-5 fw-blod">Email:</label>
-            <input type="email" id="email" name="email" class="w-100 p-2 border-0 mb-3" 
-                   style="background-color: #f2f2f2; border-radius: 2px;" required value="${userinfo.email}">
-        </div>
-        <div class="mb-3">
-            <label for="dob" class="label_option fs-5 fw-blod">Date of Birth:</label>
-            <input type="date" id="dob" name="dob" class="w-100 p-2 border-0 mb-3" 
-                   style="background-color: #f2f2f2; border-radius: 2px;" required value="${userinfo.dob}">
-        </div>
-        <div class="mb-3">
-            <label for="gender" class="label_option fs-5 fw-blod">Gender:</label>
-            <br>
-            <input type="radio" id="gender" name="gender" value="true" ${userinfo.gender ? 'checked' : ''}> Male
-            <input type="radio" id="gender" name="gender" value="false" ${!userinfo.gender ? 'checked' : ''}> Female
-        </div>
-        <br>
-        <div class="mt-3 d-flex justify-content-center">
-            <button type="submit" class="px-5 py-2 border-0 bg-success text-white me-3" style="border-radius: 5px;">Save</button>
-            <button type="reset" class="px-5 py-2 border-0 bg-danger text-white" style="border-radius: 5px;">Reset</button>
-        </div>
-    </form>
-</div>
+                    <div class="mt-5">
+                        <form method="post" action="editacc">
+                            <div class="row">
+                            <div class="mb-4 col-6">
+                                <label for="" class="label_option fs-5 fw-blod">Id</label>
+                                <input autofocus type="text" name="id" class="w-100 p-2 border-0" 
+                                       style="background-color: #f2f2f2; border-radius: 2px;" value="${userinfo.id}" readonly>
+                            </div>
+                            <div class="mb-4 col-6">
+                                <label for="" class="label_option fs-5 fw-blod">Username</label>
+                                <input autofocus type="text" name="id" class="w-100 p-2 border-0" 
+                                       style="background-color: #f2f2f2; border-radius: 2px;" value="${userinfo.username}" readonly>
+                            </div>
+                            <div class="mb-4 col-6">
+                                <label for="name" class="label_option fs-5 fw-blod">Full Name:</label>
+                                <input type="text" id="name" name="name" class="w-100 p-2 border-0 mb-3" 
+                                       style="background-color: #f2f2f2; border-radius: 2px;" required value="${userinfo.name}">
+                            </div>
+                            <div class="mb-4 col-6">
+                                <label for="email" class="label_option fs-5 fw-blod">Email:</label>
+                                <input type="email" id="email" name="email" class="w-100 p-2 border-0 mb-3" 
+                                       style="background-color: #f2f2f2; border-radius: 2px;" required value="${userinfo.email}">
+                            </div>
+                            <div class="mb-4 col-6">
+                                <label for="dob" class="label_option fs-5 fw-blod">Date of Birth:</label>
+                                <input type="date" id="dob" name="dob" class="w-100 p-2 border-0 mb-3" 
+                                       style="background-color: #f2f2f2; border-radius: 2px;" required value="${userinfo.dob}">
+                            </div>
+                            <div class="mb-4 col-6">
+                                <label for="gender" class="label_option fs-5 fw-blod">Gender:</label>
+                                <select id="gender" name="gender" class="form-select" required>
+                                    <option value="true" ${userinfo.gender ? 'selected' : ''}>Male</option>
+                                    <option value="false" ${!userinfo.gender ? 'selected' : ''}>Female</option>
+                                </select>
+                            </div>
 
+                            <br>
+                            <div class="mt-5 d-flex justify-content-center">
+                                <button type="submit" class="px-5 py-2 border-0 bg-success text-white me-3" style="border-radius: 5px;">Save</button>
+                                <button type="reset" class="px-5 py-2 border-0 bg-danger text-white" style="border-radius: 5px;">Reset</button>
+                            </div>
+                        </form>
+                    </div>
+                  </div>
                 </div>
             </div>
         </div>

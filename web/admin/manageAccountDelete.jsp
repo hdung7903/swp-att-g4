@@ -26,6 +26,7 @@
 </head>
 
 <body>
+    <%@include file="./navbar.jsp" %>
     <div class="">
             <c:if test="${mess!=null}">
                 <div class="fs-4 alert ${result==true?"alert-success":"alert-danger"}" role="alert">
