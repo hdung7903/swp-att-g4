@@ -23,6 +23,42 @@ import java.util.logging.Logger;
  * @author leduy
  */
 public class GSMDBContext extends DBContext<GroupSubjectMapping> {
+    
+     public ArrayList<GroupSubjectMapping> getGroupsbySubject(String subject_name) {
+        ArrayList<GroupSubjectMapping> groups = new ArrayList<>();
+        try {
+            String sql = "SELECT c.class_id, c.class_name, COUNT(scm.student_id) AS num_students,\n"
+                    + "       su.subject_name, su.subject_id, csm.csm_id\n"
+                    + "FROM Subject su \n"
+                    + "INNER JOIN Class_subject_mapping csm ON csm.subject_id = su.subject_id\n"
+                    + "INNER JOIN Class c ON c.class_id = csm.class_id\n"
+                    + "LEFT JOIN Student_class_mapping scm ON scm.class_id = csm.class_id\n"
+                    + "WHERE su.subject_name = ?\n"
+                    + "GROUP BY c.class_id, c.class_name, su.subject_name, su.subject_id, csm.csm_id\n"
+                    + "HAVING COUNT(scm.student_id) < 20;";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, subject_name);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                GroupSubjectMapping gsm = new GroupSubjectMapping();
+                gsm.setId(rs.getInt("csm_id"));
+                Subject subject = new Subject();
+                subject.setId(rs.getString("subject_id"));
+                subject.setName(rs.getString("subject_name"));
+                gsm.setSubject(subject);
+                Group group = new Group();
+                group.setId(rs.getString("class_id"));
+                group.setName(rs.getString("class_name"));
+                gsm.setGroup(group);
+                int numStudents = rs.getInt("num_students");
+                gsm.setTotalStudent(numStudents);
+                groups.add(gsm);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(GSMDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return groups;
+    }
 
     public GroupSubjectMapping getClassNewset() {
         String sql = "   Select csm_id, i.instructor_name,i.instructor_id, c.class_name, c.class_id, su.subject_name, su.subject_id from class_subject_mapping csm\n"
@@ -153,7 +189,7 @@ public class GSMDBContext extends DBContext<GroupSubjectMapping> {
         }
         return null;
     }
-    
+
     public void updateClass(GroupSubjectMapping gsm) {
         try {
             String sql = "UPDATE class_subject_mapping SET total_slots = ?, instructor_id = ? WHERE csm_id = ?;";
@@ -166,7 +202,7 @@ public class GSMDBContext extends DBContext<GroupSubjectMapping> {
             System.out.println(e);
         }
     }
-    
+
     public void insertClass(String class_id, String subject_id, String slot) {
         try {
             String sql = "INSERT INTO Class_subject_mapping (class_id, subject_id, total_slots) VALUES (?,?,?);";
@@ -190,7 +226,7 @@ public class GSMDBContext extends DBContext<GroupSubjectMapping> {
             System.out.println(e);
         }
     }
-    
+
     public ArrayList<GroupSubjectMapping> getGroupbyInstructor(String instructor_id) {
         ArrayList<GroupSubjectMapping> groups = new ArrayList<>();
         try {
@@ -292,8 +328,30 @@ public class GSMDBContext extends DBContext<GroupSubjectMapping> {
         }
         return groups;
     }
-    
-    
+
+    public int getGSM_Id(String subject_name, String class_id) {
+        int gsm_Id = 0;
+        try {
+            String sql = "SELECT csm.csm_id\n"
+                    + "FROM class_subject_mapping csm \n"
+                    + "INNER JOIN Subject su ON su.subject_id = csm.subject_id\n"
+                    + "INNER JOIN Class c ON c.class_id = csm.class_id\n"
+                    + "WHERE su.subject_name = ? AND c.class_id = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, subject_name);
+            stm.setString(2, class_id);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                gsm_Id = rs.getInt("csm_id");
+            }
+            rs.close();
+            stm.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(GSMDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return gsm_Id;
+    }
+
     @Override
     public ArrayList<GroupSubjectMapping> list() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

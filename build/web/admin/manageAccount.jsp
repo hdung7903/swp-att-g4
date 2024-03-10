@@ -114,7 +114,7 @@
                             <div class="col-3">
                                 <div class="d-flex">
                                     <a href="editacc?username=${student.getUsername()}&role=stu" class="btn btn-info text-white border px-3 py-2 text-decoration-none mx-2">Update</a>
-                                    <a href="manageacc?action=deletedRule&username=${student.getUsername()}" class="btn btn-danger text-white border px-3 py-2 text-decoration-none">Delete</a>
+                                    <a href="manageacc?action=deletedRule&username=${student.getUsername()}" class="btn btn-danger text-white border px-3 py-2 text-decoration-none" >Delete</a>
                                 </div>
                             </div>
                         </div>

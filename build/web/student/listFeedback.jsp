@@ -1,13 +1,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>List Feedback</title>
+        <!-- Bootstrap 5 CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+        <!-- Font Awesome Icons -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
         <style>
             body {
                 background-color: #f8f9fa;
@@ -63,10 +65,10 @@
         </script>
     </head>
     <body>
-        <%@include file="./navbar.jsp" %>
+        <%@ include file="./navbar.jsp" %>
 
         <div class="container">
-            <div class="col-md-6">
+            <div class="card">
                 <h2 class="card-title">List Feedback</h2>
                 <form id="classForm" action="${pageContext.request.contextPath}/student/feedback" method="get">
                     <div class="mb-3">
@@ -78,24 +80,30 @@
                         </select>
                     </div>
                 </form>
-            </div>
-
-            <div class="card">
                 <h2 class="card-title">Feedback Action</h2>
                 <div class="card-body">
                     <c:set var="fb" value="${requestScope.fb}"/>
                     <c:choose>
                         <c:when test="${not empty fb}">
-                            <a href="${pageContext.request.contextPath}/student/editfb?csm_id=${param.csm_id}" class="font-weight-bold">Edit FeedBack</a>
+                            <a href="${pageContext.request.contextPath}/student/editfb?csm_id=${param.csm_id}" class="btn btn-primary">
+                                <i class="far fa-edit"></i> Edit Feedback
+                            </a>
                         </c:when>
                         <c:otherwise>
                             <c:if test="${not empty param.csm_id}">
-                                <a href="${pageContext.request.contextPath}/student/takefb?csm_id=${param.csm_id}" class="text-danger font-weight-bold">Take FeedBack</a>
+                                <a href="${pageContext.request.contextPath}/student/takefb?csm_id=${param.csm_id}" class="btn btn-danger">
+                                    <i class="fas fa-clipboard-list"></i> Take Feedback
+                                </a>
                             </c:if>
                         </c:otherwise>
                     </c:choose>
                 </div>
             </div>
         </div>
+
+        <!-- Bootstrap 5 JS Bundle with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Font Awesome JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
     </body>
 </html>

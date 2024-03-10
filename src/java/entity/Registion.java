@@ -9,24 +9,28 @@ package entity;
  * @author leduy
  */
 public class Registion extends BaseEntity {
-    private String id;
+    private int id;
     private Group group;
     private Student student;
 
     public Registion() {
     }
 
-    public Registion(String id, Group group, Student student) {
+    public Registion(int id, Group group, Student student) {
         this.id = id;
         this.group = group;
         this.student = student;
     }
 
-    public String getId() {
+    public Registion(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

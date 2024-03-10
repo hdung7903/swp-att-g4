@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html" pageEncoding="UTF-8" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,7 +8,10 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Take Feedback</title>
+        <!-- Bootstrap 5 CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Font Awesome Icons -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
         <style>
             body {
                 background-color: #f8f9fa;
@@ -40,18 +43,22 @@
                 background-color: #0056b3;
                 border-color: #0056b3;
             }
+
+            .form-check-label {
+                margin-left: 0.3rem;
+            }
         </style>
     </head>
 
     <body>
-        <%@include file="./navbar.jsp" %>
-        
+        <%@ include file="./navbar.jsp" %>
+
         <div class="container">
             <h1 class="text-center mb-4">Take Feedback Sheet</h1>
             <div class="card mb-3">
                 <div class="card-body text-center">
-                    <h5 class="card-title d-inline-block mr-2">Class: ${requestScope.gsm[0].group.name}</h5>
-                    <h5 class="card-title d-inline-block mr-2">Subject: ${requestScope.gsm[0].subject.name}</h5><br>
+                    <h5 class="card-title d-inline-block me-2">Class: ${requestScope.gsm[0].group.name}</h5>
+                    <h5 class="card-title d-inline-block me-2">Subject: ${requestScope.gsm[0].subject.name}</h5><br>
                     <h5 class="card-title d-inline-block">Instructor: ${requestScope.gsm[0].instructor.name}</h5>
                 </div>
             </div>
@@ -59,7 +66,7 @@
                 <div class="col-md-12 text-center">
                     <form action="${pageContext.request.contextPath}/student/takefb" method="POST">
                         <table class="table table-bordered">
-                            <thead class="thead-dark">
+                            <thead class="table-dark">
                                 <tr class="text-center">
                                     <th>Teacher's Punctuality</th>
                                     <th>Coverage of Syllabus</th>
@@ -150,11 +157,17 @@
                         </table>
                         <input type="hidden" value="${requestScope.gsm[0].id}" name="csm_id">
                         <div class="text-center">
-                            <button type="submit" class="btn btn-primary">Submit Feedback</button>
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Submit Feedback</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
+
+        <!-- Bootstrap 5 JS Bundle with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Font Awesome JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
     </body>
+
 </html>

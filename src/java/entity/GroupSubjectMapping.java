@@ -18,17 +18,19 @@ public class GroupSubjectMapping extends BaseEntity {
     private Instructor instructor;
     private Session session;
     private ArrayList<Session> sessions = new ArrayList<>();
+    private int totalStudent;
 
     public GroupSubjectMapping() {
     }
 
-    public GroupSubjectMapping(int id, Group group, Subject subject, int total_slots, Instructor instructor, Session session) {
+    public GroupSubjectMapping(int id, Group group, Subject subject, int total_slots, Instructor instructor, Session session, int totalStudent) {
         this.id = id;
         this.group = group;
         this.subject = subject;
         this.total_slots = total_slots;
         this.instructor = instructor;
         this.session = session;
+        this.totalStudent = totalStudent;
     }
 
     public GroupSubjectMapping(int id, Group group, Subject subject, int total_slots, Instructor instructor) {
@@ -98,9 +100,7 @@ public class GroupSubjectMapping extends BaseEntity {
     public void setSessions(ArrayList<Session> sessions) {
         this.sessions = sessions;
     }
-    
-    
-    
+        
 
     public int getTotal_slots() {
         return total_slots;
@@ -109,5 +109,14 @@ public class GroupSubjectMapping extends BaseEntity {
     public void setTotal_slots(int total_slots) {
         this.total_slots = total_slots;
     }
+
+    public int getTotalStudent() {
+        return totalStudent;
+    }
+
+    public void setTotalStudent(int totalStudent) {
+        this.totalStudent = totalStudent;
+    }
  
+    
 }

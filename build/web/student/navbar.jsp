@@ -51,6 +51,9 @@
                             <a class="nav-link" aria-current="page" href="${pageContext.request.contextPath}/student/schedule?id=${sessionScope.accountId}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Schedule"><i class="fa-regular fa-calendar"></i> Schedule</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="${pageContext.request.contextPath}/student/news" data-bs-toggle="tooltip" data-bs-placement="bottom" title="News"><i class="fa-solid fa-chart-bar"></i>News</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="${pageContext.request.contextPath}/student/slottoday?id=${sessionScope.accountId}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Attendance"><i class="fa-solid fa-calendar-check"></i> Attendance</a>
                         </li>
                         <li class="nav-item">

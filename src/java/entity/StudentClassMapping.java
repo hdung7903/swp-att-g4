@@ -34,6 +34,11 @@ public class StudentClassMapping extends BaseEntity {
         this.instructor = instructor;
     } 
 
+    public StudentClassMapping(int id) {
+        this.id = id;
+    }
+       
+
     public int getId() {
         return id;
     }

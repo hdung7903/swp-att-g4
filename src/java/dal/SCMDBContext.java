@@ -22,6 +22,27 @@ import java.util.logging.Logger;
  * @author leduy
  */
 public class SCMDBContext extends DBContext<StudentClassMapping> {
+    
+    public StudentClassMapping checkStudentExist(String class_id, String student_id) {
+        String sql = "SELECT * FROM student_class_mapping\n"
+                + "Where class_id = ? and student_id= ?;";
+        StudentClassMapping list = null;
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, class_id);
+            stm.setString(2, student_id);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                list = new StudentClassMapping(
+                        rs.getInt("scm_id")
+                );
+                return list;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SCMDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
 
     public void insertStuinClass(String student_id, String class_id) {
         try {

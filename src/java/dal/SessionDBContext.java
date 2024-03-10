@@ -26,6 +26,27 @@ import java.util.logging.Logger;
  * @author leduy
  */
 public class SessionDBContext extends DBContext<Session> {
+    
+    public Session checkClassStart(Integer csm_id) {
+        String sql = "SELECT * FROM session\n"
+                + "Where csm_id = ? and isAtt = '1';";
+        Session session = null;
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, csm_id);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                session = new Session(
+                        rs.getInt("session_id"),
+                        rs.getBoolean("isAtt")
+                );
+                return session;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SessionDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return session;
+    }
 
     public ArrayList<Session> getSessionsByInstructor(String instructor_id, Date from, Date to) {
         ArrayList<Session> sessions = new ArrayList<>();

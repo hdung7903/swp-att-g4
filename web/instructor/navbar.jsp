@@ -45,16 +45,24 @@
                 <div class="collapse navbar-collapse justify-content-between" id="navbarNavDropdown">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active" href="${pageContext.request.contextPath}/instructor/home" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Home"><i class="fas fa-house"></i> Home</a>
+                            <a class="nav-link active" href="${pageContext.request.contextPath}/instructor/home" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Home">
+                                <i class="fa-solid fa-house"></i> Home
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/instructor/slottoday?id=${sessionScope.accountId}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Attendance"><i class="fas fa-calendar-check"></i> Attendance</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/instructor/schedule?id=${sessionScope.accountId}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Schedule">
+                                <i class="fa-solid fa-calendar"></i> Schedule
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/instructor/attstatistic?id=${sessionScope.accountId}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Attendance Report"><i class="fas fa-chart-bar"></i> Attendance Report</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/instructor/slottoday?id=${sessionScope.accountId}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Today's Slots">
+                                <i class="fa-solid fa-calendar-day"></i> Today's Slots
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/instructor/studentlist" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Student List"><i class="fas fa-users"></i> Student List</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/instructor/attstatistic?id=${sessionScope.accountId}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Attendance Report">
+                                <i class="fa-solid fa-chart-line"></i> Attendance Report
+                            </a>
                         </li>
                     </ul>
                     <div class="user-profile d-flex align-items-center me-4">
@@ -63,12 +71,12 @@
                             ${sessionScope.acc.username}
                         </a>
                         <a href="#" class="btn btn-outline-light ms-2" data-bs-toggle="modal" data-bs-target="#logoutModal">
-                            <i class="fas fa-arrow-right-from-bracket"></i> Sign out
+                            <i class="fa-solid fa-right-from-bracket"></i> Sign out
                         </a>
                     </div>
                 </div>
             </div>
-         <%@include file="../modal/logoutModal.jsp" %>               
+            <%@include file="../modal/logoutModal.jsp" %>
         </nav>
         <script>
             const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');

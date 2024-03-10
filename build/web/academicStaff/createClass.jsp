@@ -43,7 +43,7 @@
                         </div>
                         
                         <div class="mb-3 text-center">
-                            <a href="home.jsp" class="text-decoration-none"><i class="fas fa-home me-2"></i>Back to Home</a>
+                            <a href="listclass" class="text-decoration-none text-black"><i class="fas fa-arrow-left me-2"></i>Go back</a>
                         </div>
                     </form>
                 </div>

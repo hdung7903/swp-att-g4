@@ -9,32 +9,19 @@
         <title>Update Class</title>
         <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
         <style>
             body {
-                font-size: 13px;
-                line-height: 1.8;
-                color: #222;
-                font-weight: 600;
-                font-family: 'Montserrat';
-                background: #c5e9ff;
                 padding: 115px 0;
                 align-items: center;
             }
-            .container{
-                width: 680px;
-                position: relative;
+            .container {
+                max-width: 680px;
                 margin: 0 auto;
                 box-shadow: 0px 10px 9.9px 0.1px rgba(0, 0, 0, 0.1);
-                -moz-box-shadow: 0px 10px 9.9px 0.1px rgba(0, 0, 0, 0.1);
-                -webkit-box-shadow: 0px 10px 9.9px 0.1px rgba(0, 0, 0, 0.1);
-                -o-box-shadow: 0px 10px 9.9px 0.1px rgba(0, 0, 0, 0.1);
-                -ms-box-shadow: 0px 10px 9.9px 0.1px rgba(0, 0, 0, 0.1);
                 background: #fff;
             }
-            .signup-content{
+            .signup-content {
                 padding: 10px 0;
             }
             #signup-form.signup-form {
@@ -43,57 +30,52 @@
                 overflow-y: auto;
                 align-items: center;
             }
-
         </style>
     </head>
-    <body>
-        <div class="main">
-            <section class="signup">
+    <body>            
+        <div class="main">            
+            <section class="signup">                
                 <div class="container">
+                    <a href="details?id=${requestScope.gsm.group.id}" style="text-decoration:none;" class="text-black"><i class="fas fa-arrow-left me-2"></i>Back to Home</a>
                     <div class="signup-content">
                         <form method="POST" id="signup-form" class="signup-form" action="${pageContext.request.contextPath}/acad/updateclass">
-                            <h2 for="first_name">Update Class</h2>
-                            <h6 style="color: red"  for="warning">You just can change the instructor and total slots of class</h6>
+                            <h2>Update Class</h2>
+                            <h6 class="text-danger">You can only change the instructor and total slots of the class</h6>
                             <c:set var="gsm" value="${requestScope.gsm}"/>
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <input type="hidden" class="form-input" name="csm_id" value="${gsm.id}" readonly />
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <input type="hidden" class="form-control" name="csm_id" value="${gsm.id}" readonly />
                                     <label for="first_name">Class Name</label>
-                                    <input type="text" class="form-input" name="classname" value="${gsm.group.name}" readonly />
+                                    <input type="text" class="form-control" name="classname" value="${gsm.group.name}" readonly />
                                 </div>
-                                <div class="form-group">
+                                <div class="col-md-6 mb-3">
                                     <label for="first_name">Subject Name</label>
-                                    <input type="text" class="form-input" name="subjectname" value="${gsm.subject.name}" readonly />
+                                    <input type="text" class="form-control" name="subjectname" value="${gsm.subject.name}" readonly />
                                 </div>
-                                <div class="form-group">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
                                     <label for="last_name">Instructor</label>
-                                    
-                                    <input type="text" class="form-input" name="#" value="${empty gsm.instructor.name ? 'Unknown' : gsm.instructor.name}" readonly />
-                                    <br>
-                                    <label for="instructor_name">Choose another Instructor:</label><br>
-                                    <select id="" class="form-group" style="width: 275px;
-                                            padding: 14px;
-                                            border: 1px solid #ccc;
-                                            border-radius: 4px;
-                                            font-size: 16px;
-                                            color: #333;
-                                            bottom: 22px;
-                                            background-color: #fff;"name="ins">
+                                    <input type="text" class="form-control" name="#" value="${empty gsm.instructor.name ? 'Unknown' : gsm.instructor.name}" readonly />
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="instructor_name">Choose another Instructor:</label>
+                                    <select class="form-select" name="ins">
                                         <c:forEach items="${requestScope.listSim}" var="sim">  
-                                            <option value="${sim.instructor.id}">${sim.instructor.name} </option>
+                                            <option value="${sim.instructor.id}">${sim.instructor.name}</option>
                                         </c:forEach> 
                                     </select>
                                 </div>
-                            </div>  
-                            <div class="form-row">
-                                <div class="form-group">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
                                     <label for="slots">Total Slots</label>
-                                    <input type="text" class="form-input" name="total_slots" value="${gsm.total_slots}"  />
+                                    <input type="text" class="form-control" name="total_slots" value="${gsm.total_slots}" />
                                 </div>
                             </div>
-                            <p style="color: red; font-size: 18px" >${requestScope.mess}</p>
-                            <div class="form-group">
-                                <input type="submit" name="submit" id="submit" class="form-submit" value="Update"/>
+                            <p class="text-danger">${requestScope.mess}</p>
+                            <div class="mb-3">
+                                <button type="submit" name="submit" class="btn btn-primary"><i class="fas fa-save me-2"></i>Update</button>
                             </div>
                         </form>
                     </div>
@@ -101,22 +83,6 @@
             </section>
         </div>
 
-        <script>
-            function sendRequest() {
-                var selectedOption = document.getElementById("selectSub").value;
-
-                if (selectedOption) {
-                    var xhttp = new XMLHttpRequest();
-                    xhttp.open("POST", classDetails?subjectId = " + selectedOption, true);
-                            xhttp.send();
-                }
-            }
-
-        </script>
-        <script src="vendor/jquery/jquery.min.js"></script>
-        <script src="vendor/jquery-ui/jquery-ui.min.js"></script>
-        <script src="vendor/jquery-validation/dist/jquery.validate.min.js"></script>
-        <script src="vendor/jquery-validation/dist/additional-methods.min.js"></script>
-        <script src="js/main.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>
