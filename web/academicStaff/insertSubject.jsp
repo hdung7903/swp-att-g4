@@ -12,9 +12,7 @@ Author     : Administrator
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Insert Subject</title>
-        <!-- Bootstrap CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-        <!-- Font Awesome -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
         <style>
             body {
@@ -67,8 +65,8 @@ Author     : Administrator
             <div class="card">
                 <h2 class="card-title">Class List</h2>
                 <div class="d-flex gap-2 mb-3">
-                    <a href="#" class="btn btn-primary"><i class="fa fa-calendar-check"></i> Assigned Subject</a>
-                    <a href="#" class="btn btn-danger"><i class="fa fa-calendar-times"></i> Remove Subject</a>
+                    <a href="${pageContext.request.contextPath}/acad/assignsub" class="btn btn-primary"><i class="fa fa-calendar-check"></i> Assigned Subject</a>
+                    <a href="${pageContext.request.contextPath}/acad/removesub" class="btn btn-danger"><i class="fa fa-calendar-times"></i> Remove Subject</a>
                 </div>
                 <div class="table-responsive">
                     <form id="" action="subject" method="POST">

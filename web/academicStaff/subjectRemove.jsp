@@ -23,7 +23,6 @@
                 </div>
                 <button type="submit" class="btn btn-primary">Show Assigned Subjects</button>
             </form>
-
             <c:if test="${not empty requestScope.assignedSubjects}">
                 <hr>
                 <h2>Assigned Subjects</h2>
@@ -49,7 +48,13 @@
                 </form>
             </c:if>
             <c:if test="${empty requestScope.assignedSubjects}">
-                Empty data
+                <div class="alert alert-danger d-flex align-items-center" role="alert">
+                        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                        <div>
+                            Please choose an instructor
+                        </div>
+                    </div>
+
             </c:if>
         </div>
 

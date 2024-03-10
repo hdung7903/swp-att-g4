@@ -48,7 +48,7 @@
                             <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/admin/home" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Home"><i class="fa-solid fa-house"></i> Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="${pageContext.request.contextPath}/admin/manageacc" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Create Class"><i class="fa-regular fa-calendar"></i> Create Class</a>
+                            <a class="nav-link" aria-current="page" href="${pageContext.request.contextPath}/admin/manageacc" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Manage Account"><i class="fas fa-user-cog"></i> Manage Account</a>
                         </li>
                         
                     </ul>

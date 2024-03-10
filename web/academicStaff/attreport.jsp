@@ -42,7 +42,7 @@
             <%@include file="./navbar.jsp" %>
             <div class="container my-5">
                 <h1 class="display-4 text-center mb-4">Attendance Statistics</h1>
-                <h3 class="display-6 text-center mb-4">Of student: ???</h3>
+                <h3 class="display-6 text-center mb-4">From student: ${requestScope.groupList[0].student.name}</h3>
             </div>
             <div class="row my-3 container">
                 <form method="get" action="${pageContext.request.contextPath}/acad/attreport" id="attendanceForm">

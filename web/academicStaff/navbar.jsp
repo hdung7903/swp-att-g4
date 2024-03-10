@@ -37,7 +37,7 @@
                 transition: background-color 0.3s;
             }
             .user-dropdown .dropdown-item:hover {
-                background-color: #f8f9fa; 
+                background-color: #f8f9fa;
             }
         </style>
     </head>
@@ -54,13 +54,13 @@
                             <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/acad/home" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Home"><i class="fa-solid fa-house"></i> Home</a>
                         </li>
                         <li class="nav-item mx-3">
-                            <a class="nav-link" href="listclass"><i class="bi bi-card-checklist"></i> Manage Class</a>
+                            <a class="nav-link" href="listclass"><i class="fa-solid fa-clipboard-list"></i> Manage Class</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/acad/searchstu" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Search Student"><i class="fa-solid fa-chart-bar"></i> Search Student</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/acad/searchstu" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Search Student"><i class="fa-solid fa-magnifying-glass"></i> Search Student</a>
                         </li>
-                         <li class="nav-item">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/acad/listNews" data-bs-toggle="tooltip" data-bs-placement="bottom" title="List News"><i class="fa-solid fa-chart-bar"></i> List News</a>
+                        <li class="nav-item">
+                            <a class="nav-link" href="${pageContext.request.contextPath}/acad/listNews" data-bs-toggle="tooltip" data-bs-placement="bottom" title="List News"><i class="fa-solid fa-newspaper"></i> List News</a>
                         </li>
                     </ul>
                     <div class="user-profile d-flex align-items-center me-4">

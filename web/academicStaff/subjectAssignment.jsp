@@ -31,7 +31,20 @@
 
             <c:choose>
                 <c:when test="${not requestScope.status}">
-                    <h1>Empty</h1>
+                    <div class="alert alert-danger d-flex align-items-center" role="alert">
+                        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                        <div>
+                            Please choose a teacher
+                        </div>
+                    </div>
+                </c:when>
+                <c:when test="${empty unassignedSubjects}">
+                    <div class="alert alert-danger d-flex align-items-center" role="alert">
+                        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                        <div>
+                            Teacher have been assigned all subject
+                        </div>
+                    </div>
                 </c:when>
                 <c:otherwise>
                     <h2>Unassigned Subjects</h2>

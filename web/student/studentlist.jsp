@@ -1,9 +1,3 @@
-<%-- 
-    Document   : studentlist
-    Created on : Jan 8, 2024, 8:37:49 PM
-    Author     : Admin
---%>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>

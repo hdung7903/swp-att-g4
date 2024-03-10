@@ -51,7 +51,26 @@
     </head>
     <body>
         <div class="container-fluid px-0">
-            <%@include file="./navbar.jsp" %>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <div class="container-fluid">
+                    <a href="#" class="navbar-brand mx-4">FPT UNIVERSITY</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">                       
+                        <div class="user-profile d-flex align-items-center me-4">
+                            <a href="${pageContext.request.contextPath}/profile" class="text-decoration-none">
+                                <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle me-2">
+                                ${sessionScope.acc.username}
+                            </a>
+                            <a href="#" class="btn btn-outline-light ms-2" data-bs-toggle="modal" data-bs-target="#logoutModal">
+                                <i class="fas fa-arrow-right-from-bracket"></i> Sign out
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <%@include file="../modal/logoutModal.jsp" %>
+            </nav>
             <div class="container feature-section">
                 <%@include file="../carousel.jsp" %>
                 <div class="row row-cols-1 row-cols-md-3 g-4 my-2">
@@ -63,7 +82,7 @@
                             </div>
                             <div class="card-body feature-card-body">
                                 <a href="${pageContext.request.contextPath}/student/news">
-                                    <i class="far fa-envelope"></i>Latest News
+                                    <i class="far fa-envelope"></i> News
                                 </a>
                             </div>
                         </div>
@@ -102,6 +121,12 @@
                                 </a>
                                 <a href="${pageContext.request.contextPath}/student/viewStatus" class="d-block mt-2">
                                     <i class="fas fa-clipboard-check"></i>Application Status
+                                </a>
+                                <a href="${pageContext.request.contextPath}/student/feedback" class="d-block mt-2">
+                                    <i class="fa-solid fa-comment-dots"></i>Feedback
+                                </a>
+                                <a href="${pageContext.request.contextPath}/student/enroll" class="d-block mt-2">
+                                    <i class="fas fa-user-plus"></i> Enroll Class
                                 </a>
                             </div>
                         </div>

@@ -64,6 +64,14 @@ Author     : Administrator
                     <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
                 </div>          
             </form>
+            <c:if test="${empty gsm}">
+                <div class="alert alert-danger d-flex align-items-center" role="alert">
+                        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> 
+                        <div>
+                             Subject can't be found
+                        </div>
+                    </div>
+            </c:if>
             <c:if test="${not empty gsm}">   
                 <div class="card">
                     <h2 class="card-title text-center mb-4">Class Register <i class="fa fa-chalkboard-teacher"></i></h2>
