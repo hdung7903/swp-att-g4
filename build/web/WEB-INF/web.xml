@@ -201,8 +201,8 @@
         <servlet-class>controller.admin.EditInformationController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>EditInforController</servlet-name>
-        <servlet-class>controller.admin.EditInforController</servlet-class>
+        <servlet-name>EditAccountController</servlet-name>
+        <servlet-class>controller.admin.EditAccountController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>login</servlet-name>
@@ -353,8 +353,8 @@
         <url-pattern>/admin/editinfor</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>EditInforController</servlet-name>
-        <url-pattern>/admin/editinf</url-pattern>
+        <servlet-name>EditAccountController</servlet-name>
+        <url-pattern>/admin/editacc</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

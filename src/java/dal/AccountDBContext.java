@@ -481,38 +481,54 @@ public class AccountDBContext extends DBContext<Account> {
         return list;
     }
     
-    public boolean editInformation(String id, String username, String password, int role_id, String fullName, String email, String dob, int gender) {
-    boolean success = false;
-    String sql1 = "UPDATE account SET password = ?, role_id = ?, email = ? WHERE username = ?";
-    try {
-        PreparedStatement st1 = connection.prepareStatement(sql1);
-        st1.setString(1, password);
-        st1.setInt(2, role_id);
-        st1.setString(3, email);
-        st1.setString(4, username);
-        int rowCount1 = st1.executeUpdate();
-        if (rowCount1 > 0) {
-            String sql2 = "";
-            if (role_id == 3) {
-                sql2 = "UPDATE instructor SET instructor_id = ?, instructor_name = ?, email = ?, dob = ?, gender = ? WHERE username = ?";
-            } else if (role_id == 4) {
-                sql2 = "UPDATE student SET student_id = ?, student_name = ?, email = ?, dob = ?, gender = ? WHERE username = ?";
-            }
-            PreparedStatement st2 = connection.prepareStatement(sql2);
-            st2.setString(1, id);
-            st2.setString(2, fullName);
-            st2.setString(3, email);
-            st2.setString(4, dob);
-            st2.setInt(5, gender);
-            st2.setString(6, username);
-            int rowCount2 = st2.executeUpdate();
-            success = rowCount2 > 0;
+    public void updateStudent(Student student) {
+        String sql = "UPDATE student s\n"
+                + "INNER JOIN account acc ON acc.username = s.username\n"
+                + "SET\n"
+                + " s.student_name = ?,\n"
+                + " s.email = ?,\n"
+                + " s.dob = ?,\n"
+                + " s.gender = ?,\n"
+                + " acc.email = ?\n"
+                + "WHERE s.username = ?;";
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, student.getName());
+            stm.setString(2, student.getEmail());
+            stm.setDate(3, student.getDob());
+            stm.setBoolean(4, student.isGender());
+            stm.setString(5, student.getEmail());
+            stm.setString(6, student.getUsername());
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println(ex);
         }
-    } catch (SQLException e) {
-        System.out.println(e);
     }
-    return success;
-}
+
+    public void updateInstructor(Instructor instructor) {
+        String sql = "UPDATE instructor i\n"
+                + "INNER JOIN account acc ON acc.username = i.username\n"
+                + "SET\n"
+                + " i.instructor_name = ?,\n"
+                + " i.email = ?,\n"
+                + " i.dob = ?,\n"
+                + " i.gender = ?,\n"
+                + " acc.email = ?\n"
+                + "WHERE i.username = ?;";
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, instructor.getName());
+            stm.setString(2, instructor.getEmail());
+            stm.setDate(3, instructor.getDob());
+            stm.setBoolean(4, instructor.isGender());
+            stm.setString(5, instructor.getEmail());
+            stm.setString(6, instructor.getUsername());
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+    }
+
     
 
 

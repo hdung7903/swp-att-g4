@@ -4,18 +4,22 @@
  */
 package controller.admin;
 
+import dal.AccountDBContext;
+import entity.Instructor;
+import entity.Student;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.sql.Date;
 
 /**
  *
- * @author ADMIN
+ * @author leduy
  */
-public class EditInforController extends HttpServlet {
+public class EditAccountController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,10 +38,10 @@ public class EditInforController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet EditInforController</title>");            
+            out.println("<title>Servlet EditAccountController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet EditInforController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet EditAccountController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -55,7 +59,24 @@ public class EditInforController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String username = request.getParameter("username");
+        String role = request.getParameter("role");
+        if (role == null) {
+            request.getRequestDispatcher("../admin/editaccount.jsp").forward(request, response);
+        } else {
+            AccountDBContext accdb = new AccountDBContext();
+            switch (role) {
+                case "stu":
+                    Student student = accdb.getStudentByUserName(username);
+                    request.setAttribute("studentinfo", student);
+                    break;
+                case "ins":
+                    Instructor instructor = accdb.getIntructorByUserName(username);
+                    request.setAttribute("instructorinfo", instructor);
+                    break;
+            }
+            request.getRequestDispatcher("../admin/editaccount.jsp").forward(request, response);
+        }
     }
 
     /**
@@ -69,7 +90,26 @@ public class EditInforController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String username = request.getParameter("username");
+        String role = request.getParameter("role");
+        String name = request.getParameter("name");
+        String email = request.getParameter("email");
+        String dob = request.getParameter("dob");
+        boolean gender = Boolean.parseBoolean(request.getParameter("gender"));
+
+        AccountDBContext accdb = new AccountDBContext();
+        switch (role) {
+            case "stu":
+                Student student = new Student(null, name, username, email, java.sql.Date.valueOf(dob), gender);
+                accdb.updateStudent(student);
+                break;
+            case "ins":
+                Instructor instructor = new Instructor(null, name, username, email, java.sql.Date.valueOf(dob), gender);
+                accdb.updateInstructor(instructor);
+                break;
+        }
+
+        response.sendRedirect("manageacc");
     }
 
     /**
