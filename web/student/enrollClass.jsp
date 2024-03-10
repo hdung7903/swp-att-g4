@@ -58,7 +58,14 @@
 
         <div class="card">
             <h2 class="text-center mb-4">Enroll Class <i class="fas fa-chalkboard-teacher"></i></h2>
-            <p style="color: red; font-size: 18px">${mess}</p>
+            <c:choose>
+                    <c:when test="${mess == 'Enroll successfull!'}">
+                    <p style="color: green; font-size: 18px; text-align: center">${mess}</p>
+                </c:when>
+                <c:otherwise>
+                    <p style="color: red; font-size: 18px; text-align: center">${mess}</p>
+                </c:otherwise>
+            </c:choose>
             <div class="table-responsive">
                 <table class="table table-bordered table-striped">
                     <thead>
