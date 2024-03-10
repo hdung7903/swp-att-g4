@@ -141,10 +141,6 @@
         <servlet-class>controller.admin.ManageAccountController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>CreateAccount</servlet-name>
-        <servlet-class>controller.admin.CreateAccountController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>AddClassController</servlet-name>
         <servlet-class>controller.academicStaff.AddClassController</servlet-class>
     </servlet>
@@ -249,10 +245,6 @@
         <servlet-class>controller.academicStaff.RemoveAssignSubjectController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>EditAccountController</servlet-name>
-        <servlet-class>controller.admin.EditAccountController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>TakeFeedbackController</servlet-name>
         <servlet-class>controller.student.TakeFeedbackController</servlet-class>
     </servlet>
@@ -267,6 +259,42 @@
     <servlet>
         <servlet-name>ViewStudentFeedbackController</servlet-name>
         <servlet-class>controller.academicStaff.ViewStudentFeedbackController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateAccountController</servlet-name>
+        <servlet-class>controller.admin.CreateAccountController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ApproveRegisController</servlet-name>
+        <servlet-class>controller.academicStaff.ApproveRegisController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ClassDetailsController</servlet-name>
+        <servlet-class>controller.academicStaff.ClassDetailsController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteClassController</servlet-name>
+        <servlet-class>controller.academicStaff.DeleteClassController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteRegistionController</servlet-name>
+        <servlet-class>controller.academicStaff.DeleteRegistionController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ListClassController</servlet-name>
+        <servlet-class>controller.academicStaff.ListClassController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RegistionController</servlet-name>
+        <servlet-class>controller.academicStaff.RegistionController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateClassController</servlet-name>
+        <servlet-class>controller.academicStaff.UpdateClassController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditAccountController</servlet-name>
+        <servlet-class>controller.admin.EditAccountController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>login</servlet-name>
@@ -461,10 +489,6 @@
         <url-pattern>/acad/removesub</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>EditAccountController</servlet-name>
-        <url-pattern>/acad/editacc</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>TakeFeedbackController</servlet-name>
         <url-pattern>/student/takefb</url-pattern>
     </servlet-mapping>
@@ -479,6 +503,42 @@
     <servlet-mapping>
         <servlet-name>ViewStudentFeedbackController</servlet-name>
         <url-pattern>/acad/viewfb</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateAccountController</servlet-name>
+        <url-pattern>/admin/createacc</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ApproveRegisController</servlet-name>
+        <url-pattern>/acad/approveregis</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ClassDetailsController</servlet-name>
+        <url-pattern>/acad/details</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteClassController</servlet-name>
+        <url-pattern>/acad/deleteclass</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteRegistionController</servlet-name>
+        <url-pattern>/acad/deleteregis</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListClassController</servlet-name>
+        <url-pattern>/acad/listclass</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegistionController</servlet-name>
+        <url-pattern>/acad/registion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateClassController</servlet-name>
+        <url-pattern>/acad/updateclass</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditAccountController</servlet-name>
+        <url-pattern>/admin/editacc</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

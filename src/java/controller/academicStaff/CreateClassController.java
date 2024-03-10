@@ -28,6 +28,7 @@ public class CreateClassController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
         String className = request.getParameter("classname");
         String link_url = request.getParameter("link_url");
 
@@ -42,7 +43,8 @@ public class CreateClassController extends HttpServlet {
             request.getRequestDispatcher("info").forward(request, response);
         } else {
             gdb.createClass(className, link_url);
-            response.sendRedirect(request.getServletContext().getContextPath() + "/acad/addStudent");
+            request.setAttribute("mess", "Create Class Success!");
+           request.getRequestDispatcher("info").forward(request, response);
         }
     } 
 

@@ -49,10 +49,11 @@ public class AddStudentController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+            String class_id = request.getParameter("id");
             GroupDBContext gdb = new GroupDBContext();
             StudentDBContext stuDB = new StudentDBContext();
 
-            Group gNewest = gdb.getClassNewset();
+            Group gNewest = gdb.getClassById(class_id);
             List<Student> listStu = stuDB.getAllStudent();
 
             request.setAttribute("gNew", gNewest);
@@ -74,16 +75,13 @@ public class AddStudentController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String[] stuIds = request.getParameterValues("stuId");
-
-        GroupDBContext gdb = new GroupDBContext();
-        Group gr = gdb.getClassNewset();
-        String class_id = gr.getId();
+        String class_id = request.getParameter("class_id");
 
         SCMDBContext scmDB = new SCMDBContext();
         for (String stu_id : stuIds) {
             scmDB.insertStuinClass(stu_id, class_id);
         }
-        response.sendRedirect(request.getServletContext().getContextPath() +"/acad/addInsAndSub");
+        response.sendRedirect(request.getServletContext().getContextPath() +"/acad/addInsAndSub?id=" + class_id);
     }
 
 

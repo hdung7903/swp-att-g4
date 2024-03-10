@@ -140,7 +140,7 @@
                                     <td>${student.email}</td>
                                     <td>
                                         <a href="${pageContext.request.contextPath}/acad/attreport?student_id=${student.id}" class="text-danger font-weight-bold">View Statistic</a>
-                                        / <a href="${pageContext.request.contextPath}/acad/viewfb?student_id=${student.id}" class="font-weight-bold">View FeedBack</a>
+                                        / <a href="${pageContext.request.contextPath}/acad/viewfb?student_id=${student.id}" class="font-weight-bold">View Feedback</a>
                                         <input type="hidden" name="student_id" value="${student.id}" />
                                     </td>
                                 </tr>

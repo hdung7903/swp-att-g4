@@ -38,28 +38,27 @@ public class InfoClassController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
         InstructorDBContext idb = new InstructorDBContext();
         SubjectDBContext sdb = new SubjectDBContext();
         GroupDBContext gdb = new GroupDBContext();
         StudentDBContext studb = new StudentDBContext();
-        
         try {
-            Group gNewest = gdb.getClassNewset();
             List<Instructor> listIns = idb.getAllInstructor();
             List<Subject> listSub = sdb.getAllSubject();
             List<Group> listG = gdb.getAllClass();
             List<Student> listStu = studb.getAllStudent();
+            
             request.setAttribute("listIns", listIns);
             request.setAttribute("listSub", listSub);
             request.setAttribute("listG", listG);
             request.setAttribute("listStu", listStu);
-            request.setAttribute("gNewest", gNewest);
-            request.getSession().getAttribute("messAddStu");
             
             request.getRequestDispatcher("../academicStaff/createClass.jsp").forward(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(InfoClassController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

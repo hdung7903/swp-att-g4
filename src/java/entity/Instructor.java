@@ -5,7 +5,7 @@
 package entity;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 
 /**
  *
@@ -49,8 +49,11 @@ public class Instructor extends BaseEntity {
         this.name = name;
         this.username = username;
     }
-    
-    
+
+    public Instructor(String id, String name) {
+        this.id = id;
+        this.name = name;
+    }    
     
     public Instructor(String name){
         this.name=name;

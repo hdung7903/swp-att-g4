@@ -94,8 +94,7 @@
                             <div class="col-2">${acc.getUsername()}</div>
                             <div class="col-1">${acc.getRole_id()==1?'Academic Staff':'Admin'}</div>
                             <div class="col-3">
-                                <div class="d-flex">
-                                    <a href="" class="btn btn-info text-white border px-3 py-2 text-decoration-none mx-2">Update</a>
+                                <div class="d-flex">                             
                                     <a href="manageacc?action=deletedRule&username=${acc.getUsername()}" class="btn btn-danger text-white border px-3 py-2 text-decoration-none">Delete</a>
                                 </div>
                             </div>
@@ -114,7 +113,7 @@
                             <div class="col-1">Student</div>
                             <div class="col-3">
                                 <div class="d-flex">
-                                    <a href="" class="btn btn-info text-white border px-3 py-2 text-decoration-none mx-2">Update</a>
+                                    <a href="editacc?username=${student.getUsername()}&role=stu" class="btn btn-info text-white border px-3 py-2 text-decoration-none mx-2">Update</a>
                                     <a href="manageacc?action=deletedRule&username=${student.getUsername()}" class="btn btn-danger text-white border px-3 py-2 text-decoration-none">Delete</a>
                                 </div>
                             </div>
@@ -133,7 +132,7 @@
                             <div class="col-1">Instructor</div>
                             <div class="col-3">
                                 <div class="d-flex">
-                                    <a href="" class="btn btn-info text-white border px-3 py-2 text-decoration-none mx-2">Update</a>
+                                    <a href="editacc?username=${instructor.getUsername()}&role=ins" class="btn btn-info text-white border px-3 py-2 text-decoration-none mx-2">Update</a>
                                     <a href="manageacc?action=deletedRule&username=${instructor.getUsername()}" class="btn btn-danger text-white border px-3 py-2 text-decoration-none">Delete</a>
                                 </div>
                             </div>

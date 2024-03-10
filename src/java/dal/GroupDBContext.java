@@ -35,7 +35,28 @@ public class GroupDBContext extends DBContext<Group> {
             System.out.println(e);
         }
     }
-
+    
+     public Group getClassById(String class_id) {
+        String sql = "SELECT * FROM class where class_id = ?;";
+        Group group = null;
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, class_id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                group = new Group(
+                        rs.getString("class_id"),
+                        rs.getString("class_name"),
+                        rs.getString("link_url")
+                );
+                return group;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return group;
+    }
+     
     public void insertClass(String class_id, String subject_id, String slot, String instructor_id) {
         try {
             String sql = "INSERT INTO Class_subject_mapping (class_id, subject_id, total_slots, instructor_id) VALUES (?,?,?,?);";

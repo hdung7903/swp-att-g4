@@ -14,6 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -75,6 +76,120 @@ public class GSMDBContext extends DBContext<GroupSubjectMapping> {
         }
         return false;
     }
+
+    public List<GroupSubjectMapping> getAllClassbyClassId(String class_id) {
+        List<GroupSubjectMapping> listGSM = new ArrayList<>();
+        String sql = "SELECT csm_id, total_slots, i.instructor_name, i.instructor_id, c.class_name, c.class_id, c.link_url, su.subject_name, su.subject_id\n"
+                + "FROM class_subject_mapping csm \n"
+                + "LEFT JOIN instructor i ON i.instructor_id = csm.instructor_id\n"
+                + "INNER JOIN class c ON c.class_id = csm.class_id\n"
+                + "INNER JOIN subject su ON su.subject_id = csm.subject_id\n"
+                + "WHERE c.class_id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, class_id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("csm_id");
+                int slots = rs.getInt("total_slots");
+                String instructorId = rs.getString("instructor_id");
+                String instructorName = rs.getString("instructor_name");
+                String classId = rs.getString("class_id");
+                String className = rs.getString("class_name");
+                String linkUrl = rs.getString("link_url");
+                String subjectId = rs.getString("subject_id");
+                String subjectName = rs.getString("subject_name");
+
+                Instructor instructor = new Instructor(instructorId, instructorName);
+                Group group = new Group(classId, className, linkUrl);
+                Subject subject = new Subject(subjectId, subjectName);
+
+                GroupSubjectMapping gsm = new GroupSubjectMapping(id, group, subject, instructor, slots);
+
+                listGSM.add(gsm);
+            }
+            return listGSM;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public GroupSubjectMapping getClassByCsmId(String csm_id) {
+        String sql = "Select  csm_id, i.instructor_name,i.instructor_id, c.class_name, c.class_id, su.subject_name, su.subject_id, total_slots from class_subject_mapping csm \n"
+                + " LEFT JOIN instructor i on i.instructor_id = csm.instructor_id\n"
+                + " inner join class c on c.class_id = csm.class_id\n"
+                + " inner join subject su on su.subject_id = csm.subject_id\n"
+                + " Where csm_id = ?;";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, csm_id);
+            ResultSet rs = st.executeQuery();
+            GroupSubjectMapping gsm = new GroupSubjectMapping();
+            while (rs.next()) {
+
+                Instructor instructor = new Instructor();
+                Group group = new Group();
+                Subject subject = new Subject();
+
+                int id = rs.getInt("csm_id");
+                int slots = rs.getInt("total_slots");
+                instructor.setId(rs.getString("instructor_id"));
+                instructor.setName(rs.getString("instructor_name"));
+                group.setId(rs.getString("class_id"));
+                group.setName(rs.getString("class_name"));
+                subject.setId(rs.getString("subject_id"));
+                subject.setName(rs.getString("subject_name"));
+
+                gsm.setInstructor(instructor);
+                gsm.setGroup(group);
+                gsm.setSubject(subject);
+                gsm.setTotal_slots(slots);
+                gsm.setId(id);
+            }
+            return gsm;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+    
+    public void updateClass(GroupSubjectMapping gsm) {
+        try {
+            String sql = "UPDATE class_subject_mapping SET total_slots = ?, instructor_id = ? WHERE csm_id = ?;";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, gsm.getTotal_slots());
+            ps.setString(2, String.valueOf(gsm.getInstructor().getId()));
+            ps.setInt(3, gsm.getId());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+    
+    public void insertClass(String class_id, String subject_id, String slot) {
+        try {
+            String sql = "INSERT INTO Class_subject_mapping (class_id, subject_id, total_slots) VALUES (?,?,?);";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, class_id);
+            ps.setString(2, subject_id);
+            ps.setString(3, slot);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
+    public void deleteClass(String csm_id) {
+        try {
+            String sql = "DELETE FROM Class_subject_mapping WHERE csm_id = ?;";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, csm_id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
     
     public ArrayList<GroupSubjectMapping> getGroupbyInstructor(String instructor_id) {
         ArrayList<GroupSubjectMapping> groups = new ArrayList<>();
@@ -111,7 +226,7 @@ public class GSMDBContext extends DBContext<GroupSubjectMapping> {
         }
         return groups;
     }
-    
+
     public ArrayList<StudentClassMapping> getStudentbyGroup(String class_id) {
         ArrayList<StudentClassMapping> students = new ArrayList<>();
         try {
@@ -142,7 +257,7 @@ public class GSMDBContext extends DBContext<GroupSubjectMapping> {
         }
         return students;
     }
-    
+
     public ArrayList<GroupSubjectMapping> getGSMbyId(String csm_id) {
         ArrayList<GroupSubjectMapping> groups = new ArrayList<>();
         try {
@@ -177,6 +292,7 @@ public class GSMDBContext extends DBContext<GroupSubjectMapping> {
         }
         return groups;
     }
+    
     
     @Override
     public ArrayList<GroupSubjectMapping> list() {

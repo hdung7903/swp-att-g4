@@ -30,9 +30,25 @@ public class GroupSubjectMapping extends BaseEntity {
         this.instructor = instructor;
         this.session = session;
     }
+
+    public GroupSubjectMapping(int id, Group group, Subject subject, int total_slots, Instructor instructor) {
+        this.id = id;
+        this.group = group;
+        this.subject = subject;
+        this.total_slots = total_slots;
+        this.instructor = instructor;
+    }
     
      public GroupSubjectMapping(int id) {
         this.id = id;
+    }
+
+    public GroupSubjectMapping(int id, Group group, Subject subject, Instructor instructor, int slots) {
+        this.id = id;
+        this.group = group;
+        this.subject = subject;
+        this.instructor = instructor;
+        this.total_slots=slots;
     }
      
     public int getId() {

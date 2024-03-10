@@ -35,7 +35,21 @@ public class SCMDBContext extends DBContext<StudentClassMapping> {
         }
     }
 
-     public ArrayList<StudentClassMapping> getGroupbyStudent(String student_id) {
+    public void approveRegis(String regis_id) {
+        try {
+            String sql = "INSERT INTO student_class_mapping (student_id, class_id)\n" +
+"                         SELECT student_id, class_id\n" +
+"                         FROM registion\n" +
+"                         WHERE regis_id = ?;";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, regis_id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
+    public ArrayList<StudentClassMapping> getGroupbyStudent(String student_id) {
         ArrayList<StudentClassMapping> groups = new ArrayList<>();
         try {
             String sql = "SELECT stu.student_id, stu.student_name, stu.email, c.class_id, su.subject_name, c.class_name, i.instructor_name, csm.csm_id\n"
@@ -77,8 +91,8 @@ public class SCMDBContext extends DBContext<StudentClassMapping> {
         }
         return groups;
     }
-    
-     public ArrayList<StudentClassMapping> getStudentbyGroup(String class_id) {
+
+    public ArrayList<StudentClassMapping> getStudentbyGroup(String class_id) {
         ArrayList<StudentClassMapping> students = new ArrayList<>();
         try {
             String sql = "SELECT stu.student_id, stu.student_name, stu.email, c.class_id\n"

@@ -61,8 +61,8 @@
                                 <a href="#" class="list-group-item list-group-item-action feature-link">
                                     <i class="fa-solid fa-envelope"></i> List Application
                                 </a>
-                                <a href="#" class="list-group-item list-group-item-action feature-link">
-                                    <i class="fa-solid fa-list-check"></i> View Application
+                                <a href="registion" class="list-group-item list-group-item-action feature-link">
+                                    <i class="fa-solid fa-list-check"></i> Student Request
                                 </a>
                             </div>
                         </div>

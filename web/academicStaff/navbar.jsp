@@ -53,11 +53,8 @@
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/acad/home" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Home"><i class="fa-solid fa-house"></i> Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="${pageContext.request.contextPath}/acad/info" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Create Class"><i class="fa-regular fa-calendar"></i> Create Class</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/acad/deleteClass" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Attendance"><i class="fa-solid fa-calendar-check"></i> Delete Class</a>
+                        <li class="nav-item mx-3">
+                            <a class="nav-link" href="listclass"><i class="bi bi-card-checklist"></i> Manage Class</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="${pageContext.request.contextPath}/acad/searchstu" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Search Student"><i class="fa-solid fa-chart-bar"></i> Search Student</a>

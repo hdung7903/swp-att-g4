@@ -61,8 +61,8 @@ public class AccountDBContext extends DBContext<Account> {
         }
         return acc;
     }
-    
-     public Account ValidateAccountByEmailAndUsername(String userName, String email) {
+
+    public Account ValidateAccountByEmailAndUsername(String userName, String email) {
         String sql = "Select * from Account where username = ? and email = ?";
         Account acc = null;
         try {
@@ -70,13 +70,13 @@ public class AccountDBContext extends DBContext<Account> {
             st.setString(1, userName);
             st.setString(2, email);
             ResultSet rs = st.executeQuery();
-            while (rs.next()) {                
+            while (rs.next()) {
                 acc = new Account(
                         rs.getString("username"),
                         rs.getString("password"),
                         rs.getInt("role_id"),
                         rs.getString("email")
-                        );
+                );
                 return acc;
             }
         } catch (SQLException e) {
@@ -213,8 +213,7 @@ public class AccountDBContext extends DBContext<Account> {
         Vector<Student> list = new Vector<>();
         try {
             String sql = "SELECT * FROM Account A\n"
-                    + "JOIN Student S ON S.username = A.username\n"
-                    + "WHERE 1=1\n";
+                    + "JOIN Student S ON S.username = A.username\n";
             if (isDeletedRule) {
                 sql += " AND S.isDeleted = 1";
             } else {
@@ -246,7 +245,7 @@ public class AccountDBContext extends DBContext<Account> {
         Vector<Instructor> list = new Vector<>();
         try {
             String sql = "Select * from account A\n"
-                    + "Join instructor I on I.username = A.username where 1=1\n";
+                    + "Join instructor I on I.username = A.username\n";
             if (isDeletedRule) {
                 sql += " AND I.isDeleted = 1";
             } else {
@@ -479,6 +478,54 @@ public class AccountDBContext extends DBContext<Account> {
             System.out.println(ex);
         }
         return list;
+    }
+
+    public void updateStudent(Student student) {
+        String sql = "UPDATE student s\n"
+                + "INNER JOIN account acc ON acc.username = s.username\n"
+                + "SET\n"
+                + " s.student_name = ?,\n"
+                + " s.email = ?,\n"
+                + " s.dob = ?,\n"
+                + " s.gender = ?,\n"
+                + " acc.email = ?\n"
+                + "WHERE s.username = ?;";
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, student.getName());
+            stm.setString(2, student.getEmail());
+            stm.setDate(3, student.getDob());
+            stm.setBoolean(4, student.isGender());
+            stm.setString(5, student.getEmail());
+            stm.setString(6, student.getUsername());
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+    }
+
+    public void updateInstructor(Instructor instructor) {
+        String sql = "UPDATE instructor i\n"
+                + "INNER JOIN account acc ON acc.username = i.username\n"
+                + "SET\n"
+                + " i.instructor_name = ?,\n"
+                + " i.email = ?,\n"
+                + " i.dob = ?,\n"
+                + " i.gender = ?,\n"
+                + " acc.email = ?\n"
+                + "WHERE i.username = ?;";
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, instructor.getName());
+            stm.setString(2, instructor.getEmail());
+            stm.setDate(3, instructor.getDob());
+            stm.setBoolean(4, instructor.isGender());
+            stm.setString(5, instructor.getEmail());
+            stm.setString(6, instructor.getUsername());
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
     }
 
     @Override
