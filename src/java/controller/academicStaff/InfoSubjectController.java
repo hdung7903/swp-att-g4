@@ -5,19 +5,23 @@
 
 package controller.academicStaff;
 
-import dal.GroupDBContext;
-import entity.Group;
+import dal.SubjectDBContext;
+import entity.Subject;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Administrator
  */
-public class CreateClassController extends HttpServlet {
+public class InfoSubjectController extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -28,23 +32,13 @@ public class CreateClassController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        String className = request.getParameter("classname");
-        String link_url = request.getParameter("link_url");
-
-        GroupDBContext gdb = new GroupDBContext();
-        Group gName = gdb.checkClassExist(className);
-        Group gMeet = gdb.checkMeetExist(link_url);
-        if (gName != null) {
-            request.setAttribute("mess", "Class name exist!");
-            request.getRequestDispatcher("info").forward(request, response);
-        } else if (gMeet != null) {
-            request.setAttribute("mess", "Link Meet exist in another class!");
-            request.getRequestDispatcher("info").forward(request, response);
-        } else {
-            gdb.createClass(className, link_url);
-            request.setAttribute("mess", "Create Class Success!");
-           request.getRequestDispatcher("info").forward(request, response);
+       SubjectDBContext subDB = new SubjectDBContext();
+        try {
+            List<Subject> listSub = subDB.getAllSubject();
+            request.setAttribute("listSub", listSub);
+            request.getRequestDispatcher("../academicStaff/insertSubject.jsp").forward(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(SubjectController.class.getName()).log(Level.SEVERE, null, ex);
         }
     } 
 
@@ -59,7 +53,7 @@ public class CreateClassController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+         processRequest(request, response);
     } 
 
     /** 

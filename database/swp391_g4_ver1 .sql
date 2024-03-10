@@ -13,7 +13,7 @@ CREATE TABLE Account (
     password VARCHAR(150) NOT NULL,
     role_id INT NOT NULL,
     email varchar(50),
-    PRIMARY KEY (username),
+    PRIMARY KEY (username), 
     FOREIGN KEY (role_id) REFERENCES Role (role_id)
 );
 
@@ -33,9 +33,12 @@ CREATE TABLE registion (
 );
 
 
-insert into resgistion (class_id, student_id)
+insert into registion (class_id, student_id)
 values
-('1','1');
+('39','1'),
+('39','2'),
+('30','2'),
+('30','1');
 
 CREATE TABLE subject_instructor_mapping (
     sim_id int NOT NULL auto_increment,

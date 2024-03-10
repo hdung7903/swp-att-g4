@@ -65,7 +65,10 @@
                                     <i class="fa-solid fa-list-check"></i> Application Status
                                 </a>
                                 <a href="registion" class="list-group-item list-group-item-action feature-link">
-                                    <i class="fa-solid fa-list-check"></i> Student Resquest
+                                    <i class="fa-solid fa-list-check"></i> Student Request
+                                </a>
+                                <a href="subject" class="list-group-item list-group-item-action feature-link">
+                                    <i class="fa-solid fa-list-check"></i> Manage Subject
                                 </a>
                             </div>
                         </div>

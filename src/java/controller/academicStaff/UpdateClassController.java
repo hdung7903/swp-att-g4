@@ -96,6 +96,8 @@ public class UpdateClassController extends HttpServlet {
         String csm_id_raw = request.getParameter("csm_id");
         String instructor_id = request.getParameter("ins");
         String slots = request.getParameter("total_slots");
+        String instructor_Name = request.getParameter("name");
+        
         int slot = Integer.parseInt(slots);
         int csm_id = Integer.parseInt(csm_id_raw);
 
@@ -103,7 +105,7 @@ public class UpdateClassController extends HttpServlet {
         GroupSubjectMapping gsm = new GroupSubjectMapping();
 
         gsm.setId(csm_id);
-        gsm.setInstructor(new Instructor(instructor_id));
+        gsm.setInstructor(new Instructor(instructor_id, instructor_Name));
         gsm.setTotal_slots(slot);
 
         gsmDB.updateClass(gsm);

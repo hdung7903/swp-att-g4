@@ -1,7 +1,7 @@
 <%-- 
-    Document   : manageclass
-    Created on : Mar 4, 2024, 9:10:32 PM
-    Author     : leduy
+    Document   : listResByClass
+    Created on : Mar 10, 2024, 3:36:51 AM
+    Author     : Administrator
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -10,12 +10,6 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <style>
-             .container-fluid{
-                margin: 0!important;
-                padding: 0!important;
-            }
-        </style>
     </head>
     <body>
         <h1>Hello World!</h1>

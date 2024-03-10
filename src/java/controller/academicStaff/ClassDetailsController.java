@@ -6,11 +6,7 @@
 package controller.academicStaff;
 
 import dal.GSMDBContext;
-import dal.SIMDBContext;
-import dal.SubjectDBContext;
 import entity.GroupSubjectMapping;
-import entity.Subject;
-import entity.SubjectInstructorMapping;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
