@@ -69,7 +69,7 @@ public class GSMDBContext extends DBContext<GroupSubjectMapping> {
                     + "LEFT JOIN Student_class_mapping scm ON scm.class_id = csm.class_id\n"
                     + "WHERE su.subject_name = ?\n"
                     + "GROUP BY c.class_id, c.class_name, su.subject_name, su.subject_id, csm.csm_id\n"
-                    + "HAVING COUNT(scm.student_id) < 15;";
+                    + "HAVING COUNT(scm.student_id) < 20;";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setString(1, subject_name);
             ResultSet rs = stm.executeQuery();

@@ -24,19 +24,47 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Admin
+ * @author leduy
  */
 public class ClassRegistrationController extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    private boolean submitted = false;
+
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        String student_id = (String) session.getAttribute("accountId");
+        String class_id = request.getParameter("class_id");
+        String subject_name = request.getParameter("subject_name");
+
+        GSMDBContext Id = new GSMDBContext();
+        int cms_id = Id.getGSM_Id(subject_name, class_id);
+        SessionDBContext gdb = new SessionDBContext();
+        Session gName = gdb.checkClassStart(cms_id);
+        SCMDBContext list = new SCMDBContext();
+        StudentClassMapping gStudent = list.checkStudentExist(class_id, student_id);
+        RegistionDBContext rdb = new RegistionDBContext();
+        Registion rCheck = rdb.checkStudentExist(class_id, student_id);
+
+        Registion enroll = new Registion();
+        enroll.setStudent(new Student(student_id));
+        enroll.setGroup(new Group(class_id));
+
+        if (gName != null) {
+            request.setAttribute("mess", "The class has started!!");
+        } else if (gStudent != null) {
+            request.setAttribute("mess", "You has been in the class!");
+        } else if (rCheck != null) {
+            request.setAttribute("mess", "You have registered for this class!");
+        } else {
+            rdb.enrollClass(enroll);
+            request.setAttribute("mess", "Register successfull!");
+        }
+        submitted = true;
+//        response.sendRedirect(request.getContextPath() + "/student/enroll");
+        request.getRequestDispatcher("../student/enrollClass.jsp").forward(request, response);
+    }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -75,36 +103,7 @@ public class ClassRegistrationController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        String student_id = (String) session.getAttribute("accountId");
-        String class_id = request.getParameter("class_id");
-        String subject_name = request.getParameter("subject_name");
-
-        GSMDBContext Id = new GSMDBContext();
-        int cms_id = Id.getGSM_Id(subject_name, class_id);
-        SessionDBContext gdb = new SessionDBContext();
-        Session gName = gdb.checkClassStart(cms_id);
-        SCMDBContext list = new SCMDBContext();
-        StudentClassMapping gStudent = list.checkStudentExist(class_id, student_id);
-        RegistionDBContext rdb = new RegistionDBContext();
-        Registion rCheck = rdb.checkStudentExist(class_id, student_id);
-
-        Registion enroll = new Registion();
-        enroll.setStudent(new Student(student_id));
-        enroll.setGroup(new Group(class_id));
-        RegistionDBContext sdb = new RegistionDBContext();
-
-        if (gName != null) {
-            request.setAttribute("mess", "The class has started!!");
-        } else if (gStudent != null) {
-            request.setAttribute("mess", "You has been in the class!");
-        } else if (rCheck != null) {
-            request.setAttribute("mess", "You have registered for this class!");
-        } else {
-            sdb.enrollClass(enroll);
-            request.setAttribute("mess", "Register successfull!");
-        }
-        request.getRequestDispatcher("../student/enrollClass.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**
