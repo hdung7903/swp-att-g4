@@ -22,7 +22,7 @@ public abstract class DBContext<T extends BaseEntity> {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            String url = "jdbc:mysql://localhost:3306/swp391_g4_ver1"; 
+            String url = "jdbc:mysql://localhost:3306/swp_ver2"; 
             String user = "admin";
             String password = "12345";
 

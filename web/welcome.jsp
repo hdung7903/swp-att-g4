@@ -59,7 +59,7 @@
                 <div class="collapse navbar-collapse justify-content-end me-4" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="btn btn-primary" href="login.jsp"><i class="bi bi-box-arrow-in-left"></i> Log in</a>
+                            <a class="btn btn-primary" href="login-page"><i class="bi bi-box-arrow-in-left"></i> Log in</a>
                         </li>
                     </ul>
                 </div>

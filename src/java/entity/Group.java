@@ -12,34 +12,41 @@ import java.util.ArrayList;
  */
 public class Group extends BaseEntity {
     private String id;
-    private String class_name;
+    private String name;
     private String link_url;
     private ArrayList<Session> sessions = new ArrayList<>();
     private GroupSubjectMapping gsm;
     private Subject subject;
+    private Student student;
 
     public Group() {
     }
 
-    public Group(String id, String class_name, String link_url) {
-        this.id = id;
-        this.class_name = class_name;
+    public Group(String name, String link_url) {
+        this.name = name;
         this.link_url = link_url;
     }
 
-    public Group(String class_name, String link_url) {
-        this.class_name = class_name;
+    public Group(String id, String name, String link_url) {
+        this.id = id;
+        this.name = name;
         this.link_url = link_url;
     }
 
-    public Group(String id, String class_name, String link_url, GroupSubjectMapping gsm, Subject subject) {
+    public Group(String id, String name, String link_url, GroupSubjectMapping gsm, Subject subject, Student student) {
         this.id = id;
-        this.class_name = class_name;
+        this.name = name;
         this.link_url = link_url;
         this.gsm = gsm;
         this.subject = subject;
+        this.student = student;
     }
 
+    
+    public Group(String id) {
+        this.id = id;
+    }
+    
     public String getId() {
         return id;
     }
@@ -48,13 +55,13 @@ public class Group extends BaseEntity {
         this.id = id;
     }
 
-    public String getClass_name() {
-        return class_name;
+    public String getName() {
+        return name;
     }
 
-    public void setClass_name(String class_name) {
-        this.class_name = class_name;
-    }
+    public void setName(String name) {
+        this.name = name;
+    }    
 
     public String getLink_url() {
         return link_url;
@@ -88,6 +95,13 @@ public class Group extends BaseEntity {
         this.subject = subject;
     }
 
-    
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
     
 }

@@ -24,15 +24,6 @@ public class Attendance extends BaseEntity {
     public Attendance() {
     }
 
-    public Attendance(Session session, Student student, boolean status, Group group, String description, Date datetime) {
-        this.session = session;
-        this.student = student;
-        this.status = status;
-        this.group = group;
-        this.description = description;
-        this.datetime = datetime;
-    }
-    
     public Attendance(Session session, Student student, boolean status, Group group, String description, Date datetime, Instructor instructor, TimeSlot timeslot) {
         this.session = session;
         this.student = student;

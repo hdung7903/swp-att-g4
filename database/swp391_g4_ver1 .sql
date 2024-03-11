@@ -8,6 +8,12 @@ CREATE TABLE Role (
     PRIMARY KEY (role_id)
 );
 
+CREATE TABLE Feedback (
+    role_id INT NOT NULL,
+    role_name VARCHAR(150) NOT NULL,
+    PRIMARY KEY (role_id)
+);
+
 CREATE TABLE Account (
     username VARCHAR(150) NOT NULL,
     password VARCHAR(150) NOT NULL,

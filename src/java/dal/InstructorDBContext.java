@@ -13,12 +13,12 @@ import java.util.List;
 
 /**
  *
- * @author Administrator
+ * @author leduy
  */
 public class InstructorDBContext extends DBContext<Instructor> {
     public List<Instructor> getAllInstructor() throws SQLException{
         List<Instructor> list = new ArrayList<>();
-        String sql = "";
+        String sql = "SELECT * FROM instructor";
         try{
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -32,7 +32,6 @@ public class InstructorDBContext extends DBContext<Instructor> {
         }     
         return list;    
     }
-    
     @Override
     public ArrayList<Instructor> list() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

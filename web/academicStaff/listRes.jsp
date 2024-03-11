@@ -5,14 +5,17 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Class list</title>
+        <!-- Bootstrap 5 CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Font Awesome Icons -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
         <style>
             body {
                 background-color: #f8f9fa;
@@ -60,21 +63,21 @@
                 max-width: 50px;
                 max-height: 50px;
             }
-            .pagination{
+            .pagination {
                 display: inline-block;
             }
-            .pagination a{
+            .pagination a {
                 color: black;
                 font-size: 22px;
                 float: left;
                 padding: 8px 16px;
                 text-decoration: none;
             }
-            .pagination a.active{
+            .pagination a.active {
                 background-color: #4a61e4;
                 color: white;
             }
-            .pagination a:hover:not(.active){
+            .pagination a:hover:not(.active) {
                 background-color: chocolate;
             }
         </style>
@@ -92,11 +95,24 @@
                     submitSearch();
                 }
             });
+
+            function doDelete(id) {
+                if (confirm("Are you sure you want to deny this requirement?")) {
+                    window.location = "deleteregis?id=" + id;
+                }
+            }
+
+            function doApprove(id, class_name, class_id, student_name, student_id) {
+                if (confirm("Are you sure you want to add " + student_name + " into " + class_name + "?")) {
+                    window.location = "approveregis?id=" + id + "&class_id=" + class_id + "&student_id=" + student_id;
+                }
+            }
         </script>
     </head>
     <body>
-        <%@include file="./navbar.jsp" %>
-        <div class="card">
+        <%@ include file="./navbar.jsp" %>
+        <div class="container">
+            <div class="card">
                 <h2 class="card-title">Entry requirements</h2>
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped">
@@ -110,36 +126,27 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <c:forEach items="${requestScope.listRes}" var="listRes" >
+                            <c:forEach items="${requestScope.listRes}" var="listRes">
                                 <tr class="text-center">
                                     <td>${listRes.group.id}</td>
-                                    <td>${listRes.group.class_name}</td>
+                                    <td>${listRes.group.name}</td>
                                     <td>${listRes.student.id}</td>
                                     <td>${listRes.student.name}</td>
                                     <td>
-                                        <a class="me-3" href="#"  onclick="doApprove('${listRes.id}',  '${listRes.group.class_name}',  '${listRes.group.id}', '${listRes.student.name}', '${listRes.student.id}')">Approve</a>
-                                        <a class="ms-3" href="#" onclick="doDelete('${listRes.id}')">Denied</a>
+                                        <a class="me-3 text-decoration-none text-success" href="#" onclick="doApprove('${listRes.id}', '${listRes.group.name}', '${listRes.group.id}', '${listRes.student.name}', '${listRes.student.id}')">
+                                            <i class="fa-solid fa-circle-check" style="color: #00fa3e;"></i> Approve
+                                        </a>
+                                        <a class="ms-3 text-decoration-none text-danger" href="#" onclick="doDelete('${listRes.id}')">
+                                            <i class="fa-solid fa-circle-xmark" style="color: #ff0000;"></i> Deny
+                                        </a>
                                     </td>
                                 </tr>
-                                <script type="text/javascript">
-                                    function doDelete(id) {
-                                        if (confirm("Are you sure you want to denied this requirment?")) {
-                                            window.location = "deleteregis?id=" + id;
-                                        }
-                                    }
-                                </script>
-                                <script type="text/javascript">
-                                    function doApprove(id, class_name, class_id, student_name, student_id) {
-                                        if (confirm("Are you sure you want to add " + student_name + " into " + class_name + "?" )) {
-                                            window.location = "approveregis?id=" + id + "&class_id=" + class_id + "&student_id=" + student_id;
-                                        }
-                                    }
-                                </script>
                             </c:forEach>
                         </tbody>
                     </table>
-                        <a href="home">BACK TO HOME</a>
+                    <a href="home" class="text-decoration-none text-black"><i class="fas fa-home"></i> BACK TO HOME</a>
                 </div>
             </div>
+        </div>
     </body>
 </html>

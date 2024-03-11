@@ -1,60 +1,82 @@
-<!doctype html>
-<html>
-    <head>
-        <meta charset='utf-8'>
-        <meta name='viewport' content='width=device-width, initial-scale=1'>
-        <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-        <script type='text/javascript'
-        src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
-    </head>
-    <body>
-        <!-- Container containing all contents -->
-        <div class="container">
-            <div class="row">
-                <div class="row justify-content-center">
-                    <div class="col-md-6">
-                        <div class="text-center">
-                            <h1 style="margin-top: 20px">
-                                <strong>Reset Password</strong>
-                            </h1>
-                        </div>
-                        <div class="pt-3 pb-3">
-                            <form class="form-horizontal" action="newPassword" method="POST">
-                                <!-- User Name Input -->
-                                <div class="form-group row justify-content-center px-3">
-                                    <div class="col-9 px-0">
-                                        <input type="password" name="password" placeholder="New Password"
-                                               class="form-control border-info placeicon">
-                                    </div>
-                                </div>
-                                <!-- Password Input -->
-                                <div class="form-group row justify-content-center px-3">
-                                    <div class="col-9 px-0" style="margin-top: 10px">
-                                        <input type="password" name="confPassword"
-                                               placeholder="Confirm New Password"
-                                               class="form-control">
-                                    </div>
-                                </div>
-
-                                <!-- Log in Button -->
-                                <div class="form-group row justify-content-center">
-                                    <div class="col-2 px-3 mt-3">
-                                        <input type="submit" value="Reset"
-                                               class="btn btn-block btn-info">
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <title>Reset Password</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Custom Styles -->
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #f7f7f7;
+            padding-top: 5%;
+        }
+        .card {
+            border: none;
+            border-radius: 1rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .card-header {
+            background-color: #fff;
+            border-bottom: none;
+            color: #333;
+            font-weight: 700;
+        }
+        .card-body {
+            padding: 2rem;
+        }
+        .form-control {
+            border-radius: 0.5rem;
+            height: calc(3.25rem + 2px);
+        }
+        .btn-info {
+            border-radius: 0.5rem;
+            padding: 0.75rem 1.25rem;
+            font-weight: 600;
+        }
+        .icon {
+            color: #17a2b8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header text-center py-4">
+                        <i class="fa-solid fa-key fa-2x icon"></i>
+                        <h2>Reset Password</h2>
+                    </div>
+                    <div class="card-body">
+                        <form class="form-horizontal" action="newPassword" method="POST">
+                            <!-- New Password Input -->
+                            <div class="mb-3">
+                                <input type="password" name="password" placeholder="New Password" class="form-control" required>
+                            </div>
+                            <!-- Confirm New Password Input -->
+                            <div class="mb-3">
+                                <input type="password" name="confPassword" placeholder="Confirm New Password" class="form-control" required>
+                            </div>
+                            <!-- Reset Button -->
+                            <div class="d-grid">
+                                <input type="submit" value="Reset" class="btn btn-info">
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-        <script type='text/javascript'
-        src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js'></script>
-
-    </body>
-</html>
+    </div>
+    <!-- Bootstrap Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</body>

@@ -1,100 +1,106 @@
-<!doctype html>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
     <head>
         <meta charset='utf-8'>
         <meta name='viewport' content='width=device-width, initial-scale=1'>
-        <title>JSP Page</title>
+        <title>Password Recovery</title>
         <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-        <script type='text/javascript'
-        src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
         <style>
             body {
-                background-position: center;
-                background-color: #eee;
-                background-repeat: no-repeat;
-                background-size: cover;
-                color: #505050;
-                font-family: "Rubik", Helvetica, Arial, sans-serif;
-                font-size: 14px;
-                font-weight: normal;
-                line-height: 1.5;
-                text-transform: none
+                background-color: #f7f7f7;
+                color: #5a5a5a;
+                font-family: "Lato", sans-serif;
             }
 
-            .forgot {
-                background-color: #fff;
-                padding: 12px;
-                border: 1px solid #dfdfdf
+            .card {
+                border-radius: 8px;
+                border: none;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             }
 
-            .padding-bottom-3x {
-                padding-bottom: 72px !important
+            .card-header, .card-footer {
+                background-color: transparent;
+                border-bottom: 1px solid #eaeaea;
+                border-top: 1px solid #eaeaea;
+                color: #5a5a5a;
+                font-size: 1.1rem;
             }
 
-            .card-footer {
-                background-color: #fff
+            .btn-primary {
+                background-color: #0088cc;
+                border-color: #0088cc;
+                border-radius: 4px;
+                padding: 10px 25px;
+                font-weight: 500;
             }
 
-            .btn {
-                font-size: 13px
+            .btn-primary:hover {
+                background-color: #0077b3;
+                border-color: #0077b3;
             }
 
             .form-control:focus {
-                color: #495057;
-                background-color: #fff;
-                border-color: #76b7e9;
-                outline: 0;
-                box-shadow: 0 0 0 0px #28a745
+                border-color: #66afe9;
+                box-shadow: 0 0 0 0.2rem rgba(102, 175, 233, 0.5);
+            }
+
+            .form-text {
+                font-size: 0.85rem;
+            }
+
+            h2 {
+                font-weight: 700;
+                margin-bottom: 10px;
+            }
+
+            p.text-muted {
+                margin-bottom: 30px;
+            }
+
+            .fa-lock {
+                color: #0088cc;
             }
         </style>
     </head>
-    <body oncontextmenu='return false' class='snippet-body'>
-        <div class="container padding-bottom-3x mb-2 mt-5">
+    <body>
+        <div class="container py-5">
             <div class="row justify-content-center">
-                <div class="col-lg-8 col-md-10">
-                    <div class="forgot">
-                        <h2>Forgot your password?</h2>
-                        <p>Change your password in three easy steps. This will help you
-                            to secure your password!</p>
-                        <ol class="list-unstyled">
-                            <li><span class="text-primary text-medium">1. </span>Enter
-                                your username and email address below.</li>
-                            <li><span class="text-primary text-medium">2. </span>Our
-                                system will send you an OTP to your email</li>
-                            <li><span class="text-primary text-medium">3. </span>Enter the OTP on the 
-                                next page</li>
-                        </ol>
-                    </div>
-                    <form class="card mt-4" action="forgotPassword" method="POST">
+                <div class="col-md-8 col-lg-6">
+                    <div class="card">
+                        <div class="card-header text-center">
+                            <h2><i class="fa fa-lock me-2"></i>Password Recovery</h2>
+                            <p class="text-muted">Follow the steps below to reset your password.</p>
+                            <ol class="list-unstyled mb-4 text-start">
+                                <li><i class="fa fa-user text-primary me-2"></i>Enter your username and email address below.</li>
+                                <li><i class="fa fa-envelope text-primary me-2"></i>We'll send an OTP to your email.</li>
+                                <li><i class="fa fa-key text-primary me-2"></i>Use the OTP to set a new password.</li>
+                            </ol>
+                        </div>
                         <div class="card-body">
-                            <div class="form-group">
+                            <form action="forgotPassword" method="POST">
                                 <p style="color: red; font-size: 18px" >${requestScope.mess}</p>
-                                <label for="email-for-pass">Enter your username</label> <input
-                                    class="form-control" type="text" name="username" id="email-for-pass" required="">
-                                <label for="email-for-pass">Enter your email address</label> <input
-                                    class="form-control" type="text" name="email" id="email-for-pass" required=""><small
-                                    class="form-text text-muted">Enter the registered username, email address . Then we'll
-                                    email a OTP to this address.</small>
-                            </div>
+                                <div class="mb-3">
+                                    <label for="username" class="form-label">Username</label>
+                                    <input type="text" class="form-control" id="username" name="username" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email Address</label>
+                                    <input type="email" class="form-control" id="email" name="email" required>
+                                    <div class="form-text">Enter your registered email address to receive the OTP.</div>
+                                </div>
+                                <div class="card-footer d-flex justify-content-between">
+                                    <button type="submit" class="btn btn-primary">Get New Password</button>
+                                    <a href="${pageContext.request.contextPath}/login-page" class="btn btn-outline-secondary">Back to Login</a>
+                                </div>
+                            </form>
                         </div>
-                        <div class="card-footer">
-                            <button class="btn btn" style="background-color: blue; color: white" type="submit">Get New
-                                Password</button>
-                            <button class="btn btn-danger" type="submit">Back to
-                                Login</button>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
-        <script type='text/javascript'
-        src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js'></script>
-        <script type='text/javascript' src=''></script>
-        <script type='text/javascript' src=''></script>
-        <script type='text/Javascript'></script>
     </body>
 </html>

@@ -6,8 +6,6 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.5.3/js/bootstrap.bundle.min.js"></script>
-
         <style>
             .navbar-brand {
                 color: #fff;
@@ -56,27 +54,23 @@
                             <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/acad/home" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Home"><i class="fa-solid fa-house"></i> Home</a>
                         </li>
                         <li class="nav-item mx-3">
-                            <a class="nav-link" href="listclass"><i class="bi bi-card-checklist"></i> Manage Class</a>
+                            <a class="nav-link" href="listclass"><i class="fa-solid fa-clipboard-list"></i> Manage Class</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/acad/searchstu" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Search Student"><i class="fa-solid fa-chart-bar"></i> Search Student</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/acad/searchstu" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Search Student"><i class="fa-solid fa-magnifying-glass"></i> Search Student</a>
                         </li>
-
+                        <li class="nav-item">
+                            <a class="nav-link" href="${pageContext.request.contextPath}/acad/listNews" data-bs-toggle="tooltip" data-bs-placement="bottom" title="List News"><i class="fa-solid fa-newspaper"></i> List News</a>
+                        </li>
                     </ul>
-                    <div class="user-dropdown dropdown">
-                        <a class="d-flex align-items-center text-decoration-none dropdown-toggle me-4" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div class="user-profile d-flex align-items-center me-4">
+                        <a href="${pageContext.request.contextPath}/profile" class="text-decoration-none">
                             <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle me-2">
                             ${sessionScope.acc.username}
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/profile"><i class="fa-solid fa-user me-2"></i>Profile</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li>
-                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#logoutModal">
-                                    <i class="fa-solid fa-arrow-right-from-bracket me-2"></i>Sign out
-                                </a>
-                            </li>                        
-                        </ul>
+                        <a href="#" class="btn btn-outline-light ms-2" data-bs-toggle="modal" data-bs-target="#logoutModal">
+                            <i class="fas fa-arrow-right-from-bracket"></i> Sign out
+                        </a>
                     </div>
                 </div>
             </div>
@@ -88,4 +82,3 @@
         </script>
     </body>
 </html>
-

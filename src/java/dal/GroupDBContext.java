@@ -6,6 +6,9 @@ package dal;
 
 import entity.Group;
 import entity.GroupSubjectMapping;
+import entity.Instructor;
+import entity.Student;
+import entity.StudentClassMapping;
 import entity.Subject;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,9 +17,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+
 /**
  *
- * @author anhye
+ * @author leduy
  */
 public class GroupDBContext extends DBContext<Group> {
 
@@ -31,9 +35,9 @@ public class GroupDBContext extends DBContext<Group> {
             System.out.println(e);
         }
     }
-
-    public Group getClassById(String class_id) {
-        String sql = "SELECT * FROM swp391_g4_ver1.class where class_id = ?;";
+    
+     public Group getClassById(String class_id) {
+        String sql = "SELECT * FROM class where class_id = ?;";
         Group group = null;
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -52,10 +56,44 @@ public class GroupDBContext extends DBContext<Group> {
         }
         return group;
     }
+     
+    public void insertClass(String class_id, String subject_id, String slot, String instructor_id) {
+        try {
+            String sql = "INSERT INTO Class_subject_mapping (class_id, subject_id, total_slots, instructor_id) VALUES (?,?,?,?);";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, class_id);
+            ps.setString(2, subject_id);
+            ps.setString(3, slot);
+            ps.setString(4, instructor_id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
+    public Group getClassNewset() {
+        String sql = "SELECT * FROM class ORDER BY class_id DESC LIMIT 1;";
+        Group group = null;
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                group = new Group(
+                        rs.getString("class_id"),
+                        rs.getString("class_name"),
+                        rs.getString("link_url")
+                );
+                return group;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return group;
+    }
 
     public List<Group> getAllClass() throws SQLException {
         List<Group> list = new ArrayList<>();
-        String sql = "SELECT * FROM swp391_g4_ver1.class ORDER by class_name;";
+        String sql = "SELECT * FROM class;";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -110,11 +148,12 @@ public class GroupDBContext extends DBContext<Group> {
         return group;
     }
 
-    public static void main(String[] args) {
-        GroupDBContext dbd = new GroupDBContext();
-        Group g=dbd.checkClassExist("SE1767");
-        System.out.println(g.getClass_name());
-    }
+    
+
+    
+
+    
+
     @Override
     public ArrayList<Group> list() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -139,7 +178,7 @@ public class GroupDBContext extends DBContext<Group> {
     public Group get(Group entity) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
+
     public ArrayList<Group> getInstructorGroup(String iid) {
         ArrayList<Group> groups = new ArrayList<>();
         try {
@@ -152,7 +191,7 @@ public class GroupDBContext extends DBContext<Group> {
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 Group g = new Group();
-                g.setClass_name(rs.getString("class_name"));
+                g.setName(rs.getString("class_name"));
                 g.setId(rs.getString("class_id"));
                 GroupSubjectMapping gsm = new GroupSubjectMapping();
                 gsm.setId(rs.getInt("csm_id"));
@@ -168,7 +207,7 @@ public class GroupDBContext extends DBContext<Group> {
     public ArrayList<Group> getStudentGroup(String stuid) {
         ArrayList<Group> groups = new ArrayList<>();
         try {
-            String sql = "SELECT su.subject_name,c.class_name,csm.csm_id\n"
+            String sql = "SELECT su.subject_name,c.class_name,csm.csm_id,s.student_id, s.student_name \n"
                     + "FROM class_subject_mapping csm\n"
                     + "INNER JOIN class c ON c.class_id=csm.class_id\n"
                     + "INNER JOIN subject su ON su.subject_id=csm.subject_id \n"
@@ -180,13 +219,17 @@ public class GroupDBContext extends DBContext<Group> {
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 Group g = new Group();
-                g.setClass_name(rs.getString("class_name"));
+                g.setName(rs.getString("class_name"));
                 GroupSubjectMapping gsm = new GroupSubjectMapping();
                 gsm.setId(rs.getInt("csm_id"));
                 g.setGsm(gsm);
                 Subject subject = new Subject();
                 subject.setName(rs.getString("subject_name"));
                 g.setSubject(subject);
+                Student student = new Student();
+                student.setId(rs.getString("student_id"));
+                student.setName(rs.getString("student_name"));
+                g.setStudent(student);
                 groups.add(g);
             }
         } catch (SQLException ex) {

@@ -61,8 +61,8 @@ public class AccountDBContext extends DBContext<Account> {
         }
         return acc;
     }
-    
-     public Account ValidateAccountByEmailAndUsername(String userName, String email) {
+
+    public Account ValidateAccountByEmailAndUsername(String userName, String email) {
         String sql = "Select * from Account where username = ? and email = ?";
         Account acc = null;
         try {
@@ -70,13 +70,13 @@ public class AccountDBContext extends DBContext<Account> {
             st.setString(1, userName);
             st.setString(2, email);
             ResultSet rs = st.executeQuery();
-            while (rs.next()) {                
+            while (rs.next()) {
                 acc = new Account(
                         rs.getString("username"),
                         rs.getString("password"),
                         rs.getInt("role_id"),
                         rs.getString("email")
-                        );
+                );
                 return acc;
             }
         } catch (SQLException e) {
@@ -87,10 +87,10 @@ public class AccountDBContext extends DBContext<Account> {
 
     public boolean resetPassword(String email, String username, String newPassword) {
         boolean success = false;
-        String sql = """
-                     UPDATE `swp`.`account`
-                     SET `password` = ?
-                     WHERE `email` = ?AND `username`=?""";
+        String sql = "UPDATE `swp`.`account`\n"
+                + "SET `password` = ?\n"
+                + "WHERE `email` = ?"
+                + "AND `username`=?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, newPassword);
@@ -105,12 +105,11 @@ public class AccountDBContext extends DBContext<Account> {
     }
 
     public Account getAccountIdByUsername(String username) {
-        String sql = """
-                     SELECT s.student_id, i.instructor_id,s.email as student_email,i.email as instructor_email
-                     FROM Account acc 
-                     LEFT JOIN Student s ON s.username = acc.username 
-                     LEFT JOIN Instructor i ON i.username = acc.username 
-                     WHERE acc.username= ?""";
+        String sql = "SELECT s.student_id, i.instructor_id,s.email as student_email,i.email as instructor_email\n"
+                + "FROM Account acc \n"
+                + "LEFT JOIN Student s ON s.username = acc.username \n"
+                + "LEFT JOIN Instructor i ON i.username = acc.username \n"
+                + "WHERE acc.username= ?";
         Account acc = new Account();
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -142,11 +141,10 @@ public class AccountDBContext extends DBContext<Account> {
     public Instructor getIntructorByUserName(String username) {
         Instructor ins = null;
         try {
-            String sql = """
-                         Select i.instructor_id,i.instructor_name,i.username,i.email,i.dob,i.gender 
-                         from account a
-                         Join instructor i on i.username = a.username 
-                         where a.username = ?""";
+            String sql = "Select i.instructor_id,i.instructor_name,i.username,i.email,i.dob,i.gender \n"
+                    + "from account a\n"
+                    + "Join instructor i on i.username = a.username \n"
+                    + "where a.username = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setString(1, username);
             ResultSet rs = stm.executeQuery();
@@ -171,11 +169,10 @@ public class AccountDBContext extends DBContext<Account> {
     public Student getStudentByUserName(String username) {
         Student stu = null;
         try {
-            String sql = """
-                         Select s.student_id,s.student_name,s.username,s.email,s.dob,s.gender from Account a
-                         join Student s On s.username = a.username
-                         join Role r ON r.role_id = a.role_id 
-                         where a.username =?""";
+            String sql = "Select s.student_id,s.student_name,s.username,s.email,s.dob,s.gender from Account a\n"
+                    + "join Student s On s.username = a.username\n"
+                    + "join Role r ON r.role_id = a.role_id \n"
+                    + "where a.username =?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setString(1, username);
             ResultSet rs = stm.executeQuery();
@@ -197,10 +194,9 @@ public class AccountDBContext extends DBContext<Account> {
     }
 
     public boolean changePassword(String username, String newPassword) {
-        String sql = """
-                     UPDATE `swp`.`account`
-                     SET `password` = ?
-                     WHERE `username` = ?""";
+        String sql = "UPDATE `swp`.`account`\n"
+                + "SET `password` = ?\n"
+                + "WHERE `username` = ?";
         int haveChange = 0;
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -216,11 +212,8 @@ public class AccountDBContext extends DBContext<Account> {
     public Vector<Student> getAllStudent(String txtSearch, boolean isDeletedRule) {
         Vector<Student> list = new Vector<>();
         try {
-            String sql = """
-                         SELECT * FROM Account A
-                         JOIN Student S ON S.username = A.username
-                         WHERE 1=1
-                         """;
+            String sql = "SELECT * FROM Account A\n"
+                    + "JOIN Student S ON S.username = A.username\n";
             if (isDeletedRule) {
                 sql += " AND S.isDeleted = 1";
             } else {
@@ -251,10 +244,8 @@ public class AccountDBContext extends DBContext<Account> {
     public Vector<Instructor> getAllInstructor(String txtSearch, boolean isDeletedRule) {
         Vector<Instructor> list = new Vector<>();
         try {
-            String sql = """
-                         Select * from account A
-                         Join instructor I on I.username = A.username where 1=1
-                         """;
+            String sql = "Select * from account A\n"
+                    + "Join instructor I on I.username = A.username\n";
             if (isDeletedRule) {
                 sql += " AND I.isDeleted = 1";
             } else {
@@ -318,10 +309,9 @@ public class AccountDBContext extends DBContext<Account> {
             String username, String password,
             int role_id, String fullName, String email, String dob, int gender) {
         try {
-            String sql1 = """
-                          INSERT INTO account
-                          (username, password, role_id, email)
-                          VALUES (?, ?, ?, ?);""";
+            String sql1 = "INSERT INTO account\n"
+                    + "(username, password, role_id, email)\n"
+                    + "VALUES (?, ?, ?, ?);";
             PreparedStatement st1 = connection.prepareStatement(sql1);
             st1.setString(1, username);
             st1.setString(2, password);
@@ -331,29 +321,27 @@ public class AccountDBContext extends DBContext<Account> {
             if (rs > 0) {
                 String sql2 = "";
                 if (role_id == 3) {
-                    sql2 = """
-                           INSERT INTO instructor
-                           (instructor_id,
-                           instructor_name,
-                           username,
-                           email,
-                           dob,
-                           gender,
-                           isDeleted)
-                           VALUES
-                           (?,?,?,?,?,?,?);""";
+                    sql2 = "INSERT INTO instructor\n"
+                            + "(instructor_id,\n"
+                            + "instructor_name,\n"
+                            + "username,\n"
+                            + "email,\n"
+                            + "dob,\n"
+                            + "gender,\n"
+                            + "isDeleted)\n"
+                            + "VALUES\n"
+                            + "(?,?,?,?,?,?,?);";
                 } else if (role_id == 4) {
-                    sql2 = """
-                           INSERT INTO student
-                           (student_id,
-                           student_name,
-                           username,
-                           email,
-                           dob,
-                           gender,
-                           isDeleted)
-                           VALUES
-                           (?,?,?,?,?,?,?);""";
+                    sql2 = "INSERT INTO student\n"
+                            + "(student_id,\n"
+                            + "student_name,\n"
+                            + "username,\n"
+                            + "email,\n"
+                            + "dob,\n"
+                            + "gender,\n"
+                            + "isDeleted)\n"
+                            + "VALUES\n"
+                            + "(?,?,?,?,?,?,?);";
                 }
                 PreparedStatement st2 = connection.prepareStatement(sql2);
                 st2.setString(1, id);
@@ -464,19 +452,18 @@ public class AccountDBContext extends DBContext<Account> {
 
     public Vector<Account> getResultSet() {
         Vector<Account> list = new Vector<>();
-        String sql = """
-                     SELECT 
-                         a.username,
-                         a.password,
-                         r.role_name
-                     FROM 
-                         account a
-                     INNER JOIN 
-                         role r ON a.role_id = r.role_id
-                     LEFT JOIN 
-                         Student s ON a.role_id = 4 AND a.role_id = s.username
-                     LEFT JOIN 
-                         Instructor i ON a.role_id = 3 AND a.role_id = i.username""";
+        String sql = "SELECT \n"
+                + "    a.username,\n"
+                + "    a.password,\n"
+                + "    r.role_name\n"
+                + "FROM \n"
+                + "    account a\n"
+                + "INNER JOIN \n"
+                + "    role r ON a.role_id = r.role_id\n"
+                + "LEFT JOIN \n"
+                + "    Student s ON a.role_id = 4 AND a.role_id = s.username\n"
+                + "LEFT JOIN \n"
+                + "    Instructor i ON a.role_id = 3 AND a.role_id = i.username";
         try {
             PreparedStatement stm = connection.prepareStatement(sql);
             ResultSet rs = stm.executeQuery();
@@ -491,6 +478,60 @@ public class AccountDBContext extends DBContext<Account> {
             System.out.println(ex);
         }
         return list;
+    }
+
+    public void updateStudent(Student student) {
+        String sql = "UPDATE student s\n"
+                + "INNER JOIN account acc ON acc.username = s.username\n"
+                + "SET\n"
+                + " s.student_name = ?,\n"
+                + " s.email = ?,\n"
+                + " s.dob = ?,\n"
+                + " s.gender = ?,\n"
+                + " acc.email = ?\n"
+                + "WHERE s.username = ?;";
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, student.getName());
+            stm.setString(2, student.getEmail());
+            stm.setDate(3, student.getDob());
+            stm.setBoolean(4, student.isGender());
+            stm.setString(5, student.getEmail());
+            stm.setString(6, student.getUsername());
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+    }
+
+    public void updateInstructor(Instructor instructor) {
+        String sql = "UPDATE instructor i\n"
+                + "INNER JOIN account acc ON acc.username = i.username\n"
+                + "SET\n"
+                + " i.instructor_name = ?,\n"
+                + " i.email = ?,\n"
+                + " i.dob = ?,\n"
+                + " i.gender = ?,\n"
+                + " acc.email = ?\n"
+                + "WHERE i.username = ?;";
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, instructor.getName());
+            stm.setString(2, instructor.getEmail());
+            stm.setDate(3, instructor.getDob());
+            stm.setBoolean(4, instructor.isGender());
+            stm.setString(5, instructor.getEmail());
+            stm.setString(6, instructor.getUsername());
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+    }
+    
+    public static void main(String[] args) {
+        AccountDBContext acc = new AccountDBContext();
+        Account account = acc.ValidateAccount("staff", "123");
+        System.out.println(account);
     }
 
     @Override

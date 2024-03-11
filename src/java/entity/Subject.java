@@ -23,6 +23,10 @@ public class Subject extends BaseEntity {
         this.id = id;
         this.name = name;
     }
+    
+    public Subject(String name){
+        this.name=name;
+    }
 
     public String getId() {
         return id;

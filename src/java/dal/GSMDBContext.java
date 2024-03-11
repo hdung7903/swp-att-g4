@@ -20,36 +20,70 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Administrator
+ * @author leduy
  */
-public class GSMDBContext extends DBContext<GroupSubjectMapping>{
+public class GSMDBContext extends DBContext<GroupSubjectMapping> {
     
+     public ArrayList<GroupSubjectMapping> getGroupsbySubject(String subject_name) {
+        ArrayList<GroupSubjectMapping> groups = new ArrayList<>();
+        try {
+            String sql = "SELECT c.class_id, c.class_name, COUNT(scm.student_id) AS num_students,\n"
+                    + "       su.subject_name, su.subject_id, csm.csm_id\n"
+                    + "FROM Subject su \n"
+                    + "INNER JOIN Class_subject_mapping csm ON csm.subject_id = su.subject_id\n"
+                    + "INNER JOIN Class c ON c.class_id = csm.class_id\n"
+                    + "LEFT JOIN Student_class_mapping scm ON scm.class_id = csm.class_id\n"
+                    + "WHERE su.subject_name = ?\n"
+                    + "GROUP BY c.class_id, c.class_name, su.subject_name, su.subject_id, csm.csm_id\n"
+                    + "HAVING COUNT(scm.student_id) < 20;";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, subject_name);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                GroupSubjectMapping gsm = new GroupSubjectMapping();
+                gsm.setId(rs.getInt("csm_id"));
+                Subject subject = new Subject();
+                subject.setId(rs.getString("subject_id"));
+                subject.setName(rs.getString("subject_name"));
+                gsm.setSubject(subject);
+                Group group = new Group();
+                group.setId(rs.getString("class_id"));
+                group.setName(rs.getString("class_name"));
+                gsm.setGroup(group);
+                int numStudents = rs.getInt("num_students");
+                gsm.setTotalStudent(numStudents);
+                groups.add(gsm);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(GSMDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return groups;
+    }
+
     public GroupSubjectMapping getClassNewset() {
-        String sql = """
-                        Select csm_id, i.instructor_name,i.instructor_id, c.class_name, c.class_id, su.subject_name, su.subject_id from class_subject_mapping csm 
-                        inner join instructor i on i.instructor_id = csm.instructor_id
-                        inner join class c on c.class_id = csm.class_id
-                        inner join subject su on su.subject_id = csm.subject_id
-                        ORDER BY csm_id DESC LIMIT 1 ;
-                     """;
+        String sql = "   Select csm_id, i.instructor_name,i.instructor_id, c.class_name, c.class_id, su.subject_name, su.subject_id from class_subject_mapping csm\n"
+                + "   inner join instructor i on i.instructor_id = csm.instructor_id\n"
+                + "   inner join class c on c.class_id = csm.class_id\n"
+                + "   inner join subject su on su.subject_id = csm.subject_id\n"
+                + "   ORDER BY csm_id DESC LIMIT 1 ;\n";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             GroupSubjectMapping gsm = new GroupSubjectMapping();
             while (rs.next()) {
-                
+
                 Instructor instructor = new Instructor();
                 Group group = new Group();
                 Subject subject = new Subject();
-                
+
                 String csm_id = rs.getString("csm_id");
                 instructor.setId(rs.getString("instructor_id"));
                 instructor.setName(rs.getString("instructor_name"));
                 group.setId(rs.getString("class_id"));
-                group.setClass_name(rs.getString("class_name"));
+                group.setName(rs.getString("class_name"));
                 subject.setId(rs.getString("subject_id"));
                 subject.setName(rs.getString("subject_name"));
-                
+
                 gsm.setInstructor(instructor);
                 gsm.setGroup(group);
                 gsm.setSubject(subject);
@@ -60,75 +94,89 @@ public class GSMDBContext extends DBContext<GroupSubjectMapping>{
         }
         return null;
     }
-    
-    public List<GroupSubjectMapping> getAllClassbyClassId(String class_id) {
-    List<GroupSubjectMapping> listGSM = new ArrayList<>();
-    String sql = """
-                    SELECT csm_id, total_slots, i.instructor_name, i.instructor_id, c.class_name, c.class_id, c.link_url, su.subject_name, su.subject_id
-                    FROM class_subject_mapping csm 
-                    LEFT JOIN instructor i ON i.instructor_id = csm.instructor_id
-                    INNER JOIN class c ON c.class_id = csm.class_id
-                    INNER JOIN subject su ON su.subject_id = csm.subject_id
-                    WHERE c.class_id = ?
-                 """;
-    try {
-        PreparedStatement st = connection.prepareStatement(sql);
-        st.setString(1, class_id);
-        ResultSet rs = st.executeQuery();
-        while (rs.next()) {
-            int id = rs.getInt("csm_id");
-            int slots = rs.getInt("total_slots");
-            String instructorId = rs.getString("instructor_id");
-            String instructorName = rs.getString("instructor_name");
-            String classId = rs.getString("class_id");
-            String className = rs.getString("class_name");
-            String linkUrl = rs.getString("link_url");
-            String subjectId = rs.getString("subject_id");
-            String subjectName = rs.getString("subject_name");
 
-            Instructor instructor = new Instructor(instructorId, instructorName);
-            Group group = new Group(classId, className, linkUrl);
-            Subject subject = new Subject(subjectId, subjectName);
-
-            GroupSubjectMapping gsm = new GroupSubjectMapping(id, slots, instructor, group, subject);
-
-            listGSM.add(gsm);
+    public boolean checkSubjectExist(String class_id, String subject_id) {
+        String sql = "SELECT * FROM class_subject_mapping WHERE class_id = ? AND subject_id = ?";
+        try {
+            boolean subjectExists;
+            try ( PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.setString(1, class_id);
+                ps.setString(2, subject_id);
+                try ( ResultSet rs = ps.executeQuery()) {
+                    subjectExists = rs.next();
+                }
+            }
+            return subjectExists;
+        } catch (SQLException e) {
+            System.out.println(e);
         }
-        return listGSM;
-    } catch (SQLException e) {
-        e.printStackTrace();
+        return false;
     }
-    return null;
+
+    public List<GroupSubjectMapping> getAllClassbyClassId(String class_id) {
+        List<GroupSubjectMapping> listGSM = new ArrayList<>();
+        String sql = "SELECT csm_id, total_slots, i.instructor_name, i.instructor_id, c.class_name, c.class_id, c.link_url, su.subject_name, su.subject_id\n"
+                + "FROM class_subject_mapping csm \n"
+                + "LEFT JOIN instructor i ON i.instructor_id = csm.instructor_id\n"
+                + "INNER JOIN class c ON c.class_id = csm.class_id\n"
+                + "INNER JOIN subject su ON su.subject_id = csm.subject_id\n"
+                + "WHERE c.class_id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, class_id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("csm_id");
+                int slots = rs.getInt("total_slots");
+                String instructorId = rs.getString("instructor_id");
+                String instructorName = rs.getString("instructor_name");
+                String classId = rs.getString("class_id");
+                String className = rs.getString("class_name");
+                String linkUrl = rs.getString("link_url");
+                String subjectId = rs.getString("subject_id");
+                String subjectName = rs.getString("subject_name");
+
+                Instructor instructor = new Instructor(instructorId, instructorName);
+                Group group = new Group(classId, className, linkUrl);
+                Subject subject = new Subject(subjectId, subjectName);
+
+                GroupSubjectMapping gsm = new GroupSubjectMapping(id, group, subject, instructor, slots);
+
+                listGSM.add(gsm);
+            }
+            return listGSM;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
-    
+
     public GroupSubjectMapping getClassByCsmId(String csm_id) {
-        String sql = """
-                        Select  csm_id, i.instructor_name,i.instructor_id, c.class_name, c.class_id, su.subject_name, su.subject_id, total_slots from class_subject_mapping csm 
-                                                LEFT JOIN instructor i on i.instructor_id = csm.instructor_id
-                                                inner join class c on c.class_id = csm.class_id
-                                                inner join subject su on su.subject_id = csm.subject_id
-                                                Where csm_id = ?   ;   
-                     """;
+        String sql = "Select  csm_id, i.instructor_name,i.instructor_id, c.class_name, c.class_id, su.subject_name, su.subject_id, total_slots from class_subject_mapping csm \n"
+                + " LEFT JOIN instructor i on i.instructor_id = csm.instructor_id\n"
+                + " inner join class c on c.class_id = csm.class_id\n"
+                + " inner join subject su on su.subject_id = csm.subject_id\n"
+                + " Where csm_id = ?;";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, csm_id);
             ResultSet rs = st.executeQuery();
             GroupSubjectMapping gsm = new GroupSubjectMapping();
             while (rs.next()) {
-                
+
                 Instructor instructor = new Instructor();
                 Group group = new Group();
                 Subject subject = new Subject();
-                
+
                 int id = rs.getInt("csm_id");
                 int slots = rs.getInt("total_slots");
                 instructor.setId(rs.getString("instructor_id"));
                 instructor.setName(rs.getString("instructor_name"));
                 group.setId(rs.getString("class_id"));
-                group.setClass_name(rs.getString("class_name"));
+                group.setName(rs.getString("class_name"));
                 subject.setId(rs.getString("subject_id"));
                 subject.setName(rs.getString("subject_name"));
-                
+
                 gsm.setInstructor(instructor);
                 gsm.setGroup(group);
                 gsm.setSubject(subject);
@@ -141,7 +189,7 @@ public class GSMDBContext extends DBContext<GroupSubjectMapping>{
         }
         return null;
     }
-    
+
     public void updateClass(GroupSubjectMapping gsm) {
         try {
             String sql = "UPDATE class_subject_mapping SET total_slots = ?, instructor_id = ? WHERE csm_id = ?;";
@@ -154,7 +202,7 @@ public class GSMDBContext extends DBContext<GroupSubjectMapping>{
             System.out.println(e);
         }
     }
-    
+
     public void insertClass(String class_id, String subject_id, String slot) {
         try {
             String sql = "INSERT INTO Class_subject_mapping (class_id, subject_id, total_slots) VALUES (?,?,?);";
@@ -178,25 +226,7 @@ public class GSMDBContext extends DBContext<GroupSubjectMapping>{
             System.out.println(e);
         }
     }
-    
-    public boolean checkSubjectExist(String class_id, String subject_id) {
-    String sql = "SELECT * FROM swp391_g4_ver1.class_subject_mapping WHERE class_id = ? AND subject_id = ?";
-    try {
-        boolean subjectExists;
-        try (PreparedStatement ps = connection.prepareStatement(sql)) {
-            ps.setString(1, class_id);
-            ps.setString(2, subject_id);
-            try (ResultSet rs = ps.executeQuery()) {
-                subjectExists = rs.next();
-            }
-        }
-        return subjectExists;
-    } catch (SQLException e) {
-        System.out.println(e);
-    }
-    return false;
-}
-    
+
     public ArrayList<GroupSubjectMapping> getGroupbyInstructor(String instructor_id) {
         ArrayList<GroupSubjectMapping> groups = new ArrayList<>();
         try {
@@ -219,7 +249,7 @@ public class GSMDBContext extends DBContext<GroupSubjectMapping>{
                 gsm.setInstructor(instructor);
                 Group group = new Group();
                 group.setId(rs.getString("class_id"));
-                group.setClass_name(rs.getString("class_name"));
+                group.setName(rs.getString("class_name"));
                 gsm.setGroup(group);
                 Subject subject = new Subject();
                 subject.setName(rs.getString("subject_name"));
@@ -232,7 +262,7 @@ public class GSMDBContext extends DBContext<GroupSubjectMapping>{
         }
         return groups;
     }
-    
+
     public ArrayList<StudentClassMapping> getStudentbyGroup(String class_id) {
         ArrayList<StudentClassMapping> students = new ArrayList<>();
         try {
@@ -264,13 +294,64 @@ public class GSMDBContext extends DBContext<GroupSubjectMapping>{
         return students;
     }
 
-    
-    public static void main(String[] args) {
-        GSMDBContext gsmDB = new GSMDBContext();
-        GroupSubjectMapping gsm = gsmDB.getClassByCsmId("1");
-        System.out.println(gsm.getInstructor().getName());
+    public ArrayList<GroupSubjectMapping> getGSMbyId(String csm_id) {
+        ArrayList<GroupSubjectMapping> groups = new ArrayList<>();
+        try {
+            String sql = "SELECT i.instructor_id, i.instructor_name, csm.csm_id,\n"
+                    + "su.subject_name, c.class_id, c.class_name \n"
+                    + "FROM Instructor i \n"
+                    + "INNER JOIN Class_subject_mapping csm ON i.instructor_id = csm.instructor_id\n"
+                    + "INNER JOIN Class c ON c.class_id = csm.class_id\n"
+                    + "INNER JOIN Subject su ON su.subject_id = csm.subject_id\n"
+                    + "WHERE csm.csm_id = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, csm_id);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                GroupSubjectMapping gsm = new GroupSubjectMapping();
+                gsm.setId(rs.getInt("csm_id"));
+                Instructor instructor = new Instructor();
+                instructor.setId(rs.getString("instructor_id"));
+                instructor.setName(rs.getString("instructor_name"));
+                gsm.setInstructor(instructor);
+                Group group = new Group();
+                group.setId(rs.getString("class_id"));
+                group.setName(rs.getString("class_name"));
+                gsm.setGroup(group);
+                Subject subject = new Subject();
+                subject.setName(rs.getString("subject_name"));
+                gsm.setSubject(subject);
+                groups.add(gsm);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(GSMDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return groups;
     }
-    
+
+    public int getGSM_Id(String subject_name, String class_id) {
+        int gsm_Id = 0;
+        try {
+            String sql = "SELECT csm.csm_id\n"
+                    + "FROM class_subject_mapping csm \n"
+                    + "INNER JOIN Subject su ON su.subject_id = csm.subject_id\n"
+                    + "INNER JOIN Class c ON c.class_id = csm.class_id\n"
+                    + "WHERE su.subject_name = ? AND c.class_id = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, subject_name);
+            stm.setString(2, class_id);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                gsm_Id = rs.getInt("csm_id");
+            }
+            rs.close();
+            stm.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(GSMDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return gsm_Id;
+    }
+
     @Override
     public ArrayList<GroupSubjectMapping> list() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -295,5 +376,5 @@ public class GSMDBContext extends DBContext<GroupSubjectMapping>{
     public GroupSubjectMapping get(GroupSubjectMapping entity) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
+
 }

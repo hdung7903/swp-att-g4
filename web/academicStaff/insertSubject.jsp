@@ -13,6 +13,7 @@ Author     : Administrator
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Insert Subject</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
         <style>
             body {
                 background-color: #f8f9fa;
@@ -60,43 +61,44 @@ Author     : Administrator
     </head>
     <body>
         <%@include file="./navbar.jsp" %>
-        <div class="card">
-            <h2 class="card-title">Class List</h2>
-            <c:set value="${requestScope.class_id}"  var="class_id"/>
-            <button><a  class="nav-link" href=""><i class="bi bi-calendar2-event"></i>Assigned Subject</a></button>
-            <button><a  class="nav-link" href=""><i class="bi bi-calendar2-event"></i>Remove Subject</a></button>
-            <div class="table-responsive">
-                <form id="" action="subject" method="POST">
-                    <table class="table table-bordered table-striped">
-                        <thead>
-                            <tr class="text-center">
-                                <th>Subject ID</th>
-                                <th>Subject Name</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <c:forEach items="${requestScope.listSub}" var="listSub" varStatus="loop">
+        <div class="container mt-4">
+            <div class="card">
+                <h2 class="card-title">Class List</h2>
+                <div class="d-flex gap-2 mb-3">
+                    <a href="${pageContext.request.contextPath}/acad/assignsub" class="btn btn-primary"><i class="fa fa-calendar-check"></i> Assigned Subject</a>
+                    <a href="${pageContext.request.contextPath}/acad/removesub" class="btn btn-danger"><i class="fa fa-calendar-times"></i> Remove Subject</a>
+                </div>
+                <div class="table-responsive">
+                    <form id="" action="subject" method="POST">
+                        <table class="table table-bordered table-striped">
+                            <thead>
                                 <tr class="text-center">
-                                    <td>${listSub.id}</td>
-                                    <td>${listSub.name}</td>
+                                    <th>Subject ID</th>
+                                    <th>Subject Name</th>
                                 </tr>
-                            </c:forEach>
-                        </tbody>
-                    </table>
-                    <p style="color: red; font-size: 18px" >${requestScope.mess}</p>
-                    <label for="id">Subject ID</label>
-                    <input type="text" name="id" required>
-                    <br>
-                    <label for="name">Subject Name</label>
-                    <input type="text" name="name" required>
-                    <br>
-                    <input type="submit" name="submit" id="submit" class="form-submit" value="Insert"/>
-                </form>
+                            </thead>
+                            <tbody>
+                                <c:forEach items="${requestScope.listSub}" var="listSub" varStatus="loop">
+                                    <tr class="text-center">
+                                        <td>${listSub.id}</td>
+                                        <td>${listSub.name}</td>
+                                    </tr>
+                                </c:forEach>
+                            </tbody>
+                        </table>
+                        <p class="text-danger fs-5" >${requestScope.mess}</p>
+                        <div class="mb-3">
+                            <label for="id" class="form-label">Subject ID</label>
+                            <input type="text" class="form-control" name="id" id="id" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Subject Name</label>
+                            <input type="text" class="form-control" name="name" id="name" required>
+                        </div>
+                        <button type="submit" name="submit" id="submit" class="btn btn-success">Insert</button>
+                    </form>
+                </div>
             </div>
         </div>
     </body>
-
-
-
-
 </html>

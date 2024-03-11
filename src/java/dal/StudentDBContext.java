@@ -15,12 +15,13 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Administrator
+ * @author leduy
  */
 public class StudentDBContext extends DBContext<Student> {
+    
     public List<Student> getAllStudent() throws SQLException{
         List<Student> list = new ArrayList<>();
-        String sql = "SELECT * FROM swp391_g4_ver1.student;";
+        String sql = "SELECT * FROM student;";
         try{
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -63,8 +64,6 @@ public class StudentDBContext extends DBContext<Student> {
         }
         return students;
     }
-    
-    
 
     @Override
     public ArrayList<Student> list() {

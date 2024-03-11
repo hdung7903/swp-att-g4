@@ -41,7 +41,7 @@
         <div class="container-fluid">
             <%@include file="./navbar.jsp" %> 
             <div class="container">
-                <h1 class="text-center mb-4">Attendance Sheet</h1>
+                <h1 class="text-center my-3">Attendance Sheet</h1>
                 <div class="card mb-3">
                     <div class="card-body text-center">
                         <h5 class="card-title d-inline-block mr-2">Class: ${requestScope.ses.group.name}</h5>
@@ -50,7 +50,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-12 text-center">
                         <form action="${pageContext.request.contextPath}/instructor/viewatt" method="get" onsubmit="return confirmAttendance()">
                             <table class="table table-bordered">
                                 <thead class="thead-dark">
@@ -68,7 +68,7 @@
                                 <tbody>
                                     <c:forEach items="${requestScope.atts}" var="a" varStatus="index">
                                         <tr class="text-center">
-                                            <td>
+                                            <td style="text-align: center; vertical-align: middle;">
                                                 ${index.index + 1}
                                             </td>
                                             <td style="font-size: 12px;
@@ -94,5 +94,6 @@
                     </div> 
                 </div>
             </div>
+        </div>
     </body>
 </html>

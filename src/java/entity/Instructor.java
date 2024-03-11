@@ -5,13 +5,14 @@
 package entity;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 
 /**
  *
  * @author leduy
  */
 public class Instructor extends BaseEntity {
+
     private String id;
     private String name;
     private String username;
@@ -19,7 +20,7 @@ public class Instructor extends BaseEntity {
     private Date dob;
     private boolean gender;
     private boolean isDeleted;
-     private ArrayList<Session> sessions = new ArrayList<>();
+    private ArrayList<Session> sessions = new ArrayList<>();
 
     public Instructor() {
     }
@@ -48,14 +49,14 @@ public class Instructor extends BaseEntity {
         this.name = name;
         this.username = username;
     }
-    
+
     public Instructor(String id, String name) {
         this.id = id;
         this.name = name;
-    }
-
-    public Instructor(String name) {
-                this.name = name;
+    }    
+    
+    public Instructor(String name){
+        this.name=name;
     }
 
     public ArrayList<Session> getSessions() {
@@ -121,5 +122,5 @@ public class Instructor extends BaseEntity {
     public void setIsDeleted(boolean isDeleted) {
         this.isDeleted = isDeleted;
     }
-    
+
 }

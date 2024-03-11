@@ -15,7 +15,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -67,38 +66,33 @@ public class AttendanceDBContext extends DBContext<Attendance> {
         return atts;
     }
 
-    public Map<String, Student> getAttendanceRecords(String groupId) throws SQLException {
+    public Map<String, Student> getAttendanceRecords(int groupId) throws SQLException {
         Map<String, Student> attendanceMap = new HashMap<>();
 
-        String sql = "SELECT s.student_name, a.status,s.email,s.student_id,ses.session_id\n"
+        String sql = "SELECT s.student_name, a.status,s.email,s.student_id,ses.session_index,ses.session_id,i.instructor_name,su.subject_name\n"
                 + "FROM Class c \n"
                 + "INNER JOIN class_subject_mapping csm ON csm.class_id=c.class_id\n"
                 + "INNER JOIN student_class_mapping scm ON scm.class_id=c.class_id\n"
                 + "INNER JOIN Session ses ON ses.csm_id=csm.csm_id\n"
                 + "INNER JOIN Student s ON s.student_id=scm.student_id\n"
+                + "INNER JOIN Instructor i ON i.instructor_id=csm.instructor_id\n"
+                + "INNER JOIN Subject su ON su.subject_id=csm.subject_id\n"
                 + "LEFT JOIN Attendance a ON ses.session_id=a.session_id AND a.student_id=scm.student_id\n"
                 + "WHERE csm.csm_id = ? AND (ses.isAtt = 1 AND ses.isAtt IS NOT NULL)\n"
-                + "ORDER BY s.student_id,ses.session_id;";
+                + "ORDER BY s.student_id,ses.session_index;";
         try ( PreparedStatement stm = connection.prepareStatement(sql)) {
-            stm.setString(1, groupId);
+            stm.setInt(1, groupId);
             try ( ResultSet rs = stm.executeQuery()) {
                 while (rs.next()) {
                     String studentName = rs.getString("student_name");
                     String email = rs.getString("email");
+                    String instructorName = rs.getString("instructor_name");
+                    String subjectName = rs.getString("subject_name");
                     Boolean status = rs.getBoolean("status");
 
-                    if (attendanceMap.containsKey(studentName)) {
-                        // If the student is already in the map, just add the new status to their attendances
-                        Student existingStudent = attendanceMap.get(studentName);
-                        existingStudent.getAttendances().add(status);
-                    } else {
-                        // If the student is not in the map, create a new Student object and add it to the map
-                        Student newStudent = new Student();
-                        newStudent.setName(studentName);
-                        newStudent.setEmail(email);
-                        newStudent.setAttendances(new ArrayList<>(Arrays.asList(status)));
-                        attendanceMap.put(studentName, newStudent);
-                    }
+                    Student student = attendanceMap.computeIfAbsent(studentName, k -> new Student(studentName, new Instructor(instructorName), new Subject(subjectName), email, new ArrayList<>()));
+                    student.getAttendances().add(status);
+
                 }
             }
         } catch (SQLException ex) {
@@ -107,7 +101,7 @@ public class AttendanceDBContext extends DBContext<Attendance> {
         return attendanceMap;
     }
 
-    public int sessionAttended(String groupId) {
+    public int sessionAttended(int groupId) {
         int sessionCount = 0;
 
         String sql = "SELECT COUNT(DISTINCT s.session_index) AS SessionCount\n"
@@ -118,7 +112,7 @@ public class AttendanceDBContext extends DBContext<Attendance> {
                 + "WHERE csm.csm_id=?  AND s.isAtt=1";
 
         try ( PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, groupId);
+            statement.setInt(1, groupId);
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
@@ -130,7 +124,7 @@ public class AttendanceDBContext extends DBContext<Attendance> {
 
         return sessionCount;
     }
-    
+
     public List<Attendance> getStudentAttendanceRecords(String stuId, int csmId) throws SQLException {
         List<Attendance> statusRecord = new ArrayList<>();
 
@@ -168,7 +162,7 @@ public class AttendanceDBContext extends DBContext<Attendance> {
                     ts.setDescription(rs.getString("description"));
                     att.setTimeslot(ts);
                     Group group = new Group();
-                    group.setClass_name(rs.getString("class_name"));
+                    group.setName(rs.getString("class_name"));
                     att.setGroup(group);
                     att.setStatus(rs.getBoolean("status"));
                     att.setDescription(rs.getString("att_description") != null ? rs.getString("att_description") : "  ");

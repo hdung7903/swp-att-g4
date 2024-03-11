@@ -5,6 +5,8 @@
 package dal;
 
 import entity.Group;
+import entity.GroupSubjectMapping;
+import entity.Instructor;
 import entity.Student;
 import entity.StudentClassMapping;
 import entity.Subject;
@@ -17,12 +19,34 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Administrator
+ * @author leduy
  */
 public class SCMDBContext extends DBContext<StudentClassMapping> {
+    
+    public StudentClassMapping checkStudentExist(String class_id, String student_id) {
+        String sql = "SELECT * FROM student_class_mapping\n"
+                + "Where class_id = ? and student_id= ?;";
+        StudentClassMapping list = null;
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, class_id);
+            stm.setString(2, student_id);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                list = new StudentClassMapping(
+                        rs.getInt("scm_id")
+                );
+                return list;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SCMDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
     public void insertStuinClass(String student_id, String class_id) {
         try {
-            String sql = "INSERT INTO swp391_g4_ver1.student_class_mapping (student_id, class_id) VALUES (?,?);";
+            String sql = "INSERT INTO student_class_mapping (student_id, class_id) VALUES (?,?);";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, student_id);
             ps.setString(2, class_id);
@@ -31,15 +55,13 @@ public class SCMDBContext extends DBContext<StudentClassMapping> {
             System.out.println(e);
         }
     }
-    
-     public void approveRegis(String regis_id) {
+
+    public void approveRegis(String regis_id) {
         try {
-            String sql = """
-                         INSERT INTO student_class_mapping (student_id, class_id)
-                         SELECT student_id, class_id
-                         FROM registion
-                         WHERE regis_id = ?;
-                         """;
+            String sql = "INSERT INTO student_class_mapping (student_id, class_id)\n" +
+"                         SELECT student_id, class_id\n" +
+"                         FROM registion\n" +
+"                         WHERE regis_id = ?;";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, regis_id);
             ps.executeUpdate();
@@ -47,15 +69,16 @@ public class SCMDBContext extends DBContext<StudentClassMapping> {
             System.out.println(e);
         }
     }
-    
+
     public ArrayList<StudentClassMapping> getGroupbyStudent(String student_id) {
         ArrayList<StudentClassMapping> groups = new ArrayList<>();
         try {
-            String sql = "SELECT stu.student_id, stu.student_name, stu.email, c.class_id, su.subject_name, c.class_name\n"
+            String sql = "SELECT stu.student_id, stu.student_name, stu.email, c.class_id, su.subject_name, c.class_name, i.instructor_name, csm.csm_id\n"
                     + "FROM student stu \n"
                     + "INNER JOIN student_class_mapping scm ON stu.student_id = scm.student_id\n"
                     + "inner join class c on c.class_id = scm.class_id\n"
                     + "INNER JOIN Class_subject_mapping csm ON csm.class_id = c.class_id\n"
+                    + "INNER JOIN Instructor i ON i.instructor_id = csm.instructor_id\n"
                     + "INNER JOIN Subject su ON su.subject_id = csm.subject_id\n"
                     + "where stu.student_id = ?;";
             PreparedStatement stm = connection.prepareStatement(sql);
@@ -70,21 +93,27 @@ public class SCMDBContext extends DBContext<StudentClassMapping> {
                 scm.setStudent(student);
                 Group group = new Group();
                 group.setId(rs.getString("class_id"));
-                group.setClass_name(rs.getString("class_name"));
+                group.setName(rs.getString("class_name"));
                 scm.setGroup(group);
                 Subject subject = new Subject();
                 subject.setName(rs.getString("subject_name"));
                 scm.setSubject(subject);
+                GroupSubjectMapping gsm = new GroupSubjectMapping();
+                gsm.setId(rs.getInt("csm_id"));
+                scm.setGsm(gsm);
+                Instructor instructor = new Instructor();
+                instructor.setName(rs.getString("instructor_name"));
+                scm.setInstructor(instructor);
                 groups.add(scm);
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(GroupDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(StudentClassMapping.class.getName()).log(Level.SEVERE, null, ex);
         }
         return groups;
     }
-    
-     public ArrayList<StudentClassMapping> getStudentbyGroup(String class_id) {
+
+    public ArrayList<StudentClassMapping> getStudentbyGroup(String class_id) {
         ArrayList<StudentClassMapping> students = new ArrayList<>();
         try {
             String sql = "SELECT stu.student_id, stu.student_name, stu.email, c.class_id\n"
@@ -151,11 +180,6 @@ public class SCMDBContext extends DBContext<StudentClassMapping> {
         return students;
     }
 
-//    public static void main(String[] args) {
-//        SCMDBContext scm = new SCMDBContext();
-//        String[] stuIds = 
-//        scm.insertStuinClass("22", "5");
-//    }
     @Override
     public ArrayList<StudentClassMapping> list() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
