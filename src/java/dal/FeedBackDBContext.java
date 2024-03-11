@@ -76,15 +76,16 @@ public class FeedBackDBContext extends DBContext<FeedBack> {
     public void editFeedback(FeedBack fb) {
         try {
             String sql = "UPDATE feed_back \n"
-                    + "SET student_id = ?,\n"
-                    + "    csm_id = ?,\n"
-                    + "    punctuality = ?,\n"
-                    + "    fully_syllabus = ?,\n"
+                    + "SET \n"
+                    + "    student_id = ?, \n"
+                    + "    csm_id = ?, \n"
+                    + "    punctuality = ?, \n"
+                    + "    fully_syllabus = ?, \n"
                     + "    intructor_skills = ?,\n"
-                    + "    instructor_support = ?,\n"
-                    + "    comment = ?\n"
-                    + "    fb_datetime= NOW(),\n"
-                    + "WHERE fb_id = ?; ";
+                    + "    instructor_support = ?, \n"
+                    + "    comment = ?, \n"
+                    + "    fb_datetime = NOW()\n"
+                    + "WHERE fb_id = ?;";
 
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setString(1, fb.getStudent().getId());
