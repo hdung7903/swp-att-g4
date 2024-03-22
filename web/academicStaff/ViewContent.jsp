@@ -25,7 +25,7 @@
         </script>
     </head>
     <body>
-        <div class="container">
+        <div class="container-fluid">
             <h1 class="mb-4">Application Details</h1>
             <div class="row">
                 <div class="col-md-6">

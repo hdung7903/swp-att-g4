@@ -34,6 +34,12 @@
             .custom-width-th:nth-child(2) {
                 width: 150px;
             }
+            .badge-success {
+                background-color: #28a745;
+            }
+            .badge-danger {
+                background-color: #dc3545;
+            }
         </style>
     </head>
 

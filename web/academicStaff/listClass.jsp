@@ -93,7 +93,7 @@
                                 <tr class="text-center">
                                     <th>Class Name</th>
                                     <th>Link Meet</th>
-                                    <th>View Details</th>
+                                    <th>Details</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -101,7 +101,9 @@
                                     <tr class="text-center">
                                         <td>${listG.name}</td>
                                         <td>${listG.link_url}</td>
-                                        <td><a href="details?id=${listG.id}"><i class="fas fa-eye"></i></a></td>
+                                        <td>
+                                            <a class="text-primary me-2" href="details?id=${listG.id}"><i class="fas fa-eye"></i></a>
+                                        </td>
                                     </tr>
                                 </c:forEach>
                             </tbody>

@@ -73,6 +73,23 @@
                                     <input type="text" class="form-control" name="total_slots" value="${gsm.total_slots}" />
                                 </div>
                             </div>
+                            <div class="row mb-3">
+                                <table class="table" style="border-collapse: collapse;">
+                                    <tr>
+                                        <c:forEach items="${requestScope.listStu}" var="stu" varStatus="status">
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" name="stuId" value="${stu.id}" onclick="handleCheckboxClick();"/>
+                                                    <label class="form-check-label">${stu.name}</label>
+                                                </div>
+                                            </td>
+                                            <c:if test="${status.index % 3 == 2}">
+                                            </tr><tr>
+                                            </c:if>
+                                        </c:forEach>
+                                    </tr>
+                                </table>    
+                            </div>
                             <p class="text-danger">${requestScope.mess}</p>
                             <div class="mb-3">
                                 <button type="submit" name="submit" class="btn btn-primary"><i class="fas fa-save me-2"></i>Update</button>
@@ -85,4 +102,24 @@
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     </body>
+   <script>
+    var maxClicks = 15; 
+    var clickCount = <%= request.getAttribute("count") %>; 
+
+    function handleCheckboxClick() {
+        var checkbox = event.target;
+
+        if (checkbox.checked) {
+            if (clickCount >= maxClicks) {
+                checkbox.checked = false;
+                alert("You have reached the maximum student of class.");
+            } else {
+                clickCount++;
+            }
+        } else {
+            clickCount--;
+        }
+    }
+</script>
+
 </html>

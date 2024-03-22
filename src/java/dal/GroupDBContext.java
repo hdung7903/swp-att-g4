@@ -148,12 +148,6 @@ public class GroupDBContext extends DBContext<Group> {
         return group;
     }
 
-    
-
-    
-
-    
-
     @Override
     public ArrayList<Group> list() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -179,15 +173,16 @@ public class GroupDBContext extends DBContext<Group> {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    public ArrayList<Group> getInstructorGroup(String iid) {
+    public ArrayList<Group> getInstructorGroup(String id) {
         ArrayList<Group> groups = new ArrayList<>();
         try {
-            String sql = "Select c.class_name,c.class_id,csm.csm_id\n"
-                    + "From Class c\n"
-                    + "INNER JOIN class_subject_mapping csm ON csm.class_id=c.class_id\n"
-                    + "where csm.instructor_id=?";
+            String sql = """
+                         Select c.class_name,c.class_id,csm.csm_id
+                         From Class c
+                         INNER JOIN class_subject_mapping csm ON csm.class_id=c.class_id
+                         where csm.instructor_id=?""";
             PreparedStatement stm = connection.prepareStatement(sql);
-            stm.setString(1, iid);
+            stm.setString(1, id);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 Group g = new Group();
@@ -207,13 +202,14 @@ public class GroupDBContext extends DBContext<Group> {
     public ArrayList<Group> getStudentGroup(String stuid) {
         ArrayList<Group> groups = new ArrayList<>();
         try {
-            String sql = "SELECT su.subject_name,c.class_name,csm.csm_id,s.student_id, s.student_name \n"
-                    + "FROM class_subject_mapping csm\n"
-                    + "INNER JOIN class c ON c.class_id=csm.class_id\n"
-                    + "INNER JOIN subject su ON su.subject_id=csm.subject_id \n"
-                    + "INNER JOIN student_class_mapping scm ON scm.class_id=c.class_id\n"
-                    + "INNER JOIN student s ON s.student_id=scm.student_id\n"
-                    + "WHERE s.student_id=?";
+            String sql = """
+                         SELECT distinct su.subject_name,c.class_name,csm.csm_id,s.student_id, s.student_name 
+                         FROM class_subject_mapping csm
+                         INNER JOIN class c ON c.class_id=csm.class_id
+                         INNER JOIN subject su ON su.subject_id=csm.subject_id 
+                         INNER JOIN student_class_mapping scm ON scm.class_id=c.class_id
+                         INNER JOIN student s ON s.student_id=scm.student_id
+                         WHERE s.student_id=?""";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setString(1, stuid);
             ResultSet rs = stm.executeQuery();

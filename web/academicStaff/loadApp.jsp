@@ -51,12 +51,19 @@
                                     </form>
                                 </td>
                                 <td>
-                                    <c:choose>
-                                        <c:when test="${application.isApprove}">
-                                            <span class="badge badge-success">Approved</span>
+                                     <c:choose>
+                                        <c:when test="${application.isSend}">
+                                            <c:choose>
+                                                <c:when test="${application.isApprove}">
+                                                    <span class="badge badge-success">Approved</span>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <span class="badge badge-danger">Rejected</span>
+                                                </c:otherwise>
+                                            </c:choose>
                                         </c:when>
                                         <c:otherwise>
-                                            <span class="badge badge-danger">Not yet</span>
+                                            <span class="badge badge-secondary">Not yet</span>
                                         </c:otherwise>
                                     </c:choose>
                                 </td>

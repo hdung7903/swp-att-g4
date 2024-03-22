@@ -34,7 +34,7 @@ public class ViewStudentListController extends HttpServlet {
     throws ServletException, IOException {
         HttpSession session = request.getSession();
         String instructorid = (String) session.getAttribute("accountId");
-        String class_id = request.getParameter("class_id");
+        String csm_id = request.getParameter("csm_id");
         String searchTxt = request.getParameter("search");
         if (searchTxt == null) {
             searchTxt = "";
@@ -48,8 +48,8 @@ public class ViewStudentListController extends HttpServlet {
 
         ArrayList<StudentClassMapping> scm;
 
-        if (class_id != null && !class_id.isEmpty()) {
-            scm = scmdb.getStudentbyGroup(class_id);
+        if (csm_id != null && !csm_id.isEmpty()) {
+            scm = scmdb.getStudentbyCMS(csm_id);
         } else {
             scm = scmdb.getStudentbyInstructor(searchTxt, instructorid);
         }

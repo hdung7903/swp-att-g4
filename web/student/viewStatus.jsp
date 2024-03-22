@@ -49,7 +49,7 @@
                                 <td>${app.content}</td>
                                 <td>                                           
                                     <c:choose>
-                                        <c:when test="${app.isSpend}">
+                                        <c:when test="${app.isSend}">
                                             <c:choose>
                                                 <c:when test="${app.isApprove}">
                                                     <span class="badge bg-success"><i class="fas fa-check"></i> Approve</span>

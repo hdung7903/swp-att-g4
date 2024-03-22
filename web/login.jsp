@@ -114,7 +114,7 @@
                                                 recaptchaAlert.classList.remove("d-none");
                                             }
                                         });
-                                       
+
                                         if ("${mess}" !== "") {
                                             loginFailedAlert.classList.remove("d-none");
                                         }

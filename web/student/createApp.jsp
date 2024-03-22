@@ -70,6 +70,12 @@
                 font-size: 18px;
             }
         </style>
+        
+         <script>
+            function showMessage(message) {
+                alert(message);
+            }
+        </script>   
     </head>
 
     <body>
@@ -98,17 +104,12 @@
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane" onclick="showMessage("Application have been submitted")"></i> Submit</button>
+                <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane" onclick="showMessage('Application have been submitted')"></i> Submit</button>
                 <div class="my-3 text-center">
                     <a href="${pageContext.request.contextPath}/student/home" class="text-decoration-none text-black"><i class="fas fa-home me-2"></i>Back to Home</a>
                 </div>
             </form>
-        </div>
-         <script>
-            function showMessage(message) {
-                alert(message);
-            }
-        </script>       
+        </div>    
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>

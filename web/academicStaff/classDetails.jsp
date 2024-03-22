@@ -66,7 +66,7 @@
                 <div class="card-body">
                     <h2 class="card-title">Class List</h2>
                     <c:set value="${requestScope.class_id}" var="class_id"/>
-                    <a href="addStudent?id=${class_id}" class="btn btn-primary mb-3"><i class="fas fa-plus me-2"></i>Create Class</a>
+                    <a href="addInsAndSub?id=${class_id}" class="btn btn-primary mb-3"><i class="fas fa-plus me-2"></i>Create Class</a>
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped">
                             <thead>
@@ -74,6 +74,7 @@
                                     <th>Class Name</th>
                                     <th>Subject</th>
                                     <th>Instructor</th>
+                                    <th>Student</th>
                                     <th>Slots</th>
                                     <th>Action</th>
                                 </tr>
@@ -84,6 +85,7 @@
                                         <td>${listGSM.group.name}</td>
                                         <td>${listGSM.subject.name}</td>
                                         <td>${empty listGSM.instructor.name ? 'Unknown' : listGSM.instructor.name}</td>
+                                        <td>${listGSM.totalStudent}</td>
                                         <td>${listGSM.total_slots}</td>
                                         <td>
                                             <a href="updateclass?csm_id=${listGSM.id}&subject_id=${listGSM.subject.id}" class="text-primary me-2"><i class="fas fa-edit"></i></a>

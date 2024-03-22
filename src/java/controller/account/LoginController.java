@@ -87,7 +87,7 @@ public class LoginController extends HttpServlet {
         } else {
             HttpSession session = request.getSession();
             session.setAttribute("acc", a);
-            session.setMaxInactiveInterval(100000);
+            //session.setMaxInactiveInterval(100000);
             Account getAccountId = DAO.getAccountIdByUsername(username);
             String accountId = null;
             if (getAccountId.getInstructor() != null) {

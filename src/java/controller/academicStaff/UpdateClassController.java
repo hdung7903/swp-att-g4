@@ -5,9 +5,12 @@
 package controller.academicStaff;
 
 import dal.GSMDBContext;
+import dal.SCMDBContext;
 import dal.SIMDBContext;
+import dal.StudentDBContext;
 import entity.GroupSubjectMapping;
 import entity.Instructor;
+import entity.Student;
 import entity.SubjectInstructorMapping;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -70,12 +73,18 @@ public class UpdateClassController extends HttpServlet {
 
             GSMDBContext gsmdb = new GSMDBContext();
             SIMDBContext simDB = new SIMDBContext();
+            StudentDBContext stuDB = new StudentDBContext();
+            SCMDBContext scmDB = new SCMDBContext();
 
             List<SubjectInstructorMapping> listSim = simDB.getAllInstructorbySubject(subject_id);
+            List<Student> listStu = stuDB.getStudentbySubject(subject_id);
             GroupSubjectMapping gsm = gsmdb.getClassByCsmId(csm_id);
+            int count = scmDB.countStudent(csm_id);
 
+            request.setAttribute("listStu", listStu);
             request.setAttribute("listSim", listSim);
             request.setAttribute("gsm", gsm);
+            request.setAttribute("count", count);
             request.getRequestDispatcher("../academicStaff/csmDetails.jsp").forward(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(ClassDetailsController.class.getName()).log(Level.SEVERE, null, ex);
@@ -97,6 +106,7 @@ public class UpdateClassController extends HttpServlet {
         String instructor_id = request.getParameter("ins");
         String slots = request.getParameter("total_slots");
         String instructor_Name = request.getParameter("name");
+        String[] stuIds = request.getParameterValues("stuId");
         
         int slot = Integer.parseInt(slots);
         int csm_id = Integer.parseInt(csm_id_raw);
@@ -113,6 +123,11 @@ public class UpdateClassController extends HttpServlet {
         // Retrieve the updated GroupSubjectMapping object
         GroupSubjectMapping updatedGsm = gsmDB.getClassByCsmId(csm_id_raw);
         String class_id = updatedGsm.getGroup().getId();
+        
+        SCMDBContext scmDB = new SCMDBContext();
+        for (String stu_id : stuIds) {
+            scmDB.insertStuinClass(stu_id, class_id, csm_id_raw);
+        }
 
         response.sendRedirect(request.getServletContext().getContextPath() + "/acad/details?id=" + class_id);
     }

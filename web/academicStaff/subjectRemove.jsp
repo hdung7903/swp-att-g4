@@ -49,13 +49,14 @@
             </c:if>
             <c:if test="${empty requestScope.assignedSubjects}">
                 <div class="alert alert-danger d-flex align-items-center" role="alert">
-                        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
-                        <div>
-                            Please choose an instructor
-                        </div>
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                    <div>
+                        Please choose an instructor
                     </div>
+                </div>
 
             </c:if>
+            <a href="home" class="text-black" style="text-decoration:none"><i class="fas fa-arrow-left me-2"></i>Go Back</a>
         </div>
 
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>

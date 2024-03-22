@@ -100,9 +100,6 @@
                                 <a href="${pageContext.request.contextPath}/student/slottoday?id=${sessionScope.accountId}" class="d-block mt-2">
                                     <i class="fas fa-calendar-day"></i>Schedule Today
                                 </a>
-                                <a href="${pageContext.request.contextPath}/student/studentlist" class="d-block mt-2">
-                                    <i class="fas fa-users"></i>Student List
-                                </a>
                                 <a href="${pageContext.request.contextPath}/student/attreport?id=${sessionScope.accountId}" class="d-block mt-2">
                                     <i class="fas fa-chart-bar"></i>Attendance Statistic
                                 </a>

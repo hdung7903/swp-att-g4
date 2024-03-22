@@ -13,6 +13,10 @@ public class TypeApplication extends BaseEntity{
         this.name = name;
     }
 
+    public TypeApplication(int id) {
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }

@@ -108,7 +108,10 @@
                     <div style="width: 440px; height: 48px; position: relative">
                         <div style="width: 440px; height: 48px; left: 0px; top: 0px; position: absolute; border-radius: 32px; border: 1px #9B99AF solid">
                             <div style="width: 355px; padding-right: 190px; left: 25px; top: 11.02px; position: absolute; justify-content: flex-start; align-items: flex-start; display: inline-flex">
-                                <div style="color: black; font-size: 18px; font-family: Inter; font-weight: 400; word-wrap: break-word">${requestScope.ses.group.name}</div>
+                                <div style="color: black; font-size: 18px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+                                    <a href="${pageContext.request.contextPath}/student/studentlist?csm_id=${requestScope.ses.gsm.id}" class="font-weight-bold text-dark">
+                                    ${requestScope.ses.group.name}</a>
+                                </div>
                                 <div style="width: 10px; height: 10px; position: relative"></div>
                             </div>
                             <div style="width: 12px; height: 8px; left: 397px; top: 20.02px; position: absolute"></div>

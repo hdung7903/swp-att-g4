@@ -6,6 +6,7 @@
 package controller.academicStaff;
 
 import dal.GSMDBContext;
+import dal.SCMDBContext;
 import entity.GroupSubjectMapping;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -65,7 +66,7 @@ public class ClassDetailsController extends HttpServlet {
         List<GroupSubjectMapping> listGSM = gsmdb.getAllClassbyClassId(class_id);
         
         request.setAttribute("listGSM", listGSM);
-         request.setAttribute("class_id", class_id);
+        request.setAttribute("class_id", class_id);
         request.getRequestDispatcher("../academicStaff/classDetails.jsp").forward(request, response);
     } 
 

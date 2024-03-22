@@ -30,40 +30,36 @@ import jakarta.servlet.http.HttpServlet;
  */
 public class ClassRegistionController extends HttpServlet {
 
-    private boolean submitted = false;
-
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         String student_id = (String) session.getAttribute("accountId");
         String class_id = request.getParameter("class_id");
-        String subject_name = request.getParameter("subject_name");
+        String csm_id_raw = request.getParameter("csm_id");
+        int csm_id = Integer.parseInt(csm_id_raw);
 
         GSMDBContext Id = new GSMDBContext();
-        int cms_id = Id.getGSM_Id(subject_name, class_id);
+        ArrayList<GroupSubjectMapping> gsm = Id.getGSMbyId(csm_id_raw);
         SessionDBContext gdb = new SessionDBContext();
-        Session gName = gdb.checkClassStart(cms_id);
-        SCMDBContext list = new SCMDBContext();
-        StudentClassMapping gStudent = list.checkStudentExist(class_id, student_id);
+        Session gName = gdb.checkClassStart(csm_id_raw);
         RegistionDBContext rdb = new RegistionDBContext();
-        Registion rCheck = rdb.checkStudentExist(class_id, student_id);
+        Registion rCheck = rdb.checkStudentExist(csm_id_raw, student_id);
 
         Registion enroll = new Registion();
         enroll.setStudent(new Student(student_id));
-        enroll.setGroup(new Group(class_id));
+       enroll.setGroup(new Group(class_id));
+       enroll.setGsm(new GroupSubjectMapping(csm_id));
 
         if (gName != null) {
             request.setAttribute("mess", "The class has started!!");
-        } else if (gStudent != null) {
-            request.setAttribute("mess", "You has been in the class!");
-        } else if (rCheck != null) {
+        }  else if (rCheck != null) {
             request.setAttribute("mess", "You have registered for this class!");
         } else {
             rdb.enrollClass(enroll);
             request.setAttribute("mess", "Register successfull!");
         }
-        submitted = true;
 //        response.sendRedirect(request.getContextPath() + "/student/enroll");
+        request.setAttribute("gsm", gsm);
         request.getRequestDispatcher("../student/enrollClass.jsp").forward(request, response);
     }
 
@@ -79,6 +75,8 @@ public class ClassRegistionController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        String student_id = (String) session.getAttribute("accountId");
         String searchTxt = request.getParameter("search");
         if (searchTxt == null) {
             searchTxt = "";
@@ -88,7 +86,15 @@ public class ClassRegistionController extends HttpServlet {
 
         GSMDBContext groups = new GSMDBContext();
         ArrayList<GroupSubjectMapping> gsm = groups.getGroupsbySubject(searchTxt);
-
+        SCMDBContext list = new SCMDBContext();
+        StudentClassMapping gStudent = list.checkSubjectLearnning(searchTxt, student_id);
+        
+        if (gsm == null || gsm.isEmpty()) {
+        request.setAttribute("mess1", "No subject found!");
+        } else if (gStudent != null) {
+            request.setAttribute("mess1", "You have learned this subject !");
+        } 
+        
         request.setAttribute("searchTxt", searchTxt);
         request.setAttribute("gsm", gsm);
         request.getRequestDispatcher("../student/enrollClass.jsp").forward(request, response);
@@ -105,7 +111,7 @@ public class ClassRegistionController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+         processRequest(request, response);
     }
 
     /**

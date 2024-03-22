@@ -24,7 +24,6 @@ import java.util.ArrayList;
  * @author leduy
  */
 public class TakeFeedbackController extends HttpServlet {
-   private boolean submitted = false; 
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
@@ -34,28 +33,7 @@ public class TakeFeedbackController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        String student_id = (String) session.getAttribute("accountId");
-        int csm_id = Integer.parseInt(request.getParameter("csm_id"));
-        int punctuality = Integer.parseInt(request.getParameter("punctuality"));
-        int fully_syllabus = Integer.parseInt(request.getParameter("fully_syllabus"));
-        int intructor_skills = Integer.parseInt(request.getParameter("intructor_skills"));
-        int instructor_support = Integer.parseInt(request.getParameter("instructor_support"));
-        String comment = request.getParameter("comment");
         
-        Feedback fb = new Feedback();
-        fb.setStudent(new Student(student_id));
-        fb.setGsm(new GroupSubjectMapping(csm_id));
-        fb.setPunctuality(punctuality);
-        fb.setFully_syllabus(fully_syllabus);
-        fb.setIntructor_skills(intructor_skills);
-        fb.setInstructor_support(instructor_support);
-        fb.setComment(comment);
-        
-        FeedbackDBContext fbDB = new FeedbackDBContext();
-        fbDB.addFeedback(fb);
-        submitted=true;
-        response.sendRedirect(request.getContextPath() + "/student/feedback");
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -88,9 +66,27 @@ public class TakeFeedbackController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        if(!submitted){
-            processRequest(request, response);
-        }
+        HttpSession session = request.getSession();
+        String student_id = (String) session.getAttribute("accountId");
+        int csm_id = Integer.parseInt(request.getParameter("csm_id"));
+        int punctuality = Integer.parseInt(request.getParameter("punctuality"));
+        int fully_syllabus = Integer.parseInt(request.getParameter("fully_syllabus"));
+        int intructor_skills = Integer.parseInt(request.getParameter("intructor_skills"));
+        int instructor_support = Integer.parseInt(request.getParameter("instructor_support"));
+        String comment = request.getParameter("comment");
+        
+        Feedback fb = new Feedback();
+        fb.setStudent(new Student(student_id));
+        fb.setGsm(new GroupSubjectMapping(csm_id));
+        fb.setPunctuality(punctuality);
+        fb.setFully_syllabus(fully_syllabus);
+        fb.setIntructor_skills(intructor_skills);
+        fb.setInstructor_support(instructor_support);
+        fb.setComment(comment);
+        
+        FeedbackDBContext fbDB = new FeedbackDBContext();
+        fbDB.addFeedback(fb);
+        response.sendRedirect(request.getContextPath() + "/student/feedback");
     }
 
     /** 

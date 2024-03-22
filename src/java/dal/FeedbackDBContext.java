@@ -1,10 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package dal;
 
 import entity.Feedback;
+import entity.Student;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -42,12 +40,14 @@ public class FeedbackDBContext extends DBContext<Feedback> {
     public Feedback get(Feedback entity) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
     public ArrayList<Feedback> checkFeedBackExist(String csm_id, String student_id) {
-        String sql = "SELECT fb.fb_id, fb.student_id, s.student_name, fb.csm_id, fb.punctuality, fb.fully_syllabus, fb.intructor_skills, fb.instructor_support, fb.comment\n"
-                + "FROM feed_back fb \n"
-                + "INNER JOIN class_subject_mapping csm ON csm.csm_id = fb.csm_id\n"
-                + "INNER JOIN student s ON s.student_id = fb.student_id\n"
-                + "WHERE csm.csm_id = ? and s.student_id = ?";
+        String sql = """
+                     SELECT fb.fb_id, fb.student_id, s.student_name, fb.csm_id, fb.punctuality, fb.fully_syllabus, fb.intructor_skills, fb.instructor_support, fb.comment
+                     FROM feed_back fb 
+                     INNER JOIN class_subject_mapping csm ON csm.csm_id = fb.csm_id
+                     INNER JOIN student s ON s.student_id = fb.student_id
+                     WHERE csm.csm_id = ? and s.student_id = ?""";
         ArrayList<Feedback> feedbackList = new ArrayList<>();
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -55,7 +55,10 @@ public class FeedbackDBContext extends DBContext<Feedback> {
             ps.setString(2, student_id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
+                Student stu = new Student();
+                stu.setName(rs.getString("student_name"));
                 Feedback fb = new Feedback();
+                fb.setStudent(stu);
                 fb.setId(rs.getInt("fb_id"));
                 fb.setPunctuality(rs.getInt("punctuality"));
                 fb.setFully_syllabus(rs.getInt("fully_syllabus"));
@@ -98,14 +101,15 @@ public class FeedbackDBContext extends DBContext<Feedback> {
     public void editFeedback(Feedback fb) {
         try {
             String sql = "UPDATE feed_back \n"
-                    + "SET student_id = ?,\n"
-                    + "    csm_id = ?,\n"
-                    + "    punctuality = ?,\n"
-                    + "    fully_syllabus = ?,\n"
+                    + "SET \n"
+                    + "    student_id = ?, \n"
+                    + "    csm_id = ?, \n"
+                    + "    punctuality = ?, \n"
+                    + "    fully_syllabus = ?, \n"
                     + "    intructor_skills = ?,\n"
-                    + "    instructor_support = ?,\n"
+                    + "    instructor_support = ?, \n"
                     + "    comment = ?\n"
-                    + "WHERE fb_id = ?; ";
+                    + "WHERE fb_id = ?;";
 
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setString(1, fb.getStudent().getId());

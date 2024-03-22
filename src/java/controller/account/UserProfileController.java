@@ -37,7 +37,6 @@ public class UserProfileController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
             AccountDBContext daoAcc = new AccountDBContext();
             Account acc = (Account) session.getAttribute("acc");

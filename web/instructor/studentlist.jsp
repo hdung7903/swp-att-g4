@@ -86,10 +86,10 @@
                             <h2 class="card-title">Your Class</h2>
                             <form id="classForm" action="${pageContext.request.contextPath}/instructor/studentlist" method="get">
                                 <div class="mb-3">
-                                    <select class="form-select" id="classSelect" name="class_id" onchange="submitForm()">
+                                    <select class="form-select" id="classSelect" name="csm_id" onchange="submitForm()">
                                         <option selected disabled>Select a Group</option>
                                         <c:forEach items="${requestScope.gsm}" var="g" varStatus="index">
-                                            <option value="${g.group.id}" ${g.group.id == param.class_id ? 'selected' : ''}>${g.group.name} - ${g.subject.name}</option>
+                                            <option value="${g.id}" ${g.id == param.csm_id ? 'selected' : ''}>${g.group.name} - ${g.subject.name}</option>
                                         </c:forEach>
                                     </select>
                                 </div>

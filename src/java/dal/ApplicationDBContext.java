@@ -57,7 +57,7 @@ public class ApplicationDBContext extends DBContext<Application> {
         ArrayList<Application> applications = new ArrayList<>();
 
         try {
-            String sql = "SELECT a.app_id, a.content, a.create_date, a.student_id, s.student_name, a.isApprove, a.`comment` "
+            String sql = "SELECT a.app_id, a.content, a.create_date, a.student_id, s.student_name, a.isSend, a.isApprove, a.`comment` "
                     + "FROM application a "
                     + "INNER JOIN student s ON s.student_id = a.student_id "
                     + "INNER JOIN type_application t ON t.type_id = a.type_id ORDER BY a.app_id";
@@ -66,6 +66,7 @@ public class ApplicationDBContext extends DBContext<Application> {
             while (rs.next()) {
                 String content = rs.getString("content");
                 Date createDate = rs.getDate("create_date");
+                boolean isSend = rs.getBoolean("isSend");
                 boolean isApprove = rs.getBoolean("isApprove");
                 String comment = rs.getString("comment");
 
@@ -78,6 +79,7 @@ public class ApplicationDBContext extends DBContext<Application> {
                 application.setContent(content);
                 application.setCreate_date(createDate);
                 application.setStudent(student);
+                application.setIsSend(isSend);
                 application.setIsApprove(isApprove);
                 application.setComment(comment);
 
@@ -94,17 +96,22 @@ public class ApplicationDBContext extends DBContext<Application> {
         Application application = null;
 
         try {
-            String sql = "SELECT a.app_id, a.content, a.create_date, a.student_id, s.student_name "
-                    + "FROM application a "
-                    + "INNER JOIN student s ON s.student_id = a.student_id "
-                    + "INNER JOIN type_application t ON t.type_id = a.type_id "
-                    + "WHERE a.app_id = ?";
+            String sql = """
+                         SELECT a.app_id, a.content, a.create_date, a.student_id, s.student_name, a.isSend, a.isApprove, a.comment
+                         FROM application a 
+                         INNER JOIN student s ON s.student_id = a.student_id 
+                         INNER JOIN type_application t ON t.type_id = a.type_id 
+                         WHERE a.app_id = ?
+                         """;
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, id);
             ResultSet rs = stm.executeQuery();
             if (rs.next()) {
                 String content = rs.getString("content");
                 Date createDate = rs.getDate("create_date");
+                boolean isSend=rs.getBoolean("isSend");
+                boolean isApprove = rs.getBoolean("isApprove");
+                String comment = rs.getString("comment");
 
                 Student student = new Student();
                 student.setId(rs.getString("student_id"));
@@ -113,14 +120,18 @@ public class ApplicationDBContext extends DBContext<Application> {
                 application = new Application();
                 application.setId(rs.getInt("app_id"));
                 application.setContent(content);
+                application.setIsSend(isSend);
+                application.setIsApprove(isApprove);
                 application.setCreate_date(createDate);
+                application.setComment(comment);
                 application.setStudent(student);
             }
+             return application;
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
 
-        return application;
+        return null;
     }
     
     public ArrayList<Application> getAppByStudent(String student_id) {
@@ -189,4 +200,12 @@ public class ApplicationDBContext extends DBContext<Application> {
             ex.printStackTrace();
         }
     }
+    
+    public static void main(String[] args) {
+        ApplicationDBContext app = new  ApplicationDBContext();
+        String student_id = "70";
+        ArrayList<Application> ap = app.getAppByStudent(student_id);
+        System.out.println(ap);
+    }
 }
+

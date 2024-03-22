@@ -27,7 +27,7 @@ public abstract class DBContext<T extends BaseEntity> {
             String password = "12345";
 
             connection = DriverManager.getConnection(url, user, password);
-            System.out.println("Connection OK!");
+            //System.out.println("Connection OK!");
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -24,12 +24,13 @@ public class RegistionDBContext extends DBContext<Registion>{
     public void enrollClass(Registion enroll) {
         try {
            
-            String sql = "INSERT INTO registion (class_id, student_id) "
-                       + "VALUES (?, ?)";
+            String sql = "INSERT INTO registion (class_id, student_id, csm_id) "
+                       + "VALUES (?, ?,?)";
             
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setString(1, enroll.getGroup().getId()); 
             stm.setString(2, enroll.getStudent().getId()); 
+            stm.setInt(3, enroll.getGsm().getId()); 
             
             stm.executeUpdate();
         } catch (SQLException ex) {
@@ -42,13 +43,14 @@ public class RegistionDBContext extends DBContext<Registion>{
         }
     }
     
-    public Registion checkStudentExist(String class_id, String student_id) {
-        String sql = "SELECT * FROM registion\n"
-                + "Where class_id = ? and student_id= ?;";
+    public Registion checkStudentExist(String csm_id, String student_id) {
+        String sql = """
+                     SELECT * FROM registion
+                     Where csm_id = ? and student_id= ?;""";
         Registion list = null;
         try {
             PreparedStatement stm = connection.prepareStatement(sql);
-            stm.setString(1, class_id);
+            stm.setString(1, csm_id);
             stm.setString(2, student_id);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
@@ -65,11 +67,12 @@ public class RegistionDBContext extends DBContext<Registion>{
     
     public List<Registion> getAllRegistion() {
     List<Registion> listRes = new ArrayList<>();
-    String sql = "SELECT regis_id, c.class_name, c.class_id, s.student_name, s.student_id\n" +
-"                   FROM registion res\n" +
-"                   INNER JOIN class c ON c.class_id = res.class_id\n" +
-"                   INNER JOIN student s ON s.student_id = res.student_id\n" +
-"                   order by res.class_id;";
+    String sql = """
+                 SELECT regis_id, c.class_name, c.class_id, s.student_name, s.student_id
+                                    FROM registion res
+                                    INNER JOIN class c ON c.class_id = res.class_id
+                                    INNER JOIN student s ON s.student_id = res.student_id
+                                    order by res.class_id;""";
     try {
         PreparedStatement st = connection.prepareStatement(sql);
         ResultSet rs = st.executeQuery();
