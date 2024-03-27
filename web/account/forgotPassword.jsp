@@ -82,7 +82,10 @@
                         </div>
                         <div class="card-body">
                             <form action="forgotPassword" method="POST">
-                                <p style="color: red; font-size: 18px" >${requestScope.mess}</p>
+                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                    ${requestScope.mess}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
                                 <div class="mb-3">
                                     <label for="username" class="form-label">Username</label>
                                     <input type="text" class="form-control" id="username" name="username" required>

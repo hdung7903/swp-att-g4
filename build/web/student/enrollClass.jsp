@@ -64,61 +64,52 @@ Author     : Administrator
                     <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
                 </div>          
             </form>
-            <c:if test="${empty gsm}">
-                <div class="alert alert-danger d-flex align-items-center" role="alert">
-                        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> 
-                        <div>
-                             Subject can't be found
-                        </div>
-                    </div>
-            </c:if>
-            <c:if test="${not empty gsm}">   
-                <div class="card">
-                    <h2 class="card-title text-center mb-4">Class Register <i class="fa fa-chalkboard-teacher"></i></h2>
-                        <c:choose>
-                            <c:when test="${not empty mess}">
-                                <c:choose>
-                                    <c:when test="${mess == 'Register successfull!'}">
-                                    <div class="alert alert-success text-center" role="alert">
-                                        <i class="fa fa-check-circle"></i> ${mess}
-                                    </div>
-                                </c:when>
-                                <c:otherwise>
-                                    <div class="alert alert-danger text-center" role="alert">
-                                        <i class="fa fa-exclamation-circle"></i> ${mess}
-                                    </div>
-                                </c:otherwise>
-                            </c:choose>
-                        </c:when>
-                    </c:choose>
 
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-striped">
-                            <thead>
+            <div class="card">
+                <h2 class="card-title text-center mb-4">Class Register <i class="fa fa-chalkboard-teacher"></i></h2>
+                    <c:choose>
+                        <c:when test="${not empty mess}">
+                            <c:choose>
+                                <c:when test="${mess == 'Register successfull!'}">
+                                <div class="alert alert-success text-center" role="alert">
+                                    <i class="fa fa-check-circle"></i> ${mess}
+                                </div>
+                            </c:when>
+                            <c:otherwise>
+                                <div class="alert alert-danger text-center" role="alert">
+                                    <i class="fa fa-exclamation-circle"></i> ${mess}
+                                </div>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:when>
+                </c:choose>
+
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr class="text-center">
+                                <th>Class Name</th>
+                                <th>Number of Students</th>
+                                <th>Enroll</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach items="${requestScope.gsm}" var="g" varStatus="loop">
                                 <tr class="text-center">
-                                    <th>Class Name</th>
-                                    <th>Number of Students</th>
-                                    <th>Enroll</th>
+                                    <td>${g.group.name}</td>
+                                    <td>${g.totalStudent}</td>
+                                    <td>
+                                        <form id="enrollForm${loop.index}" action="${pageContext.request.contextPath}/student/enroll" method="POST">
+                                            <input type="hidden" value="${g.subject.name}" name="subject_name"/>
+                                            <input type="hidden" value="${g.group.id}" name="class_id"/>
+                                            <button type="submit" class="btn btn-primary">Enroll <i class="fa fa-sign-in-alt"></i></button>
+                                        </form>
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                <c:forEach items="${requestScope.gsm}" var="g" varStatus="loop">
-                                    <tr class="text-center">
-                                        <td>${g.group.name}</td>
-                                        <td>${g.totalStudent}</td>
-                                        <td>
-                                            <form id="enrollForm${loop.index}" action="${pageContext.request.contextPath}/student/enroll" method="POST">
-                                                <input type="hidden" value="${g.subject.name}" name="subject_name"/>
-                                                <input type="hidden" value="${g.group.id}" name="class_id"/>
-                                                <button type="submit" class="btn btn-primary">Enroll <i class="fa fa-sign-in-alt"></i></button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                </c:forEach>
-                            </tbody>
-                        </table>
-                    </div>
-                </c:if>
+                            </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </body>

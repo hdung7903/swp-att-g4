@@ -237,7 +237,7 @@ public class SessionDBContext extends DBContext<Session> {
                 + "JOIN class_subject_mapping csm ON csm.csm_id=s.csm_id\n"
                 + "JOIN Class c ON c.class_id=csm.class_id\n"
                 + "JOIN Attendance a ON a.session_id = s.session_id\n"
-                + "WHERE c.class_id=?  AND s.isAtt=?";
+                + "WHERE csm.csm_id=?  AND s.isAtt=?";
 
         try ( PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, groupId);

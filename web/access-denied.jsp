@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -47,7 +48,20 @@
                 <h1 class="error-code mb-2">401</h1>
                 <h2 class="h3 error-description mb-4">Access Denied</h2>
                 <p class="error-description mb-4">You do not have the necessary permissions to access this page.</p>
-                <a href="<%=request.getContextPath()%>" class="btn-home">Go Home</a>
+                <c:choose>
+                    <c:when test="${sessionScope.account.role_id == 1}">
+                        <a href="<%=request.getContextPath()/acad/home%>" class="btn-home">Go Home</a>
+                    </c:when>
+                    <c:when test="${sessionScope.account.role_id == 2}">
+                        <a href="<%=request.getContextPath()/admin/home%>" class="btn-home">Go Home</a>
+                    </c:when>
+                    <c:when test="${sessionScope.account.role_id == 3}">
+                        <a href="<%=request.getContextPath()/instructor/home%>" class="btn-home">Go Home</a>
+                    </c:when>
+                    <c:when test="${sessionScope.account.role_id == 4}">
+                        <a href="<%=request.getContextPath()/student/home%>" class="btn-home">Go Home</a>
+                    </c:when>
+                </c:choose>
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>

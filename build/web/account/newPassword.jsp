@@ -5,13 +5,9 @@
     <meta charset='utf-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <title>Reset Password</title>
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&display=swap" rel="stylesheet">
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <!-- Custom Styles -->
     <style>
         body {
             font-family: 'Open Sans', sans-serif;
@@ -57,15 +53,12 @@
                     </div>
                     <div class="card-body">
                         <form class="form-horizontal" action="newPassword" method="POST">
-                            <!-- New Password Input -->
                             <div class="mb-3">
                                 <input type="password" name="password" placeholder="New Password" class="form-control" required>
                             </div>
-                            <!-- Confirm New Password Input -->
                             <div class="mb-3">
                                 <input type="password" name="confPassword" placeholder="Confirm New Password" class="form-control" required>
                             </div>
-                            <!-- Reset Button -->
                             <div class="d-grid">
                                 <input type="submit" value="Reset" class="btn btn-info">
                             </div>
@@ -75,8 +68,6 @@
             </div>
         </div>
     </div>
-    <!-- Bootstrap Bundle JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- jQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </body>

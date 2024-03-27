@@ -57,7 +57,6 @@
                     <form>
                         <div class="">
                             <div class="">
-                                <!-- Inside the Account Information Section -->
                                 <div class="row">
                                     <div class="col-lg-12 text-center mb-4">
                                         <img src="https://cdn.discordapp.com/attachments/947741416992436235/1171005032691404921/profile.png?ex=655b1a6c&is=6548a56c&hm=428202d73c6b3e95f3b966e3840f79186e79afdc98a879ea0492fa4957d08806&" 

@@ -1,3 +1,4 @@
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -42,6 +43,7 @@ public class FeedbackDBContext extends DBContext<Feedback> {
     public Feedback get(Feedback entity) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
     public ArrayList<Feedback> checkFeedBackExist(String csm_id, String student_id) {
         String sql = "SELECT fb.fb_id, fb.student_id, s.student_name, fb.csm_id, fb.punctuality, fb.fully_syllabus, fb.intructor_skills, fb.instructor_support, fb.comment\n"
                 + "FROM feed_back fb \n"
@@ -98,14 +100,15 @@ public class FeedbackDBContext extends DBContext<Feedback> {
     public void editFeedback(Feedback fb) {
         try {
             String sql = "UPDATE feed_back \n"
-                    + "SET student_id = ?,\n"
-                    + "    csm_id = ?,\n"
-                    + "    punctuality = ?,\n"
-                    + "    fully_syllabus = ?,\n"
+                    + "SET \n"
+                    + "    student_id = ?, \n"
+                    + "    csm_id = ?, \n"
+                    + "    punctuality = ?, \n"
+                    + "    fully_syllabus = ?, \n"
                     + "    intructor_skills = ?,\n"
-                    + "    instructor_support = ?,\n"
+                    + "    instructor_support = ?, \n"
                     + "    comment = ?\n"
-                    + "WHERE fb_id = ?; ";
+                    + "WHERE fb_id = ?;";
 
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setString(1, fb.getStudent().getId());

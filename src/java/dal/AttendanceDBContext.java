@@ -32,7 +32,7 @@ public class AttendanceDBContext extends DBContext<Attendance> {
         try {
             String sql = "SELECT stu.student_id,stu.student_name,\n"
                     + "   IFNULL(a.status, 0) AS status,\n"
-                    + "	  IFNULL(a.att_description, 'nothing') AS att_description,\n"
+                    + "   IFNULL(a.att_description, 'nothing') AS att_description,\n"
                     + "   IFNULL(a.att_datetime, NOW()) AS att_datetime,\n"
                     + "   a.session_id\n"
                     + "FROM Session ses \n"
@@ -69,7 +69,7 @@ public class AttendanceDBContext extends DBContext<Attendance> {
     public Map<String, Student> getAttendanceRecords(int groupId) throws SQLException {
         Map<String, Student> attendanceMap = new HashMap<>();
 
-        String sql = "SELECT s.student_name, a.status,s.email,s.student_id,ses.session_index,ses.session_id,i.instructor_name,su.subject_name\n"
+        String sql = "SELECT DISTINCT s.student_name, a.status,s.email,s.student_id,ses.session_index,ses.session_id,i.instructor_name,su.subject_name\n"
                 + "FROM Class c \n"
                 + "INNER JOIN class_subject_mapping csm ON csm.class_id=c.class_id\n"
                 + "INNER JOIN student_class_mapping scm ON scm.class_id=c.class_id\n"
@@ -84,13 +84,14 @@ public class AttendanceDBContext extends DBContext<Attendance> {
             stm.setInt(1, groupId);
             try ( ResultSet rs = stm.executeQuery()) {
                 while (rs.next()) {
+                    String studentId=rs.getString("student_id");
                     String studentName = rs.getString("student_name");
                     String email = rs.getString("email");
                     String instructorName = rs.getString("instructor_name");
                     String subjectName = rs.getString("subject_name");
                     Boolean status = rs.getBoolean("status");
 
-                    Student student = attendanceMap.computeIfAbsent(studentName, k -> new Student(studentName, new Instructor(instructorName), new Subject(subjectName), email, new ArrayList<>()));
+                    Student student = attendanceMap.computeIfAbsent(studentId, k -> new Student(studentName, new Instructor(instructorName), new Subject(subjectName), email, new ArrayList<>()));
                     student.getAttendances().add(status);
 
                 }
@@ -128,7 +129,7 @@ public class AttendanceDBContext extends DBContext<Attendance> {
     public List<Attendance> getStudentAttendanceRecords(String stuId, int csmId) throws SQLException {
         List<Attendance> statusRecord = new ArrayList<>();
 
-        String sql = "SELECT s.student_name, a.status, ses.ses_date, s.student_id, ses.session_index,ses.isAtt ,ses.session_id,i.instructor_name, su.subject_name, a.att_datetime, a.att_description, ts.description,c.class_name \n"
+        String sql = "SELECT DISTINCT s.student_name, a.status, ses.ses_date, s.student_id, ses.session_index,ses.isAtt ,ses.session_id,i.instructor_name, su.subject_name, a.att_datetime, a.att_description, ts.description,c.class_name \n"
                 + "FROM Class c\n"
                 + "INNER JOIN class_subject_mapping csm ON csm.class_id = c.class_id\n"
                 + "INNER JOIN student_class_mapping scm ON scm.class_id = c.class_id\n"

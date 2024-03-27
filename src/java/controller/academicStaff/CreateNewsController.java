@@ -37,7 +37,7 @@ public class CreateNewsController extends HttpServlet {
         NewsDBContext dbContext = new NewsDBContext();
         dbContext.insert(news);
         
-        submitted = true;
+//        submitted = true;
         response.sendRedirect(request.getContextPath() + "/acad/listNews");
     } 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -64,9 +64,9 @@ public class CreateNewsController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-         if (!submitted) { 
+//         if (!submitted) { 
             processRequest(request, response);
-        }
+//        }
     }
 
     /** 
