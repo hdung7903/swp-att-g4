@@ -66,7 +66,6 @@ Author     : Administrator
                 <h2 class="card-title">Class List</h2>
                 <div class="d-flex gap-2 mb-3">
                     <a href="${pageContext.request.contextPath}/acad/assignsub" class="btn btn-primary"><i class="fa fa-calendar-check"></i> Assigned Subject</a>
-                    <a href="${pageContext.request.contextPath}/acad/removesub" class="btn btn-danger"><i class="fa fa-calendar-times"></i> Remove Subject</a>
                 </div>
                 <div class="table-responsive">
                     <form id="" action="subject" method="POST">

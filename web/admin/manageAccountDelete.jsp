@@ -79,8 +79,6 @@
                                 <div class="btn-group">
                                     <a href="manageacc?action=restore&username=${acc.getUsername()}"
                                        class="btn btn-info text-white text-decoration-none">Restore</a>
-                                    <a href="#" onclick="confirmDelete('${acc.getUsername()}')"
-                                       class="bg-danger text-white border px-3 py-2 text-decoration-none">Delete</a>
                                 </div>
                             </div>
                         </div>
@@ -100,8 +98,6 @@
                                 <div class="btn-group">
                                     <a href="manageacc?action=restore&username=${student.getUsername()}"
                                        class="btn btn-info text-white text-decoration-none">Restore</a>
-                                    <a href="#" onclick="confirmDelete('${student.getUsername()}')"
-                                       class="bg-danger text-white border px-3 py-2 text-decoration-none">Delete</a>
                                 </div>
                             </div>
                         </div>
@@ -121,8 +117,6 @@
                                 <div class="btn-group">
                                     <a href="manageacc?action=restore&username=${instructor.getUsername()}"
                                        class="btn btn-info text-white text-decoration-none">Restore</a>
-                                    <a href="#" onclick="confirmDelete('${instructor.getUsername()}')"
-                                       class="bg-danger text-white border px-3 py-2 text-decoration-none">Delete</a>
                                 </div>
                             </div>
                         </div>

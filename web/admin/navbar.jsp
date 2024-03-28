@@ -53,7 +53,7 @@
                         
                     </ul>
                     <div class="user-profile d-flex align-items-center me-4">
-                        <a href="${pageContext.request.contextPath}/profile" class="text-decoration-none">
+                        <a class="text-decoration-none">
                             <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle me-2">
                             ${sessionScope.acc.username}
                         </a>

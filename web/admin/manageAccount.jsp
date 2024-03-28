@@ -45,7 +45,6 @@
                 <h3>List Account</h3>
                 <div class="d-flex">
                     <a class="btn btn-success mx-2 rounded text-decoration-none py-2 text-white" href="createacc?action=add"><i class="fas fa-plus"></i> Add</a>
-                    <a class="btn btn-success mx-2 rounded text-decoration-none py-2 text-white bg-danger" href=""><i class="fas fa-file-import"></i> Import</a>
                     <a href="manageacc?action=exprortExcel" class="btn btn-success mx-2 rounded text-decoration-none py-2 text-white bg-warning" href="">Export <i class='bx bx-export'></i></a>
                 </div>
                 <div>
@@ -94,9 +93,6 @@
                             <div class="col-2">${acc.getUsername()}</div>
                             <div class="col-1">${acc.getRole_id()==1?'Academic Staff':'Admin'}</div>
                             <div class="col-3">
-                                <div class="d-flex">                             
-                                    <a href="manageacc?action=deletedRule&username=${acc.getUsername()}" class="btn btn-danger text-white border px-3 py-2 text-decoration-none">Delete</a>
-                                </div>
                             </div>
                         </div>
                         <c:set var="index" value="${index+1}"/>
@@ -114,7 +110,7 @@
                             <div class="col-3">
                                 <div class="d-flex">
                                     <a href="editacc?username=${student.getUsername()}&role=stu" class="btn btn-info text-white border px-3 py-2 text-decoration-none mx-2">Update</a>
-                                    <a href="manageacc?action=deletedRule&username=${student.getUsername()}" class="btn btn-danger text-white border px-3 py-2 text-decoration-none" >Delete</a>
+                                    <a href="manageacc?action=deletedRule&username=${student.getUsername()}" class="btn btn-danger text-white border px-3 py-2 text-decoration-none" >Inactive</a>
                                 </div>
                             </div>
                         </div>
@@ -133,7 +129,7 @@
                             <div class="col-3">
                                 <div class="d-flex">
                                     <a href="editacc?username=${instructor.getUsername()}&role=ins" class="btn btn-info text-white border px-3 py-2 text-decoration-none mx-2">Update</a>
-                                    <a href="manageacc?action=deletedRule&username=${instructor.getUsername()}" class="btn btn-danger text-white border px-3 py-2 text-decoration-none">Delete</a>
+                                    <a href="manageacc?action=deletedRule&username=${instructor.getUsername()}" class="btn btn-danger text-white border px-3 py-2 text-decoration-none">Inactive</a>
                                 </div>
                             </div>
                         </div>

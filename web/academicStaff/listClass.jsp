@@ -115,7 +115,10 @@
                                     <a class="${i==page?"active":""}" href="listclass?page=${i}">${i}</a>
                                 </c:forEach>
                             </div>
-                        </div>                     
+                        </div>   
+                        <div class="mb-3">
+                            <a href="home" class="text-decoration-none text-black"><i class="fas fa-arrow-left me-2"></i>Go back</a>
+                        </div>
                     </div>
                 </div>
             </div>
