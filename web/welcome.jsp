@@ -68,7 +68,7 @@
         <div class="flex-grow-1">
             <main class="mt-5">
                 <div class="image-container">
-                    <img src="https://cdn.discordapp.com/attachments/1207588646270541874/1211569259994550272/414981424_753677770123822_6814149231170888051_n.png?ex=65eeaccd&amp;is=65dc37cd&amp;hm=1baf1ede8e32732eb89bb9135447397cb1bd82f2d75d31d2a0b653584b92a332&amp;" alt="FPT University" alt="FPT University">
+                    <img src="https://cdn.discordapp.com/attachments/1207588646270541874/1211569259994550272/414981424_753677770123822_6814149231170888051_n.png?ex=661396cd&is=660121cd&hm=4e9f53065c9db71a1bb2f106ebd28e36ed4f37a93f736dbe8ef30d1923145e09&" alt="FPT University" alt="FPT University">
                 </div>
                 <div class="container my-4">
                     <h1>Welcome to FPT University</h1>

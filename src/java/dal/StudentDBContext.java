@@ -44,7 +44,7 @@ public class StudentDBContext extends DBContext<Student> {
                          SELECT student_id, student_name, email
                          FROM student """;
             if (txtSearch != null && !txtSearch.equals("")) {
-                sql += "WHERE CONCAT(student_id, student_name, email) LIKE ?";
+                sql += " WHERE CONCAT(student_id, student_name, email) LIKE ? ";
             }
             sql += " GROUP BY student_id, student_name, email;";
             PreparedStatement stm = connection.prepareStatement(sql);
@@ -95,6 +95,12 @@ public class StudentDBContext extends DBContext<Student> {
             Logger.getLogger(GroupDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return students;
+    }
+
+    public static void main(String[] args) {
+        StudentDBContext st = new StudentDBContext();
+        ArrayList<Student> list = st.getStudentbyStaff("Nam");
+        System.out.println(list);
     }
 
     @Override

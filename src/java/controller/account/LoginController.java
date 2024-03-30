@@ -63,20 +63,20 @@ public class LoginController extends HttpServlet {
         Cookie cuser = new Cookie("cuser", username);
         Cookie cpass = new Cookie("cpass", password);
         Cookie crmb = new Cookie("crmb", rememberMe);
-
-        if (rememberMe != null) {
-            cuser.setMaxAge(60 * 60 * 24 * 1);
-            cpass.setMaxAge(60 * 60 * 24 * 1);
-            crmb.setMaxAge(60 * 60 * 24 * 1);
-        } else {
-            cuser.setMaxAge(0);
-            cpass.setMaxAge(0);
-            crmb.setMaxAge(0);
-        }
-
-        response.addCookie(cuser);
-        response.addCookie(cpass);
-        response.addCookie(crmb);
+//
+//        if (rememberMe != null) {
+//            cuser.setMaxAge(60 * 60 * 24 * 1);
+//            cpass.setMaxAge(60 * 60 * 24 * 1);
+//            crmb.setMaxAge(60 * 60 * 24 * 1);
+//        } else {
+//            cuser.setMaxAge(0);
+//            cpass.setMaxAge(0);
+//            crmb.setMaxAge(0);
+//        }
+//
+//        response.addCookie(cuser);
+//        response.addCookie(cpass);
+//        response.addCookie(crmb);
 
         AccountDBContext DAO = new AccountDBContext();
         Account a = DAO.ValidateAccount(username, password);

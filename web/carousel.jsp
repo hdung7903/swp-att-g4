@@ -38,7 +38,7 @@
                     <div class="container">
                         <div class="row align-items-center">
                             <div class="col-md-6">
-                                <img src="https://cdn.discordapp.com/attachments/1207588646270541874/1211577496445648926/thumb.png?ex=65f7eef9&is=65e579f9&hm=4de56d21832247548b6925197d3b5befef6f74cf707f7bf24a0df815d921b610&" alt="Image 1" class="carousel-img">
+                                <img src="https://cdn.discordapp.com/attachments/1207588646270541874/1211577496445648926/thumb.png?ex=66139e79&is=66012979&hm=67f428decc13cb0835101c5c088aac37062a7b52f5beb5caf2dab115ee56ec74&" alt="Image 1" class="carousel-img">
                             </div>
                             <div class="col-md-6">
                                 <div class="carousel-content">
@@ -54,7 +54,7 @@
                         <div class="container">
                             <div class="row align-items-center">
                                 <div class="col-md-6">
-                                    <img src="https://cdn.discordapp.com/attachments/1207588646270541874/1211577496445648926/thumb.png?ex=65f7eef9&is=65e579f9&hm=4de56d21832247548b6925197d3b5befef6f74cf707f7bf24a0df815d921b610&" alt="Image 2" class="carousel-img">
+                                    <img src="https://cdn.discordapp.com/attachments/1207588646270541874/1211577496445648926/thumb.png?ex=66139e79&is=66012979&hm=67f428decc13cb0835101c5c088aac37062a7b52f5beb5caf2dab115ee56ec74&" alt="Image 2" class="carousel-img">
                                 </div>
                                 <div class="col-md-6">
                                     <div class="carousel-content">

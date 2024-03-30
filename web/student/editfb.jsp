@@ -57,7 +57,7 @@
             </div>
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <form action="${pageContext.request.contextPath}/student/editfb" method="POST">
+                    <form action="${pageContext.request.contextPath}/student/editfb" method="POST" onsubmit="return submitForm()">
                         <table class="table table-bordered">
                             <thead class="thead-dark">
                                 <tr class="text-center">
@@ -159,5 +159,12 @@
                 </div>
             </div>
         </div>
+                        
+         <script>
+            function submitForm() {
+                alert("FeedBack successfully!");
+                return true;
+            }
+        </script>
     </body>
 </html>

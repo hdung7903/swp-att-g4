@@ -52,7 +52,6 @@
 
     <body>
         <%@ include file="./navbar.jsp" %>
-
         <div class="container">
             <h1 class="text-center mb-4">Take Feedback Sheet</h1>
             <div class="card mb-3">

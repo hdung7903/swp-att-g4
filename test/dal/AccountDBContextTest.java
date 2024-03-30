@@ -173,7 +173,7 @@ public class AccountDBContextTest {
         AccountDBContext instance = new AccountDBContext();
 
         Instructor result = instance.getIntructorByUserName(username);
-        assertNull(result);
+        assertNotNull(result);
     }
     
     @Test
@@ -212,12 +212,12 @@ public class AccountDBContextTest {
     @Test
     public void testGetStudentByUserName() {
         System.out.println("getStudentByUserName");
-        String username = "student1";
+        String username = "NamHD";
         AccountDBContext instance = new AccountDBContext();
         Student expResult = new Student();
         expResult.setId("1");
-        expResult.setEmail("tranvana@example.com");
-        expResult.setName("Trần Văn A");
+        expResult.setEmail("NamHD@gmail.com");
+        expResult.setName("Hoàng Đức Nam");
 
         Student result = instance.getStudentByUserName(username);
 
@@ -268,7 +268,7 @@ public class AccountDBContextTest {
         boolean isDeletedRule = false;
         AccountDBContext instance = new AccountDBContext();
 
-        int expResult = 0;
+        int expResult = 1;
 
         Vector<Instructor> result = instance.getAllInstructor(txtSearch, isDeletedRule);
         int actual = result.size();

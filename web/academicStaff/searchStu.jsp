@@ -89,7 +89,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <h2 class="card-title">Search by name-id-mail:</h2>
-                        <form id="searchForm" action="${pageContext.request.contextPath}/acad/searchstu" method="get">
+                        <form id="searchForm" action="${pageContext.request.contextPath}/acad/searchstu" method="post">
                             <div class="input-group mb-3">
                                 <input id="searchInput" class="form-control" placeholder="Search" name="search" value="${searchTxt}">
                                 <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>

@@ -75,8 +75,7 @@ public class FeedbackDBContext extends DBContext<Feedback> {
 
     public void addFeedback(Feedback fb) {
         try {
-            String sql = "INSERT INTO feed_back (student_id, csm_id, punctuality, fully_syllabus, intructor_skills, instructor_support, comment) "
-                    + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO feed_back (student_id, csm_id, punctuality, fully_syllabus, intructor_skills, instructor_support, comment) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setString(1, fb.getStudent().getId());
@@ -100,16 +99,17 @@ public class FeedbackDBContext extends DBContext<Feedback> {
 
     public void editFeedback(Feedback fb) {
         try {
-            String sql = "UPDATE feed_back \n"
-                    + "SET \n"
-                    + "    student_id = ?, \n"
-                    + "    csm_id = ?, \n"
-                    + "    punctuality = ?, \n"
-                    + "    fully_syllabus = ?, \n"
-                    + "    intructor_skills = ?,\n"
-                    + "    instructor_support = ?, \n"
-                    + "    comment = ?\n"
-                    + "WHERE fb_id = ?;";
+            String sql = """
+                         UPDATE feed_back 
+                         SET 
+                             student_id = ?, 
+                             csm_id = ?, 
+                             punctuality = ?, 
+                             fully_syllabus = ?, 
+                             intructor_skills = ?,
+                             instructor_support = ?, 
+                             comment = ?
+                         WHERE fb_id = ?;""";
 
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setString(1, fb.getStudent().getId());
@@ -130,5 +130,11 @@ public class FeedbackDBContext extends DBContext<Feedback> {
                 Logger.getLogger(FeedbackDBContext.class.getName()).log(Level.SEVERE, null, ex1);
             }
         }
+    }
+    
+    public static void main(String[] args) {
+        FeedbackDBContext fb = new FeedbackDBContext();
+        ArrayList<Feedback> list = fb.checkFeedBackExist("17", "1");
+        System.out.println(list);
     }
 }

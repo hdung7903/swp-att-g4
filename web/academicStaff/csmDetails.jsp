@@ -40,7 +40,7 @@
                     <div class="signup-content">
                         <form method="POST" id="signup-form" class="signup-form" action="${pageContext.request.contextPath}/acad/updateclass">
                             <h2>Update Class</h2>
-                            <h6 class="text-danger">You can only change the instructor and total slots of the class</h6>
+                            <h6 class="text-danger">Only change the instructor, total slots and add more student into class</h6>
                             <c:set var="gsm" value="${requestScope.gsm}"/>
                             <div class="row">
                                 <div class="col-md-6 mb-3">

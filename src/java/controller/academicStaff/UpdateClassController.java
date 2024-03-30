@@ -123,11 +123,13 @@ public class UpdateClassController extends HttpServlet {
         // Retrieve the updated GroupSubjectMapping object
         GroupSubjectMapping updatedGsm = gsmDB.getClassByCsmId(csm_id_raw);
         String class_id = updatedGsm.getGroup().getId();
-        
-        SCMDBContext scmDB = new SCMDBContext();
+        if(stuIds != null){
+            SCMDBContext scmDB = new SCMDBContext();
         for (String stu_id : stuIds) {
             scmDB.insertStuinClass(stu_id, class_id, csm_id_raw);
         }
+        }
+        
 
         response.sendRedirect(request.getServletContext().getContextPath() + "/acad/details?id=" + class_id);
     }

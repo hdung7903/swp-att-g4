@@ -114,54 +114,54 @@
                         </c:if>
                     </c:forEach>
                     <c:if test="${remainingDays > 0}">
-                        <div class="table-container">
-                            <div class="table-responsive">
-                                <table class="table table-bordered table-striped table-hover">
-                                    <thead class="thead-light">
-                                        <tr>
-                                            <th></th>
-                                                <c:forEach var="d" begin="${(tableIndex - 1) * 7}" end="${tableIndex * 7 - 1}" items="${dates}">
-                                                <th class="text-center">
-                                                    <fmt:formatDate value="${d}" pattern="dd-MM-yyyy" var="formattedDate" />
-                                                    ${formattedDate}
-                                                </th>
-                                            </c:forEach>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <c:forEach items="${requestScope.slots}" var="s">
+                        <div class="table-container container">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped table-hover">
+                                        <thead class="thead-light">
                                             <tr>
-                                                <td class="align-middle">${s.description}</td>
-                                                <c:forEach var="d" begin="${(tableIndex - 1) * 7}" end="${tableIndex * 7 - 1}" items="${dates}">
-                                                    <td>
-                                                        <c:forEach items="${requestScope.sessions}" var="ses">
-                                                            <c:if test="${ses.time.id eq s.id and ses.date eq d}">
-                                                                <div class="mb-2">
-                                                                    <a href="${pageContext.request.contextPath}/instructor/sessiondetail?id=${ses.id}" class="font-weight-bold text-dark">
-                                                                        ${ses.group.name} - ${ses.subject.name}
-                                                                    </a>
-                                                                    <p>
-                                                                        <a href="https://${ses.group.link_url}" target="_blank">Link Class</a>
-                                                                    </p>
-                                                                    <c:choose>
-                                                                        <c:when test="${ses.isAtt}">
-                                                                            <a href="${pageContext.request.contextPath}/instructor/viewatt?id=${ses.id}" class="text-success font-weight-bold">View Attendance</a>
-                                                                        </c:when>
-                                                                        <c:otherwise>
-                                                                            <a href="${pageContext.request.contextPath}/instructor/takeatt?id=${ses.id}" class="text-danger font-weight-bold">Take Attendance</a>
-                                                                        </c:otherwise>
-                                                                    </c:choose>
-                                                                </div>
-                                                            </c:if>
-                                                        </c:forEach>
-                                                    </td>
+                                                <th></th>
+                                                    <c:forEach var="d" begin="${(tableIndex - 1) * 7}" end="${tableIndex * 7 - 1}" items="${dates}">
+                                                    <th class="text-center">
+                                                        <fmt:formatDate value="${d}" pattern="dd-MM-yyyy" var="formattedDate" />
+                                                        ${formattedDate}
+                                                    </th>
                                                 </c:forEach>
                                             </tr>
-                                        </c:forEach>
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody>
+                                            <c:forEach items="${requestScope.slots}" var="s">
+                                                <tr>
+                                                    <td class="align-middle">${s.description}</td>
+                                                    <c:forEach var="d" begin="${(tableIndex - 1) * 7}" end="${tableIndex * 7 - 1}" items="${dates}">
+                                                        <td>
+                                                            <c:forEach items="${requestScope.sessions}" var="ses">
+                                                                <c:if test="${ses.time.id eq s.id and ses.date eq d}">
+                                                                    <div class="mb-2">
+                                                                        <a href="${pageContext.request.contextPath}/instructor/sessiondetail?id=${ses.id}" class="font-weight-bold text-dark">
+                                                                            ${ses.group.name} - ${ses.subject.name}
+                                                                        </a>
+                                                                        <p>
+                                                                            <a href="https://${ses.group.link_url}" target="_blank">Link Class</a>
+                                                                        </p>                                                                              
+                                                                        <c:choose>
+                                                                            <c:when test="${ses.isAtt}">
+                                                                                <a href="${pageContext.request.contextPath}/instructor/viewatt?id=${ses.id}" class="text-success font-weight-bold">View Attendance</a>
+                                                                            </c:when>
+                                                                            <c:otherwise>
+                                                                                <a href="${pageContext.request.contextPath}/instructor/takeatt?id=${ses.id}" class="text-danger font-weight-bold">Take Attendance</a>
+                                                                            </c:otherwise>
+                                                                        </c:choose>
+                                                                    </div>
+                                                                </c:if>
+                                                            </c:forEach>
+                                                        </td>
+                                                    </c:forEach>
+                                                </tr>
+                                            </c:forEach>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
-                        </div>
                     </c:if>
                 </c:when>
                 <c:otherwise>

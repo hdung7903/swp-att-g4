@@ -75,29 +75,34 @@ public class EditFeedbackController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        String student_id = (String) session.getAttribute("accountId");
-        int id = Integer.parseInt(request.getParameter("fb_id"));
-        int csm_id = Integer.parseInt(request.getParameter("csm_id"));
-        int punctuality = Integer.parseInt(request.getParameter("punctuality"));
-        int fully_syllabus = Integer.parseInt(request.getParameter("fully_syllabus"));
-        int intructor_skills = Integer.parseInt(request.getParameter("intructor_skills"));
-        int instructor_support = Integer.parseInt(request.getParameter("instructor_support"));
-        String comment = request.getParameter("comment");
+        Boolean hasRun = (Boolean) request.getAttribute("hasRun");
+        if (hasRun == null || !hasRun) {
+            HttpSession session = request.getSession();
+            String student_id = (String) session.getAttribute("accountId");
+            int id = Integer.parseInt(request.getParameter("fb_id"));
+            int csm_id = Integer.parseInt(request.getParameter("csm_id"));
+            int punctuality = Integer.parseInt(request.getParameter("punctuality"));
+            int fully_syllabus = Integer.parseInt(request.getParameter("fully_syllabus"));
+            int intructor_skills = Integer.parseInt(request.getParameter("intructor_skills"));
+            int instructor_support = Integer.parseInt(request.getParameter("instructor_support"));
+            String comment = request.getParameter("comment");
 
-        Feedback fb = new Feedback();
-        fb.setId(id);
-        fb.setStudent(new Student(student_id));
-        fb.setGsm(new GroupSubjectMapping(csm_id));
-        fb.setPunctuality(punctuality);
-        fb.setFully_syllabus(fully_syllabus);
-        fb.setIntructor_skills(intructor_skills);
-        fb.setInstructor_support(instructor_support);
-        fb.setComment(comment);
+            Feedback fb = new Feedback();
+            fb.setId(id);
+            fb.setStudent(new Student(student_id));
+            fb.setGsm(new GroupSubjectMapping(csm_id));
+            fb.setPunctuality(punctuality);
+            fb.setFully_syllabus(fully_syllabus);
+            fb.setIntructor_skills(intructor_skills);
+            fb.setInstructor_support(instructor_support);
+            fb.setComment(comment);
 
-        FeedbackDBContext fbDB = new FeedbackDBContext();
-        fbDB.editFeedback(fb);
-        response.sendRedirect(request.getContextPath() + "/student/feedback");
+            FeedbackDBContext fbDB = new FeedbackDBContext();
+            fbDB.editFeedback(fb);
+
+            response.sendRedirect(request.getContextPath() + "/student/editfb?csm_id=" + csm_id);
+            request.setAttribute("hasRun", true);
+        }
     }
 
     /**

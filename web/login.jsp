@@ -10,7 +10,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.14.0/toastify.min.js" integrity="sha512-7n+KIyD1/1nZfPzJv4A5RkNK8WxLyVL0qGQwB+XN8q9+LcVqQ3h+/HUkKvEe5L3kMqU1x3YO/NvKjB+0H6GwA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <style>
             body {
-                background-image: url('https://cdn.discordapp.com/attachments/1207588646270541874/1211569718100754514/bg-2.jpg?ex=65eead3a&is=65dc383a&hm=a7c45a356fe19b68e2c69ab561f14fc92d9b9c6bef9e275b802f803ceee81482&');
+                background-image: url('https://cdn.discordapp.com/attachments/1207588646270541874/1211569259994550272/414981424_753677770123822_6814149231170888051_n.png?ex=661396cd&is=660121cd&hm=4e9f53065c9db71a1bb2f106ebd28e36ed4f37a93f736dbe8ef30d1923145e09&');
                 background-size: cover;
                 background-repeat: no-repeat;
                 background-position: center;
@@ -99,26 +99,26 @@
                                         }
                                     });
 
-                                    window.onload = function () {
-                                        let isValid = false;
-                                        const form = document.getElementById("form");
-                                        const recaptchaAlert = document.getElementById("recaptchaAlert");
-                                        const loginFailedAlert = document.getElementById("loginFailedAlert");
-
-                                        form.addEventListener("submit", function (event) {
-                                            event.preventDefault();
-                                            const response = grecaptcha.getResponse();
-                                            if (response) {
-                                                form.submit();
-                                            } else {
-                                                recaptchaAlert.classList.remove("d-none");
-                                            }
-                                        });
-
-                                        if ("${mess}" !== "") {
-                                            loginFailedAlert.classList.remove("d-none");
-                                        }
-                                    };
+//                                    window.onload = function () {
+//                                        let isValid = false;
+//                                        const form = document.getElementById("form");
+//                                        const recaptchaAlert = document.getElementById("recaptchaAlert");
+//                                        const loginFailedAlert = document.getElementById("loginFailedAlert");
+//
+//                                        form.addEventListener("submit", function (event) {
+//                                            event.preventDefault();
+//                                            const response = grecaptcha.getResponse();
+//                                            if (response) {
+//                                                form.submit();
+//                                            } else {
+//                                                recaptchaAlert.classList.remove("d-none");
+//                                            }
+//                                        });
+//
+//                                        if ("${mess}" !== "") {
+//                                            loginFailedAlert.classList.remove("d-none");
+//                                        }
+//                                    };
         </script>
         <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     </body>
