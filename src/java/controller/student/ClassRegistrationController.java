@@ -87,14 +87,18 @@ public class ClassRegistrationController extends HttpServlet {
         GSMDBContext groups = new GSMDBContext();
         ArrayList<GroupSubjectMapping> gsm = groups.getGroupsbySubject(searchTxt);
         SubjectDBContext List = new SubjectDBContext();
-        ArrayList<Subject> subjectsLearn = List.getSubjectLearned(student_id);
+        ArrayList<Subject> subjectsLearn = List.getSubjectLearning(student_id);
         ArrayList<Subject> subjectsNotLearn = List.getSubjectNotLearned(student_id);
         ArrayList<Subject> subjectsRegisted = List.getSubjectRegisted(student_id);
         SCMDBContext list = new SCMDBContext();
         StudentClassMapping gStudent = list.checkSubjectLearned(searchTxt, student_id);
 
+        int maxSubject = subjectsLearn.size() + subjectsRegisted.size();
+
         if (gsm == null || gsm.isEmpty()) {
             request.setAttribute("mess1", "You should search for these subjects: ");
+        } else if (maxSubject >= 6) {
+            request.setAttribute("mess2", "The number of subjects currently being studing and registered has reached the limit!");
         } else if (gStudent != null) {
             request.setAttribute("mess1", "You have learned this subject !");
         }

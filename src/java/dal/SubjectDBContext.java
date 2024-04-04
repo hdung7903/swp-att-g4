@@ -19,14 +19,17 @@ import java.util.logging.Logger;
  */
 public class SubjectDBContext extends DBContext<Subject> {
 
-    public ArrayList<Subject> getSubjectLearned(String student_id) {
+    public ArrayList<Subject> getSubjectLearning(String student_id) {
         ArrayList<Subject> subjects = new ArrayList<>();
         try {
-            String sql = "SELECT distinct su.subject_name\n"
-                    + "FROM student_class_mapping scm\n"
-                    + "INNER JOIN class_subject_mapping csm on csm.class_id = scm.class_id\n"
-                    + "INNER JOIN subject su on su.subject_id =  csm.subject_id\n"
-                    + "where scm.student_id = ?;";
+            String sql = "SELECT su.subject_name, COUNT(s.isAtt) AS count_of_isAtt \n"
+                    + "FROM session s\n"
+                    + "INNER JOIN attendance a ON s.session_id = a.session_id\n"
+                    + "INNER JOIN class_subject_mapping csm ON s.csm_id = csm.csm_id\n"
+                    + "INNER JOIN subject su ON su.subject_id = csm.subject_id\n"
+                    + "WHERE s.isAtt = 1 AND a.student_id = ?\n"
+                    + "GROUP BY su.subject_name\n"
+                    + "HAVING COUNT(s.isAtt) != 20;";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setString(1, student_id);
             ResultSet rs = stm.executeQuery();
@@ -71,7 +74,7 @@ public class SubjectDBContext extends DBContext<Subject> {
         try {
             String sql = "SELECT distinct su.subject_name\n"
                     + "FROM registion reg\n"
-                    + "INNER JOIN class_subject_mapping csm on csm.csm_id = reg.csm_id\n"
+                    + "INNER JOIN class_subject_mapping csm on csm.class_id = reg.class_id\n"
                     + "INNER JOIN subject su on su.subject_id =  csm.subject_id\n"
                     + "where reg.student_id = ?;";
             PreparedStatement stm = connection.prepareStatement(sql);
