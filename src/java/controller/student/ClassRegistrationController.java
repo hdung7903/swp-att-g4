@@ -8,12 +8,14 @@ import dal.GSMDBContext;
 import dal.RegistionDBContext;
 import dal.SCMDBContext;
 import dal.SessionDBContext;
+import dal.SubjectDBContext;
 import entity.Group;
 import entity.GroupSubjectMapping;
 import entity.Registion;
 import entity.Session;
 import entity.Student;
 import entity.StudentClassMapping;
+import entity.Subject;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -27,8 +29,6 @@ import java.util.ArrayList;
  * @author leduy
  */
 public class ClassRegistrationController extends HttpServlet {
-
-    private boolean submitted = false;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -60,8 +60,6 @@ public class ClassRegistrationController extends HttpServlet {
             rdb.enrollClass(enroll);
             request.setAttribute("mess", "Register successfull!");
         }
-        submitted = true;
-//        response.sendRedirect(request.getContextPath() + "/student/enroll");
         request.getRequestDispatcher("../student/enrollClass.jsp").forward(request, response);
     }
 
@@ -77,6 +75,8 @@ public class ClassRegistrationController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        String student_id = (String) session.getAttribute("accountId");
         String searchTxt = request.getParameter("search");
         if (searchTxt == null) {
             searchTxt = "";
@@ -86,9 +86,24 @@ public class ClassRegistrationController extends HttpServlet {
 
         GSMDBContext groups = new GSMDBContext();
         ArrayList<GroupSubjectMapping> gsm = groups.getGroupsbySubject(searchTxt);
+        SubjectDBContext List = new SubjectDBContext();
+        ArrayList<Subject> subjectsLearn = List.getSubjectLearned(student_id);
+        ArrayList<Subject> subjectsNotLearn = List.getSubjectNotLearned(student_id);
+        ArrayList<Subject> subjectsRegisted = List.getSubjectRegisted(student_id);
+        SCMDBContext list = new SCMDBContext();
+        StudentClassMapping gStudent = list.checkSubjectLearned(searchTxt, student_id);
+
+        if (gsm == null || gsm.isEmpty()) {
+            request.setAttribute("mess1", "You should search for these subjects: ");
+        } else if (gStudent != null) {
+            request.setAttribute("mess1", "You have learned this subject !");
+        }
 
         request.setAttribute("searchTxt", searchTxt);
         request.setAttribute("gsm", gsm);
+        request.setAttribute("subjectsLearn", subjectsLearn);
+        request.setAttribute("subjectsNotLearn", subjectsNotLearn);
+        request.setAttribute("subjectsRegisted", subjectsRegisted);
         request.getRequestDispatcher("../student/enrollClass.jsp").forward(request, response);
     }
 

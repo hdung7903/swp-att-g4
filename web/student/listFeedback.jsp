@@ -67,7 +67,7 @@
 
         <div class="container">
             <div class="col-md-6">
-                <h2 class="card-title">List Feedback</h2>
+                <h2 class="card-title">List Feedback</h2>              
                 <form id="classForm" action="${pageContext.request.contextPath}/student/feedback" method="get">
                     <div class="mb-3">
                         <select class="form-select" id="classSelect" name="csm_id" onchange="submitForm()">
@@ -82,19 +82,24 @@
 
             <div class="card">
                 <h2 class="card-title">Feedback Action</h2>
-                <div class="card-body">
-                    <c:set var="fb" value="${requestScope.fb}"/>
-                    <c:choose>
-                        <c:when test="${not empty fb}">
-                            <a href="${pageContext.request.contextPath}/student/editfb?csm_id=${param.csm_id}" class="font-weight-bold">Edit FeedBack</a>
-                        </c:when>
-                        <c:otherwise>
-                            <c:if test="${not empty param.csm_id}">
-                                <a href="${pageContext.request.contextPath}/student/takefb?csm_id=${param.csm_id}" class="text-danger font-weight-bold">Take FeedBack</a>
-                            </c:if>
-                        </c:otherwise>
-                    </c:choose>
-                </div>
+                <c:if test="${not empty mess and not empty param.csm_id}">
+                    <p style="color: red; font-size: 18px; text-align: center">${mess}</p>
+                </c:if>
+                <c:if test="${empty mess}">   
+                    <div class="card-body">
+                        <c:set var="fb" value="${requestScope.fb}"/>
+                        <c:choose>
+                            <c:when test="${not empty fb}">
+                                <a href="${pageContext.request.contextPath}/student/editfb?csm_id=${param.csm_id}" class="font-weight-bold">Edit Feedback</a>
+                            </c:when>
+                            <c:otherwise>
+                                <c:if test="${empty fb}">
+                                    <a href="${pageContext.request.contextPath}/student/takefb?csm_id=${param.csm_id}" class="text-danger font-weight-bold">Take Feedback</a>
+                                </c:if>
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
+                </c:if>
             </div>
         </div>
     </body>

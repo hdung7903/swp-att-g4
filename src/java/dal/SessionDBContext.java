@@ -261,6 +261,25 @@ public class SessionDBContext extends DBContext<Session> {
         return total;
     }
 
+    public int getTotalSessionOfStudent(String csm_id, String student_id) {
+        int total = 0;
+        try {
+            String sql = "SELECT COUNT(s.isAtt) AS count_of_isAtt FROM session s\n"
+                    + "INNER JOIN attendance a on s.session_id = a.session_id\n"
+                    + "WHERE csm_id = ? AND isAtt = 1 and student_id = ?;";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, csm_id);
+            stm.setString(2, student_id);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                total = rs.getInt("count_of_isAtt");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SessionDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return total;
+    }
+
     public void addAttendances(Session ses) {
         try {
             connection.setAutoCommit(false);

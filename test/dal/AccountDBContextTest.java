@@ -1,31 +1,29 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit5TestClass.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit4TestClass.java to edit this template
  */
 package dal;
 
 import entity.Account;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import org.junit.After;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
-
+//import java.lang.Runtime.exit;
 /**
  *
  * @author Admin
  */
-public class GSMDBContextTest {
-
-    GSMDBContextTest GSMDBContextTest;
-
-    public GSMDBContextTest() {
+public class AccountDBContextTest {
+    
+    public AccountDBContextTest() {
     }
-
+    
     protected Connection connection; 
     
     @Before
@@ -46,7 +44,7 @@ public class GSMDBContextTest {
             connection.close();
         }
     }
-    
+
     @Test
     public void testValidateAccount() {
         System.out.println("ValidateAccount");
@@ -61,24 +59,4 @@ public class GSMDBContextTest {
         assertEquals(expResult.getPassword(), result.getPassword());
     }
     
-    
-    
-
-//    /**
-//     * Test of getGroupbyInstructor method, of class GSMDBContext.
-//     */
-//    @Test
-//    public void testGetGroupbyInstructor() {
-//        System.out.println("getGroupbyInstructor");
-//        String instructor_id = "3";
-//        GSMDBContext instance = new GSMDBContext();
-//        ArrayList<GroupSubjectMapping> expResult = new ArrayList<>();
-//        expResult.add("3", "Bùi Minh Hoài", 3, "SWR302", 1, "SE1753");
-//        expResult.add("3", "Bùi Minh Hoài", 7, "SWR302", 2, "SE1760");
-//        expResult.add("3", "Bùi Minh Hoài", 11, "SWR302", 3, "SE1761");
-//        expResult.add("3", "Bùi Minh Hoài", 15, "SWR302", 4, "SE1762");
-//
-//        ArrayList<GroupSubjectMapping> result = instance.getGroupbyInstructor(instructor_id);
-//        assertEquals(expResult, result);
-//    }
 }

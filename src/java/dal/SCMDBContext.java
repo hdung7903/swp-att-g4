@@ -175,6 +175,30 @@ public class SCMDBContext extends DBContext<StudentClassMapping> {
         return list;
     }
 
+    public StudentClassMapping checkSubjectLearned(String subject_name, String student_id) {
+        String sql = "SELECT * FROM student_class_mapping scm\n"
+                + "INNER JOIN class c on c.class_id = scm.class_id\n"
+                + "INNER JOIN Class_subject_mapping csm ON csm.class_id = c.class_id\n"
+                + "INNER JOIN Subject su ON su.subject_id = csm.subject_id\n"
+                + "Where su.subject_name = ? and scm.student_id= ?;";
+        StudentClassMapping list = null;
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, subject_name);
+            stm.setString(2, student_id);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                list = new StudentClassMapping(
+                        rs.getInt("scm_id")
+                );
+                return list;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SCMDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
     @Override
     public ArrayList<StudentClassMapping> list() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

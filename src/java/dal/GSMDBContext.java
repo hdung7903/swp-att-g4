@@ -94,6 +94,27 @@ public class GSMDBContext extends DBContext<GroupSubjectMapping> {
         return groups;
     }
 
+    public GroupSubjectMapping checkClassExist(String subject_name) {
+        String sql = "SELECT * FROM class_subject_mapping csm \n"
+                + "INNER JOIN subject su on su.subject_id = csm.subject_id\n"
+                + "Where su.subject_name= ?;";
+        GroupSubjectMapping list = null;
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, subject_name);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                list = new GroupSubjectMapping(
+                        rs.getInt("csm_id")
+                );
+                return list;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SCMDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
     public int getGSM_Id(String subject_name, String class_id) {
         int gsm_Id = 0;
         try {
@@ -109,8 +130,8 @@ public class GSMDBContext extends DBContext<GroupSubjectMapping> {
             if (rs.next()) {
                 gsm_Id = rs.getInt("csm_id");
             }
-            rs.close(); 
-            stm.close(); 
+            rs.close();
+            stm.close();
         } catch (SQLException ex) {
             Logger.getLogger(GSMDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
